@@ -68,7 +68,7 @@ export default function Register() {
         </button>
       </form>
       <p className="login__form-panel">
-        <Link to="/#">Tôi có tài khoản rồi</Link>
+        <Link to="/login">Tôi có tài khoản rồi</Link>
       </p>
     </div>
   );
