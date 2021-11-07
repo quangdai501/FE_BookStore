@@ -1,0 +1,35 @@
+@import './variable';
+.btn {
+    display: inline-block;
+    padding: 12px 48px;
+    font-size: 1.6rem;
+    text-decoration: none;
+    // line-height: 50px;
+    background-color: black;
+    color: white;
+}
+
+.space-bt {
+    margin-bottom: 90px;
+}
+
+.link {
+    text-decoration: none;
+    color: $dark;
+    &:hover {
+        color: $red-light;
+    }
+}
+
+.nav-active {
+    color: $dark;
+    border-bottom: 1px solid $dark;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
