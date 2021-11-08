@@ -54,7 +54,7 @@ const Checkout = () => {
                         <input type="text" name="address" {...register("address", { required: true, maxLength: 20 })}/>
                     </div>
                 </div>
-              <div className="Oders col c-6 md-12">
+              <div className="Oders col c-5 md-12">
                     <div className="oder-row">
                         <h3 className="title">Sản phẩm của bạn</h3>
                         {[1].map((item)=>(
