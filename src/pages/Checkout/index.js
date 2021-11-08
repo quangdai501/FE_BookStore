@@ -1,10 +1,30 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
+import Item from './item';
 import "./style.scss";
 const Checkout = () => {
     const { register, handleSubmit ,formState: { errors }} = useForm();
 
-
+    const cart=[{
+        title:"Yêu Em Bằng Mắt, Giữ Em Bằng Tim",
+        image:"https://www.vinabook.com/images/thumbnails/product/240x/366437_p93863mnxbtredocyeuembangmatgiuembangtimpage001.jpg",
+        price:140000,
+        quantity:1
+    },
+    {
+        title:"Yêu Em Bằng Mắt, Giữ Em Bằng Tim",
+        image:"https://www.vinabook.com/images/thumbnails/product/240x/366437_p93863mnxbtredocyeuembangmatgiuembangtimpage001.jpg",
+        price:140000,
+        quantity:1
+    },
+    {
+        title:"Yêu Em Bằng Mắt, Giữ Em Bằng Tim",
+        image:"https://www.vinabook.com/images/thumbnails/product/240x/366437_p93863mnxbtredocyeuembangmatgiuembangtimpage001.jpg",
+        price:140000,
+        quantity:2
+    }
+    ]
+    
     const phonePatterm={
         value:/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
         message:"Số điện thoại có 10 chữ số, chứa các chữ số 0-9"
@@ -38,14 +58,14 @@ const Checkout = () => {
                         </select>
                     </div>
                     <div className="form-select">
-                        <label htmlFor="province" className="form-label">Quận, Huyện</label>
-                        <select name="province" {...register("province")} >
+                        <label htmlFor="district" className="form-label">Quận, Huyện</label>
+                        <select name="district" {...register("district")} >
                             {[1,2,3].map((item)=>( <option value={item}>{item}</option>))}
                         </select>
                     </div>
                     <div className="form-select">
-                        <label htmlFor="province" className="form-label">Xã, Phường</label>
-                        <select name="province" {...register("province")} >
+                        <label htmlFor="village" className="form-label">Xã, Phường</label>
+                        <select name="village" {...register("village")} >
                             {[1,2,3].map((item)=>( <option value={item}>{item}</option>))}
                         </select>
                     </div>
@@ -57,11 +77,9 @@ const Checkout = () => {
               <div className="Oders col c-5 md-12">
                     <div className="oder-row">
                         <h3 className="title">Sản phẩm của bạn</h3>
-                        {[1].map((item)=>(
-                            <div className="row">
-                                <div className="col c-8">{item}</div>
-                                <div className="col c-4">{item}</div>
-                            </div>
+                       
+                        {cart.map((item,index)=>(
+                            <Item cart={item} key={index}/>
                         ))}
                     </div>
                     <div className="oder-row">
