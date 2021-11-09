@@ -112,7 +112,7 @@ const Checkout = () => {
             />
           </div>
         </div>
-        <div className="Oders col c-5 md-12">
+        <div className="Oders col c-6 md-12">
           <div className="oder-row">
             <h3 className="title">Sản phẩm của bạn</h3>
 
