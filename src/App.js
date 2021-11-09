@@ -7,6 +7,8 @@ import ForgotPassword from "./pages/ForgotPassword";
 import EnterCode from "./pages/EnterCode";
 import Checkout from "./pages/Checkout";
 import Footer from "./components/Footer";
+import MyAccout from "./pages/MyAccout";
+import ChangePassword from "./pages/ChangePassword";
 function App() {
   return (
     <>
@@ -20,6 +22,8 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/enter-code" element={<EnterCode />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/myaccount" element={<MyAccout />} />
+            <Route path="/changepassword" element={<ChangePassword />} />
           </Routes>
         </Router>
       </div>

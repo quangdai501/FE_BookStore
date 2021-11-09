@@ -1,0 +1,22 @@
+@import '../../scssStyles/variable';
+.myaccount {
+    padding: 16px;
+    font-size: 16px;
+    label {
+        font-weight: bold;
+        color: unset;
+    }
+    h1 {
+        text-align: center;
+        padding: 50px;
+    }
+    .form-panel {
+        text-align: right;
+        a {
+            color: $red-light;
+        }
+    }
+    .myaccount-form {
+        justify-content: center;
+    }
+}
