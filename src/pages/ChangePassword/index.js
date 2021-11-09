@@ -36,7 +36,7 @@ export default function ChangePassword() {
           <label htmlFor="prepass" className="form-label">
             Mật khẩu trước đây
           </label>
-          <input type="prepass" name="prepass" {...register("prepass",{ pattern: passwordPattern })} />
+          <input type="password" name="prepass" {...register("prepass",{ pattern: passwordPattern })} />
         </div>
         <div className="form-input">
           <label htmlFor="password" className="form-label">
