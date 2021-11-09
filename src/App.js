@@ -6,19 +6,25 @@ import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 import EnterCode from "./pages/EnterCode";
 import Checkout from "./pages/Checkout";
+import Footer from "./components/Footer";
 function App() {
   return (
-    <Router>
-      {/* <div>Day la root file</div> */}
-      <Routes>
-        <Route path="/" exact={true} element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/enter-code" element={<EnterCode />} />
-        <Route path="/checkout" element={<Checkout />} />
-      </Routes>
-    </Router>
+    <>
+      <div className="container">
+        <Router>
+          {/* <div>Day la root file</div> */}
+          <Routes>
+            <Route path="/" exact={true} element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/enter-code" element={<EnterCode />} />
+            <Route path="/checkout" element={<Checkout />} />
+          </Routes>
+        </Router>
+      </div>
+      <Footer />
+    </>
   );
 }
 

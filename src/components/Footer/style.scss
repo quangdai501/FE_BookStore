@@ -1,0 +1,75 @@
+@import '../../scssStyles/variable';
+.footer {
+    background-color: $pink-dark;
+    letter-spacing: 1.2px;
+    color: $dark-gray;
+    padding: 30px 100px;
+}
+
+.footer>.row {
+    justify-content: center;
+    align-items: center;
+}
+
+.head-right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-body-head {
+    font-size: 18px;
+    font-weight: 600;
+    color: inherit;
+    margin-bottom: 16px;
+    line-height: 25px;
+}
+
+.col:last-child {
+    .footer-body-head {
+        margin-bottom: 18px;
+    }
+}
+
+.footer-body-head-2 {
+    @extend .footer-body-head;
+    font-size: 14px;
+    line-height: 28px;
+    margin-bottom: 0!important;
+}
+
+.footer-list {
+    &__item {
+        a {
+            font-size: 14px;
+            color: inherit;
+            font-weight: 400;
+            display: block;
+            padding-bottom: 6px;
+            line-height: 24px;
+        }
+    }
+}
+
+.address-list {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 28px;
+    color: inherit;
+    &__item:not(first-child) {
+        margin-top: 15px;
+    }
+    &__item:first-child {
+        margin-top: -4px;
+    }
+}
+
+.address {
+    justify-content: space-between;
+}
+
+.footer-bottom {
+    .copyright {
+        text-align: center;
+    }
+}
