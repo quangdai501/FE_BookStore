@@ -15,8 +15,8 @@ export default function ChangePassword() {
       "Mật khẩu phải chứa ít nhất một số và một chữ cái viết hoa và viết thường và ít nhất 8 ký tự trở lên",
   };
   const onSubmit = (data) => {
-    const { passwordAgain, password, email } = data;
-    console.log(passwordAgain, password, email);
+    const { passwordAgain, password, prepass } = data;
+    console.log(passwordAgain, password, prepass);
     if (password !== passwordAgain) {
       setIsMatch(false);
       return;
