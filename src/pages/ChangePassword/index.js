@@ -15,8 +15,8 @@ export default function ChangePassword() {
       "Mật khẩu phải chứa ít nhất một số và một chữ cái viết hoa và viết thường và ít nhất 8 ký tự trở lên",
   };
   const onSubmit = (data) => {
-    const { passwordAgain, password, email } = data;
-    console.log(passwordAgain, password, email);
+    const { passwordAgain, password, prepass } = data;
+    console.log(passwordAgain, password, prepass);
     if (password !== passwordAgain) {
       setIsMatch(false);
       return;
@@ -36,7 +36,7 @@ export default function ChangePassword() {
           <label htmlFor="prepass" className="form-label">
             Mật khẩu trước đây
           </label>
-          <input type="prepass" name="prepass" {...register("prepass",{ pattern: passwordPattern })} />
+          <input type="password" name="prepass" {...register("prepass",{ pattern: passwordPattern })} />
         </div>
         <div className="form-input">
           <label htmlFor="password" className="form-label">
