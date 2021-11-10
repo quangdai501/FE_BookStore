@@ -11,25 +11,39 @@
         text-align: center;
         padding: 40px;
     }
-    .Billing-details {
-        padding: 0 16px;
+    .checkout-session {
+        justify-content: space-around;
     }
-    .Oders {
-        border: 1px solid $dark;
-        .oder-row {
-            padding: 16px;
-            line-height: 30px;
-            border-bottom: $gray-400 2px solid;
-            min-height: 50px;
-            input {
-                align-self: center;
-            }
-            label {
-                padding-left: 16px;
-            }
-            b {
-                padding: 0 5px;
-            }
+}
+
+.Orders {
+    border: 1px solid $dark;
+    height: fit-content;
+    color: $dark;
+    font-size: 16px;
+    .order-row {
+        padding: 16px;
+        line-height: 30px;
+        border-bottom: $gray-400 2px solid;
+        min-height: 50px;
+        input {
+            align-self: center;
+        }
+        label {
+            padding-left: 16px;
+        }
+        b {
+            padding: 0 5px;
+        }
+        button {
+            margin: unset;
+        }
+        .title {
+            // border-bottom: 1px solid $gray-400;
+            padding-bottom: 5px;
+        }
+        .sub-title {
+            padding-left: 16px;
         }
     }
 }
