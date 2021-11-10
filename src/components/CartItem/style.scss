@@ -1,0 +1,56 @@
+@import '../../scssStyles/variable';
+.cart-item {
+    display: grid;
+    grid-template-columns: minmax(90px, auto) 1fr 12px;
+    padding: 8px 16px;
+    margin-top: 5px;
+    border: 1px solid $gray-400;
+    font-size: 14px;
+    &__img {
+        height: 120px;
+        width: 90px;
+        object-fit: cover;
+    }
+    .sub {
+        display: flex;
+        flex-flow: column;
+        justify-content: space-evenly;
+        .sub-row {
+            display: grid;
+            grid-template-columns: max-content 1fr;
+        }
+    }
+    &__quantity {
+        border: 1px solid $gray-400;
+        border-radius: 5px;
+        input[type="text"] {
+            text-align: center;
+            border: unset;
+            outline: none;
+            width: 50px;
+        }
+        button {
+            padding: 4px 8px;
+            background: transparent;
+            border: unset;
+            font-size: 20px;
+            cursor: pointer;
+            color: $gray-700;
+        }
+    }
+    &__total {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $yellow;
+        font-weight: bold;
+    }
+    &__price {
+        color: $dark;
+        font-weight: bold;
+    }
+    &__close {
+        font-weight: 900;
+        cursor: pointer;
+    }
+}

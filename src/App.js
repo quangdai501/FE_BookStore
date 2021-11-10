@@ -9,6 +9,7 @@ import Checkout from "./pages/Checkout";
 import Footer from "./components/Footer";
 import MyAccout from "./pages/MyAccout";
 import ChangePassword from "./pages/ChangePassword";
+import Cart from "./pages/Cart";
 function App() {
   return (
     <>
@@ -24,6 +25,7 @@ function App() {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/myaccount" element={<MyAccout />} />
             <Route path="/changepassword" element={<ChangePassword />} />
+            <Route path="/cart" element={<Cart />} />
           </Routes>
         </Router>
       </div>

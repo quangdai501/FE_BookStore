@@ -46,8 +46,8 @@ const Checkout = () => {
   return (
     <div className="checkout">
       <h1>Thanh toán</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="row">
-        <div className="Billing-details col c-6 md-12">
+      <form onSubmit={handleSubmit(onSubmit)} className="row checkout-session">
+        <div className="Billing-details col c-5 md-12">
           <div className="form-input">
             <label htmlFor="name" className="form-label">
               Tên người nhận
@@ -112,35 +112,35 @@ const Checkout = () => {
             />
           </div>
         </div>
-        <div className="Oders col c-6 md-12">
-          <div className="oder-row">
+        <div className="Orders col c-5 md-12">
+          <div className="order-row">
             <h3 className="title">Sản phẩm của bạn</h3>
 
             {cart.map((item, index) => (
               <Item cart={item} key={index} />
             ))}
           </div>
-          <div className="oder-row">
+          <div className="order-row">
             <div className="row">
-              <h3 className="title col c-8">Tổng Giỏ hàng</h3>
+              <h3 className=" col c-8">Tổng Giỏ hàng</h3>
               <div className="col c-4">100.000</div>
             </div>
           </div>
-          <div className="oder-row">
+          <div className="order-row">
             <div className="row">
-              <h3 className="title col c-8">Chi phí vận chuyển</h3>
+              <h3 className=" col c-8">Chi phí vận chuyển</h3>
               <div className="col c-4">15.000</div>
             </div>
           </div>
-          <div className="oder-row">
+          <div className="order-row">
             <div className="row">
-              <h3 className="title col c-8">Tổng </h3>
-              <h3 className="title col c-4">115.000 </h3>
+              <h3 className=" col c-8">Tổng </h3>
+              <h3 className=" col c-4">115.000 </h3>
             </div>
           </div>
-          <div className="oder-row">
+          <div className="order-row">
             <h3 className="title">Phương thức thanh toán </h3>
-            <div className="row">
+            <div className="row sub-title">
               <input
                 type="radio"
                 defaultChecked={true}
@@ -150,7 +150,7 @@ const Checkout = () => {
               />
               <label htmlFor="payment">Thanh toán bằng tiền mặt</label>
             </div>
-            <div className="row">
+            <div className="row sub-title">
               <input
                 type="radio"
                 name="payment"
@@ -160,12 +160,14 @@ const Checkout = () => {
               <label htmlFor="payment">Thanh toán bằng ví điện tử vnpay</label>
             </div>
           </div>
-          <button
-            className="btn btn--border-none btn--full-width"
-            type="submit"
-          >
-            Đặt hàng
-          </button>
+          <div className="order-row">
+            <button
+              className="btn btn--border-none btn--full-width"
+              type="submit"
+            >
+              Đặt hàng
+            </button>
+          </div>
         </div>
       </form>
     </div>
