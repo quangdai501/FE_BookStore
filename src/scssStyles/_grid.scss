@@ -9,9 +9,19 @@
     flex-wrap: wrap;
 }
 
+.row-space-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .col {
     padding-left: 0px;
     padding-right: 0px;
+}
+
+.padding {
+    padding: 8px;
 }
 
 .c-0 {

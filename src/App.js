@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import MyAccout from "./pages/MyAccout";
 import ChangePassword from "./pages/ChangePassword";
 import Cart from "./pages/Cart";
+import ProductDetail from './pages/ProductDetail';
 function App() {
   return (
     <>
@@ -26,6 +27,7 @@ function App() {
             <Route path="/myaccount" element={<MyAccout />} />
             <Route path="/changepassword" element={<ChangePassword />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/product-detail/:productID" element={<ProductDetail />} />
           </Routes>
         </Router>
       </div>
