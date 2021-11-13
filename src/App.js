@@ -13,14 +13,11 @@ import Cart from "./pages/Cart";
 import ProductDetail from './pages/ProductDetail';
 import DashBoard from "./pages/Admin/DashBoard";
 import PrivateRoute from "./components/PrivateRoute";
-import { useRoutes } from 'react-router-dom';
 import ProductManagement from "./pages/Admin/ProductManagement";
 import UserManagement from "./pages/Admin/UserManagement";
 import PublisherManagement from "./pages/Admin/PublisherManagement";
 import AuthorManagement from "./pages/Admin/AuthorManagement";
 function App() {
-  // const { slug } = useParams()
-  // console.log(useRoutes())
   return (
     <Router>
 
