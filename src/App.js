@@ -9,7 +9,11 @@ import Checkout from "./pages/Checkout";
 import Footer from "./components/Footer";
 import MyAccout from "./pages/MyAccout";
 import ChangePassword from "./pages/ChangePassword";
+<<<<<<< HEAD
 import Cart from "./pages/Cart";
+=======
+import ProductDetail from './pages/ProductDetail';
+>>>>>>> 7defded (add product detail)
 function App() {
   return (
     <>
@@ -25,7 +29,11 @@ function App() {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/myaccount" element={<MyAccout />} />
             <Route path="/changepassword" element={<ChangePassword />} />
+<<<<<<< HEAD
             <Route path="/cart" element={<Cart />} />
+=======
+            <Route path="/product-detail/:productID" element={<ProductDetail />} />
+>>>>>>> 7defded (add product detail)
           </Routes>
         </Router>
       </div>
