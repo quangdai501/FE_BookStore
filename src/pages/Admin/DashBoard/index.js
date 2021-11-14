@@ -7,6 +7,7 @@ import UserManagement from '../UserManagement';
 import AuthorManagement from '../AuthorManagement';
 import PublisherManagement from '../PublisherManagement';
 import DashBoardHeader from './item/DashBoardHeader';
+import AddProduct from '../AddProduct';
 export default function DashBoard() {
     return (
         <div className="row">
@@ -19,9 +20,12 @@ export default function DashBoard() {
             <div className="col c-10">
                 <Routes>
                     <Route path="product-management" element={<ProductManagement />} />
+                    <Route path="product-management/create" element={<AddProduct />} />
                     <Route path="user-management" element={<UserManagement />} />
                     <Route path="author-management" element={<AuthorManagement />} />
+                    <Route path="author-management/create" element={<AuthorManagement />} />
                     <Route path="publisher-management" element={<PublisherManagement />} />
+                    <Route path="publisher-management/create" element={<PublisherManagement />} />
                 </Routes>
             </div>
         </div>

@@ -1,0 +1,43 @@
+@import './variable';
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14px;
+}
+
+td,
+th {
+    border: 1px solid $gray100;
+    color: $dark-gray;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: $gray100;
+}
+
+.action {
+    display: flex;
+    justify-content: center;
+    .delete {
+        cursor: pointer;
+        margin-right: 30px;
+        &:hover i {
+            color: $dark;
+        }
+    }
+    .edit {
+        cursor: pointer;
+        &:hover i {
+            color: $dark;
+        }
+    }
+}
+
+td img {
+    width: 60px;
+    height: 60px;
+    display: inline-block;
+    object-fit: cover;
+}
