@@ -12,10 +12,13 @@ export default function DashBoardHeader() {
                 </div>
                 <div className="col c-10">
                     <div className="right-side">
-                        <i class="far fa-user"></i>
+                        <i className="far fa-user"></i>
                         <div className="admin-name">
                             Trần Quang Đại
                         </div>
+                        <p className="logout" title="Đăng xuất">
+                            <i className="fas fa-sign-out-alt"></i>
+                        </p>
                     </div>
 
                 </div>

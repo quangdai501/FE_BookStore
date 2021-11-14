@@ -15,10 +15,17 @@
     margin-right: 30px;
     .admin-name {
         margin-left: 10px;
+        margin-right: 10px;
+        color: $gray600;
     }
     i {
         font-size: 16px;
     }
+}
+
+.logout i {
+    cursor: pointer;
+    color: $dark;
 }
 
 .left-side {
