@@ -1,0 +1,42 @@
+@import '../../../../../scssStyles/variable';
+.nav-bar {
+    border: 1px solid $gray100;
+    padding: 20px 0;
+    border-top: none;
+    height: 100vh;
+    color: $gray600;
+    &__item {
+        display: flex;
+        align-items: center;
+        padding-left: 15px;
+        cursor: pointer;
+        i {
+            width: 20px;
+            font-size: $font-size;
+            color: $gray500;
+        }
+        &:hover {
+            color: $dark;
+        }
+    }
+}
+
+.active-link {
+    border-right: 2px solid $dark;
+    background-color: $gray100;
+    i,
+    a {
+        color: black;
+    }
+}
+
+.side-bar__item {
+    padding: 18px 16px;
+    width: 100%;
+    display: block;
+    color: $gray500;
+    font-size: 1.4rem;
+    &:hover {
+        color: black;
+    }
+}
