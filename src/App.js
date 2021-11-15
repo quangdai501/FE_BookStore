@@ -13,6 +13,7 @@ import Cart from "./pages/Cart";
 import ProductDetail from './pages/ProductDetail';
 import DashBoard from "./pages/Admin/DashBoard";
 import PrivateRoute from "./components/PrivateRoute";
+import Shop from "./pages/Shop";
 function App() {
   return (
     <Router>
@@ -28,6 +29,7 @@ function App() {
           <Route path="/myaccount" element={<MyAccout />} />
           <Route path="/changepassword" element={<ChangePassword />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/shop" element={<Shop />} />
           <Route path="/product-detail/:productID" element={<ProductDetail />} />
         </Routes>
       </div>
