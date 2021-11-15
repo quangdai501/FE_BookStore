@@ -1,0 +1,4 @@
+@import '../../../../../scssStyles/variable';
+button:disabled {
+    background-color: $gray-400;
+}
