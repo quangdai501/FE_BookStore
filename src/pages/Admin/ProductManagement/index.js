@@ -73,9 +73,11 @@ export default function ProductManagement() {
                                         <p className="delete" title="Xóa">
                                             <i className="fas fa-trash"></i>
                                         </p>
-                                        <p className="edit" title="Chỉnh sửa">
-                                            <i className="fas fa-edit"></i>
-                                        </p>
+                                        <Link to={`/admin/product-management/edit/${'productID'}`}>
+                                            <p className="edit" title="Chỉnh sửa">
+                                                <i className="fas fa-edit"></i>
+                                            </p>
+                                        </Link>
                                     </div>
                                 </td>
                             </tr>)

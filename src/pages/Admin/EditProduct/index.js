@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './style.scss';
 import { useForm } from 'react-hook-form';
 import TextEditer from '../../../components/TextEditer';
 import UpLoadImage from '../../../components/UpLoadImage';
-export default function AddProduct() {
+export default function EditProduct() {
     const { handleSubmit, register } = useForm();
+    const initContent = '';
     const [desc, setDesc] = useState('');
     const handleDesc = (content) => {
         setDesc(content);
@@ -16,7 +17,7 @@ export default function AddProduct() {
     return (
         <div className="container">
             <div className="create-product">
-                <div className="create-title">Thêm sản phẩm mới</div>
+                <div className="create-title">Sửa thông tin sản phẩm</div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-input">
                         <label htmlFor="name" className="form-label">
@@ -75,10 +76,11 @@ export default function AddProduct() {
                     </label>
                     <TextEditer
                         handleDesc={handleDesc}
+                        initContent={initContent}
                     />
                     <div className="submit-area">
                         <button type="submit" className="btn btn--border-none">
-                            Thêm sản phẩm
+                            Lưu thay đổi
                         </button>
                     </div>
                 </form>
