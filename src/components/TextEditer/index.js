@@ -3,9 +3,11 @@ import './style.scss';
 import { Editor } from '@tinymce/tinymce-react';
 import PropTypes from 'prop-types';
 TextEditer.propTypes = {
-    handleDesc: PropTypes.func.isRequired
+    handleDesc: PropTypes.func.isRequired,
+    initialContent: PropTypes.string
 }
 export default function TextEditer(props) {
+    const initContent = props.initialContent || '';
     const editorRef = useRef(null);
     const [saveStatus, setSaveStatus] = useState(false);
     const submitContent = () => {
@@ -24,6 +26,7 @@ export default function TextEditer(props) {
         <div>
             <Editor
                 apiKey="ehf1z6id8elyvznclxq7eacc1pbfuy60pwyiiu7zzpue7iqd"
+                initialValue={initContent}
                 onInit={(evt, editor) => editorRef.current = editor}
                 init={{
                     height: 250,

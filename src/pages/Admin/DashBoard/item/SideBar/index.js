@@ -27,7 +27,7 @@ export default function SideBar() {
                 label="Quản lý nhà xuất bản"
                 icon={<i className="fas fa-list"></i>}
             />
-             <MenuLink
+            <MenuLink
                 to="/admin/statistics"
                 label="Thống kê"
                 icon={<i class="fas fa-chart-bar"></i>}
