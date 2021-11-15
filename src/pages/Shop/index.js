@@ -2,6 +2,7 @@ import React from "react";
 import Widget from "./widget";
 import "./style.scss";
 import Product from "../../components/Product";
+import Pagination from "../../components/Pagination";
 const Shop = () => {
   return (
     <div className="shop">
@@ -40,6 +41,7 @@ const Shop = () => {
               </div>
             ))}
           </div>
+            <Pagination/>
         </div>
       </div>
     </div>
