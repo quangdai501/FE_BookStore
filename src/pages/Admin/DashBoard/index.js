@@ -8,6 +8,7 @@ import AuthorManagement from '../AuthorManagement';
 import PublisherManagement from '../PublisherManagement';
 import DashBoardHeader from './item/DashBoardHeader';
 import AddProduct from '../AddProduct';
+import Statistics from '../Statistics';
 export default function DashBoard() {
     return (
         <div className="row">
@@ -26,6 +27,7 @@ export default function DashBoard() {
                     <Route path="author-management/create" element={<AuthorManagement />} />
                     <Route path="publisher-management" element={<PublisherManagement />} />
                     <Route path="publisher-management/create" element={<PublisherManagement />} />
+                    <Route path="statistics" element={<Statistics />} />
                 </Routes>
             </div>
         </div>
