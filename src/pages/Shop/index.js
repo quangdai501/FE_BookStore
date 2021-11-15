@@ -9,18 +9,22 @@ const Shop = () => {
                     <Widget/>
                 </div>
                 <div className="col c-9  ">
-                    <div className="sort-bar">
-                        <p>Sắp xếp theo</p>
-                        <div className="sort-bar__item">Mới nhất</div>
-                        <div className="sort-bar__item">Bán chạy</div>
-                        <div className="sort-bar__item dropdown ">
-                            <p>Giá</p>
-                            <div className="dropdown-content">
-                               <p>Giá: Từ thấp đến cao</p>
-                               <p>Giá: Từ cao đến thấp</p>
-                           </div>
-                        </div>
-
+                   
+                    <div className="sort-bar row">
+                        <p className="display">Hiển thị 1-12 trong 32 sản phẩm</p>
+                        <select name="sort" className="sortby">
+                            <option value="">Sắp xếp theo: Mặc định</option>
+                            <option value="-createdAt">Sắp xếp theo: Mới nhất</option>
+                            <option value="-createdAt">Sắp xếp theo: Cũ nhất</option>
+                            <option value="-price">Sắp xếp theo giá: Từ thấp đến cao</option>
+                            <option value="price">Sắp xếp theo giá: Từ cao đến thấp</option>
+                        </select>
+                        <select name="sort" className="sortby">
+                            <option value="12">Hiển thị 12</option>
+                            <option value="5">Hiển thị 5</option>
+                            <option value="20">Hiển thị 20</option>
+                            
+                        </select>
                     </div>
                     
                 </div>
