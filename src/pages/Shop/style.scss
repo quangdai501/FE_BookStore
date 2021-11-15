@@ -1,0 +1,46 @@
+@import '../../scssStyles/variable';
+.shop {
+    padding: 16px;
+    .sort-bar {
+        background: $gray50;
+        padding: 16px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        grid-gap: 16px;
+        p {
+            align-self: center;
+        }
+        &__item {
+            padding: 8px 16px;
+            color: $dark;
+            background: white;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 2px;
+        }
+        .dropdown {
+            position: relative;
+            min-width: 150px;
+        }
+        .dropdown-content {
+            width: 100%;
+            right: 0;
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            p {
+                color: black;
+                padding: 12px 16px;
+                display: block;
+            }
+            p:hover {
+                background-color: #f1f1f1
+            }
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    }
+}

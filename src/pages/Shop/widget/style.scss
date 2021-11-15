@@ -1,0 +1,29 @@
+@import '../../../scssStyles/variable';
+.widget {
+    font-size: 16px;
+    .category {
+        padding: 16px;
+        border: 1px solid $gray100;
+        &__title {
+            padding: 16px 0;
+            display: flex;
+            justify-content: space-between;
+            .toggle {
+                cursor: pointer;
+                i {
+                    color: $dark;
+                }
+            }
+        }
+        &__item {
+            padding: 8px 0;
+            a {
+                text-decoration: unset;
+                color: $dark;
+            }
+            a:hover {
+                color: $red-light;
+            }
+        }
+    }
+}
