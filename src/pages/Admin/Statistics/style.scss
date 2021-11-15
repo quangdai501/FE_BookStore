@@ -1,0 +1,12 @@
+.statistics {
+    padding: 16px;
+    .chart {
+        &__title {
+            text-align: center;
+            padding: 5px;
+        }
+        &__content {
+            height: 300px;
+        }
+    }
+}
