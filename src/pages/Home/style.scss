@@ -1,3 +1,54 @@
+@import '../../scssStyles/variable';
 .home-div {
     color: red;
+}
+
+.tab {
+    padding-bottom: 98px;
+    .reverse {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        min-height: 100px;
+    }
+    &__header {
+        margin: 32px 0;
+        color: $dark;
+        justify-content: space-between;
+        h2 {
+            font-size: 30px;
+            font-weight: 300;
+            align-self: center;
+        }
+        a {
+            color: $dark;
+            font-size: 16px;
+            span {
+                padding: 0 8px;
+            }
+            i {
+                color: $dark;
+            }
+        }
+        a:hover {
+            color: $red-light;
+            i {
+                color: $red-light;
+            }
+        }
+        .feature {
+            display: flex;
+            font-size: 16px;
+            color: $gray-700;
+            font-weight: 400;
+            li {
+                padding: 16px;
+            }
+            &__active {
+                color: $dark;
+                border-bottom: 1px solid;
+            }
+        }
+    }
 }
