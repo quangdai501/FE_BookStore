@@ -79,7 +79,7 @@ export default function PublisherManagement() {
                             <input type="text" />
                         </div>
                         <div className="row center-item">
-                            {currentOption === 'add' ? <button className="btn btn--submit" onClick={() => addAuthor}>Thêm</button> : <button className="btn btn--submit" onClick={() => editAuthorInfo}>Lưu thay đổi</button>}
+                            {currentOption === 'add' ? <button className="btn btn--border-none" onClick={() => addAuthor}>Thêm</button> : <button className="btn btn--border-none" onClick={() => editAuthorInfo}>Lưu thay đổi</button>}
                         </div>
                     </div>
                 </div>
