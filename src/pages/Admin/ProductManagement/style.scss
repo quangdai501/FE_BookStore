@@ -16,3 +16,10 @@
         font-size: 30px;
     }
 }
+
+.manage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: $font-size;
+}

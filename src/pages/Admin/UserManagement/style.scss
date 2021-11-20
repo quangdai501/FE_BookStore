@@ -1,0 +1,13 @@
+@import '../../../scssStyles/variable';
+.manage-header {
+    height: 70px;
+}
+
+.manage-title {
+    font-size: $font-size;
+}
+
+.action--center-item {
+    justify-content: center;
+    display: inline-block;
+}

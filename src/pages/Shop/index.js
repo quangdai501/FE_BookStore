@@ -41,7 +41,7 @@ const Shop = () => {
               </div>
             ))}
           </div>
-            <Pagination/>
+          <Pagination />
         </div>
       </div>
     </div>
