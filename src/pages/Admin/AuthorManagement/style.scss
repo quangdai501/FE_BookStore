@@ -1,0 +1,24 @@
+@import '../../../scssStyles/variable';
+.manage-option {
+    padding: 8px 16px;
+    margin-right: 4px;
+    font-size: $font-size;
+    border: 1px solid $gray50;
+    cursor: pointer;
+}
+
+.current-option {
+    background-color: $dark-gray;
+    color: white;
+}
+
+.btn--submit {
+    border: none;
+    padding: 8px 10px;
+}
+
+.main-frame {
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid $gray50;
+}
