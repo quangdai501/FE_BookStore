@@ -28,7 +28,7 @@ export default function ProductManagement() {
             <div className="product-manage">
                 <div className="manage-header">
                     <p className="manage-title">Danh sách sản phẩm</p>
-                    <Link to="/admin/product-management/create">
+                    <Link to="/admin/product/create">
                         <div className="product-action" title="Thêm sản phẩm">
                             <i className="fas fa-plus"></i>
                         </div>
@@ -76,7 +76,7 @@ export default function ProductManagement() {
                                         <p className="delete" title="Xóa">
                                             <i className="fas fa-trash"></i>
                                         </p>
-                                        <Link to={`/admin/product-management/edit/${'productID'}`}>
+                                        <Link to={`/admin/product/edit/${'productID'}`}>
                                             <p className="edit" title="Chỉnh sửa">
                                                 <i className="fas fa-edit"></i>
                                             </p>

@@ -6,24 +6,30 @@ export default function SideBar() {
         <nav className="nav-bar">
 
             <MenuLink
-                to="/admin/product-management"
+                to="/admin/product"
                 label="Quản lý sản phẩm"
                 icon={<i className="fas fa-book"></i>}
             />
             <MenuLink
-                to="/admin/user-management"
+                to="/admin/user"
                 label="Quản lý người dùng"
                 icon={<i className="fas fa-users"></i>}
 
             />
             <MenuLink
-                to="/admin/author-management"
+                to="/admin/order"
+                label="Quản lý đơn hàng"
+                icon={<i className="fas fa-users"></i>}
+
+            />
+            <MenuLink
+                to="/admin/author"
                 label="Quản lý tác giả"
                 icon={<i className="fas fa-user-tie"></i>}
 
             />
             <MenuLink
-                to="/admin/publisher-management"
+                to="/admin/publisher"
                 label="Quản lý nhà xuất bản"
                 icon={<i className="fas fa-list"></i>}
             />
