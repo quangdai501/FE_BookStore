@@ -1,5 +1,10 @@
 @import '../../../scssStyles/variable';
 .side-bar {
-    min-height: 100vh;
+    min-height: calc(100vh - 48px);
     background-color: white;
+}
+
+.main-content {
+    max-height: calc(100vh - 48px);
+    overflow: auto;
 }

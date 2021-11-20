@@ -1,0 +1,16 @@
+@import '../../../../../scssStyles/variable';
+.overview {
+    margin-top: 70px;
+    &__item {
+        height: 150px;
+        padding: 30px;
+        border: 1px solid $gray100;
+        border-radius: 10px;
+        align-items: center;
+        & i {
+            font-size: 30px;
+            color: $dark-gray;
+        }
+    }
+    font-size: $font-size;
+}
