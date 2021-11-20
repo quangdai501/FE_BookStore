@@ -6,7 +6,7 @@ const Widget = () => {
     { name: "Truyện ngắn – Tản văn", description: "" },
     { name: "Range - Hiểu Sâu, Biết Rộng Kiểu Gì Cũng Thắng", description: "" },
   ];
-  const authors=[{'name': 'Dương Thụy'}, {'name': 'Anh Cầm Fact'}, {'name': 'Trần Minh Phương Thảo'}, {'name': 'David Epstein'}]
+  const authors = [{ 'name': 'Dương Thụy' }, { 'name': 'Anh Cầm Fact' }, { 'name': 'Trần Minh Phương Thảo' }, { 'name': 'David Epstein' }]
   const [category, setCategory] = useState(true);
   const [author, setAuthor] = useState(true);
 
@@ -22,15 +22,15 @@ const Widget = () => {
           </div>
         </div>
         {
-           category===true?categorys.map((item, index) => {
-                return (
-                    <div className="category__item">
-                    <a key={index} href="#">
-                        {item.name}
-                    </a>
-                    </div>
-                );
-                }):""
+          category === true ? categorys.map((item, index) => {
+            return (
+              <div className="category__item">
+                <a key={index} href="#">
+                  {item.name}
+                </a>
+              </div>
+            );
+          }) : ""
         }
       </div>
       <div className="category">
@@ -41,18 +41,18 @@ const Widget = () => {
           </div>
         </div>
         {
-           author===true?authors.map((item, index) => {
-                return (
-                    <div className="category__item">
-                    <a key={index} href="#">
-                        {item.name}
-                    </a>
-                    </div>
-                );
-                }):""
+          author === true ? authors.map((item, index) => {
+            return (
+              <div className="category__item">
+                <a key={index} href="#">
+                  {item.name}
+                </a>
+              </div>
+            );
+          }) : ""
         }
       </div>
-      
+
     </div>
   );
 };

@@ -26,11 +26,14 @@ export default function ProductManagement() {
     return (<>
         <div className="container">
             <div className="product-manage">
-                <Link to="/admin/product-management/create">
-                    <div className="product-action" title="Thêm sản phẩm">
-                        <i className="fas fa-plus"></i>
-                    </div>
-                </Link>
+                <div className="manage-header">
+                    <p className="manage-title">Danh sách sản phẩm</p>
+                    <Link to="/admin/product-management/create">
+                        <div className="product-action" title="Thêm sản phẩm">
+                            <i className="fas fa-plus"></i>
+                        </div>
+                    </Link>
+                </div>
                 <table>
                     <thead>
 
