@@ -1,6 +1,6 @@
 @import '../../scssStyles/variable';
 .footer {
-    background-color: $pink-dark;
+    background-color: #161619;
     letter-spacing: 1.2px;
     color: $dark-gray;
     padding: 30px 100px;
@@ -20,7 +20,7 @@
 .footer-body-head {
     font-size: 18px;
     font-weight: 600;
-    color: inherit;
+    color: white;
     margin-bottom: 16px;
     line-height: 25px;
 }
@@ -42,7 +42,7 @@
     &__item {
         a {
             font-size: 14px;
-            color: inherit;
+            color: $gray500;
             font-weight: 400;
             display: block;
             padding-bottom: 6px;
@@ -55,7 +55,7 @@
     margin-top: 10px;
     font-size: 14px;
     line-height: 28px;
-    color: inherit;
+    color: $gray500;
     &__item:not(first-child) {
         margin-top: 15px;
     }

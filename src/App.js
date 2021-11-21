@@ -14,9 +14,11 @@ import ProductDetail from './pages/ProductDetail';
 import DashBoard from "./pages/Admin/DashBoard";
 import PrivateRoute from "./components/PrivateRoute";
 import Shop from "./pages/Shop";
+import Header from './components/Header';
 function App() {
   return (
     <Router>
+      <Header />
       <div className="container">
         {/* <div>Day la root file</div> */}
         <Routes>
