@@ -1,0 +1,84 @@
+@import '../../scssStyles/variable';
+@import '../../scssStyles/mixin';
+.main-header {
+    height: 110px;
+    background-color: white;
+    border-bottom: 1px solid $gray50;
+    font-size: $font-size;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.header-body {
+    width: 100%;
+}
+
+.search {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid $gray100;
+    .search-input {
+        height: 100%;
+        padding: 0 16px;
+        font-size: $font-size;
+        flex: 1;
+        border: none;
+        &:focus {
+            outline: none;
+        }
+    }
+    .search-icon {
+        background-color: $dark;
+        cursor: pointer;
+        i {
+            color: white;
+        }
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 100%;
+        border-left: 1px solid $gray100;
+    }
+}
+
+.header-right {
+    margin-left: 20px;
+    .cart {
+        position: relative;
+        cursor: pointer;
+        i {
+            font-size: 18px;
+        }
+        &__notify {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            border-radius: 50%;
+            height: 14px;
+            background-color: $dark;
+            color: white;
+            font-size: 14px;
+            padding: 2px 5px;
+        }
+    }
+}
+
+.signin {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}

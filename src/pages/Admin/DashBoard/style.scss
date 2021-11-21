@@ -1,6 +1,6 @@
 @import '../../../scssStyles/variable';
 .side-bar {
-    max-height: calc(100vh - 48px);
+    min-height: calc(100vh - 48px);
     background-color: white;
     flex: 1;
 }
