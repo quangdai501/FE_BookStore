@@ -2,13 +2,10 @@ import "./style.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { counterIncrease, counterDecrease } from "../../actions/counterAction";
 import Product from "../../components/Product";
-import { useState } from "react";
 
 export default function Home() {
   const { counter } = useSelector((state) => state.counter);
-  const features = ["Đặc sắc", "Giảm giá", "Mua nhiều"];
-  const [feature, setFeature] = useState(0);
-  const changeFeature = (index) => setFeature(index);
+
   console.log(counter);
   const dispatch = useDispatch();
   function increase() {
@@ -54,14 +51,9 @@ export default function Home() {
         <div className="tab__header row">
           <h2>Đặc sắc</h2>
           <ul className="feature">
-            {features.map((item, index) => (
-              <li
-                onClick={() => changeFeature(index)}
-                className={index == feature ? "feature--active" : ""}
-              >
-                {item}
-              </li>
-            ))}
+            <li className="feature__active">Đặc sắc</li>
+            <li>Giảm giá</li>
+            <li>Mua nhiều</li>
           </ul>
         </div>
 
@@ -85,14 +77,9 @@ export default function Home() {
         <div className="tab__header reverse">
           <h2>Đặc sắc</h2>
           <ul className="feature">
-            {features.map((item, index) => (
-              <li
-                onClick={() => changeFeature(index)}
-                className={index == feature ? "feature--active" : ""}
-              >
-                {item}
-              </li>
-            ))}
+            <li className="feature__active">Đặc sắc</li>
+            <li>Giảm giá</li>
+            <li>Mua nhiều</li>
           </ul>
         </div>
 
