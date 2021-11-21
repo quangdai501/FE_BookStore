@@ -3,3 +3,23 @@
     justify-content: center;
     align-items: center;
 }
+
+@mixin swiper-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 1px solid $gray100;
+    background-color: $gray50;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    i {
+        color: white;
+        font-size: $font-size;
+    }
+    z-index: 1000;
+    transition: all 0.3s;
+    cursor: pointer;
+}
