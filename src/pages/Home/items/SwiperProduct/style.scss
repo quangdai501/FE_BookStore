@@ -1,0 +1,50 @@
+@import '../../../../scssStyles/variable';
+@import '../../../../scssStyles/mixin';
+.swiper-button-prev {
+    @include swiper-button;
+    left: 0;
+    &:hover {
+        background-color: $dark;
+    }
+}
+
+.swiper-button-next {
+    @include swiper-button;
+    right: 0;
+    &:hover {
+        background-color: $dark;
+    }
+}
+
+.swiper-button-next.swiper-button-disabled,
+.swiper-button-prev.swiper-button-disabled {
+    display: none;
+}
+
+.swiper-container.product-swiper {
+    position: relative;
+    padding: 0 50px;
+    margin: 0 -50px;
+    &::after {
+        content: "";
+        display: block;
+        width: 50px;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        background-color: white;
+    }
+    &::before {
+        content: "";
+        display: block;
+        width: 50px;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 100;
+        background-color: white;
+    }
+}

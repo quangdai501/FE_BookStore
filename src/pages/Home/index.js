@@ -2,7 +2,7 @@ import "./style.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { counterIncrease, counterDecrease } from "../../actions/counterAction";
 import Product from "../../components/Product";
-
+import SwiperProduct from "./items/SwiperProduct";
 export default function Home() {
   const { counter } = useSelector((state) => state.counter);
 
@@ -21,6 +21,9 @@ export default function Home() {
         <p>{counter}</p>
         <button onClick={increase}>Increase</button>
         <button onClick={decrease}>Decrease</button>
+      </div>
+      <div className="tab">
+        <SwiperProduct />
       </div>
       <div className="tab">
         <div className="tab__header row">
