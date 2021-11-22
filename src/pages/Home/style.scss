@@ -3,8 +3,29 @@
     color: red;
 }
 
+.more {
+    text-align: right;
+    padding: 20px;
+    a {
+        color: $dark;
+        font-size: 20px;
+        span {
+            padding: 0 8px;
+        }
+        i {
+            color: $dark;
+        }
+    }
+    a:hover {
+        color: $red-light;
+        i {
+            color: $red-light;
+        }
+    }
+}
+
 .tab {
-    padding-bottom: 98px;
+    padding-bottom: 50px;
     .reverse {
         display: flex;
         flex-direction: column;
@@ -21,22 +42,6 @@
             font-weight: 300;
             align-self: center;
         }
-        a {
-            color: $dark;
-            font-size: 16px;
-            span {
-                padding: 0 8px;
-            }
-            i {
-                color: $dark;
-            }
-        }
-        a:hover {
-            color: $red-light;
-            i {
-                color: $red-light;
-            }
-        }
         .feature {
             display: flex;
             font-size: 16px;
@@ -45,10 +50,10 @@
             li {
                 padding: 16px;
             }
-            &__active {
-                color: $dark;
-                border-bottom: 1px solid;
-            }
+        }
+        .feature--active {
+            color: $dark;
+            border-bottom: 1px solid;
         }
     }
 }

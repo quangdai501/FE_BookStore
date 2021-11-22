@@ -3,8 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { counterIncrease, counterDecrease } from "../../actions/counterAction";
 import Product from "../../components/Product";
 import SwiperProduct from "./items/SwiperProduct";
+import { useState } from "react";
 export default function Home() {
   const { counter } = useSelector((state) => state.counter);
+
+  const features = ["Đặc sắc", "Mua nhiều", "Giảm giá"];
+  const [feature, setFeature] = useState(0);
 
   console.log(counter);
   const dispatch = useDispatch();
@@ -28,78 +32,60 @@ export default function Home() {
       <div className="tab">
         <div className="tab__header row">
           <h2>Mới ra mắt</h2>
-          <a href="#">
-            <span>Xem thêm</span>
-            <i class="fas fa-greater-than"></i>
-          </a>
+          <div className="more">
+            <a href="#">
+              <span>Xem thêm</span>
+              <i class="fas fa-greater-than"></i>
+            </a>
+          </div>
         </div>
 
-        <div className="row">
-          {[1, 2, 3, 4].map((item, index) => (
-            <div className="col c-3 lg-4 md-6 ">
-              <Product
-                imageURL={"./images/img1.jpg"}
-                name={
-                  "Think Like a Monk: Train Your Mind for Peace and Purpose of your life"
-                }
-                price={20000}
-                author={"Author"}
-                publisher={"Publisher"}
-              />
-            </div>
-          ))}
-        </div>
+        <SwiperProduct />
       </div>
       <div className="tab">
         <div className="tab__header row">
           <h2>Đặc sắc</h2>
           <ul className="feature">
-            <li className="feature__active">Đặc sắc</li>
-            <li>Giảm giá</li>
-            <li>Mua nhiều</li>
+            {features.map((item, index) => (
+              <li
+                onClick={() => setFeature(index)}
+                className={index === feature ? "feature--active" : ""}
+              >
+                {item}
+              </li>
+            ))}
           </ul>
         </div>
 
-        <div className="row">
-          {[1, 2, 3, 4].map((item, index) => (
-            <div className="col c-3 lg-4 md-6 ">
-              <Product
-                imageURL={"./images/img1.jpg"}
-                name={
-                  "Think Like a Monk: Train Your Mind for Peace and Purpose of your life"
-                }
-                price={20000}
-                author={"Author"}
-                publisher={"Publisher"}
-              />
-            </div>
-          ))}
+        <SwiperProduct />
+        <div className="more">
+          <a href="#">
+            <span>Xem thêm</span>
+            <i class="fas fa-greater-than"></i>
+          </a>
         </div>
       </div>
       <div className="tab">
         <div className="tab__header reverse">
           <h2>Đặc sắc</h2>
           <ul className="feature">
-            <li className="feature__active">Đặc sắc</li>
-            <li>Giảm giá</li>
-            <li>Mua nhiều</li>
+            {features.map((item, index) => (
+              <li
+                onClick={() => setFeature(index)}
+                className={index === feature ? "feature--active" : ""}
+              >
+                {item}
+              </li>
+            ))}
           </ul>
         </div>
 
-        <div className="row">
-          {[1, 2, 3, 4].map((item, index) => (
-            <div className="col c-3 lg-4 md-6 ">
-              <Product
-                imageURL={"./images/img1.jpg"}
-                name={
-                  "Think Like a Monk: Train Your Mind for Peace and Purpose of your life"
-                }
-                price={20000}
-                author={"Author"}
-                publisher={"Publisher"}
-              />
-            </div>
-          ))}
+        <SwiperProduct />
+        <div className="more">
+          <a href="#">
+            <span>Xem thêm</span>
+            <i class="fas fa-greater-than"></i>
+          </a>
         </div>
       </div>
     </>
