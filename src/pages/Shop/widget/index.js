@@ -23,11 +23,13 @@ const Widget = () => {
     e.stopPropagation();
     setAuthor(!author);
   };
-  const [sidebar, setSidebar] = useState(true);
+  const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
   return (
     <>
+   
       <div className="sort-bar row">
+        <div className="col lg-12" style={{width:200}}></div>
         <p className="display">Hiển thị 1-12 trong 32 sản phẩm</p>
         <select name="sort" className="sortby">
           <option value="">Sắp xếp theo: Mặc định</option>
@@ -46,11 +48,11 @@ const Widget = () => {
         </span>
       </div>
       <div className={sidebar ? "modal active" : "modal"} onClick={showSidebar}>
-        <div className="widget">
+        <div className="widget" onClick={(e)=>{e.stopPropagation();}}>
           <div className="category close">
             <div className="category__title">
               <h4>Bộ lọc</h4>
-              <div className="toggle"><i class="fas fa-times"></i></div>
+              <div onClick={showSidebar} className="toggle"><i class="fas fa-times"></i></div>
             </div>
           </div>
           <div className="category">
