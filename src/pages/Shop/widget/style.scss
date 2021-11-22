@@ -16,6 +16,7 @@
         align-self: center;
     }
     .filter {
+        display: none;
         cursor: pointer;
         align-self: center;
         i {
@@ -26,7 +27,7 @@
 
 .modal {
     float: left;
-    display: none;
+    display: flex;
     transition: 850ms;
     .widget {
         background: #fff;
@@ -63,13 +64,18 @@
     }
 }
 
-.modal.active {
-    display: flex;
-    transition: 350ms;
-}
-
-@media screen and(max-width: 736px) {
+@media screen and(max-width: 992px) {
+    .sort-bar {
+        .filter {
+            display: block;
+        }
+    }
+    .modal.active {
+        display: flex;
+        transition: 350ms;
+    }
     .modal {
+        display: none;
         position: fixed;
         z-index: 1;
         top: 0;
@@ -79,7 +85,9 @@
         justify-content: center;
         align-items: center;
         .widget {
-            width: Max(80%, 250px);
+            width: Max(80%, 200px);
+            height: 80vh;
+            overflow-y: scroll;
             .close {
                 display: block;
             }
