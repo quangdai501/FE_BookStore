@@ -1,4 +1,5 @@
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
 import counterReducer from "./reducers/counterReducer";
 import {
     productListReducer,
@@ -9,7 +10,8 @@ import {
     productReviewCreateReducer,
     productTopRatedReducer,
 } from './reducers/productReducer'
-const rootReducer = combineReducers({
+import { cartReducer } from './reducers/cartReducer'
+const reducer = combineReducers({
     counter: counterReducer,
     productList: productListReducer,
     productDetails: productDetailsReducer,
@@ -18,6 +20,34 @@ const rootReducer = combineReducers({
     productUpdate: productUpdateReducer,
     productReviewCreate: productReviewCreateReducer,
     productTopRated: productTopRatedReducer,
+    cart: cartReducer,
 });
+const cartItemsFromStorage = localStorage.getItem('cartItems') ?
+    JSON.parse(localStorage.getItem('cartItems')) :
+    []
 
-export default rootReducer;
+// const userInfoFromStorage = localStorage.getItem('userInfo')
+//   ? JSON.parse(localStorage.getItem('userInfo'))
+//   : null
+
+const shippingAddressFromStorage = localStorage.getItem('shippingAddress') ?
+    JSON.parse(localStorage.getItem('shippingAddress')) :
+    {}
+
+const initialState = {
+    cart: {
+        cartItems: cartItemsFromStorage,
+        shippingAddress: shippingAddressFromStorage,
+    },
+    //   userLogin: { userInfo: userInfoFromStorage },
+}
+
+
+
+const store = createStore(
+    reducer,
+    initialState,
+    applyMiddleware(thunk)
+)
+
+export default store

@@ -23,7 +23,7 @@ const Shop = (props) => {
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, page, pages } = productList;
   let query = useQuery();
-  console.log(query);
+  // console.log(query);
   useEffect(() => {
     dispatch(listProducts(query));
   }, [JSON.stringify(query)]);
@@ -41,6 +41,7 @@ const Shop = (props) => {
                 price={item.price}
                 author={item.authors.name}
                 publisher={item.publisher.name}
+                productId={item._id}
               />
             </div>
           ))}

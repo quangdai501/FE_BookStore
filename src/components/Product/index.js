@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./style.scss";
+import { useDispatch } from "react-redux";
+import { addToCart } from '../../actions/cartAction'
 Product.propTypes = {
   imageURL: PropTypes.string.isRequired,
   publisher: PropTypes.string.isRequired,
@@ -9,6 +11,12 @@ Product.propTypes = {
   price: PropTypes.number.isRequired,
 };
 export default function Product(props) {
+  const dispatch = useDispatch()
+  const addtoCart=()=>{
+    if (props.productId) {
+      dispatch(addToCart(props.productId, 1))
+    }
+  }
   return (
     <div class="product">
       <div class="product-img">
@@ -22,7 +30,7 @@ export default function Product(props) {
         </a>
         <p class="product-info__price">{props.price}</p>
       </div>
-      <div class="action">
+      <div class="action" onClick={addtoCart}>
         <p class="btn--add-to-cart">Add to cart</p>
       </div>
     </div>
