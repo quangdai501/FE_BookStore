@@ -5,18 +5,18 @@
     grid-gap: 5px;
     padding: 16px;
     font-size: 16px;
-    a {
+    span {
         color: black;
         // float: left;
         padding: 8px 16px;
         text-decoration: none;
         text-align: center;
     }
-    a.active {
+    span.active {
         background-color: $dark;
         color: white;
     }
-    a:hover:not(.active) {
+    span:hover:not(.active) {
         background-color: #ddd;
     }
 }
