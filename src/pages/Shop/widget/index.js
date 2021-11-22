@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import "./style.scss";
+import {  useLocation } from 'react-router';
+import { useNavigate } from 'react-router-dom';
+
+
+
 const Widget = () => {
+ 
   const categorys = [
     { name: "Tiểu thuyết", description: "" },
     { name: "Truyện ngắn – Tản văn", description: "" },
@@ -12,6 +18,9 @@ const Widget = () => {
     { name: "Trần Minh Phương Thảo" },
     { name: "David Epstein" },
   ];
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [category, setCategory] = useState(true);
   const [author, setAuthor] = useState(true);
 
@@ -25,20 +34,41 @@ const Widget = () => {
   };
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
+  
+  const { search } = location;
+  const query=search?JSON.parse(
+    '{"' +
+      decodeURI(
+        search.substring(1).replace(/&/g, '","').replace(/=/g, '":"')
+      ) +
+      '"}'
+  ):{}
+  const sortBy=(e)=>{
+    const {name, value} = e?.target;
+    
+   
+    query[name]=value
+    const params = new URLSearchParams(query);
+    // console.log(params.toString())
+    navigate({
+      pathname: location.pathname,
+      search:params.toString() 
+  });
+  }
   return (
     <>
    
       <div className="sort-bar row">
         <div className="col lg-12" style={{width:200}}></div>
         <p className="display">Hiển thị 1-12 trong 32 sản phẩm</p>
-        <select name="sort" className="sortby">
+        <select name="sort" className="sortby" onChange={sortBy}>
           <option value="">Sắp xếp theo: Mặc định</option>
-          <option value="-createdAt">Sắp xếp theo: Mới nhất</option>
+          <option value="createdAt">Sắp xếp theo: Mới nhất</option>
           <option value="-createdAt">Sắp xếp theo: Cũ nhất</option>
-          <option value="-price">Sắp xếp theo giá: Từ thấp đến cao</option>
-          <option value="price">Sắp xếp theo giá: Từ cao đến thấp</option>
+          <option value="price">Sắp xếp theo giá: Từ thấp đến cao</option>
+          <option value="-price">Sắp xếp theo giá: Từ cao đến thấp</option>
         </select>
-        <select name="sort" className="sortby">
+        <select name="size" className="sortby" onChange={sortBy}>
           <option value="12">Hiển thị 12</option>
           <option value="5">Hiển thị 5</option>
           <option value="20">Hiển thị 20</option>

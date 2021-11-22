@@ -1,6 +1,7 @@
 import React from "react";
+import { useLocation, useNavigate } from "react-router";
 import './style.scss'
-const Pagination = () => {
+const Pagination = (props) => {
   function pagination(c, m) {
     var current = c,
         last = m,
@@ -31,17 +32,51 @@ const Pagination = () => {
 
     return rangeWithDots;
 }
+const location = useLocation();
+const { search } = location;
+const navigate = useNavigate();
+const query=search?JSON.parse(
+  '{"' +
+    decodeURI(
+      search.substring(1).replace(/&/g, '","').replace(/=/g, '":"')
+    ) +
+    '"}'
+):{}
+const direct=()=>{
+    const params = new URLSearchParams(query);
+    navigate({
+        pathname: location.pathname,
+        search:params.toString() 
+    });
+}
+const changePage=(page)=>{
+    if (page!=='...'){
+        query.page=page
+        direct()
+    }
+}
+const nextPage=(operator)=>{
+    let curPage=props.page?props.page:1
+    curPage+=operator
+    if (curPage>=1&&curPage<=props.pages){
+        query.page=curPage
+        direct()
+    }
+}
   return (
     <div class="pagination">
-      <a href="#">&laquo;</a>
+     
+      <span onClick={()=>nextPage(-1)} >&laquo;</span>
+
      {
-         pagination(6,20).map((item,index)=>{
+         pagination(props.page,props.pages).map((item,index)=>{
             return(
-                <a key={index} className={index==0?"active":""} href="#">{item}</a>
+                <span onClick={()=>changePage(item)} key={index} className={item===props.page?"active":""} >{item}</span>
             )
          })
      }
-      <a href="#">&raquo;</a>
+      <span onClick={()=>nextPage(+1)} >&raquo;</span>
+
     </div>
   );
 };
