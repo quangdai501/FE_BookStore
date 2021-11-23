@@ -29,7 +29,16 @@
     float: left;
     display: flex;
     transition: 850ms;
+    .widget::-webkit-scrollbar-thumb {
+        background: $dark;
+        border-radius: 10px;
+    }
+    .widget::-webkit-scrollbar {
+        width: 10px;
+    }
     .widget {
+        height: 100vh;
+        overflow-y: scroll;
         background: #fff;
         font-size: 16px;
         width: 250px;
@@ -50,15 +59,23 @@
                     }
                 }
             }
-            &__item {
-                padding: 8px 0;
-                a {
-                    text-decoration: unset;
-                    color: $dark;
+            &__list {
+                height: 30vh;
+                overflow-y: scroll;
+                color: $dark;
+                p {
+                    padding: 8px 0;
                 }
-                a:hover {
+                p:hover {
                     color: $red-light;
                 }
+            }
+            &__list::-webkit-scrollbar-thumb {
+                background: $dark;
+                border-radius: 10px;
+            }
+            &__list::-webkit-scrollbar {
+                width: 10px;
             }
         }
     }
@@ -87,7 +104,6 @@
         .widget {
             width: Max(80%, 200px);
             height: 80vh;
-            overflow-y: scroll;
             .close {
                 display: block;
             }
