@@ -1,72 +1,67 @@
-import ProductApi from '../api/productApi';
+import AuthorApi from '../api/authorApi';
 import {
-    PRODUCT_LIST_REQUEST,
-    PRODUCT_LIST_SUCCESS,
-    PRODUCT_LIST_FAIL,
-    PRODUCT_DETAILS_REQUEST,
-    PRODUCT_DETAILS_SUCCESS,
-    PRODUCT_DETAILS_FAIL,
-    PRODUCT_DELETE_SUCCESS,
-    PRODUCT_DELETE_REQUEST,
-    PRODUCT_DELETE_FAIL,
-    PRODUCT_CREATE_REQUEST,
-    PRODUCT_CREATE_SUCCESS,
-    PRODUCT_CREATE_FAIL,
-    PRODUCT_UPDATE_REQUEST,
-    PRODUCT_UPDATE_SUCCESS,
-    PRODUCT_UPDATE_FAIL,
-    PRODUCT_CREATE_REVIEW_REQUEST,
-    PRODUCT_CREATE_REVIEW_SUCCESS,
-    PRODUCT_CREATE_REVIEW_FAIL,
-    PRODUCT_TOP_REQUEST,
-    PRODUCT_TOP_SUCCESS,
-    PRODUCT_TOP_FAIL,
-} from '../constants/product'
+    AUTHOR_LIST_REQUEST,
+    AUTHOR_LIST_SUCCESS,
+    AUTHOR_LIST_FAIL,
+    AUTHOR_DETAILS_REQUEST,
+    AUTHOR_DETAILS_SUCCESS,
+    AUTHOR_DETAILS_FAIL,
+    AUTHOR_DELETE_REQUEST,
+    AUTHOR_DELETE_SUCCESS,
+    AUTHOR_DELETE_FAIL,
+    AUTHOR_CREATE_RESET,
+    AUTHOR_CREATE_FAIL,
+    AUTHOR_CREATE_SUCCESS,
+    AUTHOR_CREATE_REQUEST,
+    AUTHOR_UPDATE_REQUEST,
+    AUTHOR_UPDATE_SUCCESS,
+    AUTHOR_UPDATE_FAIL,
+    AUTHOR_UPDATE_RESET,
+} from '../constants/author'
 // import { logout } from './userActions'
 
-export const listProducts = (props) => async(
+export const listAuthors = (props) => async(
     dispatch
 ) => {
     try {
-        dispatch({ type: PRODUCT_LIST_REQUEST })
-        const { data } = await ProductApi.getAll(props)
+        dispatch({ type: AUTHOR_LIST_REQUEST })
+        const { data } = await AuthorApi.getAll(props)
 
         dispatch({
-            type: PRODUCT_LIST_SUCCESS,
+            type: AUTHOR_LIST_SUCCESS,
             payload: data,
         })
     } catch (error) {
         dispatch({
-            type: PRODUCT_LIST_FAIL,
+            type: AUTHOR_LIST_FAIL,
             payload: error.response && error.response.data.message ?
                 error.response.data.message : error.message,
         })
     }
 }
 
-export const listProductDetails = (id) => async(dispatch) => {
+export const listAuthorDetails = (id) => async(dispatch) => {
     try {
-        dispatch({ type: PRODUCT_DETAILS_REQUEST })
+        dispatch({ type: AUTHOR_DETAILS_REQUEST })
 
-        const { data } = await ProductApi.getProduct(id)
+        const { data } = await AuthorApi.getAuthor(id)
         dispatch({
-            type: PRODUCT_DETAILS_SUCCESS,
+            type: AUTHOR_DETAILS_SUCCESS,
             payload: data,
         })
     } catch (error) {
         dispatch({
-            type: PRODUCT_DETAILS_FAIL,
+            type: AUTHOR_DETAILS_FAIL,
             payload: error.response && error.response.data.message ?
-                error.response.data.message :
-                error.message,
+                error.response.data.message : error.message,
         })
     }
 }
 
-// export const deleteProduct = (id) => async (dispatch, getState) => {
+// export const deleteAuthor = (id) => async (dispatch, getState) => {
 //   try {
 //     dispatch({
-//       type: PRODUCT_DELETE_REQUEST,
+//       type: AUTHOR_DELETE_REQUEST,
 //     })
 
 //     const {
@@ -79,10 +74,10 @@ export const listProductDetails = (id) => async(dispatch) => {
 //       },
 //     }
 
-//     await axios.delete(`/api/products/${id}`, config)
+//     await axios.delete(`/api/Authors/${id}`, config)
 
 //     dispatch({
-//       type: PRODUCT_DELETE_SUCCESS,
+//       type: AUTHOR_DELETE_SUCCESS,
 //     })
 //   } catch (error) {
 //     const message =
@@ -93,16 +88,16 @@ export const listProductDetails = (id) => async(dispatch) => {
 //       dispatch(logout())
 //     }
 //     dispatch({
-//       type: PRODUCT_DELETE_FAIL,
+//       type: AUTHOR_DELETE_FAIL,
 //       payload: message,
 //     })
 //   }
 // }
 
-// export const createProduct = () => async (dispatch, getState) => {
+// export const createAuthor = () => async (dispatch, getState) => {
 //   try {
 //     dispatch({
-//       type: PRODUCT_CREATE_REQUEST,
+//       type: AUTHOR_CREATE_REQUEST,
 //     })
 
 //     const {
@@ -115,10 +110,10 @@ export const listProductDetails = (id) => async(dispatch) => {
 //       },
 //     }
 
-//     const { data } = await axios.post(`/api/products`, {}, config)
+//     const { data } = await axios.post(`/api/Authors`, {}, config)
 
 //     dispatch({
-//       type: PRODUCT_CREATE_SUCCESS,
+//       type: AUTHOR_CREATE_SUCCESS,
 //       payload: data,
 //     })
 //   } catch (error) {
@@ -130,16 +125,16 @@ export const listProductDetails = (id) => async(dispatch) => {
 //       dispatch(logout())
 //     }
 //     dispatch({
-//       type: PRODUCT_CREATE_FAIL,
+//       type: AUTHOR_CREATE_FAIL,
 //       payload: message,
 //     })
 //   }
 // }
 
-// export const updateProduct = (product) => async (dispatch, getState) => {
+// export const updateAuthor = (Author) => async (dispatch, getState) => {
 //   try {
 //     dispatch({
-//       type: PRODUCT_UPDATE_REQUEST,
+//       type: AUTHOR_UPDATE_REQUEST,
 //     })
 
 //     const {
@@ -154,16 +149,16 @@ export const listProductDetails = (id) => async(dispatch) => {
 //     }
 
 //     const { data } = await axios.put(
-//       `/api/products/${product._id}`,
-//       product,
+//       `/api/Authors/${Author._id}`,
+//       Author,
 //       config
 //     )
 
 //     dispatch({
-//       type: PRODUCT_UPDATE_SUCCESS,
+//       type: AUTHOR_UPDATE_SUCCESS,
 //       payload: data,
 //     })
-//     dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data })
+//     dispatch({ type: AUTHOR_DETAILS_SUCCESS, payload: data })
 //   } catch (error) {
 //     const message =
 //       error.response && error.response.data.message
@@ -173,19 +168,19 @@ export const listProductDetails = (id) => async(dispatch) => {
 //       dispatch(logout())
 //     }
 //     dispatch({
-//       type: PRODUCT_UPDATE_FAIL,
+//       type: AUTHOR_UPDATE_FAIL,
 //       payload: message,
 //     })
 //   }
 // }
 
-// export const createProductReview = (productId, review) => async (
+// export const createAuthorReview = (AuthorId, review) => async (
 //   dispatch,
 //   getState
 // ) => {
 //   try {
 //     dispatch({
-//       type: PRODUCT_CREATE_REVIEW_REQUEST,
+//       type: AUTHOR_CREATE_REVIEW_REQUEST,
 //     })
 
 //     const {
@@ -199,10 +194,10 @@ export const listProductDetails = (id) => async(dispatch) => {
 //       },
 //     }
 
-//     await axios.post(`/api/products/${productId}/reviews`, review, config)
+//     await axios.post(`/api/Authors/${AuthorId}/reviews`, review, config)
 
 //     dispatch({
-//       type: PRODUCT_CREATE_REVIEW_SUCCESS,
+//       type: AUTHOR_CREATE_REVIEW_SUCCESS,
 //     })
 //   } catch (error) {
 //     const message =
@@ -213,25 +208,25 @@ export const listProductDetails = (id) => async(dispatch) => {
 //       dispatch(logout())
 //     }
 //     dispatch({
-//       type: PRODUCT_CREATE_REVIEW_FAIL,
+//       type: AUTHOR_CREATE_REVIEW_FAIL,
 //       payload: message,
 //     })
 //   }
 // }
 
-// export const listTopProducts = () => async (dispatch) => {
+// export const listTopAuthors = () => async (dispatch) => {
 //   try {
-//     dispatch({ type: PRODUCT_TOP_REQUEST })
+//     dispatch({ type: AUTHOR_TOP_REQUEST })
 
-//     const { data } = await axios.get(`/api/products/top`)
+//     const { data } = await axios.get(`/api/Authors/top`)
 
 //     dispatch({
-//       type: PRODUCT_TOP_SUCCESS,
+//       type: AUTHOR_TOP_SUCCESS,
 //       payload: data,
 //     })
 //   } catch (error) {
 //     dispatch({
-//       type: PRODUCT_TOP_FAIL,
+//       type: AUTHOR_TOP_FAIL,
 //       payload:
 //         error.response && error.response.data.message
 //           ? error.response.data.message

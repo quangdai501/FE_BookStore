@@ -1,29 +1,53 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.scss";
-import {  useLocation } from 'react-router';
-import { useNavigate } from 'react-router-dom';
+import { useLocation } from "react-router";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { listAuthors } from "../../../actions/authorAction";
 
-
-
-const Widget = () => {
- 
+const Widget = (props) => {
   const categorys = [
     { name: "Tiểu thuyết", description: "" },
     { name: "Truyện ngắn – Tản văn", description: "" },
     { name: "Range - Hiểu Sâu, Biết Rộng Kiểu Gì Cũng Thắng", description: "" },
   ];
-  const authors = [
-    { name: "Dương Thụy" },
-    { name: "Anh Cầm Fact" },
-    { name: "Trần Minh Phương Thảo" },
-    { name: "David Epstein" },
-  ];
+  // const authors = [
+  //   { name: "Dương Thụy" },
+  //   { name: "Anh Cầm Fact" },
+  //   { name: "Trần Minh Phương Thảo" },
+  //   { name: "David Epstein" },
+  // ];
+  const dispatch = useDispatch();
+  const authorList = useSelector((state) => state.authorList);
+  const { loading, error, authors } = authorList;
+
   const navigate = useNavigate();
   const location = useLocation();
 
   const [category, setCategory] = useState(true);
   const [author, setAuthor] = useState(true);
+  const [sidebar, setSidebar] = useState(false);
 
+  let query = props.query;
+
+  useEffect(() => {
+    dispatch(listAuthors());
+  }, []);
+
+  const direct=(name,value)=>{
+    query[name] = value;
+    const params = new URLSearchParams(query);
+    // console.log(params.toString())
+    navigate({
+      pathname: location.pathname,
+      search: params.toString(),
+    });
+  }
+  const sortBy = (e) => {
+    const { name, value } = e?.target;
+    direct(name,value)
+  };
+ 
   const toggleCategory = (e) => {
     e.stopPropagation();
     setCategory(!category);
@@ -32,35 +56,14 @@ const Widget = () => {
     e.stopPropagation();
     setAuthor(!author);
   };
-  const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
-  
-  const { search } = location;
-  const query=search?JSON.parse(
-    '{"' +
-      decodeURI(
-        search.substring(1).replace(/&/g, '","').replace(/=/g, '":"')
-      ) +
-      '"}'
-  ):{}
-  const sortBy=(e)=>{
-    const {name, value} = e?.target;
-    
-   
-    query[name]=value
-    const params = new URLSearchParams(query);
-    // console.log(params.toString())
-    navigate({
-      pathname: location.pathname,
-      search:params.toString() 
-  });
-  }
   return (
     <>
-   
       <div className="sort-bar row">
-        <div className="col lg-12" style={{width:200}}></div>
-        <p className="display">Hiển thị 1-12 trong 32 sản phẩm</p>
+        <div className="col lg-12" style={{ width: 200 }}></div>
+        <p className="display">
+          Hiển thị {props.display} trong {props.total} sản phẩm
+        </p>
         <select name="sort" className="sortby" onChange={sortBy}>
           <option value="">Sắp xếp theo: Mặc định</option>
           <option value="createdAt">Sắp xếp theo: Mới nhất</option>
@@ -78,11 +81,18 @@ const Widget = () => {
         </span>
       </div>
       <div className={sidebar ? "modal active" : "modal"} onClick={showSidebar}>
-        <div className="widget" onClick={(e)=>{e.stopPropagation();}}>
+        <div
+          className="widget"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
           <div className="category close">
             <div className="category__title">
               <h4>Bộ lọc</h4>
-              <div onClick={showSidebar} className="toggle"><i class="fas fa-times"></i></div>
+              <div onClick={showSidebar} className="toggle">
+                <i class="fas fa-times"></i>
+              </div>
             </div>
           </div>
           <div className="category">
@@ -96,18 +106,18 @@ const Widget = () => {
                 )}
               </div>
             </div>
-            {category === true
-              ? categorys.map((item, index) => {
-                  return (
-                    <div className="category__item">
-                      <a key={index} href="#">
-                        {item.name}
-                      </a>
-                    </div>
-                  );
-                })
-              : ""}
+
+            {category === true ? (
+              <div className="category__list">
+                {categorys.map((item, index) => {
+                  return <p key={index}>{item.name}</p>;
+                })}
+              </div>
+            ) : (
+              ""
+            )}
           </div>
+
           <div className="category">
             <div className="category__title">
               <h4>Tác giả</h4>
@@ -119,17 +129,15 @@ const Widget = () => {
                 )}
               </div>
             </div>
-            {author === true
-              ? authors.map((item, index) => {
-                  return (
-                    <div className="category__item">
-                      <a key={index} href="#">
-                        {item.name}
-                      </a>
-                    </div>
-                  );
-                })
-              : ""}
+            {author === true ? (
+              <div className="category__list">
+                {authors.map((item, index) => {
+                  return <p name='author' onClick={()=>direct("author",item._id)} key={index}>{item.name}</p>;
+                })}
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>

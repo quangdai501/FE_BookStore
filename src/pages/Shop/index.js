@@ -21,15 +21,17 @@ function useQuery() {
 const Shop = (props) => {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products, page, pages } = productList;
+  const { loading, error, products, page, pages,total } = productList;
   let query = useQuery();
+  const size=query.size?query.size:12
+  const display=`${size*(page-1)+1}-${size*(page-1)+products.length}`
   // console.log(query);
   useEffect(() => {
     dispatch(listProducts(query));
   }, [JSON.stringify(query)]);
   return (
     <div className="shop">
-      <Widget />
+      <Widget display={display} total={total} query={query} />
 
       <div className="row">
         <div className="row">

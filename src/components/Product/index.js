@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import "./style.scss";
 import { useDispatch } from "react-redux";
 import { addToCart } from '../../actions/cartAction'
+import { useNavigate } from "react-router";
 Product.propTypes = {
   imageURL: PropTypes.string.isRequired,
   publisher: PropTypes.string.isRequired,
@@ -12,13 +13,20 @@ Product.propTypes = {
 };
 export default function Product(props) {
   const dispatch = useDispatch()
-  const addtoCart=()=>{
+  const addtoCart=(e)=>{
+    e.stopPropagation()
     if (props.productId) {
       dispatch(addToCart(props.productId, 1))
     }
   }
+  const navigate = useNavigate();
+  const gotoProductDetail=()=>{
+    navigate({
+      pathname: `/product-detail/${props.productId}`,
+    });
+  }
   return (
-    <div class="product">
+    <div class="product" onClick={gotoProductDetail}>
       <div class="product-img">
         <img src={props.imageURL} alt="" />
       </div>
