@@ -4,13 +4,14 @@ import { useLocation } from "react-router";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { listAuthors } from "../../../actions/authorAction";
+import { listCategorys } from "../../../actions/categoryAction";
 
 const Widget = (props) => {
-  const categorys = [
-    { name: "Tiểu thuyết", description: "" },
-    { name: "Truyện ngắn – Tản văn", description: "" },
-    { name: "Range - Hiểu Sâu, Biết Rộng Kiểu Gì Cũng Thắng", description: "" },
-  ];
+  // const categorys = [
+  //   { name: "Tiểu thuyết", description: "" },
+  //   { name: "Truyện ngắn – Tản văn", description: "" },
+  //   { name: "Range - Hiểu Sâu, Biết Rộng Kiểu Gì Cũng Thắng", description: "" },
+  // ];
   // const authors = [
   //   { name: "Dương Thụy" },
   //   { name: "Anh Cầm Fact" },
@@ -20,6 +21,9 @@ const Widget = (props) => {
   const dispatch = useDispatch();
   const authorList = useSelector((state) => state.authorList);
   const { loading, error, authors } = authorList;
+
+  const categoryList = useSelector((state) => state.categoryList);
+  const {  categorys } = categoryList;
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -32,6 +36,7 @@ const Widget = (props) => {
 
   useEffect(() => {
     dispatch(listAuthors());
+    dispatch(listCategorys());
   }, []);
 
   const direct=(name,value)=>{
@@ -110,7 +115,7 @@ const Widget = (props) => {
             {category === true ? (
               <div className="category__list">
                 {categorys.map((item, index) => {
-                  return <p key={index}>{item.name}</p>;
+                  return <p onClick={()=>direct("category",item._id)} key={index}>{item.name}</p>;
                 })}
               </div>
             ) : (
@@ -132,7 +137,7 @@ const Widget = (props) => {
             {author === true ? (
               <div className="category__list">
                 {authors.map((item, index) => {
-                  return <p name='author' onClick={()=>direct("author",item._id)} key={index}>{item.name}</p>;
+                  return <p onClick={()=>direct("author",item._id)} key={index}>{item.name}</p>;
                 })}
               </div>
             ) : (
