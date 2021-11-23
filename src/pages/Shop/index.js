@@ -50,7 +50,7 @@ const Shop = (props) => {
         </div>
         <div className="col c-11">
           {" "}
-          <Pagination page={page} pages={pages} />
+          <Pagination page={page} pages={pages} query={query} />
         </div>
       </div>
     </div>
