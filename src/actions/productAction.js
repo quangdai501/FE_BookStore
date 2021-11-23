@@ -1,3 +1,4 @@
+import axios from 'axios';
 import ProductApi from '../api/productApi';
 import {
     PRODUCT_LIST_REQUEST,
@@ -29,7 +30,10 @@ export const listProducts = (props) => async(
 ) => {
     try {
         dispatch({ type: PRODUCT_LIST_REQUEST })
+            // console.log(props.category)
         const { data } = await ProductApi.getAll(props)
+            // const query = new URLSearchParams(props).toString();
+            // const { data } = await axios.get(`http://localhost:5000/api/products?${query}`)
 
         dispatch({
             type: PRODUCT_LIST_SUCCESS,
@@ -57,8 +61,7 @@ export const listProductDetails = (id) => async(dispatch) => {
         dispatch({
             type: PRODUCT_DETAILS_FAIL,
             payload: error.response && error.response.data.message ?
-                error.response.data.message :
-                error.message,
+                error.response.data.message : error.message,
         })
     }
 }
