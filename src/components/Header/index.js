@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import './style.scss';
 export default function Header() {
+
+    const [query, setQuery] = useState('')
+    const changeQuery=(e)=>setQuery(e.target.value)
+
     const cart = useSelector((state) => state.cart)
     const { cartItems } = cart
+
     let navigate=useNavigate()
     const gotoCart=()=>{
         navigate('/cart')
+    }
+
+    const Search=()=>{
+    
+    navigate({
+        pathname: 'shop',
+        search: `search=${query}`,
+        });
+    
     }
     return (
         <header className="main-header">
@@ -18,8 +32,8 @@ export default function Header() {
                     </div>
                     <div className="c-8">
                         <div className="search">
-                            <input type="text" className="search-input" />
-                            <p className="search-icon">
+                            <input onChange={changeQuery} type="text" className="search-input" value={query}/>
+                            <p className="search-icon" onClick={Search}>
                                 <i class="fas fa-search"></i>
                             </p>
                         </div>

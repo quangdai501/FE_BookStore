@@ -19,7 +19,9 @@ const useQuery = () => {
           '"}'
       )
     : {};
-  // console.log(search.substring(1),query)
+    for (const [key, value] of Object.entries(querys)) {
+      querys[key]=value.replace('+', ' ')
+    }
   return querys;
   // return React.useMemo(() => new URLSearchParams(search), [search]);
 };
@@ -42,21 +44,26 @@ const Shop = (props) => {
   const display = `${size * (page - 1) + 1}-${
     size * (page - 1) + products.length
   }`;
-
+  let url_query=useQuery()
   useEffect(() => {
+    const params = new URLSearchParams(query);
+    navigate({
+      pathname: location.pathname,
+      search: params.toString(),
+    });
     dispatch(listProducts(query));
   }, [JSON.stringify(query)]);
+ 
+  useEffect(() => {
+    if(url_query.search){
+      direct('search',url_query.search)
+    }
+  }, [JSON.stringify(url_query)]);
+
   const direct = (name, value) => {
-    // query[name] = value;
-    // const params = new URLSearchParams(query);
-    // dispatch(listProducts(query));
     const newobj = { ...query };
     newobj[name] = value;
     setQuery(newobj);
-    // navigate({
-    //   pathname: location.pathname,
-    //   search: params.toString(),
-    // });
   };
   
   
@@ -85,7 +92,7 @@ const Shop = (props) => {
             )}
             {query["category"] ? (
               <div className="label">
-                <span>Tác giả: {query["category"]}</span>{" "}
+                <span>Danh mục: {query["category"]}</span>{" "}
                 <b onClick={() => removeFilter("category")}>X</b>
               </div>
             ) : (
