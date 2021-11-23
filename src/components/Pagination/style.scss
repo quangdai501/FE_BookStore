@@ -1,8 +1,7 @@
 @import '../../scssStyles/variable';
 .pagination {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(50px, max-content));
-    grid-gap: 5px;
+    justify-content: flex-end;
+    gap: 5px;
     padding: 16px;
     font-size: 16px;
     span {

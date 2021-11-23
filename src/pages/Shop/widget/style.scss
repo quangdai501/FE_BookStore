@@ -1,112 +1,63 @@
 @import '../../../scssStyles/variable';
-.sort-bar {
-    justify-content: space-between;
-    font-size: 16px;
-    padding: 16px 0;
-    gap: 10px;
-    .sortby {
-        border: unset;
-        border-bottom: 1px solid;
-        font-size: 16px;
-        padding: 5px;
-        outline: none;
-        cursor: pointer;
-    }
-    .display {
-        align-self: center;
-    }
-    .filter {
-        display: none;
-        cursor: pointer;
-        align-self: center;
-        i {
-            color: $dark;
-        }
-    }
+.widget::-webkit-scrollbar-thumb {
+    background: $dark;
+    border-radius: 10px;
 }
 
-.modal {
-    float: left;
-    display: flex;
-    transition: 850ms;
-    .widget::-webkit-scrollbar-thumb {
-        background: $dark;
-        border-radius: 10px;
+.widget::-webkit-scrollbar {
+    width: 5px;
+}
+
+.widget {
+    // height: 100vh;
+    width: 250px;
+    overflow-y: scroll;
+    background: #fff;
+    font-size: 16px;
+    .close {
+        display: none;
     }
-    .widget::-webkit-scrollbar {
-        width: 10px;
-    }
-    .widget {
-        height: 100vh;
-        overflow-y: scroll;
-        background: #fff;
-        font-size: 16px;
-        width: 250px;
-        .close {
-            display: none;
+    .category {
+        padding: 16px;
+        border: 1px solid $gray100;
+        &__title {
+            padding: 16px 0;
+            display: flex;
+            justify-content: space-between;
+            .toggle {
+                cursor: pointer;
+                i {
+                    color: $dark;
+                }
+            }
         }
-        .category {
-            padding: 16px;
-            border: 1px solid $gray100;
-            &__title {
-                padding: 16px 0;
-                display: flex;
-                justify-content: space-between;
-                .toggle {
-                    cursor: pointer;
-                    i {
-                        color: $dark;
-                    }
-                }
+        &__list {
+            height: 30vh;
+            overflow-y: scroll;
+            color: $dark;
+            p {
+                padding: 8px 0;
             }
-            &__list {
-                height: 30vh;
-                overflow-y: scroll;
-                color: $dark;
-                p {
-                    padding: 8px 0;
-                }
-                p:hover {
-                    color: $red-light;
-                }
+            p:hover {
+                color: $red-light;
             }
-            &__list::-webkit-scrollbar-thumb {
-                background: $dark;
-                border-radius: 10px;
-            }
-            &__list::-webkit-scrollbar {
-                width: 10px;
-            }
+        }
+        &__list::-webkit-scrollbar-thumb {
+            background: $dark;
+            border-radius: 10px;
+        }
+        &__list::-webkit-scrollbar {
+            width: 10px;
         }
     }
 }
 
 @media screen and(max-width: 992px) {
-    .sort-bar {
-        .filter {
+    .widget {
+        width: Max(80%, 200px);
+        height: 80vh;
+        .close {
             display: block;
-        }
-    }
-    .modal.active {
-        display: flex;
-        transition: 350ms;
-    }
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        width: 100%;
-        height: 100vh;
-        background: rgba($color: $gray100, $alpha: 0.4);
-        justify-content: center;
-        align-items: center;
-        .widget {
-            width: Max(80%, 200px);
-            height: 80vh;
-            .close {
-                display: block;
-            }
         }
     }
 }
