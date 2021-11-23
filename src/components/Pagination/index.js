@@ -33,15 +33,8 @@ const Pagination = (props) => {
     return rangeWithDots;
 }
 const location = useLocation();
-const { search } = location;
 const navigate = useNavigate();
-const query=search?JSON.parse(
-  '{"' +
-    decodeURI(
-      search.substring(1).replace(/&/g, '","').replace(/=/g, '":"')
-    ) +
-    '"}'
-):{}
+const query=props.query
 const direct=()=>{
     const params = new URLSearchParams(query);
     navigate({
