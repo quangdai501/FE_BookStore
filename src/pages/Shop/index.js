@@ -8,21 +8,29 @@ import { listProducts } from "../../actions/productAction";
 import { useLocation, useNavigate } from "react-router";
 import Sortbar from "./Sortbar";
 const useQuery = () => {
-  const { search } = useLocation();;
-  const querys = search
-    ? JSON.parse(
-        '{"' +
-          decodeURI(search.substring(1))
-            .replace(/"/g, '\\"')
-            .replace(/&/g, '","')
-            .replace(/=/g, '":"') +
-          '"}'
-      )
-    : {};
-    for (const [key, value] of Object.entries(querys)) {
-      querys[key]=value.replace('+', ' ')
+  const { search } = useLocation();
+  // const querys = search
+  //   ? JSON.parse(
+  //       '{"' +
+  //         decodeURI(search.substring(1))
+  //           .replace(/"/g, '\\"')
+  //           .replace(/&/g, '","')
+  //           .replace(/=/g, '":"') +
+  //         '"}'
+  //     )
+  //   : {};
+  if (search) {
+    const urlParams = new URLSearchParams(search.substring(1));
+    const entries = urlParams.entries(); //returns an iterator of decoded [key,value] tuples
+    const params = {};
+    for (const [key, value] of entries) {
+      // each 'entry' is a [key, value] tupple
+      params[key] = value;
     }
-  return querys;
+    return params;
+  }
+
+  return {};
   // return React.useMemo(() => new URLSearchParams(search), [search]);
 };
 
@@ -36,27 +44,30 @@ const Shop = (props) => {
 
   const navigate = useNavigate();
   const location = useLocation();
- 
 
+  let url_query = useQuery().search;
   const [query, setQuery] = useState(useQuery());
 
   const size = query.size ? query.size : 12;
   const display = `${size * (page - 1) + 1}-${
     size * (page - 1) + products.length
   }`;
-  let url_query=useQuery()
+ 
   useEffect(() => {
-    const params = new URLSearchParams(query);
+    // const params = new URLSearchParams(query);
+    const params = Object.entries(query)
+      .map(([key, val]) => `${key}=${val}`)
+      .join("&");
     navigate({
       pathname: location.pathname,
       search: params.toString(),
     });
     dispatch(listProducts(query));
   }, [JSON.stringify(query)]);
- 
+
   useEffect(() => {
-    if(url_query.search){
-      direct('search',url_query.search)
+    if (url_query) {
+      direct("search", url_query);
     }
   }, [JSON.stringify(url_query)]);
 
@@ -65,8 +76,7 @@ const Shop = (props) => {
     newobj[name] = value;
     setQuery(newobj);
   };
-  
-  
+
   const removeFilter = (name) => {
     const newobj = { ...query };
     delete newobj[name];
@@ -79,7 +89,7 @@ const Shop = (props) => {
       </div>
 
       <div>
-        {query["search"] ||query["author"] || query["category"] ? (
+        {query["search"] || query["author"] || query["category"] ? (
           <div className="filter-bar row">
             <p>Bộ lọc:</p>
             {query["author"] ? (
@@ -98,7 +108,7 @@ const Shop = (props) => {
             ) : (
               ""
             )}
-             {query["search"] ? (
+            {query["search"] ? (
               <div className="label">
                 <span>Từ khóa: {query["search"]}</span>{" "}
                 <b onClick={() => removeFilter("search")}>X</b>

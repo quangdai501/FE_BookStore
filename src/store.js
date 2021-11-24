@@ -24,6 +24,13 @@ import {
     categoryCreateReducer,
     categoryUpdateReducer,
 } from './reducers/categoryReducer'
+import {
+    publisherListReducer,
+    publisherDetailsReducer,
+    publisherDeleteReducer,
+    publisherCreateReducer,
+    publisherUpdateReducer,
+} from './reducers/publisherReducer'
 import { cartReducer } from './reducers/cartReducer'
 const reducer = combineReducers({
     counter: counterReducer,
@@ -47,6 +54,12 @@ const reducer = combineReducers({
     categoryDelete: categoryDeleteReducer,
     categoryCreate: categoryCreateReducer,
     categoryUpdate: categoryUpdateReducer,
+    // publisher 
+    publisherList: publisherListReducer,
+    publisherDetails: publisherDetailsReducer,
+    publisherDelete: publisherDeleteReducer,
+    publisherCreate: publisherCreateReducer,
+    publisherUpdate: publisherUpdateReducer,
     // cart
     cart: cartReducer,
 });
