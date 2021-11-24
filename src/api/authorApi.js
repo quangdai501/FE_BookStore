@@ -10,5 +10,18 @@ const AuthorApi = {
         const url = `/author/${id}`;
         return axiosClient.get(url);
     },
+    addAuthor: (name) => {
+        const url = '/author';
+        return axiosClient.post(url, { name });
+    },
+    updateAuthor: (id, name) => {
+        const url = `/author/${id}`;
+        return axiosClient.patch(url, { name });
+    },
+    deleteAuthor: (id) => {
+        const url = `/author/${id}`;
+        return axiosClient.delete(url);
+    },
+
 }
 export default AuthorApi

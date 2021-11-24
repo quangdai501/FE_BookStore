@@ -1,11 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { login } from '../../actions/userAction'
 export default function Login() {
   const { register, handleSubmit } = useForm();
+
+  const dispatch = useDispatch()
+  const userLogin = useSelector((state) => state.userLogin)
+  const { loading, error, userInfo } = userLogin
+  
+  console.log(userInfo)
   const onSubmit = (data) => {
     const { email, password } = data;
     //handle submit here
+    dispatch(login(email, password))
   };
 
   return (
@@ -17,7 +27,8 @@ export default function Login() {
           <label htmlFor="email" className="form-label">
             Email
           </label>
-          <input type="email" name="email" {...register("email")} />
+          {/* <input type="email" name="email" {...register("email")} /> */}
+          <input type="text" name="email" {...register("email")} />
         </div>
         <div className="form-input">
           <label htmlFor="password" className="form-label">

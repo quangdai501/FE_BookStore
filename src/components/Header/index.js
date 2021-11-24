@@ -14,7 +14,9 @@ export default function Header() {
     const gotoCart=()=>{
         navigate('/cart')
     }
-
+    const gotoLogin=()=>{
+        navigate('/login')
+    }
     const Search=()=>{
     
     navigate({
@@ -50,7 +52,7 @@ export default function Header() {
                                     </div>
                                 </div>
                                 <div className="c-6">
-                                    <div className="signin">
+                                    <div className="signin" onClick={gotoLogin}>
                                         Đăng nhập
                                     </div>
                                 </div>
