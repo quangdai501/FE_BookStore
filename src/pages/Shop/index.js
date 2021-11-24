@@ -7,18 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../../actions/productAction";
 import { useLocation, useNavigate } from "react-router";
 import Sortbar from "./Sortbar";
+import FilterBar from "./FilterBar";
 const useQuery = () => {
   const { search } = useLocation();
-  // const querys = search
-  //   ? JSON.parse(
-  //       '{"' +
-  //         decodeURI(search.substring(1))
-  //           .replace(/"/g, '\\"')
-  //           .replace(/&/g, '","')
-  //           .replace(/=/g, '":"') +
-  //         '"}'
-  //     )
-  //   : {};
   if (search) {
     const urlParams = new URLSearchParams(search.substring(1));
     const entries = urlParams.entries(); //returns an iterator of decoded [key,value] tuples
@@ -90,35 +81,9 @@ const Shop = (props) => {
 
       <div>
         {query["search"] || query["author"] || query["category"] ? (
-          <div className="filter-bar row">
-            <p>Bộ lọc:</p>
-            {query["author"] ? (
-              <div className="label">
-                <span>Tác giả: {query["author"]}</span>{" "}
-                <b onClick={() => removeFilter("author")}>X</b>
-              </div>
-            ) : (
-              ""
-            )}
-            {query["category"] ? (
-              <div className="label">
-                <span>Danh mục: {query["category"]}</span>{" "}
-                <b onClick={() => removeFilter("category")}>X</b>
-              </div>
-            ) : (
-              ""
-            )}
-            {query["search"] ? (
-              <div className="label">
-                <span>Từ khóa: {query["search"]}</span>{" "}
-                <b onClick={() => removeFilter("search")}>X</b>
-              </div>
-            ) : (
-              ""
-            )}
-          </div>
+         <FilterBar query={query} removeFilter={removeFilter}/>
         ) : (
-          ""
+         <></>
         )}
         <Sortbar
           display={display}

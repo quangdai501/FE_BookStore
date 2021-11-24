@@ -1,0 +1,19 @@
+@import '../../../scssStyles/variable';
+.filter-bar {
+    padding: 16px;
+    gap: 16px;
+    font-size: 16px;
+    align-items: center;
+    .label {
+        border: 1px solid $gray-400;
+        border-radius: 5px;
+        padding: 8px 16px;
+        min-width: 150px;
+        display: flex;
+        justify-content: space-between;
+        b {
+            cursor: pointer;
+            padding-left: 16px;
+        }
+    }
+}
