@@ -31,6 +31,15 @@ import {
     publisherCreateReducer,
     publisherUpdateReducer,
 } from './reducers/publisherReducer'
+import {
+    userLoginReducer,
+    userRegisterReducer,
+    userDetailsReducer,
+    userUpdateProfileReducer,
+    userListReducer,
+    userDeleteReducer,
+    userUpdateReducer,
+} from './reducers/userReducer'
 import { cartReducer } from './reducers/cartReducer'
 const reducer = combineReducers({
     counter: counterReducer,
@@ -60,15 +69,23 @@ const reducer = combineReducers({
     publisherDelete: publisherDeleteReducer,
     publisherCreate: publisherCreateReducer,
     publisherUpdate: publisherUpdateReducer,
+    // user
+    userLogin: userLoginReducer,
+    userRegister: userRegisterReducer,
+    userDetails: userDetailsReducer,
+    userUpdateProfile: userUpdateProfileReducer,
+    userList: userListReducer,
+    userDelete: userDeleteReducer,
+    userUpdate: userUpdateReducer,
     // cart
     cart: cartReducer,
 });
 const cartItemsFromStorage = localStorage.getItem('cartItems') ?
     JSON.parse(localStorage.getItem('cartItems')) : []
 
-// const userInfoFromStorage = localStorage.getItem('userInfo')
-//   ? JSON.parse(localStorage.getItem('userInfo'))
-//   : null
+const userInfoFromStorage = localStorage.getItem('userInfo') ?
+    JSON.parse(localStorage.getItem('userInfo')) :
+    null
 
 const shippingAddressFromStorage = localStorage.getItem('shippingAddress') ?
     JSON.parse(localStorage.getItem('shippingAddress')) : {}
@@ -78,7 +95,7 @@ const initialState = {
         cartItems: cartItemsFromStorage,
         shippingAddress: shippingAddressFromStorage,
     },
-    //   userLogin: { userInfo: userInfoFromStorage },
+    userLogin: { userInfo: userInfoFromStorage },
 }
 
 
