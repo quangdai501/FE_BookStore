@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { listAuthors } from "../../../actions/authorAction";
 import { listCategorys } from "../../../actions/categoryAction";
 import { listPublishers } from "../../../actions/publisherAction";
+import { createProduct } from "../../../actions/productAction";
 
 export default function AddProduct() {
   const dispatch = useDispatch();
@@ -19,20 +20,51 @@ export default function AddProduct() {
   const publisherList = useSelector((state) => state.publisherList);
   const { publishers } = publisherList;
 
+  const productCreate = useSelector((state) => state.productCreate);
+  const {
+    loading: loadingCreate,
+    error: errorCreate,
+    success: successCreate,
+    product:productcreate
+  } = productCreate;
+
+  const defaultValues = {};
+  const { handleSubmit, register,reset  } = useForm({ defaultValues });
   useEffect(() => {
     dispatch(listAuthors());
     dispatch(listCategorys());
     dispatch(listPublishers());
   }, []);
-
-  const { handleSubmit, register } = useForm();
+  useEffect(() => {
+   if(successCreate){
+     alert('thêm thành công')
+     reset(defaultValues);
+     setImg('')
+     setDesc('')
+   }
+  }, [successCreate])
+  
   const [desc, setDesc] = useState("");
+
+  const [img, setImg] = useState("");
+  const changeImg = (url) => {
+    setImg(url);
+  };
   const handleDesc = (content) => {
     setDesc(content);
   };
   const onSubmit = (data) => {
-    console.log(data);
-    console.log(desc);
+    // console.log(data);
+    // console.log(desc);
+    // console.log(img);
+    const newdata={...data}
+    if(img!==''){
+      newdata['image']=img
+    }
+    if(desc!==''){
+      newdata['description']=desc
+    }
+    dispatch(createProduct(newdata))
   };
   return (
     <div className="container">
@@ -43,7 +75,13 @@ export default function AddProduct() {
             <label htmlFor="name" className="form-label">
               Tên sản phẩm
             </label>
-            <input type="name" name="name" {...register("name")} />
+            <input
+              type="name"
+              name="name"
+              {...register("name", {
+                required: true,
+              })}
+            />
           </div>
           <div className="row">
             <div className="col c-6 pr-20">
@@ -51,7 +89,13 @@ export default function AddProduct() {
                 <label htmlFor="price" className="form-label">
                   Giá
                 </label>
-                <input type="number" name="price" {...register("price")} />
+                <input
+                  type="number"
+                  name="price"
+                  {...register("price", {
+                    required: true,
+                  })}
+                />
               </div>
             </div>
             <div className="col c-6 pl-20">
@@ -72,12 +116,21 @@ export default function AddProduct() {
               <label htmlFor="category" className="form-label">
                 Danh mục
               </label>
-              <select name="category" {...register("category")}>
-                {categorys?categorys.map((item,index) => (
-                  <option value={item._id} key={index}>
-                    {item.name}
-                  </option>
-                )):<></>}
+              <select
+                name="category"
+                {...register("category", {
+                  required: true,
+                })}
+              >
+                {categorys ? (
+                  categorys.map((item, index) => (
+                    <option value={item._id} key={index}>
+                      {item.name}
+                    </option>
+                  ))
+                ) : (
+                  <></>
+                )}
               </select>
             </div>
           </div>
@@ -87,12 +140,21 @@ export default function AddProduct() {
                 <label htmlFor="author" className="form-label">
                   Tác giả
                 </label>
-                <select name="author" {...register("author")}>
-                  {authors?authors.map((item,index) => (
-                    <option value={item._id} key={index}>
-                      {item.name}
-                    </option>
-                  )):<></>}
+                <select
+                  name="author"
+                  {...register("author", {
+                    required: true,
+                  })}
+                >
+                  {authors ? (
+                    authors.map((item, index) => (
+                      <option value={item._id} key={index}>
+                        {item.name}
+                      </option>
+                    ))
+                  ) : (
+                    <></>
+                  )}
                 </select>
               </div>
             </div>
@@ -101,17 +163,26 @@ export default function AddProduct() {
                 <label htmlFor="publisher" className="form-label">
                   Nhà xuất bản
                 </label>
-                <select name="publisher" {...register("publisher")}>
-                  {publishers?publishers.map((item,index) => (
-                    <option value={item._id} key={index}>
-                      {item.name}
-                    </option>
-                  )):<></>}
+                <select
+                  name="publisher"
+                  {...register("publisher", {
+                    required: true,
+                  })}
+                >
+                  {publishers ? (
+                    publishers.map((item, index) => (
+                      <option value={item._id} key={index}>
+                        {item.name}
+                      </option>
+                    ))
+                  ) : (
+                    <></>
+                  )}
                 </select>
               </div>
             </div>
           </div>
-          <UpLoadImage />
+          <UpLoadImage img={img} changeImg={changeImg} />
           <label htmlFor="publisher" className="form-label">
             Mô tả sản phẩm
           </label>

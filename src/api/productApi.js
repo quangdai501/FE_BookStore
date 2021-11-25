@@ -11,21 +11,41 @@ const ProductApi = {
         return axiosClient.get(url);
     },
 
-    addProduct: (params) => {
+    addProduct: (product, token) => {
         const url = `/products/addProduct`;
-        return axiosClient.post(url, { params });
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        return axiosClient.post(url, product, config);
     },
-    deleteProductByID: (id) => {
+    deleteProductByID: (id, token) => {
         const url = `/products/deleteProduct/${id}`;
-        return axiosClient.delete(url);
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        return axiosClient.delete(url, config);
     },
-    updateProductByID: (id, params) => {
-        const url = `/products/updateProduct/${id}`;
-        return axiosClient.patch(url, { params });
+    updateProductByID: (product, token) => {
+        const url = `/products/updateProduct/${product._id}`;
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        return axiosClient.patch(url, product, config);
     },
-    updateProductQuantityByID: (id, qty) => {
+    updateProductQuantityByID: (id, qty, token) => {
         const url = `/products/updateProductQuantity/${id}`;
-        return axiosClient.get(url, { qty });
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        return axiosClient.get(url, qty, config);
     },
 }
 export default ProductApi
