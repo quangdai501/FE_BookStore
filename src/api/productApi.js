@@ -13,7 +13,7 @@ const ProductApi = {
 
     addProduct: (params) => {
         const url = `/products/addProduct`;
-        return axiosClient.post(url.replace, { params });
+        return axiosClient.post(url, { params });
     },
     deleteProductByID: (id) => {
         const url = `/products/deleteProduct/${id}`;

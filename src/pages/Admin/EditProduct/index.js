@@ -30,17 +30,20 @@ export default function EditProduct() {
     dispatch(listCategorys());
     dispatch(listPublishers());
     dispatch(listProductDetails(id.productId));
-  }, []);
 
-  const { handleSubmit, register } = useForm();
-  const initContent = "";
+    
+  }, []);
+ 
+  const { handleSubmit, register } = useForm({defaultValues:product});
+  // const initContent = "fasdfs";
   const [desc, setDesc] = useState("");
   const handleDesc = (content) => {
     setDesc(content);
   };
   const onSubmit = (data) => {
     console.log(data);
-    console.log(desc);
+    // console.log(desc);
+    // console.log(product)
   };
 
   return (
@@ -87,10 +90,9 @@ export default function EditProduct() {
               </div>
             </div>
           </div>
-          <div className="row">
-            <div className="col c-6 pr-20">
+          <div className="col c-6 ">
               <div className="form-select">
-                <label htmlFor="author" className="form-label">
+                <label htmlFor="category" className="form-label">
                   Danh mục
                 </label>
                 <select name="category" {...register("category")}>
@@ -103,6 +105,8 @@ export default function EditProduct() {
                 </select>
               </div>
             </div>
+          <div className="row">
+           
             <div className="col c-6 pr-20">
               <div className="form-select">
                 <label htmlFor="author" className="form-label">
@@ -136,7 +140,7 @@ export default function EditProduct() {
           <label htmlFor="publisher" className="form-label">
             Mô tả sản phẩm
           </label>
-          <TextEditer handleDesc={handleDesc} initContent={initContent} />
+          <TextEditer handleDesc={handleDesc} initialContent={product ? product.description : ""} />
           <div className="submit-area">
             <button type="submit" className="btn btn--border-none">
               Lưu thay đổi
