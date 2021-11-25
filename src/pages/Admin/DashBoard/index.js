@@ -11,6 +11,7 @@ import AddProduct from '../AddProduct';
 import Statistics from '../Statistics';
 import EditProduct from '../EditProduct';
 import OverView from './item/OverView';
+import CategoryManagement from '../CategoryManagement';
 export default function DashBoard() {
     return (
         <div className="row">
@@ -34,6 +35,7 @@ export default function DashBoard() {
                         <Route path="publisher" element={<PublisherManagement />} />
                         <Route path="publisher/create" element={<PublisherManagement />} />
                         <Route path="statistics" element={<Statistics />} />
+                        <Route path="category" element={<CategoryManagement />} />
                     </Routes>
                 </div>
             </div>

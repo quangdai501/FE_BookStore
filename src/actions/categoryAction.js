@@ -9,14 +9,12 @@ import {
     CATEGORY_DELETE_REQUEST,
     CATEGORY_DELETE_SUCCESS,
     CATEGORY_DELETE_FAIL,
-    CATEGORY_CREATE_RESET,
     CATEGORY_CREATE_FAIL,
     CATEGORY_CREATE_SUCCESS,
     CATEGORY_CREATE_REQUEST,
     CATEGORY_UPDATE_REQUEST,
     CATEGORY_UPDATE_SUCCESS,
     CATEGORY_UPDATE_FAIL,
-    CATEGORY_UPDATE_RESET,
 } from '../constants/category'
 // import { logout } from './userActions'
 
@@ -58,179 +56,84 @@ export const listCategoryDetails = (id) => async(dispatch) => {
     }
 }
 
-// export const deleteCategory = (id) => async (dispatch, getState) => {
-//   try {
-//     dispatch({
-//       type: CATEGORY_DELETE_REQUEST,
-//     })
+export const deleteCategory = (id) => async(dispatch, getState) => {
+    try {
+        dispatch({
+            type: CATEGORY_DELETE_REQUEST,
+        })
 
-//     const {
-//       userLogin: { userInfo },
-//     } = getState()
+        const {
+            userLogin: { userInfo },
+        } = getState()
 
-//     const config = {
-//       headers: {
-//         Categoryization: `Bearer ${userInfo.token}`,
-//       },
-//     }
+        await CategoryApi.deleteCategory(userInfo.token, id)
+        dispatch({
+            type: CATEGORY_DELETE_SUCCESS,
+        })
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message ?
+            error.response.data.message :
+            error.message
+        dispatch({
+            type: CATEGORY_DELETE_FAIL,
+            payload: message,
+        })
+    }
+}
 
-//     await axios.delete(`/api/Categorys/${id}`, config)
+export const createCategory = (name) => async(dispatch, getState) => {
+    try {
+        dispatch({
+            type: CATEGORY_CREATE_REQUEST,
+        })
 
-//     dispatch({
-//       type: CATEGORY_DELETE_SUCCESS,
-//     })
-//   } catch (error) {
-//     const message =
-//       error.response && error.response.data.message
-//         ? error.response.data.message
-//         : error.message
-//     if (message === 'Not Categoryized, token failed') {
-//       dispatch(logout())
-//     }
-//     dispatch({
-//       type: CATEGORY_DELETE_FAIL,
-//       payload: message,
-//     })
-//   }
-// }
+        const {
+            userLogin: { userInfo },
+        } = getState()
 
-// export const createCategory = () => async (dispatch, getState) => {
-//   try {
-//     dispatch({
-//       type: CATEGORY_CREATE_REQUEST,
-//     })
+        const { data } = await CategoryApi.addCategory(userInfo.token, name)
+        dispatch({
+            type: CATEGORY_CREATE_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message ?
+            error.response.data.message :
+            error.message
+        dispatch({
+            type: CATEGORY_CREATE_FAIL,
+            payload: message,
+        })
+    }
+}
 
-//     const {
-//       userLogin: { userInfo },
-//     } = getState()
+export const updateCategory = (Category) => async(dispatch, getState) => {
+    try {
+        dispatch({
+            type: CATEGORY_UPDATE_REQUEST,
+        })
 
-//     const config = {
-//       headers: {
-//         Categoryization: `Bearer ${userInfo.token}`,
-//       },
-//     }
+        const {
+            userLogin: { userInfo },
+        } = getState()
 
-//     const { data } = await axios.post(`/api/Categorys`, {}, config)
+        const { data } = await CategoryApi.updateCategory(userInfo.token, Category)
 
-//     dispatch({
-//       type: CATEGORY_CREATE_SUCCESS,
-//       payload: data,
-//     })
-//   } catch (error) {
-//     const message =
-//       error.response && error.response.data.message
-//         ? error.response.data.message
-//         : error.message
-//     if (message === 'Not Categoryized, token failed') {
-//       dispatch(logout())
-//     }
-//     dispatch({
-//       type: CATEGORY_CREATE_FAIL,
-//       payload: message,
-//     })
-//   }
-// }
-
-// export const updateCategory = (Category) => async (dispatch, getState) => {
-//   try {
-//     dispatch({
-//       type: CATEGORY_UPDATE_REQUEST,
-//     })
-
-//     const {
-//       userLogin: { userInfo },
-//     } = getState()
-
-//     const config = {
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Categoryization: `Bearer ${userInfo.token}`,
-//       },
-//     }
-
-//     const { data } = await axios.put(
-//       `/api/Categorys/${Category._id}`,
-//       Category,
-//       config
-//     )
-
-//     dispatch({
-//       type: CATEGORY_UPDATE_SUCCESS,
-//       payload: data,
-//     })
-//     dispatch({ type: CATEGORY_DETAILS_SUCCESS, payload: data })
-//   } catch (error) {
-//     const message =
-//       error.response && error.response.data.message
-//         ? error.response.data.message
-//         : error.message
-//     if (message === 'Not Categoryized, token failed') {
-//       dispatch(logout())
-//     }
-//     dispatch({
-//       type: CATEGORY_UPDATE_FAIL,
-//       payload: message,
-//     })
-//   }
-// }
-
-// export const createCategoryReview = (CategoryId, review) => async (
-//   dispatch,
-//   getState
-// ) => {
-//   try {
-//     dispatch({
-//       type: CATEGORY_CREATE_REVIEW_REQUEST,
-//     })
-
-//     const {
-//       userLogin: { userInfo },
-//     } = getState()
-
-//     const config = {
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Categoryization: `Bearer ${userInfo.token}`,
-//       },
-//     }
-
-//     await axios.post(`/api/Categorys/${CategoryId}/reviews`, review, config)
-
-//     dispatch({
-//       type: CATEGORY_CREATE_REVIEW_SUCCESS,
-//     })
-//   } catch (error) {
-//     const message =
-//       error.response && error.response.data.message
-//         ? error.response.data.message
-//         : error.message
-//     if (message === 'Not Categoryized, token failed') {
-//       dispatch(logout())
-//     }
-//     dispatch({
-//       type: CATEGORY_CREATE_REVIEW_FAIL,
-//       payload: message,
-//     })
-//   }
-// }
-
-// export const listTopCategorys = () => async (dispatch) => {
-//   try {
-//     dispatch({ type: CATEGORY_TOP_REQUEST })
-
-//     const { data } = await axios.get(`/api/Categorys/top`)
-
-//     dispatch({
-//       type: CATEGORY_TOP_SUCCESS,
-//       payload: data,
-//     })
-//   } catch (error) {
-//     dispatch({
-//       type: CATEGORY_TOP_FAIL,
-//       payload:
-//         error.response && error.response.data.message
-//           ? error.response.data.message
-//           : error.message,
-//     })
-//   }
-// }
+        dispatch({
+            type: CATEGORY_UPDATE_SUCCESS,
+            payload: data,
+        })
+        dispatch({ type: CATEGORY_DETAILS_SUCCESS, payload: data })
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message ?
+            error.response.data.message :
+            error.message
+        dispatch({
+            type: CATEGORY_UPDATE_FAIL,
+            payload: message,
+        })
+    }
+}

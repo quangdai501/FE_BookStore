@@ -33,6 +33,11 @@ export default function SideBar() {
                 label="Quản lý nhà xuất bản"
                 icon={<i className="fas fa-list"></i>}
             />
+              <MenuLink
+                to="/admin/category"
+                label="Quản lý danh mục"
+                icon={<i className="fas fa-list"></i>}
+            />
             <MenuLink
                 to="/admin/statistics"
                 label="Thống kê"
