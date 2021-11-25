@@ -42,7 +42,7 @@ export default function ProductManagement() {
               </tr>
             </thead>
             <tbody>
-              {products.map((item, index) => (
+              {products?products.map((item, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>
@@ -63,7 +63,7 @@ export default function ProductManagement() {
                     </div>
                   </td>
                 </tr>
-              ))}
+              )):<></>}
             </tbody>
           </table>
           <Pagination page={page} pages={pages} direct={direct} />

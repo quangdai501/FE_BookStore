@@ -41,7 +41,7 @@ const Shop = (props) => {
 
   const size = query.size ? query.size : 12;
   const display = `${size * (page - 1) + 1}-${
-    size * (page - 1) + products.length
+    size * (page - 1) + products?products.length:0
   }`;
  
   useEffect(() => {
@@ -92,7 +92,7 @@ const Shop = (props) => {
           showSidebar={showSidebar}
         />
         <div className="row">
-          {products.map((item, index) => (
+          {products?products.map((item, index) => (
             <div className="col c-3 lg-4 md-6">
               <Product
                 imageURL={item.image}
@@ -103,7 +103,7 @@ const Shop = (props) => {
                 productId={item._id}
               />
             </div>
-          ))}
+          )):<></>}
         </div>
 
         <Pagination page={page} pages={pages} direct={direct} />

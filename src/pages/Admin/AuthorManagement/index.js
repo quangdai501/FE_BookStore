@@ -85,7 +85,7 @@ export default function AuthorManagement() {
               </tr>
             </thead>
             <tbody>
-              {authors.map((item, index) => (
+              {authors?authors.map((item, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{item.name}</td>
@@ -108,7 +108,7 @@ export default function AuthorManagement() {
                     </div>
                   </td>
                 </tr>
-              ))}
+              )):<></>}
             </tbody>
           </table>
         </div>

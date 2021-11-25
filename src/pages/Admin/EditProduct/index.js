@@ -96,12 +96,12 @@ export default function EditProduct() {
                   Danh mục
                 </label>
                 <select name="category" {...register("category")}>
-                  {categorys.map((item, index) =>(
+                  {categorys?categorys.map((item, index) =>(
                       <option selected={product&&product.category===item._id} value={item._id} key={index}>
                         {item.name}
                       </option>
                     )
-                  )}
+                  ):<></>}
                 </select>
               </div>
             </div>
@@ -113,11 +113,11 @@ export default function EditProduct() {
                   Tác giả
                 </label>
                 <select name="author" {...register("author")}>
-                  {authors.map((item, index) => (
+                  {authors?authors.map((item, index) => (
                     <option selected={product&&product.author===item._id} value={item._id} key={index}>
                       {item.name}
                     </option>
-                  ))}
+                  )):<></>}
                 </select>
               </div>
             </div>
@@ -127,11 +127,11 @@ export default function EditProduct() {
                   Nhà xuất bản
                 </label>
                 <select name="publisher" {...register("publisher")}>
-                  {publishers.map((item, index) => (
+                  {publishers?publishers.map((item, index) => (
                     <option selected={product&&product.publisherId===item._id} value={item._id} key={index}>
                       {item.name}
                     </option>
-                  ))}
+                  )):<></>}
                 </select>
               </div>
             </div>
