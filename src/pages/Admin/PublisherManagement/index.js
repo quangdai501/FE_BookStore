@@ -85,7 +85,7 @@ export default function PublisherManagement() {
               </tr>
             </thead>
             <tbody>
-              {publishers.map((item, index) => (
+              {publishers?publishers.map((item, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{item.name}</td>
@@ -108,7 +108,7 @@ export default function PublisherManagement() {
                     </div>
                   </td>
                 </tr>
-              ))}
+              )):<></>}
             </tbody>
           </table>
         </div>

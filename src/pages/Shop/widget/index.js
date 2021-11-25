@@ -68,7 +68,7 @@ const Widget = (props) => {
             </div>
           </div>
 
-          {category === true ? (
+          {categorys&&category === true ? (
             <div className="category__list">
               {categorys.map((item, index) => {
                 return (
@@ -82,7 +82,7 @@ const Widget = (props) => {
               })}
             </div>
           ) : (
-            ""
+            <></>
           )}
         </div>
 
@@ -97,7 +97,7 @@ const Widget = (props) => {
               )}
             </div>
           </div>
-          {author === true ? (
+          {authors&&author === true ? (
             <div className="category__list">
               {authors.map((item, index) => {
                 return (
@@ -111,7 +111,7 @@ const Widget = (props) => {
               })}
             </div>
           ) : (
-            ""
+            <></>
           )}
         </div>
       </div>

@@ -85,7 +85,7 @@ export default function CategoryManagement() {
               </tr>
             </thead>
             <tbody>
-              {categorys.map((item, index) => (
+              {categorys?categorys.map((item, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{item.name}</td>
@@ -108,7 +108,7 @@ export default function CategoryManagement() {
                     </div>
                   </td>
                 </tr>
-              ))}
+              )):<></>}
             </tbody>
           </table>
         </div>
