@@ -8,19 +8,35 @@ const CategoryApi = {
     },
     getCategory: (id) => {
         const url = `/category/${id}`;
+
         return axiosClient.get(url);
     },
-    addCategory: (name) => {
+    addCategory: (token, name) => {
         const url = '/category';
-        return axiosClient.post(url, { name });
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        return axiosClient.post(url, name, config);
     },
-    updateCategory: (id, name) => {
-        const url = `/category/${id}`;
-        return axiosClient.patch(url, { name });
+    updateCategory: (token, category) => {
+        const url = `/category/${category.id}`;
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        return axiosClient.patch(url, category, config);
     },
-    deleteCategory: (id) => {
+    deleteCategory: (token, id) => {
         const url = `/category/${id}`;
-        return axiosClient.delete(url);
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        return axiosClient.delete(url, config);
     },
 }
 export default CategoryApi

@@ -1,78 +1,78 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  listAuthors,
-  createAuthor,
-  updateAuthor,
-  deleteAuthor,
-} from "../../../actions/authorAction";
+  listCategorys,
+  createCategory,
+  updateCategory,
+  deleteCategory,
+} from "../../../actions/categoryAction";
 import "./style.scss";
-export default function AuthorManagement() {
-  const [currenAuthor, setCurrenAuthor] = useState({});
-  const changeCurrenAuthor = (e) => {
-    setCurrenAuthor({ ...currenAuthor, name: e.target.value });
+export default function CategoryManagement() {
+  const [currenCategory, setCurrenCategory] = useState({});
+  const changeCurrenCategory = (e) => {
+    setCurrenCategory({ ...currenCategory, name: e.target.value });
   };
 
   const [currentOption, setCurrentOption] = useState("add");
   const setCurrentAction = (option) => {
     if (currentOption !== option) setCurrentOption(option);
     if (option === "add") {
-      setCurrenAuthor({});
+      setCurrenCategory({});
     }
   };
 
   const dispatch = useDispatch();
-  const authorList = useSelector((state) => state.authorList);
-  const { authors } = authorList;
-  const authorDelete = useSelector((state) => state.authorDelete);
+  const categoryList = useSelector((state) => state.categoryList);
+  const { categorys } = categoryList;
+  const categoryDelete = useSelector((state) => state.categoryDelete);
   const {
     loading: loadingDelete,
     error: errorDelete,
     success: successDelete,
-  } = authorDelete;
-  const authorCreate = useSelector((state) => state.authorCreate);
+  } = categoryDelete;
+  const categoryCreate = useSelector((state) => state.categoryCreate);
   const {
     loading: loadingCreate,
     error: errorCreate,
     success: successCreate,
-    author:authorcreate
-  } = authorCreate;
-  const authorUpdate = useSelector((state) => state.authorUpdate);
+    // category:categorycreate
+  } = categoryCreate;
+  const categoryUpdate = useSelector((state) => state.categoryUpdate);
   const {
     loading: loadingUpdate,
     error: errorUpdate,
     success: successUpdate,
-    author:authorupdate
-  } = authorUpdate;
+    // category:categoryupdate
+  } = categoryUpdate;
   useEffect(() => {
-    dispatch(listAuthors());
+    dispatch(listCategorys());
   }, [successCreate,successDelete,successUpdate]);
 
   const gotoEdit = (item) => {
-    setCurrenAuthor(item);
+    setCurrenCategory(item);
     setCurrentAction("edit");
   };
-  const addAuthor = () => {
-    if (currenAuthor.name && currenAuthor.name !== "") {
-      dispatch(createAuthor(currenAuthor));
+  const addCategory = () => {
+    if (currenCategory.name && currenCategory.name !== "") {
+      dispatch(createCategory(currenCategory));
     }
   };
-  const editAuthorInfo = () => {
-    if (currenAuthor._id && currenAuthor.name && currenAuthor.name !== "") {
-      dispatch(updateAuthor(currenAuthor));
+  const editCategoryInfo = () => {
+    if (currenCategory._id && currenCategory.name && currenCategory.name !== "") {
+      dispatch(updateCategory(currenCategory));
     }
   };
-  const delAuthor = (id) => {
+  const delCategory = (id) => {
     if (window.confirm('Are you sure')) {
-        dispatch(deleteAuthor(id));
-        setCurrenAuthor({})
+        dispatch(deleteCategory(id));
+        setCurrenCategory({})
       }
     
   };
   return (
     <div className="container">
       <div className="manage-header">
-        <p className="manage-title">Danh sách tác giả </p>
+        <p className="manage-title">Danh sách danh mục </p>
       </div>
       <div className="row">
         <div className="c-8">
@@ -85,7 +85,7 @@ export default function AuthorManagement() {
               </tr>
             </thead>
             <tbody>
-              {authors.map((item, index) => (
+              {categorys.map((item, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{item.name}</td>
@@ -101,7 +101,7 @@ export default function AuthorManagement() {
                       <p
                         className="edit"
                         title="delete"
-                        onClick={() => delAuthor(item._id)}
+                        onClick={() => delCategory(item._id)}
                       >
                         <i class="fas fa-trash-alt"></i>
                       </p>
@@ -134,26 +134,26 @@ export default function AuthorManagement() {
           <div className="main-frame">
             <div className="form-input">
               <label htmlFor="" className="form-label">
-                Tên tác giả
+                Tên danh mục
               </label>
               <input
                 type="text"
-                onChange={changeCurrenAuthor}
-                value={currenAuthor.name ? currenAuthor.name : ""}
+                onChange={changeCurrenCategory}
+                value={currenCategory.name ? currenCategory.name : ""}
               />
             </div>
             <div className="row center-item">
               {currentOption === "add" ? (
                 <button
                   className="btn btn--border-none"
-                  onClick={() => addAuthor()}
+                  onClick={() => addCategory()}
                 >
                   Thêm
                 </button>
               ) : (
                 <button
                   className="btn btn--border-none"
-                  onClick={() => editAuthorInfo()}
+                  onClick={() => editCategoryInfo()}
                 >
                   Lưu thay đổi
                 </button>

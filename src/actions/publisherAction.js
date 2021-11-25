@@ -58,179 +58,84 @@ export const listPublisherDetails = (id) => async(dispatch) => {
     }
 }
 
-// export const deletePublisher = (id) => async (dispatch, getState) => {
-//   try {
-//     dispatch({
-//       type: PUBLISHER_DELETE_REQUEST,
-//     })
+export const deletePublisher = (id) => async(dispatch, getState) => {
+    try {
+        dispatch({
+            type: PUBLISHER_DELETE_REQUEST,
+        })
 
-//     const {
-//       userLogin: { userInfo },
-//     } = getState()
+        const {
+            userLogin: { userInfo },
+        } = getState()
 
-//     const config = {
-//       headers: {
-//         Publisherization: `Bearer ${userInfo.token}`,
-//       },
-//     }
+        await PublisherApi.deletePublisher(userInfo.token, id)
+        dispatch({
+            type: PUBLISHER_DELETE_SUCCESS,
+        })
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message ?
+            error.response.data.message :
+            error.message
+        dispatch({
+            type: PUBLISHER_DELETE_FAIL,
+            payload: message,
+        })
+    }
+}
 
-//     await axios.delete(`/api/Publishers/${id}`, config)
+export const createPublisher = (name) => async(dispatch, getState) => {
+    try {
+        dispatch({
+            type: PUBLISHER_CREATE_REQUEST,
+        })
 
-//     dispatch({
-//       type: PUBLISHER_DELETE_SUCCESS,
-//     })
-//   } catch (error) {
-//     const message =
-//       error.response && error.response.data.message
-//         ? error.response.data.message
-//         : error.message
-//     if (message === 'Not Publisherized, token failed') {
-//       dispatch(logout())
-//     }
-//     dispatch({
-//       type: PUBLISHER_DELETE_FAIL,
-//       payload: message,
-//     })
-//   }
-// }
+        const {
+            userLogin: { userInfo },
+        } = getState()
 
-// export const createPublisher = () => async (dispatch, getState) => {
-//   try {
-//     dispatch({
-//       type: PUBLISHER_CREATE_REQUEST,
-//     })
+        const { data } = await PublisherApi.addPublisher(userInfo.token, name)
+        dispatch({
+            type: PUBLISHER_CREATE_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message ?
+            error.response.data.message :
+            error.message
+        dispatch({
+            type: PUBLISHER_CREATE_FAIL,
+            payload: message,
+        })
+    }
+}
 
-//     const {
-//       userLogin: { userInfo },
-//     } = getState()
+export const updatePublisher = (Publisher) => async(dispatch, getState) => {
+    try {
+        dispatch({
+            type: PUBLISHER_UPDATE_REQUEST,
+        })
 
-//     const config = {
-//       headers: {
-//         Publisherization: `Bearer ${userInfo.token}`,
-//       },
-//     }
+        const {
+            userLogin: { userInfo },
+        } = getState()
 
-//     const { data } = await axios.post(`/api/Publishers`, {}, config)
+        const { data } = await PublisherApi.updatePublisher(userInfo.token, Publisher)
 
-//     dispatch({
-//       type: PUBLISHER_CREATE_SUCCESS,
-//       payload: data,
-//     })
-//   } catch (error) {
-//     const message =
-//       error.response && error.response.data.message
-//         ? error.response.data.message
-//         : error.message
-//     if (message === 'Not Publisherized, token failed') {
-//       dispatch(logout())
-//     }
-//     dispatch({
-//       type: PUBLISHER_CREATE_FAIL,
-//       payload: message,
-//     })
-//   }
-// }
-
-// export const updatePublisher = (Publisher) => async (dispatch, getState) => {
-//   try {
-//     dispatch({
-//       type: PUBLISHER_UPDATE_REQUEST,
-//     })
-
-//     const {
-//       userLogin: { userInfo },
-//     } = getState()
-
-//     const config = {
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Publisherization: `Bearer ${userInfo.token}`,
-//       },
-//     }
-
-//     const { data } = await axios.put(
-//       `/api/Publishers/${Publisher._id}`,
-//       Publisher,
-//       config
-//     )
-
-//     dispatch({
-//       type: PUBLISHER_UPDATE_SUCCESS,
-//       payload: data,
-//     })
-//     dispatch({ type: PUBLISHER_DETAILS_SUCCESS, payload: data })
-//   } catch (error) {
-//     const message =
-//       error.response && error.response.data.message
-//         ? error.response.data.message
-//         : error.message
-//     if (message === 'Not Publisherized, token failed') {
-//       dispatch(logout())
-//     }
-//     dispatch({
-//       type: PUBLISHER_UPDATE_FAIL,
-//       payload: message,
-//     })
-//   }
-// }
-
-// export const createPublisherReview = (PublisherId, review) => async (
-//   dispatch,
-//   getState
-// ) => {
-//   try {
-//     dispatch({
-//       type: PUBLISHER_CREATE_REVIEW_REQUEST,
-//     })
-
-//     const {
-//       userLogin: { userInfo },
-//     } = getState()
-
-//     const config = {
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Publisherization: `Bearer ${userInfo.token}`,
-//       },
-//     }
-
-//     await axios.post(`/api/Publishers/${PublisherId}/reviews`, review, config)
-
-//     dispatch({
-//       type: PUBLISHER_CREATE_REVIEW_SUCCESS,
-//     })
-//   } catch (error) {
-//     const message =
-//       error.response && error.response.data.message
-//         ? error.response.data.message
-//         : error.message
-//     if (message === 'Not Publisherized, token failed') {
-//       dispatch(logout())
-//     }
-//     dispatch({
-//       type: PUBLISHER_CREATE_REVIEW_FAIL,
-//       payload: message,
-//     })
-//   }
-// }
-
-// export const listTopPublishers = () => async (dispatch) => {
-//   try {
-//     dispatch({ type: PUBLISHER_TOP_REQUEST })
-
-//     const { data } = await axios.get(`/api/Publishers/top`)
-
-//     dispatch({
-//       type: PUBLISHER_TOP_SUCCESS,
-//       payload: data,
-//     })
-//   } catch (error) {
-//     dispatch({
-//       type: PUBLISHER_TOP_FAIL,
-//       payload:
-//         error.response && error.response.data.message
-//           ? error.response.data.message
-//           : error.message,
-//     })
-//   }
-// }
+        dispatch({
+            type: PUBLISHER_UPDATE_SUCCESS,
+            payload: data,
+        })
+        dispatch({ type: PUBLISHER_DETAILS_SUCCESS, payload: data })
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message ?
+            error.response.data.message :
+            error.message
+        dispatch({
+            type: PUBLISHER_UPDATE_FAIL,
+            payload: message,
+        })
+    }
+}

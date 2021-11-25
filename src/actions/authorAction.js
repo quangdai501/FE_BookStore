@@ -9,14 +9,12 @@ import {
     AUTHOR_DELETE_REQUEST,
     AUTHOR_DELETE_SUCCESS,
     AUTHOR_DELETE_FAIL,
-    AUTHOR_CREATE_RESET,
     AUTHOR_CREATE_FAIL,
     AUTHOR_CREATE_SUCCESS,
     AUTHOR_CREATE_REQUEST,
     AUTHOR_UPDATE_REQUEST,
     AUTHOR_UPDATE_SUCCESS,
     AUTHOR_UPDATE_FAIL,
-    AUTHOR_UPDATE_RESET,
 } from '../constants/author'
 // import { logout } from './userActions'
 
@@ -58,179 +56,84 @@ export const listAuthorDetails = (id) => async(dispatch) => {
     }
 }
 
-// export const deleteAuthor = (id) => async (dispatch, getState) => {
-//   try {
-//     dispatch({
-//       type: AUTHOR_DELETE_REQUEST,
-//     })
+export const deleteAuthor = (id) => async(dispatch, getState) => {
+    try {
+        dispatch({
+            type: AUTHOR_DELETE_REQUEST,
+        })
 
-//     const {
-//       userLogin: { userInfo },
-//     } = getState()
+        const {
+            userLogin: { userInfo },
+        } = getState()
 
-//     const config = {
-//       headers: {
-//         Authorization: `Bearer ${userInfo.token}`,
-//       },
-//     }
+        await AuthorApi.deleteAuthor(userInfo.token, id)
+        dispatch({
+            type: AUTHOR_DELETE_SUCCESS,
+        })
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message ?
+            error.response.data.message :
+            error.message
+        dispatch({
+            type: AUTHOR_DELETE_FAIL,
+            payload: message,
+        })
+    }
+}
 
-//     await axios.delete(`/api/Authors/${id}`, config)
+export const createAuthor = (name) => async(dispatch, getState) => {
+    try {
+        dispatch({
+            type: AUTHOR_CREATE_REQUEST,
+        })
 
-//     dispatch({
-//       type: AUTHOR_DELETE_SUCCESS,
-//     })
-//   } catch (error) {
-//     const message =
-//       error.response && error.response.data.message
-//         ? error.response.data.message
-//         : error.message
-//     if (message === 'Not authorized, token failed') {
-//       dispatch(logout())
-//     }
-//     dispatch({
-//       type: AUTHOR_DELETE_FAIL,
-//       payload: message,
-//     })
-//   }
-// }
+        const {
+            userLogin: { userInfo },
+        } = getState()
 
-// export const createAuthor = () => async (dispatch, getState) => {
-//   try {
-//     dispatch({
-//       type: AUTHOR_CREATE_REQUEST,
-//     })
+        const { data } = await AuthorApi.addAuthor(userInfo.token, name)
+        dispatch({
+            type: AUTHOR_CREATE_SUCCESS,
+            payload: data,
+        })
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message ?
+            error.response.data.message :
+            error.message
+        dispatch({
+            type: AUTHOR_CREATE_FAIL,
+            payload: message,
+        })
+    }
+}
 
-//     const {
-//       userLogin: { userInfo },
-//     } = getState()
+export const updateAuthor = (Author) => async(dispatch, getState) => {
+    try {
+        dispatch({
+            type: AUTHOR_UPDATE_REQUEST,
+        })
 
-//     const config = {
-//       headers: {
-//         Authorization: `Bearer ${userInfo.token}`,
-//       },
-//     }
+        const {
+            userLogin: { userInfo },
+        } = getState()
 
-//     const { data } = await axios.post(`/api/Authors`, {}, config)
+        const { data } = await AuthorApi.updateAuthor(userInfo.token, Author)
 
-//     dispatch({
-//       type: AUTHOR_CREATE_SUCCESS,
-//       payload: data,
-//     })
-//   } catch (error) {
-//     const message =
-//       error.response && error.response.data.message
-//         ? error.response.data.message
-//         : error.message
-//     if (message === 'Not authorized, token failed') {
-//       dispatch(logout())
-//     }
-//     dispatch({
-//       type: AUTHOR_CREATE_FAIL,
-//       payload: message,
-//     })
-//   }
-// }
-
-// export const updateAuthor = (Author) => async (dispatch, getState) => {
-//   try {
-//     dispatch({
-//       type: AUTHOR_UPDATE_REQUEST,
-//     })
-
-//     const {
-//       userLogin: { userInfo },
-//     } = getState()
-
-//     const config = {
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization: `Bearer ${userInfo.token}`,
-//       },
-//     }
-
-//     const { data } = await axios.put(
-//       `/api/Authors/${Author._id}`,
-//       Author,
-//       config
-//     )
-
-//     dispatch({
-//       type: AUTHOR_UPDATE_SUCCESS,
-//       payload: data,
-//     })
-//     dispatch({ type: AUTHOR_DETAILS_SUCCESS, payload: data })
-//   } catch (error) {
-//     const message =
-//       error.response && error.response.data.message
-//         ? error.response.data.message
-//         : error.message
-//     if (message === 'Not authorized, token failed') {
-//       dispatch(logout())
-//     }
-//     dispatch({
-//       type: AUTHOR_UPDATE_FAIL,
-//       payload: message,
-//     })
-//   }
-// }
-
-// export const createAuthorReview = (AuthorId, review) => async (
-//   dispatch,
-//   getState
-// ) => {
-//   try {
-//     dispatch({
-//       type: AUTHOR_CREATE_REVIEW_REQUEST,
-//     })
-
-//     const {
-//       userLogin: { userInfo },
-//     } = getState()
-
-//     const config = {
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization: `Bearer ${userInfo.token}`,
-//       },
-//     }
-
-//     await axios.post(`/api/Authors/${AuthorId}/reviews`, review, config)
-
-//     dispatch({
-//       type: AUTHOR_CREATE_REVIEW_SUCCESS,
-//     })
-//   } catch (error) {
-//     const message =
-//       error.response && error.response.data.message
-//         ? error.response.data.message
-//         : error.message
-//     if (message === 'Not authorized, token failed') {
-//       dispatch(logout())
-//     }
-//     dispatch({
-//       type: AUTHOR_CREATE_REVIEW_FAIL,
-//       payload: message,
-//     })
-//   }
-// }
-
-// export const listTopAuthors = () => async (dispatch) => {
-//   try {
-//     dispatch({ type: AUTHOR_TOP_REQUEST })
-
-//     const { data } = await axios.get(`/api/Authors/top`)
-
-//     dispatch({
-//       type: AUTHOR_TOP_SUCCESS,
-//       payload: data,
-//     })
-//   } catch (error) {
-//     dispatch({
-//       type: AUTHOR_TOP_FAIL,
-//       payload:
-//         error.response && error.response.data.message
-//           ? error.response.data.message
-//           : error.message,
-//     })
-//   }
-// }
+        dispatch({
+            type: AUTHOR_UPDATE_SUCCESS,
+            payload: data,
+        })
+        dispatch({ type: AUTHOR_DETAILS_SUCCESS, payload: data })
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message ?
+            error.response.data.message :
+            error.message
+        dispatch({
+            type: AUTHOR_UPDATE_FAIL,
+            payload: message,
+        })
+    }
+}
