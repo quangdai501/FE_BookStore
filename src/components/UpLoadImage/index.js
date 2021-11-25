@@ -6,7 +6,7 @@ UpLoadImage.propTypes = {
   setImage: PropTypes.func.isRequired,
 };
 export default function UpLoadImage(props) {
-  const [img, setImg] = useState("");
+  const [img, setImg] = useState(props.image);
   const fileRef = useRef();
   const handleImage = () => {
     if (fileRef.current) {
