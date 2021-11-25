@@ -21,7 +21,7 @@ const CategoryApi = {
         return axiosClient.post(url, name, config);
     },
     updateCategory: (token, category) => {
-        const url = `/category/${category.id}`;
+        const url = `/category/${category._id}`;
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`,
