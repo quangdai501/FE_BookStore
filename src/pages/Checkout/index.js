@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { createOrder } from '../../actions/orderAction';
@@ -8,6 +8,7 @@ import { priceToString } from "../../common/convertNumberToPrice";
 import Item from "./item";
 import "./style.scss";
 const Checkout = () => {
+  const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
 
@@ -34,6 +35,21 @@ const Checkout = () => {
     }, [])
   }, []);
 
+  const getProvince = async () => {
+    const { data: { data } } = await axios.get(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province`, {
+      headers: {
+        token: "ef8f9c13-2315-11ec-b8c6-fade198b4859",
+      }
+    })
+
+    setProvinces(data.reduce((list, item) => {
+      list.push({
+        ProvinceID: item.ProvinceID,
+        ProvinceName: item.ProvinceName
+      });
+      return list.sort();
+    }, []));
+  }
   const getDistrict = async (ProvinceID) => {
     const { data: { data } } = await axios.get(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/district?province_id=${ProvinceID}`, {
       headers: {
@@ -108,11 +124,15 @@ const Checkout = () => {
       }
     }
   };
+
+  useEffect(() => {
+    getProvince()
+  }, [])
   return (
     <div className="checkout">
       <h1>Thanh toán</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="row checkout-session">
-        <div className="Billing-details col c-5 md-12">
+        <div className="Billing-details col c-6 lg-12 padding">
           <div className="form-input">
             <label htmlFor="name" className="form-label">
               Tên người nhận
@@ -141,7 +161,7 @@ const Checkout = () => {
               Tỉnh, Thành phố
             </label>
             <select name="province" {...register("province")} onChange={onChangeProvince}>
-              {provinceList?.map((item) => (
+              {provinces?.map((item) => (
                 <option value={item.ProvinceName} key={item.ProvinceID}>{item.ProvinceName}</option>
               ))}
             </select>
@@ -177,7 +197,7 @@ const Checkout = () => {
             />
           </div>
         </div>
-        <div className="Orders col c-5 md-12">
+        <div className="Orders col c-6 lg-12 padding">
           <div className="order-row">
             <h3 className="title">Sản phẩm của bạn:</h3>
 

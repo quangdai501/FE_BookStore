@@ -11,13 +11,13 @@
         text-align: center;
         padding: 40px;
     }
-    // .checkout-session {
-    //     justify-content: space-around;
-    // }
+    .checkout-session {
+        justify-content: space-between;
+    }
 }
 
 .Orders {
-    border: 1px solid $dark;
+    border: 1px solid $gray200;
     height: fit-content;
     color: $dark;
     font-size: 16px;
@@ -44,6 +44,9 @@
         }
         .sub-title {
             padding-left: 16px;
+        }
+        &:last-child {
+            border-bottom: none;
         }
     }
 }
