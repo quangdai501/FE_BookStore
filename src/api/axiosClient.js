@@ -7,14 +7,14 @@ const axiosClient = axios.create({
     },
 });
 
-axiosClient.interceptors.request.use(async(config) => {
+axiosClient.interceptors.request.use(async (config) => {
     //handle token here
     return config;
 });
 axiosClient.interceptors.response.use((response) => {
     return response;
-}, () => {
-    throw new Error()
+}, (error) => {
+    console.log(error)
 });
 
 export default axiosClient;

@@ -1,47 +1,106 @@
-import React from "react";
+import axios from "axios";
+import React, { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from 'react-redux';
+import { createOrder } from '../../actions/orderAction';
+import { province } from "../Utils/province";
 import Item from "./item";
 import "./style.scss";
 const Checkout = () => {
+  const [districts, setDistricts] = useState([]);
+  const [wards, setWards] = useState([]);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const cart = [
-    {
-      title: "Yêu Em Bằng Mắt, Giữ Em Bằng Tim",
-      image:
-        "https://www.vinabook.com/images/thumbnails/product/240x/366437_p93863mnxbtredocyeuembangmatgiuembangtimpage001.jpg",
-      price: 140000,
-      quantity: 1,
-    },
-    {
-      title: "Yêu Em Bằng Mắt, Giữ Em Bằng Tim",
-      image:
-        "https://www.vinabook.com/images/thumbnails/product/240x/366437_p93863mnxbtredocyeuembangmatgiuembangtimpage001.jpg",
-      price: 140000,
-      quantity: 1,
-    },
-    {
-      title: "Yêu Em Bằng Mắt, Giữ Em Bằng Tim",
-      image:
-        "https://www.vinabook.com/images/thumbnails/product/240x/366437_p93863mnxbtredocyeuembangmatgiuembangtimpage001.jpg",
-      price: 140000,
-      quantity: 2,
-    },
-  ];
+  const provinceList = useMemo(() => {
+    const newList = JSON.stringify(province);
+    return JSON.parse(newList).data.reduce((list, item) => {
+      list.push({
+        ProvinceID: item.ProvinceID,
+        ProvinceName: item.ProvinceName
+      });
+      return list.sort();
+    }, [])
+  }, []);
+
+  const getDistrict = async (ProvinceID) => {
+    const { data: { data } } = await axios.get(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/district?province_id=${ProvinceID}`, {
+      headers: {
+        token: "ef8f9c13-2315-11ec-b8c6-fade198b4859",
+      }
+    })
+    setDistricts(data);
+  }
+  const getWard = async (districtID) => {
+    const { data: { data } } = await axios.get(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/ward?district_id=${districtID}`, {
+      headers: {
+        token: "ef8f9c13-2315-11ec-b8c6-fade198b4859",
+      }
+    })
+    setWards(data);
+  }
+
+  const onChangeProvince = (e) => {
+    const name = e.target.value;
+    const province = provinceList.find(item => item.ProvinceName === name);
+    console.log(province.ProvinceID);
+    getDistrict(province.ProvinceID);
+  }
+
+  const onChangeDistrict = (e) => {
+    const name = e.target.value;
+    const district = districts.find(item => item.DistrictName === name);
+    console.log(district.DistrictID);
+    getWard(district.DistrictID);
+  }
+
+  const { cartItems } = useSelector(state => state.cart);
+
+  const userLogin = useSelector((state) => state.userLogin);
+
+  const dispatch = useDispatch();
+
+  const totalCart = useMemo(() =>
+    cartItems.reduce((total, item) => total += item.price * item.qty, 0), [cartItems]);
+
+  const billDetail = useMemo(() =>
+    cartItems.reduce((list, currItem) => {
+      list.push({
+        productId: currItem.product,
+        name: currItem.name,
+        image: currItem.image,
+        price: currItem.price,
+        qty: currItem.qty,
+      })
+      return list
+    }, []), [cartItems]);
 
   const phonePatterm = {
     value: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
     message: "Số điện thoại có 10 chữ số, chứa các chữ số 0-9",
   };
+
   const onSubmit = (data) => {
     if (data) {
-      console.log(data);
+      const address = {
+        to_ward_code: Number(wards.find(item => item.WardName === data.village).WardCode),
+        to_district_id: Number(districts.find(item => item.DistrictName === data.district).DistrictID),
+        province: data.province,
+        district: data.district,
+        ward: data.village,
+        detail: data.address,
+      }
+      if (data.payment === "online") {
+        dispatch(createOrder(userLogin._id, data.name, totalCart, address, data.phone, billDetail, "Thanh toán online"));
+      }
+      else {
+        dispatch(createOrder(userLogin._id, data.name, totalCart, address, data.phone, billDetail, "Thanh toán khi nhận hàng"));
+      }
     }
-    //handle submit here
   };
   return (
     <div className="checkout">
@@ -75,9 +134,9 @@ const Checkout = () => {
             <label htmlFor="province" className="form-label">
               Tỉnh, Thành phố
             </label>
-            <select name="province" {...register("province")}>
-              {[1, 2, 3].map((item) => (
-                <option value={item}>{item}</option>
+            <select name="province" {...register("province")} onChange={onChangeProvince}>
+              {provinceList?.map((item) => (
+                <option value={item.ProvinceName} key={item.ProvinceID}>{item.ProvinceName}</option>
               ))}
             </select>
           </div>
@@ -85,9 +144,9 @@ const Checkout = () => {
             <label htmlFor="district" className="form-label">
               Quận, Huyện
             </label>
-            <select name="district" {...register("district")}>
-              {[1, 2, 3].map((item) => (
-                <option value={item}>{item}</option>
+            <select name="district" {...register("district")} onChange={onChangeDistrict}>
+              {districts.map((item) => (
+                <option value={item.DistrictName} key={item.DistrictID}>{item.DistrictName}</option>
               ))}
             </select>
           </div>
@@ -96,8 +155,8 @@ const Checkout = () => {
               Xã, Phường
             </label>
             <select name="village" {...register("village")}>
-              {[1, 2, 3].map((item) => (
-                <option value={item}>{item}</option>
+              {wards.map((item) => (
+                <option value={item.WardName} key={item.WardCode}>{item.WardName}</option>
               ))}
             </select>
           </div>
@@ -108,7 +167,7 @@ const Checkout = () => {
             <input
               type="text"
               name="address"
-              {...register("address", { required: true, maxLength: 20 })}
+              {...register("address", { required: true })}
             />
           </div>
         </div>
@@ -116,7 +175,7 @@ const Checkout = () => {
           <div className="order-row">
             <h3 className="title">Sản phẩm của bạn</h3>
 
-            {cart.map((item, index) => (
+            {cartItems.map((item, index) => (
               <Item cart={item} key={index} />
             ))}
           </div>
