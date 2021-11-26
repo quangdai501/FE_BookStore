@@ -50,7 +50,8 @@ const createOrder = (user_id, name, total, address, phone, billDetail, payment) 
             type: ORDER_CREATE_SUCCESS,
             payload: data
         });
-        dispatch({ type: CART_CLEAR_ITEMS })
+        dispatch({ type: CART_CLEAR_ITEMS });
+
     } catch (error) {
         dispatch({ type: ORDER_CREATE_FAIL, payload: error.message });
     }
