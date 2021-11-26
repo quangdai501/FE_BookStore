@@ -4,6 +4,7 @@ import "./style.scss";
 import { useDispatch } from "react-redux";
 import { addToCart } from '../../actions/cartAction'
 import { useNavigate } from "react-router";
+import { priceToString } from "../../common/convertNumberToPrice";
 Product.propTypes = {
   imageURL: PropTypes.string.isRequired,
   publisher: PropTypes.string.isRequired,
@@ -36,7 +37,7 @@ export default function Product(props) {
         <a class="product-info__author" href="/#">
           {props.author}
         </a>
-        <p class="product-info__price">{props.price}</p>
+        <p class="product-info__price">{priceToString(props.price)}</p>
       </div>
       <div class="action" onClick={addtoCart}>
         <p class="btn--add-to-cart">Add to cart</p>

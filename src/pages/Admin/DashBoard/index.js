@@ -12,6 +12,7 @@ import Statistics from '../Statistics';
 import EditProduct from '../EditProduct';
 import OverView from './item/OverView';
 import CategoryManagement from '../CategoryManagement';
+import OrderManagement from '../OrderManagement';
 export default function DashBoard() {
     return (
         <div className="row">
@@ -28,7 +29,7 @@ export default function DashBoard() {
                         <Route path="product" element={<ProductManagement />} />
                         <Route path="product/create" element={<AddProduct />} />
                         <Route path="product/edit/:productId" element={<EditProduct />} />
-                        <Route path="order" element={<EditProduct />} />
+                        <Route path="order" element={<OrderManagement />} />
                         <Route path="user" element={<UserManagement />} />
                         <Route path="author" element={<AuthorManagement />} />
                         <Route path="author/create" element={<AuthorManagement />} />

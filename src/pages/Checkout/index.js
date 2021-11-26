@@ -4,11 +4,18 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { createOrder } from '../../actions/orderAction';
 import { province } from "../Utils/province";
+import { priceToString } from "../../common/convertNumberToPrice";
 import Item from "./item";
 import "./style.scss";
 const Checkout = () => {
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
+
+
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+
+  const shippingFee = 15000;
 
   const {
     register,
@@ -58,7 +65,6 @@ const Checkout = () => {
     getWard(district.DistrictID);
   }
 
-  const { cartItems } = useSelector(state => state.cart);
 
   const userLogin = useSelector((state) => state.userLogin);
 
@@ -173,32 +179,32 @@ const Checkout = () => {
         </div>
         <div className="Orders col c-5 md-12">
           <div className="order-row">
-            <h3 className="title">Sản phẩm của bạn</h3>
+            <h3 className="title">Sản phẩm của bạn:</h3>
 
-            {cartItems.map((item, index) => (
+            {cartItems ? cartItems.map((item, index) => (
               <Item cart={item} key={index} />
-            ))}
+            )) : <></>}
           </div>
           <div className="order-row">
             <div className="row">
-              <h3 className=" col c-8">Tổng Giỏ hàng</h3>
-              <div className="col c-4">100.000</div>
+              <h3 className=" col c-8">Tổng Giỏ hàng:</h3>
+              <div className="col c-4">{priceToString(totalCart)}</div>
             </div>
           </div>
           <div className="order-row">
             <div className="row">
-              <h3 className=" col c-8">Chi phí vận chuyển</h3>
-              <div className="col c-4">15.000</div>
+              <h3 className=" col c-8">Chi phí vận chuyển:</h3>
+              <div className="col c-4">{priceToString(shippingFee)}</div>
             </div>
           </div>
           <div className="order-row">
             <div className="row">
-              <h3 className=" col c-8">Tổng </h3>
-              <h3 className=" col c-4">115.000 </h3>
+              <h3 className=" col c-8">Tổng: </h3>
+              <h3 className=" col c-4">{priceToString(shippingFee + totalCart)}</h3>
             </div>
           </div>
           <div className="order-row">
-            <h3 className="title">Phương thức thanh toán </h3>
+            <h3 className="title">Phương thức thanh toán: </h3>
             <div className="row sub-title">
               <input
                 type="radio"

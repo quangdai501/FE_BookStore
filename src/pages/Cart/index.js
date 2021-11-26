@@ -1,43 +1,21 @@
 import React from "react";
 import CartItem from "../../components/CartItem";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
 import "./style.scss";
 import {  useSelector } from "react-redux";
+import { priceToString } from "../../common/convertNumberToPrice";
 const Cart = () => {
-  // const cart = [
-  //   {
-  //     title: "Yêu Em Bằng Mắt, Giữ Em Bằng Tim",
-  //     image:
-  //       "https://www.vinabook.com/images/thumbnails/product/240x/366437_p93863mnxbtredocyeuembangmatgiuembangtimpage001.jpg",
-  //     price: 140000,
-  //     quantity: 1,
-  //   },
-  //   {
-  //     title: "Yêu Em Bằng Mắt, Giữ Em Bằng Tim",
-  //     image:
-  //       "https://www.vinabook.com/images/thumbnails/product/240x/366437_p93863mnxbtredocyeuembangmatgiuembangtimpage001.jpg",
-  //     price: 140000,
-  //     quantity: 1,
-  //   },
-  //   {
-  //     title: "Yêu Em Bằng Mắt, Giữ Em Bằng Tim",
-  //     image:
-  //       "https://www.vinabook.com/images/thumbnails/product/240x/366437_p93863mnxbtredocyeuembangmatgiuembangtimpage001.jpg",
-  //     price: 140000,
-  //     quantity: 2,
-  //   },
-  // ];
- 
-
   const cart = useSelector((state) => state.cart)
   const { cartItems } = cart
 
   const totalCart=cartItems.reduce((s,i)=>s+(i.qty*i.price),0)
-  
-
+  let navigate = useNavigate();
+  const gotoCheckout = () => {
+    navigate("/checkout");
+  };
   return (
     <div>
-      <h1>Cart</h1>
+      <h1 className="cart-header">Giỏ hàng của bạn</h1>
       <div className="cart row">
         <div className="list-item col c-6 md-12">
           {cartItems.map((item, index) => (
@@ -47,8 +25,8 @@ const Cart = () => {
         <div className="Orders col c-4 md-12">
             <div className="order-row">
               <div className="row">
-                <h3 className="title col c-8">Tổng Giỏ hàng</h3>
-                <div className="col c-4">{totalCart}</div>
+                <h3 className="title col c-8">Tổng Giỏ hàng:</h3>
+                <div className="col c-4">{priceToString(totalCart)}</div>
               </div>
             </div>
             
@@ -56,6 +34,7 @@ const Cart = () => {
               <button
                 className="btn btn--border-none btn--full-width"
                 type="submit"
+                onClick={gotoCheckout}
               >
                 {/* <Link to="/checkout">Đến trang đặt hàng</Link> */}
                 Đến trang đặt hàng
