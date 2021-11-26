@@ -28,8 +28,8 @@ const UserApi = {
         }
         return axiosClient.patch(url, user, config);
     },
-    getUserInfoByID: (id, token) => {
-        const url = `/users/getUser-info/${id}`;
+    getUserInfoByID: (token) => {
+        const url = `/users/getUser-info/`;
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -37,9 +37,14 @@ const UserApi = {
         }
         return axiosClient.get(url, config);
     },
-    getAllUsers: () => {
+    getAllUsers: (token) => {
         const url = '/users';
-        return axiosClient.get(url);
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        return axiosClient.get(url, config);
     },
     addUser: (code) => {
         const url = '/users/add-user';
@@ -49,9 +54,14 @@ const UserApi = {
         const url = '/users/update-password';
         return axiosClient.patch(url, { email, password });
     },
-    deleteUser: (id) => {
+    deleteUser: (id, token) => {
         const url = `/users/${id}`;
-        return axiosClient.delete(url);
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        return axiosClient.delete(url, config);
     },
 }
 export default UserApi
