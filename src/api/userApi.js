@@ -19,13 +19,23 @@ const UserApi = {
         return axiosClient.post(url, { code });
     },
 
-    updateUserInfo: (id, params) => {
+    updateUserInfo: (id, user, token) => {
         const url = `/users/update-info/${id}`;
-        return axiosClient.patch(url, { params });
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        return axiosClient.patch(url, user, config);
     },
-    getUserInfoByID: (id) => {
+    getUserInfoByID: (id, token) => {
         const url = `/users/getUser-info/${id}`;
-        return axiosClient.get(url);
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        return axiosClient.get(url, config);
     },
     getAllUsers: () => {
         const url = '/users';
