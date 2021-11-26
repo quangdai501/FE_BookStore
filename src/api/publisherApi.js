@@ -20,7 +20,7 @@ const PublisherApi = {
         return axiosClient.post(url, name, config);
     },
     updatePublisher: (token, publisher) => {
-        const url = `/publisher/${publisher.id}`;
+        const url = `/publisher/${publisher._id}`;
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`,

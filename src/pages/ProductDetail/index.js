@@ -3,7 +3,7 @@ import "./style.scss";
 import Review from "./item/Review";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { listProductDetails } from "../../actions/productAction";
+import { createProductReview, listProductDetails } from "../../actions/productAction";
 import { addToCart } from "../../actions/cartAction";
 export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
@@ -13,10 +13,18 @@ export default function ProductDetail() {
   const productDetails = useSelector((state) => state.productDetails);
   const { product } = productDetails;
 
+  const productReviewCreate = useSelector((state) => state.productReviewCreate);
+  const {
+    loading: loadingCreate,
+    error: errorCreate,
+    success: successCreate,
+    review:reviewcreate
+  } = productReviewCreate;
+
   useEffect(() => {
     dispatch(listProductDetails(id.productID));
     // console.log(JSON.stringify(product))
-  }, []);
+  }, [successCreate]);
 
   const changeQuantity = (payload) => {
     if ((quantity + payload > 0) & (quantity + payload <= product.quantity)) {
@@ -27,24 +35,27 @@ export default function ProductDetail() {
     dispatch(addToCart(product._id, quantity));
   };
   
+  const createReview=(review)=>{
+    dispatch(createProductReview(product._id,review))
+  }
     return (  
       <div className="container">
         <div className="row">
           <div className="col c-6 md-12 padding">
             <div className="product-image">
-              <img src={product.image} alt="" />
+              <img src={product?product.image:''} alt="" />
             </div>
           </div>
           <div className="col c-6 md-12 padding">
             <div className="product-infor">
-              <div className="product-name">{product.name}</div>
+              <div className="product-name">{product?product.name:''}</div>
               <div className="product-publisher">
-                Nhà cung cấp: {product.publisher?product.publisher.name:''}
+                Nhà cung cấp: {product&&product.publisher?product.publisher.name:''}
               </div>
               <div className="product-author">
-                Tác giả: {product.authors?product.authors.name:''}
+                Tác giả: {product&&product.authors?product.authors.name:''}
               </div>
-              <div className="product-price">{product.price}</div>
+              <div className="product-price">{product?product.price:''}</div>
               <div className="purchase">
                 <div className="number">
                   <div className="minus" onClick={() => changeQuantity(-1)}>
@@ -70,10 +81,10 @@ export default function ProductDetail() {
         <div className="row">
           <div className="product-desc">
             <h3 className="desc-title">Mô Tả Sản Phẩm</h3>
-            <p>{product.description}</p>
+            <p>{product?product.description:''}</p>
           </div>
         </div>
-        <Review />
+        <Review reviews={product?product.reviews:[]} createReview={createReview}/>
       </div>
     );
   
