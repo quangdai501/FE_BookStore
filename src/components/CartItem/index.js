@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../../actions/cartAction";
+import { priceToString } from "../../common/convertNumberToPrice";
 import "./style.scss";
 
 export default function CartItem(props) {
@@ -12,12 +13,7 @@ export default function CartItem(props) {
     dispatch(removeFromCart(product))
   }
  
-    const priceToString=(price)=>{
-        return (price).toLocaleString('vi-VN', {
-            style: 'currency',
-            currency: 'VND',
-          }); 
-    }
+
     const changeQuantity=(payload)=>{
         if(qty+payload>0){
           dispatch(addToCart(product,qty+payload))
