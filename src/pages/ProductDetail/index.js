@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { createProductReview, listProductDetails } from "../../actions/productAction";
 import { addToCart } from "../../actions/cartAction";
+import { priceToString } from "../../common/convertNumberToPrice";
 export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
 
@@ -55,7 +56,7 @@ export default function ProductDetail() {
               <div className="product-author">
                 Tác giả: {product&&product.authors?product.authors.name:''}
               </div>
-              <div className="product-price">{product?product.price:''}</div>
+              <div className="product-price">{priceToString(product?product.price:0)}</div>
               <div className="purchase">
                 <div className="number">
                   <div className="minus" onClick={() => changeQuantity(-1)}>
