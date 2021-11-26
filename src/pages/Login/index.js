@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import { login } from '../../actions/userAction'
 export default function Login() {
   const { register, handleSubmit } = useForm();
@@ -11,7 +12,15 @@ export default function Login() {
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
   
-  console.log(userInfo)
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/shop");
+    }
+  }, [JSON.stringify(userInfo)])
+  
+  // console.log(userInfo)
   const onSubmit = (data) => {
     const { email, password } = data;
     //handle submit here
