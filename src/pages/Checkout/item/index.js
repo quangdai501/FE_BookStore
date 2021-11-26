@@ -11,9 +11,10 @@ const Item = (props) => {
                 <img className="col c-4" src={image}  />          
                 <div className="subject col c-8">
                     <h4>{name}</h4>
-                    <div className="row">
-                        <p className="col c-6">{qty}<b>X</b>{priceToString(price)}</p>
-                        <p className="col c-6">{priceToString(total)}</p>
+                    <div className="row flex-row">
+
+                        <p >{qty}<b>X</b>{priceToString(price)}</p>
+                        <p >{priceToString(total)}</p>
                     </div>                
                 </div>               
         </div>
