@@ -40,10 +40,9 @@ const Shop = (props) => {
   const [query, setQuery] = useState(useQuery());
 
   const size = query.size ? query.size : 12;
-  const display = `${size * (page - 1) + 1}-${
-    size * (page - 1) + products?products.length:0
-  }`;
- 
+  const display = `${size * (page - 1) + 1}-${size * (page - 1) + products ? products.length : 0
+    }`;
+
   useEffect(() => {
     // const params = new URLSearchParams(query);
     const params = Object.entries(query)
@@ -74,16 +73,16 @@ const Shop = (props) => {
     setQuery(newobj);
   };
   return (
-    <div className="shop ">
+    <div className="shop space" >
       <div className={sidebar ? "modal active" : "modal"} onClick={showSidebar}>
         <Widget sidebar={sidebar} showSidebar={showSidebar} direct={direct} />
       </div>
 
       <div>
         {query["search"] || query["author"] || query["category"] ? (
-         <FilterBar query={query} removeFilter={removeFilter}/>
+          <FilterBar query={query} removeFilter={removeFilter} />
         ) : (
-         <></>
+          <></>
         )}
         <Sortbar
           display={display}
@@ -92,8 +91,8 @@ const Shop = (props) => {
           showSidebar={showSidebar}
         />
         <div className="row">
-          {products?products.map((item, index) => (
-            <div className="col c-3 lg-4 md-6">
+          {products ? products.map((item, index) => (
+            <div className="col c-3 lg-4 md-6 row">
               <Product
                 imageURL={item.image}
                 name={item.name}
@@ -103,7 +102,7 @@ const Shop = (props) => {
                 productId={item._id}
               />
             </div>
-          )):<></>}
+          )) : <></>}
         </div>
 
         <Pagination page={page} pages={pages} direct={direct} />

@@ -11,7 +11,7 @@ export default function Login() {
   const dispatch = useDispatch()
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
-  
+
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function Login() {
       navigate("/shop");
     }
   }, [JSON.stringify(userInfo)])
-  
+
   // console.log(userInfo)
   const onSubmit = (data) => {
     const { email, password } = data;
@@ -28,34 +28,35 @@ export default function Login() {
   };
 
   return (
-    <div className="login">
-      <div className="login__header">Đăng nhập</div>
-      <p className="login__error">Lỗi đăng nhập</p>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-input">
-          <label htmlFor="email" className="form-label">
-            Email
-          </label>
-          {/* <input type="email" name="email" {...register("email")} /> */}
-          <input type="text" name="email" {...register("email")} />
-        </div>
-        <div className="form-input">
-          <label htmlFor="password" className="form-label">
-            Mật khẩu
-          </label>
-          <input type="password" name="password" {...register("password")} />
-        </div>
-
-        <button type="submit" className="btn btn--border-none btn--full-width">
-          Đăng nhập
-        </button>
-      </form>
-      <p className="login__form-panel">
-        <Link to="/register">Tạo tài khoản mới?</Link>
-      </p>
-      <p className="login__form-panel">
-        <Link to="/#">Quên mật khẩu</Link>
-      </p>
+    <div className="space">
+      <div className="login">
+        <div className="login__header">Đăng nhập</div>
+        <p className="login__error">Lỗi đăng nhập</p>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="form-input">
+            <label htmlFor="email" className="form-label">
+              Email
+            </label>
+            {/* <input type="email" name="email" {...register("email")} /> */}
+            <input type="text" name="email" {...register("email")} />
+          </div>
+          <div className="form-input">
+            <label htmlFor="password" className="form-label">
+              Mật khẩu
+            </label>
+            <input type="password" name="password" {...register("password")} />
+          </div>
+          <button type="submit" className="btn btn--border-none btn--full-width">
+            Đăng nhập
+          </button>
+        </form>
+        <p className="login__form-panel">
+          <Link to="/register">Tạo tài khoản mới?</Link>
+        </p>
+        <p className="login__form-panel">
+          <Link to="/#">Quên mật khẩu</Link>
+        </p>
+      </div>
     </div>
   );
 }

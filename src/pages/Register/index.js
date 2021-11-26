@@ -29,47 +29,48 @@ export default function Register() {
   };
 
   return (
-    <div className="login">
-      <div className="login__header">Đăng ký</div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-input">
-          <label htmlFor="email" className="form-label">
-            Email
-          </label>
-          <input type="email" name="email" {...register("email")} />
-        </div>
-        <div className="form-input">
-          <label htmlFor="password" className="form-label">
-            Mật khẩu
-          </label>
-          <input
-            type="password"
-            name="password"
-            {...register("password", { pattern: passwordPattern })}
-          />
-        </div>
-        <div className="form-input">
-          <label htmlFor="passwordAgain" className="form-label">
-            Nhập lại mật khẩu
-          </label>
-          <input
-            type="password"
-            name="passwordAgain"
-            {...register("passwordAgain")}
-          />
-          {errors.password && (
-            <p className="error-label">{errors.password.message}</p>
-          )}
-          {!isMatch && <p className="error-label">Mật khẩu không khớp</p>}
-        </div>
-
-        <button type="submit" className="btn btn--border-none btn--full-width">
-          Đăng ký
-        </button>
-      </form>
-      <p className="login__form-panel">
-        <Link to="/login">Tôi có tài khoản rồi</Link>
-      </p>
+    <div className="space">
+      <div className="login">
+        <div className="login__header">Đăng ký</div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="form-input">
+            <label htmlFor="email" className="form-label">
+              Email
+            </label>
+            <input type="email" name="email" {...register("email")} />
+          </div>
+          <div className="form-input">
+            <label htmlFor="password" className="form-label">
+              Mật khẩu
+            </label>
+            <input
+              type="password"
+              name="password"
+              {...register("password", { pattern: passwordPattern })}
+            />
+          </div>
+          <div className="form-input">
+            <label htmlFor="passwordAgain" className="form-label">
+              Nhập lại mật khẩu
+            </label>
+            <input
+              type="password"
+              name="passwordAgain"
+              {...register("passwordAgain")}
+            />
+            {errors.password && (
+              <p className="error-label">{errors.password.message}</p>
+            )}
+            {!isMatch && <p className="error-label">Mật khẩu không khớp</p>}
+          </div>
+          <button type="submit" className="btn btn--border-none btn--full-width">
+            Đăng ký
+          </button>
+        </form>
+        <p className="login__form-panel">
+          <Link to="/login">Tôi có tài khoản rồi</Link>
+        </p>
+      </div>
     </div>
   );
 }

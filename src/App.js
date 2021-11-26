@@ -19,7 +19,7 @@ function App() {
   return (
     <Router>
       <Header />
-      <div className="container">
+      <div className="container main-container">
         {/* <div>Day la root file</div> */}
         <Routes>
           <Route path="/" element={<Home />} />
