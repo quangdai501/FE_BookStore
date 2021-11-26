@@ -1,17 +1,21 @@
-import React from "react";
+import axios from "axios";
+import React, { useMemo, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
+import { createOrder } from '../../actions/orderAction';
 import { priceToString } from "../../common/convertNumberToPrice";
 import Item from "./item";
 import "./style.scss";
 const Checkout = () => {
+  const [provinces, setProvinces] = useState([]);
+  const [districts, setDistricts] = useState([]);
+  const [wards, setWards] = useState([]);
 
 
-  const cart = useSelector((state) => state.cart)
-  const { cartItems } = cart
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
 
-  const totalCart=cartItems?cartItems.reduce((s,i)=>s+(i.qty*i.price),0):0
-  const shippingFee=15000
+  const shippingFee = 15000;
 
   const {
     register,
@@ -20,21 +24,102 @@ const Checkout = () => {
   } = useForm();
 
 
+  const getProvince = async () => {
+    const { data: { data } } = await axios.get(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province`, {
+      headers: {
+        token: "ef8f9c13-2315-11ec-b8c6-fade198b4859",
+      }
+    })
+
+    setProvinces(data.reduce((list, item) => {
+      list.push({
+        ProvinceID: item.ProvinceID,
+        ProvinceName: item.ProvinceName
+      });
+      return list.sort();
+    }, []));
+  }
+  const getDistrict = async (ProvinceID) => {
+    const { data: { data } } = await axios.get(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/district?province_id=${ProvinceID}`, {
+      headers: {
+        token: "ef8f9c13-2315-11ec-b8c6-fade198b4859",
+      }
+    })
+    setDistricts(data);
+  }
+  const getWard = async (districtID) => {
+    const { data: { data } } = await axios.get(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/ward?district_id=${districtID}`, {
+      headers: {
+        token: "ef8f9c13-2315-11ec-b8c6-fade198b4859",
+      }
+    })
+    setWards(data);
+  }
+
+  const onChangeProvince = (e) => {
+    const name = e.target.value;
+    const province = provinces.find(item => item.ProvinceName === name);
+    getDistrict(province.ProvinceID);
+  }
+
+  const onChangeDistrict = (e) => {
+    const name = e.target.value;
+    const district = districts.find(item => item.DistrictName === name);
+    getWard(district.DistrictID);
+  }
+
+
+  const userLogin = useSelector((state) => state.userLogin);
+
+  const dispatch = useDispatch();
+
+  const totalCart = useMemo(() =>
+    cartItems.reduce((total, item) => total += item.price * item.qty, 0), [cartItems]);
+
+  const billDetail = useMemo(() =>
+    cartItems.reduce((list, currItem) => {
+      list.push({
+        productId: currItem.product,
+        name: currItem.name,
+        image: currItem.image,
+        price: currItem.price,
+        qty: currItem.qty,
+      })
+      return list
+    }, []), [cartItems]);
+
   const phonePatterm = {
     value: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
     message: "Số điện thoại có 10 chữ số, chứa các chữ số 0-9",
   };
+
   const onSubmit = (data) => {
     if (data) {
-      console.log(data);
+      const address = {
+        to_ward_code: Number(wards.find(item => item.WardName === data.village).WardCode),
+        to_district_id: Number(districts.find(item => item.DistrictName === data.district).DistrictID),
+        province: data.province,
+        district: data.district,
+        ward: data.village,
+        detail: data.address,
+      }
+      if (data.payment === "online") {
+        dispatch(createOrder(userLogin._id, data.name, totalCart, address, data.phone, billDetail, "Thanh toán online"));
+      }
+      else {
+        dispatch(createOrder(userLogin._id, data.name, totalCart, address, data.phone, billDetail, "Thanh toán khi nhận hàng"));
+      }
     }
-    //handle submit here
   };
+
+  useEffect(() => {
+    getProvince()
+  }, [])
   return (
     <div className="checkout">
       <h1>Thanh toán</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="row checkout-session">
-        <div className="Billing-details col c-5 md-12">
+        <div className="Billing-details col c-6 lg-12 padding">
           <div className="form-input">
             <label htmlFor="name" className="form-label">
               Tên người nhận
@@ -62,9 +147,9 @@ const Checkout = () => {
             <label htmlFor="province" className="form-label">
               Tỉnh, Thành phố
             </label>
-            <select name="province" {...register("province")}>
-              {[1, 2, 3].map((item) => (
-                <option value={item}>{item}</option>
+            <select name="province" {...register("province")} onChange={onChangeProvince}>
+              {provinces?.map((item) => (
+                <option value={item.ProvinceName} key={item.ProvinceID}>{item.ProvinceName}</option>
               ))}
             </select>
           </div>
@@ -72,9 +157,9 @@ const Checkout = () => {
             <label htmlFor="district" className="form-label">
               Quận, Huyện
             </label>
-            <select name="district" {...register("district")}>
-              {[1, 2, 3].map((item) => (
-                <option value={item}>{item}</option>
+            <select name="district" {...register("district")} onChange={onChangeDistrict}>
+              {districts.map((item) => (
+                <option value={item.DistrictName} key={item.DistrictID}>{item.DistrictName}</option>
               ))}
             </select>
           </div>
@@ -83,8 +168,8 @@ const Checkout = () => {
               Xã, Phường
             </label>
             <select name="village" {...register("village")}>
-              {[1, 2, 3].map((item) => (
-                <option value={item}>{item}</option>
+              {wards.map((item) => (
+                <option value={item.WardName} key={item.WardCode}>{item.WardName}</option>
               ))}
             </select>
           </div>
@@ -95,17 +180,17 @@ const Checkout = () => {
             <input
               type="text"
               name="address"
-              {...register("address", { required: true, maxLength: 20 })}
+              {...register("address", { required: true })}
             />
           </div>
         </div>
-        <div className="Orders col c-5 md-12">
+        <div className="Orders col c-6 lg-12 padding">
           <div className="order-row">
             <h3 className="title">Sản phẩm của bạn:</h3>
 
-            {cartItems?cartItems.map((item, index) => (
+            {cartItems ? cartItems.map((item, index) => (
               <Item cart={item} key={index} />
-            )):<></>}
+            )) : <></>}
           </div>
           <div className="order-row">
             <div className="row">
@@ -122,7 +207,7 @@ const Checkout = () => {
           <div className="order-row">
             <div className="row">
               <h3 className=" col c-8">Tổng: </h3>
-              <h3 className=" col c-4">{priceToString(shippingFee+totalCart)}</h3>
+              <h3 className=" col c-4">{priceToString(shippingFee + totalCart)}</h3>
             </div>
           </div>
           <div className="order-row">
