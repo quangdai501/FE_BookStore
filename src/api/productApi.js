@@ -47,5 +47,14 @@ const ProductApi = {
         }
         return axiosClient.get(url, qty, config);
     },
+    createReview: (review, token, id) => {
+        const url = `/products/createreview/${id}`;
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+        return axiosClient.post(url, review, config);
+    },
 }
 export default ProductApi
