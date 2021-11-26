@@ -3,7 +3,6 @@ import React, { useMemo, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { createOrder } from '../../actions/orderAction';
-import { province } from "../Utils/province";
 import { priceToString } from "../../common/convertNumberToPrice";
 import Item from "./item";
 import "./style.scss";
@@ -24,16 +23,6 @@ const Checkout = () => {
     formState: { errors },
   } = useForm();
 
-  const provinceList = useMemo(() => {
-    const newList = JSON.stringify(province);
-    return JSON.parse(newList).data.reduce((list, item) => {
-      list.push({
-        ProvinceID: item.ProvinceID,
-        ProvinceName: item.ProvinceName
-      });
-      return list.sort();
-    }, [])
-  }, []);
 
   const getProvince = async () => {
     const { data: { data } } = await axios.get(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province`, {
@@ -69,15 +58,13 @@ const Checkout = () => {
 
   const onChangeProvince = (e) => {
     const name = e.target.value;
-    const province = provinceList.find(item => item.ProvinceName === name);
-    console.log(province.ProvinceID);
+    const province = provinces.find(item => item.ProvinceName === name);
     getDistrict(province.ProvinceID);
   }
 
   const onChangeDistrict = (e) => {
     const name = e.target.value;
     const district = districts.find(item => item.DistrictName === name);
-    console.log(district.DistrictID);
     getWard(district.DistrictID);
   }
 
