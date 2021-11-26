@@ -56,7 +56,7 @@ export default function ProductDetail() {
             <div className="product-author">
               Tác giả: {product && product.authors ? product.authors.name : ''}
             </div>
-            <div className="product-price">{priceToString(product.price || 0)}</div>
+            <div className="product-price">{priceToString(product?.price || 0)}</div>
             <div className="purchase">
               <div className="number">
                 <div className="minus" onClick={() => changeQuantity(-1)}>
