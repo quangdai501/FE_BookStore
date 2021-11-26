@@ -38,7 +38,7 @@ export default function Header() {
     dispatch(logout());
   };
   return (
-    <div className="main-header">
+    <header className="main-header">
       <div className="container header-body">
         <div className="row">
           <div className="c-2">
@@ -88,6 +88,6 @@ export default function Header() {
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 }

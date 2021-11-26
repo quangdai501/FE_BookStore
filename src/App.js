@@ -18,9 +18,7 @@ import Profile from "./pages/Profile";
 function App() {
   return (
     <Router>
-      <header>
-        <Header />
-      </header>
+      <Header />
       <div className="container main-container">
         {/* <div>Day la root file</div> */}
         <Routes>
@@ -45,9 +43,7 @@ function App() {
           <Route exact path="admin/*" element={<DashBoard />} />
         </Route>
       </Routes>
-      <footer>
-        <Footer />
-      </footer>
+      <Footer />
     </Router>
   );
 }
