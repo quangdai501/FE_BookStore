@@ -3,6 +3,9 @@
     .container {
         max-width: 500px;
     }
+    .space {
+        padding: 10px 0;
+    }
     .md-12.write-review {
         padding-left: 0;
     }
@@ -23,5 +26,8 @@
 @media screen and(max-width: 922px) {
     .container {
         max-width: 700px;
+    }
+    .space {
+        padding: 20px 0;
     }
 }

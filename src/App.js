@@ -18,8 +18,10 @@ import Profile from "./pages/Profile";
 function App() {
   return (
     <Router>
-      <Header />
-      <div className="container">
+      <header>
+        <Header />
+      </header>
+      <div className="container main-container">
         {/* <div>Day la root file</div> */}
         <Routes>
           <Route path="/" element={<Home />} />
@@ -43,7 +45,9 @@ function App() {
           <Route exact path="admin/*" element={<DashBoard />} />
         </Route>
       </Routes>
-      <Footer />
+      <footer>
+        <Footer />
+      </footer>
     </Router>
   );
 }

@@ -18,3 +18,7 @@ html {
     font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
 }
+
+.main-container {
+    min-height: calc(100vh - 100px - 305px);
+}

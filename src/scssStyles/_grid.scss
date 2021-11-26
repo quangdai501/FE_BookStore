@@ -4,6 +4,10 @@
     margin: 0 auto;
 }
 
+.space {
+    padding: 40px 0;
+}
+
 .row {
     display: flex;
     flex-wrap: wrap;
@@ -15,13 +19,16 @@
     align-items: center;
 }
 
+.row.gutter {
+    margin: 0 -8px
+}
+
 .col {
     padding-left: 0px;
     padding-right: 0px;
 }
 
 .padding {
-    margin: 0 -8px;
     padding: 0 8px;
 }
 

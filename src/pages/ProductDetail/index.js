@@ -40,7 +40,7 @@ export default function ProductDetail() {
     dispatch(createProductReview(product._id, review))
   }
   return (
-    <div className="container">
+    <div className="space">
       <div className="row">
         <div className="col c-6 md-12 padding">
           <div className="product-image">
