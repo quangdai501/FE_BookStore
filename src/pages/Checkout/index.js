@@ -126,7 +126,7 @@ const Checkout = () => {
             </div>
           </div>
           <div className="order-row">
-            <h3 className="title">Phương thức thanh toán </h3>
+            <h3 className="title">Phương thức thanh toán: </h3>
             <div className="row sub-title">
               <input
                 type="radio"
