@@ -15,7 +15,7 @@ const Cart = () => {
   };
   return (
     <div>
-      <h1>Cart</h1>
+      <h1 className="cart-header">Giỏ hàng của bạn</h1>
       <div className="cart row">
         <div className="list-item col c-6 md-12">
           {cartItems.map((item, index) => (
@@ -25,7 +25,7 @@ const Cart = () => {
         <div className="Orders col c-4 md-12">
             <div className="order-row">
               <div className="row">
-                <h3 className="title col c-8">Tổng Giỏ hàng</h3>
+                <h3 className="title col c-8">Tổng Giỏ hàng:</h3>
                 <div className="col c-4">{priceToString(totalCart)}</div>
               </div>
             </div>
