@@ -3,3 +3,14 @@
     text-align: center;
     margin-bottom: 15px;
 }
+
+.empty-cart {
+    display: flex;
+    justify-content: center;
+    max-height: 250px;
+    img {
+        display: block;
+        object-fit: cover;
+        max-height: 250px;
+    }
+}
