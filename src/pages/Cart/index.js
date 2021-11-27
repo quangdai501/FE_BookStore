@@ -18,9 +18,9 @@ const Cart = () => {
       <h1 className="cart-header">Giỏ hàng của bạn</h1>
       <div className="row gutter">
         <div className="c-8 md-12 padding">
-          {cartItems.map((item, index) => (
+          {cartItems.length !== 0 ? cartItems.map((item, index) => (
             <CartItem cart={item} key={index} />
-          ))}
+          )) : <div className="empty-cart"><img src="./images/empty-cart.png" alt="Empty" /></div>}
         </div>
         <div className="c-4 md-12 padding">
           <div className="Orders">

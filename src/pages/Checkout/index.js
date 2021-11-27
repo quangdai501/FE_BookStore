@@ -5,13 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createOrder } from '../../actions/orderAction';
 import { priceToString } from "../../common/convertNumberToPrice";
 import Item from "./item";
+import { CART_CLEAR_ITEMS } from "../../constants/cart";
 import "./style.scss";
 const Checkout = () => {
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
-
-
+  const orderInfo = useSelector(state => state.createOrder);
+  const { order, createOrderProcess } = orderInfo;
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
@@ -36,7 +37,7 @@ const Checkout = () => {
         ProvinceID: item.ProvinceID,
         ProvinceName: item.ProvinceName
       });
-      return list.sort();
+      return list.sort((first, second) => first.ProvinceID - second.ProvinceID);
     }, []));
   }
   const getDistrict = async (ProvinceID) => {
@@ -93,7 +94,7 @@ const Checkout = () => {
     message: "Số điện thoại có 10 chữ số, chứa các chữ số 0-9",
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     if (data) {
       const address = {
         to_ward_code: Number(wards.find(item => item.WardName === data.village).WardCode),
@@ -104,10 +105,15 @@ const Checkout = () => {
         detail: data.address,
       }
       if (data.payment === "online") {
-        dispatch(createOrder(userLogin._id, data.name, totalCart, address, data.phone, billDetail, "Thanh toán online"));
+        await dispatch(createOrder(userLogin._id, data.name, totalCart, address, data.phone, billDetail, "Thanh toán online"));
+        if (order?.data.code === "00") {
+          window.location.href = order.data.data;
+        }
+        // await dispatch({ type: CART_CLEAR_ITEMS });
       }
       else {
-        dispatch(createOrder(userLogin._id, data.name, totalCart, address, data.phone, billDetail, "Thanh toán khi nhận hàng"));
+        await dispatch(createOrder(userLogin._id, data.name, totalCart, address, data.phone, billDetail, "Thanh toán khi nhận hàng"));
+        // await dispatch({ type: CART_CLEAR_ITEMS });
       }
     }
   };
@@ -150,6 +156,7 @@ const Checkout = () => {
                 Tỉnh, Thành phố
               </label>
               <select name="province" {...register("province")} onChange={onChangeProvince}>
+                <option defaultValue>Chọn Tỉnh, Thành phố</option>
                 {provinces?.map((item) => (
                   <option value={item.ProvinceName} key={item.ProvinceID}>{item.ProvinceName}</option>
                 ))}
@@ -160,6 +167,7 @@ const Checkout = () => {
                 Quận, Huyện
               </label>
               <select name="district" {...register("district")} onChange={onChangeDistrict}>
+                <option defaultValue>Chọn Quận, Huyện</option>
                 {districts.map((item) => (
                   <option value={item.DistrictName} key={item.DistrictID}>{item.DistrictName}</option>
                 ))}
@@ -170,6 +178,7 @@ const Checkout = () => {
                 Xã, Phường
               </label>
               <select name="village" {...register("village")}>
+                <option defaultValue>Chọn Xã, Phường</option>
                 {wards.map((item) => (
                   <option value={item.WardName} key={item.WardCode}>{item.WardName}</option>
                 ))}

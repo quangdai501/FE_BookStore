@@ -45,14 +45,19 @@ const createOrder = (user_id, name, total, address, phone, billDetail, payment) 
         //     }
         //     await axiosClient.patch('/products/updateProductQuantity/' + cartItems[i].product, { qty });
         // }
-        const data = await OrderApi.createOrder(user_id, name, total, address, phone, billDetail, payment);
+        let data;
+        if (payment === "Thanh toán online") {
+            data = await OrderApi.createOrderAndPay(user_id, name, total, address, phone, billDetail, payment);
+        }
+        else {
+            data = await OrderApi.createOrder(user_id, name, total, address, phone, billDetail, payment);
+        }
         dispatch({
             type: ORDER_CREATE_SUCCESS,
             payload: data
         });
-        dispatch({ type: CART_CLEAR_ITEMS });
-
     } catch (error) {
+        console.log(error)
         dispatch({ type: ORDER_CREATE_FAIL, payload: error.message });
     }
 };

@@ -41,13 +41,13 @@ export default function ProductDetail() {
   }
   return (
     <div className="space">
-      <div className="row">
-        <div className="col c-6 md-12 padding">
+      <div className="row gutter">
+        <div className="c-6 md-12 padding">
           <div className="product-image">
             <img src={product ? product.image : ''} alt="" />
           </div>
         </div>
-        <div className="col c-6 md-12 padding">
+        <div className="c-6 md-12 padding">
           <div className="product-infor">
             <div className="product-name">{product ? product.name : ''}</div>
             <div className="product-publisher">
