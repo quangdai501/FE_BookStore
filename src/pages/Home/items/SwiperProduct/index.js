@@ -1,49 +1,63 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import './style.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, {
-    Navigation
+  Navigation
 } from 'swiper';
 import 'swiper/swiper-bundle.min.css';
 import Product from '../../../../components/Product';
+import ProductApi from "../../../../api/productApi";
 
 SwiperCore.use([Navigation]);
-export default function SwiperProduct() {
-    const swiperRef = useRef(false);
-    return (
-        <Swiper
-            navigation={true}
-            ref={swiperRef}
-            breakpoints={
-                {
-                    "922": {
-                        "slidesPerView": 4,
+export default function SwiperProduct(props) {
+  const { query } = props
+  const swiperRef = useRef(false);
 
-                    },
-                    "763": {
-                        "slidesPerView": 3,
-                    },
-                    "200": {
-                        "slidesPerView": 2,
-                    }
-                }
-            }
-            className="product-swiper"
-        >
-            {[1, 2, 3, 4, 5, 6].map((item) => (
-                <SwiperSlide className="swiper-item" key={item}>
-                    <Product
-                        imageURL={"./images/img1.jpg"}
-                        name={
-                            "Think Like a Monk: Train Your Mind for Peace and Purpose of your life"
-                        }
-                        price={20000}
-                        author={"Author"}
-                        publisher={"Publisher"}
-                    />
-                </SwiperSlide>
-            ))
-            }
-        </Swiper>
-    )
+  const [products, setProducts] = useState([])
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await ProductApi.getAll(query)
+        setProducts(result.data.product);
+      } catch (error) {
+      }
+    };
+    fetchData();
+  }, []);
+
+  return (
+    <Swiper
+      navigation={true}
+      ref={swiperRef}
+      breakpoints={{
+        922: {
+          slidesPerView: 4,
+        },
+        763: {
+          slidesPerView: 3,
+        },
+        200: {
+          slidesPerView: 2,
+        },
+      }}
+      className="product-swiper"
+    >
+      {products ? (
+        products.map((item, index) => (
+          <SwiperSlide className="swiper-item" key={index}>
+            <Product
+              imageURL={item.image}
+              name={item.name}
+              price={item.price}
+              author={item.authors.name}
+              publisher={item.publisher.name}
+              productId={item._id}
+            />
+          </SwiperSlide>
+        ))
+      ) : (
+        <></>
+      )}
+    </Swiper>
+  );
 }

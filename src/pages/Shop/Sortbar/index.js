@@ -14,8 +14,8 @@ const Sortbar = (props) => {
       </p>
       <select name="sort" className="sortby" onChange={sortBy}>
         <option value="">Sắp xếp theo: Mặc định</option>
-        <option value="createdAt">Sắp xếp theo: Mới nhất</option>
-        <option value="-createdAt">Sắp xếp theo: Cũ nhất</option>
+        <option value="-createdAt">Sắp xếp theo: Mới nhất</option>
+        <option value="createdAt">Sắp xếp theo: Cũ nhất</option>
         <option value="price">Sắp xếp theo giá: Từ thấp đến cao</option>
         <option value="-price">Sắp xếp theo giá: Từ cao đến thấp</option>
       </select>

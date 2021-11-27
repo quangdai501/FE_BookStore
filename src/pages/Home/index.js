@@ -3,32 +3,37 @@ import { useSelector, useDispatch } from "react-redux";
 import SwiperProduct from "./items/SwiperProduct";
 import { useState } from "react";
 import SwpiperBanner from "./items/SwiperBanner";
-export default function Home() {
+import { useNavigate } from "react-router";
 
+export default function Home() {
   const features = ["Đặc sắc", "Mua nhiều", "Giảm giá"];
   const [feature, setFeature] = useState(0);
 
-  const dispatch = useDispatch();
+  const newProucts = { size: 6, sort: "-createdAt" };
+  const saleProducts = { size: 6, sort: "price" };
+  const sellProducts = { size: 6, sort: "-quantity" };
+  const navigate = useNavigate();
+  const gotoShop = (query) => {
+    navigate({
+      pathname: '/shop',
+      search: `?sort=${query.sort}`,
+    });
+  }
   return (
     <div className="space">
       <div className="tab">
         <SwpiperBanner />
       </div>
       <div className="tab">
-        <SwiperProduct />
-      </div>
-      <div className="tab">
         <div className="tab__header row">
           <h2>Mới ra mắt</h2>
-          <div className="more">
-            <a href="/#">
-              <span>Xem thêm</span>
-              <i class="fas fa-greater-than"></i>
-            </a>
+          <div className="more" onClick={() => gotoShop(newProucts)}>
+            <span>Xem thêm</span>
+            <i class="fas fa-greater-than"></i>
           </div>
         </div>
 
-        <SwiperProduct />
+        <SwiperProduct query={newProucts} />
       </div>
       <div className="tab">
         <div className="tab__header row">
@@ -45,12 +50,10 @@ export default function Home() {
           </ul>
         </div>
 
-        <SwiperProduct />
-        <div className="more">
-          <a href="/#">
-            <span>Xem thêm</span>
-            <i class="fas fa-greater-than"></i>
-          </a>
+        <SwiperProduct query={saleProducts} />
+        <div className="more" onClick={() => gotoShop(saleProducts)}>
+          <span>Xem thêm</span>
+          <i class="fas fa-greater-than"></i>
         </div>
       </div>
       <div className="tab">
@@ -68,14 +71,12 @@ export default function Home() {
           </ul>
         </div>
 
-        <SwiperProduct />
-        <div className="more">
-          <a href="/#">
-            <span>Xem thêm</span>
-            <i class="fas fa-greater-than"></i>
-          </a>
+        <SwiperProduct query={sellProducts} />
+        <div className="more" onClick={() => gotoShop(sellProducts)}>
+          <span>Xem thêm</span>
+          <i class="fas fa-greater-than"></i>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
