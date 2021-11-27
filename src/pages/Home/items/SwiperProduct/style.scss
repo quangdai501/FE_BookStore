@@ -1,30 +1,26 @@
 @import '../../../../scssStyles/variable';
-@import '../../../../scssStyles/mixin';
-.swiper-button-prev {
-    @include swiper-button;
-    left: 0;
-    &:hover {
-        background-color: $dark;
-    }
-}
-
-.swiper-button-next {
-    @include swiper-button;
-    right: 0;
-    &:hover {
-        background-color: $dark;
-    }
-}
-
+// @import '../../../../scssStyles/mixin';
 .swiper-button-next.swiper-button-disabled,
 .swiper-button-prev.swiper-button-disabled {
     display: none;
 }
 
+.swiper-button-next {
+    right: 0!important;
+}
+
+.swiper-button-prev {
+    left: 0!important;
+}
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background: black!important;
+}
+
 .swiper-container.product-swiper {
     position: relative;
-    padding: 0 50px;
-    margin: 0 -50px;
+    padding: 0 50px!important;
+    margin: 0 -50px!important;
     &::after {
         content: "";
         display: block;
@@ -46,5 +42,21 @@
         right: 0;
         z-index: 100;
         background-color: white;
+    }
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-size: 14px!important;
+    color: white;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    z-index: 1000!important;
+    background-color: $gray100;
+    width: 44px!important;
+    &:hover {
+        background-color: $dark;
     }
 }

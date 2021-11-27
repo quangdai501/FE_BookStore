@@ -1,30 +1,18 @@
 import "./style.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { counterIncrease, counterDecrease } from "../../actions/counterAction";
-import Product from "../../components/Product";
 import SwiperProduct from "./items/SwiperProduct";
 import { useState } from "react";
+import SwpiperBanner from "./items/SwiperBanner";
 export default function Home() {
-  const { counter } = useSelector((state) => state.counter);
 
   const features = ["Đặc sắc", "Mua nhiều", "Giảm giá"];
   const [feature, setFeature] = useState(0);
 
-  console.log(counter);
   const dispatch = useDispatch();
-  function increase() {
-    dispatch(counterIncrease());
-  }
-  function decrease() {
-    dispatch(counterDecrease());
-  }
-
   return (
-    <>
-      <div className="home-div">
-        <p>{counter}</p>
-        <button onClick={increase}>Increase</button>
-        <button onClick={decrease}>Decrease</button>
+    <div className="space">
+      <div className="tab">
+        <SwpiperBanner />
       </div>
       <div className="tab">
         <SwiperProduct />
@@ -33,7 +21,7 @@ export default function Home() {
         <div className="tab__header row">
           <h2>Mới ra mắt</h2>
           <div className="more">
-            <a href="#">
+            <a href="/#">
               <span>Xem thêm</span>
               <i class="fas fa-greater-than"></i>
             </a>
@@ -59,7 +47,7 @@ export default function Home() {
 
         <SwiperProduct />
         <div className="more">
-          <a href="#">
+          <a href="/#">
             <span>Xem thêm</span>
             <i class="fas fa-greater-than"></i>
           </a>
@@ -82,12 +70,12 @@ export default function Home() {
 
         <SwiperProduct />
         <div className="more">
-          <a href="#">
+          <a href="/#">
             <span>Xem thêm</span>
             <i class="fas fa-greater-than"></i>
           </a>
         </div>
       </div>
-    </>
+    </div>
   );
 }

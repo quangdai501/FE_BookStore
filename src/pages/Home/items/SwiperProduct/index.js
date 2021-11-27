@@ -1,31 +1,18 @@
 import React, { useRef } from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react';
 import './style.scss';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, {
     Navigation
 } from 'swiper';
-import 'swiper/swiper.min.css';
-import 'swiper/components/navigation';
+import 'swiper/swiper-bundle.min.css';
 import Product from '../../../../components/Product';
 
 SwiperCore.use([Navigation]);
 export default function SwiperProduct() {
-    const prevRef = useRef(null);
-    const nextRef = useRef(null)
     const swiperRef = useRef(false);
     return (
         <Swiper
-            navigation={{
-                nextEl: nextRef.current,
-                prevEl: prevRef.current
-            }}
-            onInit={(swiper) => {
-                swiper.params.navigation.prevEl = prevRef.current;
-                swiper.params.navigation.nextEl = nextRef.current;
-                swiper.navigation.destroy();
-                swiper.navigation.update();
-            }}
-            slidesPerView={2}
+            navigation={true}
             ref={swiperRef}
             breakpoints={
                 {
@@ -57,8 +44,6 @@ export default function SwiperProduct() {
                 </SwiperSlide>
             ))
             }
-            <div ref={prevRef} className="swiper-button-prev"><i class="fa fa-angle-left"></i></div>
-            <div ref={nextRef} className="swiper-button-next"><i class="fa fa-angle-right"></i></div>
         </Swiper>
     )
 }
