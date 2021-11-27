@@ -11,6 +11,9 @@ import {
     USER_REGISTER_FAIL,
     USER_REGISTER_REQUEST,
     USER_REGISTER_SUCCESS,
+    USER_ENTERCODE_FAIL,
+    USER_ENTERCODE_REQUEST,
+    USER_ENTERCODE_SUCCESS,
     USER_UPDATE_PROFILE_FAIL,
     USER_UPDATE_PROFILE_REQUEST,
     USER_UPDATE_PROFILE_SUCCESS,
@@ -62,39 +65,59 @@ export const logout = () => (dispatch) => {
     document.location.href = '/login'
 }
 
-export const register = (name, email, password) => async(dispatch) => {
+export const confirmEmail = (name, email, password) => async(dispatch) => {
     try {
         dispatch({
             type: USER_REGISTER_REQUEST,
         })
 
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        }
-
-        const { data } = await axios.post(
-            '/api/users', { name, email, password },
-            config
-        )
+        const { data } = await UserApi.confirmEmail(name, email, password)
 
         dispatch({
             type: USER_REGISTER_SUCCESS,
             payload: data,
         })
 
-        dispatch({
-            type: USER_LOGIN_SUCCESS,
-            payload: data,
-        })
+        // dispatch({
+        //     type: USER_LOGIN_SUCCESS,
+        //     payload: data,
+        // })
 
-        localStorage.setItem('userInfo', JSON.stringify(data))
+        // localStorage.setItem('userInfo', JSON.stringify(data))
     } catch (error) {
         dispatch({
             type: USER_REGISTER_FAIL,
-            payload: error.response && error.response.data.message ?
-                error.response.data.message : error.message,
+            // payload: error.response && error.response.data.message ?
+            //     error.response.data.message : error.message,
+            payload: error,
+        })
+    }
+}
+export const enterCode = (code) => async(dispatch) => {
+    try {
+        dispatch({
+            type: USER_ENTERCODE_REQUEST,
+        })
+
+        const { data } = await UserApi.addUser(code)
+
+        dispatch({
+            type: USER_ENTERCODE_SUCCESS,
+            payload: data,
+        })
+
+        // dispatch({
+        //     type: USER_LOGIN_SUCCESS,
+        //     payload: data,
+        // })
+
+        // localStorage.setItem('userInfo', JSON.stringify(data))
+    } catch (error) {
+        dispatch({
+            type: USER_ENTERCODE_FAIL,
+            // payload: error.response && error.response.data.message ?
+            //     error.response.data.message : error.message,
+            payload: error,
         })
     }
 }

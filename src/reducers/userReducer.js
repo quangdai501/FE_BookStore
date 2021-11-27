@@ -14,6 +14,9 @@ import {
     USER_REGISTER_FAIL,
     USER_REGISTER_REQUEST,
     USER_REGISTER_SUCCESS,
+    USER_ENTERCODE_FAIL,
+    USER_ENTERCODE_REQUEST,
+    USER_ENTERCODE_SUCCESS,
     USER_UPDATE_PROFILE_FAIL,
     USER_UPDATE_PROFILE_REQUEST,
     USER_UPDATE_PROFILE_SUCCESS,
@@ -47,7 +50,7 @@ export const userRegisterReducer = (state = {}, action) => {
         case USER_REGISTER_REQUEST:
             return { loading: true }
         case USER_REGISTER_SUCCESS:
-            return { loading: false, userInfo: action.payload }
+            return { loading: false, success: true, userInfo: action.payload }
         case USER_REGISTER_FAIL:
             return { loading: false, error: action.payload }
         case USER_LOGOUT:
@@ -56,7 +59,20 @@ export const userRegisterReducer = (state = {}, action) => {
             return state
     }
 }
-
+export const userEnterCodeReducer = (state = {}, action) => {
+    switch (action.type) {
+        case USER_ENTERCODE_REQUEST:
+            return { loading: true }
+        case USER_ENTERCODE_SUCCESS:
+            return { loading: false, success: true, userInfo: action.payload }
+        case USER_ENTERCODE_FAIL:
+            return { loading: false, error: action.payload }
+        case USER_LOGOUT:
+            return {}
+        default:
+            return state
+    }
+}
 export const userDetailsReducer = (state = { user: {} }, action) => {
     switch (action.type) {
         case USER_DETAILS_REQUEST:
