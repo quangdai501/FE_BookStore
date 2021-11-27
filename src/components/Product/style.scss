@@ -9,6 +9,7 @@
     max-height: 100%;
     border: 1px solid $border-color;
     &-img {
+        cursor: pointer;
         padding: 0 10px;
         transition: transform .4s;
         max-width: 100%;
