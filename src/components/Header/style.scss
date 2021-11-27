@@ -14,6 +14,13 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    max-width: 200px;
+    padding-right: 10px;
+    img {
+        display: block;
+        width: 100%;
+        object-fit: cover;
+    }
 }
 
 .header-body {
@@ -54,22 +61,28 @@
 
 .header-right {
     margin-left: 20px;
+    height: 100%;
+    .header-logo {
+        display: flex;
+        align-items: center;
+    }
     .cart {
         position: relative;
         cursor: pointer;
         i {
-            font-size: 18px;
+            font-size: 20px;
+            color: black;
         }
         &__notify {
             display: flex;
             justify-content: center;
             align-items: center;
             position: absolute;
-            top: 10px;
+            top: 0;
             left: 10px;
             border-radius: 50%;
             height: 14px;
-            background-color: $dark;
+            background-color: orange;
             color: white;
             font-size: 14px;
             padding: 2px 5px;

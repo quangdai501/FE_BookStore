@@ -40,11 +40,11 @@ export default function Header() {
   return (
     <header className="main-header">
       <div className="container header-body">
-        <div className="row">
-          <div className="c-2">
-            <div className="logo" onClick={gotoShop}>LogoStore</div>
+        <div className="row gutter">
+          <div className="c-3 lg-4 md-5 padding">
+            <div className="logo" onClick={gotoShop}><img src="./images/logo.png" alt="" srcset="" /></div>
           </div>
-          <div className="c-8">
+          <div className="c-6 lg-8 md-7 padding">
             <div className="search">
               <input
                 onChange={changeQuery}
@@ -57,34 +57,34 @@ export default function Header() {
               </p>
             </div>
           </div>
-          <div className="c-2">
-            <div className="header-right">
-              <div className="row">
-                <div className="c-6">
-                  <div className="cart" onClick={gotoCart}>
-                    <i class="fas fa-shopping-bag"></i>
-                    <span className="cart__notify">{cartItems.length}</span>
-                  </div>
-                </div>
-                <div className="c-6">
-                  {userInfo ? (
-                    <div className="signin">
-                      <div class="dropdown">
-                        <span >{userInfo.name} <i class="fas fa-caret-down"></i></span>
-                        <div class="dropdown-content">
-                          <span onClick={gotoProfile}>Thông tin cá nhân</span>
-                          <span onClick={logoutHandler}>Đăng xuất</span>
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="signin" onClick={gotoLogin}>
-                      Đăng nhập
-                    </div>
-                  )}
+          <div className="c-3">
+            {/* <div className=""> */}
+            <div className="row header-right">
+              <div className="c-4 header-logo">
+                <div className="cart" onClick={gotoCart}>
+                  <i class="fas fa-shopping-bag"></i>
+                  <span className="cart__notify">{cartItems.length}</span>
                 </div>
               </div>
+              <div className="c-8">
+                {userInfo ? (
+                  <div className="signin">
+                    <div class="dropdown">
+                      <span >{userInfo.name} <i class="fas fa-caret-down"></i></span>
+                      <div class="dropdown-content">
+                        <span onClick={gotoProfile}>Thông tin cá nhân</span>
+                        <span onClick={logoutHandler}>Đăng xuất</span>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="signin" onClick={gotoLogin}>
+                    Đăng nhập
+                  </div>
+                )}
+              </div>
             </div>
+            {/* </div> */}
           </div>
         </div>
       </div>

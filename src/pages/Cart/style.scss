@@ -1,16 +1,17 @@
 @import '../../scssStyles/variable';
 .cart-header {
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
 }
 
 .empty-cart {
     display: flex;
     justify-content: center;
-    max-height: 250px;
+    max-height: 220px;
     img {
         display: block;
         object-fit: cover;
-        max-height: 250px;
+        max-height: 220px;
+        max-width: 100%;
     }
 }

@@ -29,45 +29,46 @@ export default function ChangePassword() {
   };
 
   return (
-    <div className="login">
-      <div className="login__header">Đổi mật khẩu</div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-input">
-          <label htmlFor="prepass" className="form-label">
-            Mật khẩu trước đây
-          </label>
-          <input type="password" name="prepass" {...register("prepass",{ pattern: passwordPattern })} />
-        </div>
-        <div className="form-input">
-          <label htmlFor="password" className="form-label">
-            Mật khẩu
-          </label>
-          <input
-            type="password"
-            name="password"
-            {...register("password", { pattern: passwordPattern })}
-          />
-        </div>
-        <div className="form-input">
-          <label htmlFor="passwordAgain" className="form-label">
-            Nhập lại mật khẩu
-          </label>
-          <input
-            type="password"
-            name="passwordAgain"
-            {...register("passwordAgain")}
-          />
-          {errors.password && (
-            <p className="error-label">{errors.password.message}</p>
-          )}
-          {!isMatch && <p className="error-label">Mật khẩu không khớp</p>}
-        </div>
+    <div className="space">
+      <div className="login">
+        <div className="login__header">Đổi mật khẩu</div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="form-input">
+            <label htmlFor="prepass" className="form-label">
+              Mật khẩu trước đây
+            </label>
+            <input type="password" name="prepass" {...register("prepass", { pattern: passwordPattern })} />
+          </div>
+          <div className="form-input">
+            <label htmlFor="password" className="form-label">
+              Mật khẩu
+            </label>
+            <input
+              type="password"
+              name="password"
+              {...register("password", { pattern: passwordPattern })}
+            />
+          </div>
+          <div className="form-input">
+            <label htmlFor="passwordAgain" className="form-label">
+              Nhập lại mật khẩu
+            </label>
+            <input
+              type="password"
+              name="passwordAgain"
+              {...register("passwordAgain")}
+            />
+            {errors.password && (
+              <p className="error-label">{errors.password.message}</p>
+            )}
+            {!isMatch && <p className="error-label">Mật khẩu không khớp</p>}
+          </div>
+          <button type="submit" className="btn btn--border-none btn--full-width">
+            Đổi mật khẩu
+          </button>
+        </form>
 
-        <button type="submit" className="btn btn--border-none btn--full-width">
-          Đổi mật khẩu
-        </button>
-      </form>
-    
+      </div>
     </div>
   );
 }
