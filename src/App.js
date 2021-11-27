@@ -15,6 +15,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import Shop from "./pages/Shop";
 import Header from "./components/Header";
 import Profile from "./pages/Profile";
+import OrderSuccess from "./pages/OrderSuccess";
 function App() {
   return (
     <Router>
@@ -32,6 +33,7 @@ function App() {
           <Route path="/changepassword" element={<ChangePassword />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/order-success" element={<OrderSuccess />} />
           <Route
             path="/product-detail/:productID"
             element={<ProductDetail />}
