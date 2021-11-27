@@ -73,39 +73,51 @@ const Shop = (props) => {
     setQuery(newobj);
   };
   return (
-    <div className="shop space" >
-      <div className={sidebar ? "modal active" : "modal"} onClick={showSidebar}>
-        <Widget sidebar={sidebar} showSidebar={showSidebar} direct={direct} />
-      </div>
-
-      <div>
-        {query["search"] || query["author"] || query["category"] ? (
-          <FilterBar query={query} removeFilter={removeFilter} />
-        ) : (
-          <></>
-        )}
-        <Sortbar
-          display={display}
-          total={total}
-          direct={direct}
-          showSidebar={showSidebar}
-        />
-        <div className="row">
-          {products ? products.map((item, index) => (
-            <div className="col c-3 lg-4 md-6 row">
-              <Product
-                imageURL={item.image}
-                name={item.name}
-                price={item.price}
-                author={item.authors.name}
-                publisher={item.publisher.name}
-                productId={item._id}
+    <div className="space" >
+      <div className="row gutter">
+        <div className="c-3 padding">
+          <div className={sidebar ? "modal active" : "modal"} onClick={showSidebar}>
+            <Widget sidebar={sidebar} showSidebar={showSidebar} direct={direct} />
+          </div>
+        </div>
+        <div className="c-9 lg-12 padding">
+          <div className="row">
+            <div className="c-12">
+              {query["search"] || query["author"] || query["category"] ? (
+                <FilterBar query={query} removeFilter={removeFilter} />
+              ) : (
+                <></>
+              )}
+              <Sortbar
+                display={display}
+                total={total}
+                direct={direct}
+                showSidebar={showSidebar}
               />
             </div>
-          )) : <></>}
+            <div className="c-12">
+              <div className="row">
+                {products ? products.map((item, index) => (
+                  <div className="col c-3 lg-4 md-6">
+                    <Product
+                      imageURL={item.image}
+                      name={item.name}
+                      price={item.price}
+                      author={item.authors.name}
+                      publisher={item.publisher.name}
+                      productId={item._id}
+                    />
+                  </div>
+                )) : <></>}
+              </div>
+            </div>
+            <div className="c-12">
+              <div className="pagination-section">
+                <Pagination page={page} pages={pages} direct={direct} />
+              </div>
+            </div>
+          </div>
         </div>
-
-        <Pagination page={page} pages={pages} direct={direct} />
       </div>
     </div>
   );

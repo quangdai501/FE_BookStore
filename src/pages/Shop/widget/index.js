@@ -5,17 +5,6 @@ import { listAuthors } from "../../../actions/authorAction";
 import { listCategorys } from "../../../actions/categoryAction";
 
 const Widget = (props) => {
-  // const categorys = [
-  //   { name: "Tiểu thuyết", description: "" },
-  //   { name: "Truyện ngắn – Tản văn", description: "" },
-  //   { name: "Range - Hiểu Sâu, Biết Rộng Kiểu Gì Cũng Thắng", description: "" },
-  // ];
-  // const authors = [
-  //   { name: "Dương Thụy" },
-  //   { name: "Anh Cầm Fact" },
-  //   { name: "Trần Minh Phương Thảo" },
-  //   { name: "David Epstein" },
-  // ];
   const dispatch = useDispatch();
   const authorList = useSelector((state) => state.authorList);
   const { authors } = authorList;
@@ -68,7 +57,7 @@ const Widget = (props) => {
             </div>
           </div>
 
-          {categorys&&category === true ? (
+          {categorys && category === true ? (
             <div className="category__list">
               {categorys.map((item, index) => {
                 return (
@@ -97,7 +86,7 @@ const Widget = (props) => {
               )}
             </div>
           </div>
-          {authors&&author === true ? (
+          {authors && author === true ? (
             <div className="category__list">
               {authors.map((item, index) => {
                 return (

@@ -9,8 +9,7 @@
 }
 
 .widget {
-    // height: 100vh;
-    width: 250px;
+    max-width: 250px;
     overflow-y: scroll;
     background: #fff;
     font-size: 16px;
