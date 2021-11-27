@@ -14,14 +14,14 @@ Product.propTypes = {
 };
 export default function Product(props) {
   const dispatch = useDispatch()
-  const addtoCart=(e)=>{
+  const addtoCart = (e) => {
     e.stopPropagation()
     if (props.productId) {
       dispatch(addToCart(props.productId, 1))
     }
   }
   const navigate = useNavigate();
-  const gotoProductDetail=()=>{
+  const gotoProductDetail = () => {
     navigate({
       pathname: `/product-detail/${props.productId}`,
     });
@@ -40,7 +40,7 @@ export default function Product(props) {
         <p class="product-info__price">{priceToString(props.price)}</p>
       </div>
       <div class="action" onClick={addtoCart}>
-        <p class="btn--add-to-cart">Add to cart</p>
+        <p class="btn--add-to-cart">Thêm vào giỏ</p>
       </div>
     </div>
   );

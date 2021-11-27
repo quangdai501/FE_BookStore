@@ -1,7 +1,10 @@
 import "./style.scss";
+import { useSelector, useDispatch } from "react-redux";
 import SwiperProduct from "./items/SwiperProduct";
 import { useState } from "react";
-import {useNavigate } from "react-router";
+import SwpiperBanner from "./items/SwiperBanner";
+import { useNavigate } from "react-router";
+
 export default function Home() {
   const features = ["Đặc sắc", "Mua nhiều", "Giảm giá"];
   const [feature, setFeature] = useState(0);
@@ -10,18 +13,21 @@ export default function Home() {
   const saleProducts = { size: 6, sort: "price" };
   const sellProducts = { size: 6, sort: "-quantity" };
   const navigate = useNavigate();
-  const gotoShop=(query)=>{
+  const gotoShop = (query) => {
     navigate({
       pathname: '/shop',
       search: `?sort=${query.sort}`,
     });
   }
   return (
-    <>
+    <div className="space">
+      <div className="tab">
+        <SwpiperBanner />
+      </div>
       <div className="tab">
         <div className="tab__header row">
           <h2>Mới ra mắt</h2>
-          <div className="more" onClick={()=>gotoShop(newProucts)}>
+          <div className="more" onClick={() => gotoShop(newProucts)}>
             <span>Xem thêm</span>
             <i class="fas fa-greater-than"></i>
           </div>
@@ -45,7 +51,7 @@ export default function Home() {
         </div>
 
         <SwiperProduct query={saleProducts} />
-        <div className="more" onClick={()=>gotoShop(saleProducts)}>
+        <div className="more" onClick={() => gotoShop(saleProducts)}>
           <span>Xem thêm</span>
           <i class="fas fa-greater-than"></i>
         </div>
@@ -66,11 +72,11 @@ export default function Home() {
         </div>
 
         <SwiperProduct query={sellProducts} />
-        <div className="more"  onClick={()=>gotoShop(sellProducts)}>
+        <div className="more" onClick={() => gotoShop(sellProducts)}>
           <span>Xem thêm</span>
           <i class="fas fa-greater-than"></i>
         </div>
       </div>
-    </>
+    </div >
   );
 }
