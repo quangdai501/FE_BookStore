@@ -1,6 +1,5 @@
 @import '../../scssStyles/variable';
 .myaccount {
-    padding: 16px;
     font-size: 16px;
     label {
         font-weight: bold;
@@ -8,7 +7,7 @@
     }
     h1 {
         text-align: center;
-        padding: 50px;
+        padding-bottom: 50px;
     }
     .form-panel {
         text-align: right;

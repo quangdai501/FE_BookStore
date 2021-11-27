@@ -17,33 +17,35 @@ const Cart = () => {
     <div className="space">
       <h1 className="cart-header">Giỏ hàng của bạn</h1>
       <div className="row gutter">
-        <div className="c-8 md-12 padding">
-          {cartItems.length !== 0 ? cartItems.map((item, index) => (
-            <CartItem cart={item} key={index} />
-          )) : <div className="empty-cart"><img src="./images/empty-cart.png" alt="Empty" /></div>}
+        {cartItems.length === 0 ? <div className="c-12">
+          <div className="empty-cart"><img src="./images/empty-cart.png" alt="Empty" /></div>
         </div>
-        <div className="c-4 md-12 padding">
-          <div className="Orders">
-            <div className="order-row">
-              <div className="row">
-                <h3 className="title col c-8">Tổng Giỏ hàng:</h3>
-                <div className="col c-4">{priceToString(totalCart)}</div>
+          : <><div className="c-8 md-12 padding">
+            {cartItems.map((item, index) => (
+              <CartItem cart={item} key={index} />
+            ))}
+          </div>
+            <div className="c-4 md-12 padding">
+              <div className="Orders">
+                <div className="order-row">
+                  <div className="row">
+                    <h3 className="title col c-8">Tổng Giỏ hàng:</h3>
+                    <div className="col c-4">{priceToString(totalCart)}</div>
+                  </div>
+                </div>
+                <div className="order-row">
+                  <button
+                    className="btn btn--border-none btn--full-width"
+                    type="submit"
+                    onClick={gotoCheckout}
+                  >
+                    {/* <Link to="/checkout">Đến trang đặt hàng</Link> */}
+                    Đến trang đặt hàng
+                  </button>
+                </div>
               </div>
             </div>
-            <div className="order-row">
-              <button
-                className="btn btn--border-none btn--full-width"
-                type="submit"
-                onClick={gotoCheckout}
-              >
-                {/* <Link to="/checkout">Đến trang đặt hàng</Link> */}
-                Đến trang đặt hàng
-              </button>
-            </div>
-          </div>
-
-
-        </div>
+          </>}
       </div>
     </div>
   );

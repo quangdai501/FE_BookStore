@@ -8,7 +8,7 @@ const Profile = () => {
   const dispatch = useDispatch();
 
   const userDetails = useSelector((state) => state.userDetails);
-  const {  user } = userDetails;
+  const { user } = userDetails;
 
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { success: successUpdate } = userUpdateProfile;
@@ -45,7 +45,7 @@ const Profile = () => {
     //handle submit here
   };
   return (
-    <div className="myaccount">
+    <div className="space myaccount ">
       <h1>Thông tin</h1>
       <div className="myaccount-form row">
         <form onSubmit={handleSubmit(onSubmit)} className="col c-6 md-12">
