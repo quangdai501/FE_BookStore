@@ -1,5 +1,4 @@
 import "./style.scss";
-import { useSelector, useDispatch } from "react-redux";
 import SwiperProduct from "./items/SwiperProduct";
 import { useState } from "react";
 import SwpiperBanner from "./items/SwiperBanner";

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { Link } from 'react-router-dom';
 import { logout } from "../../actions/userAction";
 import "./style.scss";
 export default function Header() {
@@ -27,6 +28,9 @@ export default function Header() {
   };
   const gotoShop = () => {
     navigate("/shop");
+  };
+  const goToAdmin = () => {
+    window.location.href = "http://localhost:3000/admin";
   };
   const Search = () => {
     navigate({
@@ -74,6 +78,7 @@ export default function Header() {
                       <div class="dropdown-content">
                         <span onClick={gotoProfile}>Thông tin cá nhân</span>
                         <span onClick={logoutHandler}>Đăng xuất</span>
+                        {userInfo.role === "admin" && <span onClick={goToAdmin}>Trang admin</span>}
                       </div>
                     </div>
                   </div>
