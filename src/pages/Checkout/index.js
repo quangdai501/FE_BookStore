@@ -12,7 +12,7 @@ const Checkout = () => {
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
   const orderInfo = useSelector(state => state.createOrder);
-  const { order, createOrderProcess } = orderInfo;
+  const { createOrderProcess } = orderInfo;
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
@@ -105,10 +105,7 @@ const Checkout = () => {
         detail: data.address,
       }
       if (data.payment === "online") {
-        await dispatch(createOrder(userLogin._id, data.name, totalCart, address, data.phone, billDetail, "Thanh toán online"));
-        if (order?.data.code === "00") {
-          window.location.href = order.data.data;
-        }
+        await dispatch(createOrder(userLogin._id, data.name, totalCart + shippingFee, address, data.phone, billDetail, "Thanh toán online"));
         // await dispatch({ type: CART_CLEAR_ITEMS });
       }
       else {
@@ -125,9 +122,9 @@ const Checkout = () => {
     <div className="checkout space">
       <h1>Thanh toán</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="row gutter checkout-session">
-        <div className="c-5 lg-4 md-12 padding">
-          <div className="Billing-details">
-            <h3 className="title mb-15">Thông tin khách hàng</h3>
+        <div className="c-5 lg-4 md-12 padding center-item">
+          <div className="Billing-details checkout-info">
+            <h3 className="title mb-15 text-center">Thông tin khách hàng</h3>
             <div className="form-input">
               <label htmlFor="name" className="form-label">
                 Tên người nhận
@@ -249,7 +246,7 @@ const Checkout = () => {
                 className="btn btn--border-none btn--full-width"
                 type="submit"
               >
-                Đặt hàng
+                Đặt hàng {createOrderProcess && <span>Đang tải...</span>}
               </button>
             </div>
           </div>

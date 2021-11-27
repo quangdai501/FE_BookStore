@@ -48,6 +48,10 @@ const createOrder = (user_id, name, total, address, phone, billDetail, payment) 
         let data;
         if (payment === "Thanh toán online") {
             data = await OrderApi.createOrderAndPay(user_id, name, total, address, phone, billDetail, payment);
+            const res = data
+            if (res.data?.code === "00") {
+                window.location.href = res.data.data;
+            }
         }
         else {
             data = await OrderApi.createOrder(user_id, name, total, address, phone, billDetail, payment);

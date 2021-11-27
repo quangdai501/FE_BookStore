@@ -1,0 +1,26 @@
+@import '../../scssStyles/variable';
+@import '../../scssStyles/mixin';
+.thankful {
+    height: 100%;
+    justify-content: center;
+    font-size: $font-size;
+    .thankful-title {
+        @include center-item;
+        h3 {
+            text-align: center;
+            font-size: $text-large;
+            margin-left: 30px;
+        }
+        img {
+            display: block;
+            width: 60px;
+        }
+    }
+    &-action {
+        margin-top: 20px;
+        @include center-item;
+        a {
+            margin: 0 10px;
+        }
+    }
+}

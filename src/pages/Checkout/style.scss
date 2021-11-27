@@ -12,6 +12,16 @@
     }
 }
 
+.center-item {
+    display: flex;
+    justify-content: center;
+}
+
+.checkout-info {
+    width: 100%;
+    max-width: 400px;
+}
+
 h3.title.mb-15 {
     margin-bottom: 15px;
 }
