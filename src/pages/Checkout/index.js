@@ -28,8 +28,8 @@ const Checkout = () => {
   } = useForm();
 
   useEffect(() => {
-    setValue("name", userInfo.name)
-    setValue("phone", userInfo.phone)
+    setValue("name", userInfo?.name)
+    setValue("phone", userInfo?.phone)
   }, [])
   const getProvince = async () => {
     const { data: { data } } = await axios.get(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province`, {
