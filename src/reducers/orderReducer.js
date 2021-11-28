@@ -11,6 +11,9 @@ import {
     ORDER_DETAILS_REQUEST,
     ORDER_DETAILS_SUCCESS,
     ORDER_DETAILS_FAIL,
+    GET_ORDER_BY_STATUS_REQUEST,
+    GET_ORDER_BY_STATUS_SUCCESS,
+    GET_ORDER_BY_STATUS_FAIL
 
 } from '../constants/order';
 
@@ -71,10 +74,22 @@ const OrderDetailReducer = (state = { order: { billDetail: [] } }, action) => {
             return state;
     }
 }
-
+const getOrderByDeliveryStatusReducer = (state = { orders: [] }, action) => {
+    switch (action.type) {
+        case GET_ORDER_BY_STATUS_REQUEST:
+            return { loading: true };
+        case GET_ORDER_BY_STATUS_SUCCESS:
+            return { loading: false, orders: action.payload };
+        case GET_ORDER_BY_STATUS_FAIL:
+            return { loading: false, error: action.payload };
+        default:
+            return state;
+    }
+}
 export {
     createOrderReducer,
     userOrderReducer,
     OrderApprove,
-    OrderDetailReducer
+    OrderDetailReducer,
+    getOrderByDeliveryStatusReducer
 };

@@ -46,7 +46,7 @@ export default function CategoryManagement() {
   } = categoryUpdate;
   useEffect(() => {
     dispatch(listCategorys());
-  }, [successCreate,successDelete,successUpdate]);
+  }, [successCreate, successDelete, successUpdate]);
 
   const gotoEdit = (item) => {
     setCurrenCategory(item);
@@ -64,10 +64,10 @@ export default function CategoryManagement() {
   };
   const delCategory = (id) => {
     if (window.confirm('Are you sure')) {
-        dispatch(deleteCategory(id));
-        setCurrenCategory({})
-      }
-    
+      dispatch(deleteCategory(id));
+      setCurrenCategory({})
+    }
+
   };
   return (
     <div className="container">
@@ -75,7 +75,7 @@ export default function CategoryManagement() {
         <p className="manage-title">Danh sách danh mục </p>
       </div>
       <div className="row">
-        <div className="c-8">
+        <div className="c-8 table-scroll" >
           <table>
             <thead>
               <tr>
@@ -85,7 +85,7 @@ export default function CategoryManagement() {
               </tr>
             </thead>
             <tbody>
-              {categorys?categorys.map((item, index) => (
+              {categorys ? categorys.map((item, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{item.name}</td>
@@ -108,24 +108,22 @@ export default function CategoryManagement() {
                     </div>
                   </td>
                 </tr>
-              )):<></>}
+              )) : <></>}
             </tbody>
           </table>
         </div>
         <div className="c-4 container">
           <div className="row center-item">
             <p
-              className={`manage-option ${
-                currentOption === "add" ? "current-option" : ""
-              }`}
+              className={`manage-option ${currentOption === "add" ? "current-option" : ""
+                }`}
               onClick={() => setCurrentAction("add")}
             >
               Tạo mới
             </p>
             <p
-              className={`manage-option  ${
-                currentOption === "edit" ? "current-option" : ""
-              }`}
+              className={`manage-option  ${currentOption === "edit" ? "current-option" : ""
+                }`}
               onClick={() => setCurrentAction("edit")}
             >
               Chỉnh sửa thông tin

@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useMemo, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { createOrder } from '../../actions/orderAction';
 import { priceToString } from "../../common/convertNumberToPrice";
 import Item from "./item";
@@ -15,7 +16,7 @@ const Checkout = () => {
   const { createOrderProcess } = orderInfo;
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
-
+  const navigate = useNavigate();
   const shippingFee = 15000;
 
   const {
@@ -106,15 +107,14 @@ const Checkout = () => {
       }
       if (data.payment === "online") {
         await dispatch(createOrder(userLogin._id, data.name, totalCart + shippingFee, address, data.phone, billDetail, "Thanh toán online"));
-        // await dispatch({ type: CART_CLEAR_ITEMS });
+        await dispatch({ type: CART_CLEAR_ITEMS });
       }
       else {
-        await dispatch(createOrder(userLogin._id, data.name, totalCart, address, data.phone, billDetail, "Thanh toán khi nhận hàng"));
-        // await dispatch({ type: CART_CLEAR_ITEMS });
+        await dispatch(createOrder(userLogin._id, data.name, totalCart, address, data.phone, billDetail, "Thanh toán khi nhận hàng", navigate));
+        await dispatch({ type: CART_CLEAR_ITEMS });
       }
     }
   };
-
   useEffect(() => {
     getProvince()
   }, [])
@@ -203,13 +203,13 @@ const Checkout = () => {
             </div>
             <div className="order-row">
               <div className="row">
-                <h3 className=" col c-8">Tổng Giỏ hàng:</h3>
+                <p className=" col c-8">Tổng giỏ hàng:</p>
                 <div className="col c-4">{priceToString(totalCart)}</div>
               </div>
             </div>
             <div className="order-row">
               <div className="row">
-                <h3 className=" col c-8">Chi phí vận chuyển:</h3>
+                <p className=" col c-8">Chi phí vận chuyển:</p>
                 <div className="col c-4">{priceToString(shippingFee)}</div>
               </div>
             </div>
@@ -239,6 +239,7 @@ const Checkout = () => {
                   {...register("payment")}
                 />
                 <label htmlFor="payment">Thanh toán bằng ví điện tử vnpay</label>
+                <img className="payment-logo" src="./images/vnpay.png" alt="" />
               </div>
             </div>
             <div className="order-row">

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { Link } from 'react-router-dom';
 import { logout } from "../../actions/userAction";
 import "./style.scss";
 export default function Header() {
@@ -30,7 +29,7 @@ export default function Header() {
     navigate("/shop");
   };
   const goToAdmin = () => {
-    window.location.href = "http://localhost:3000/admin";
+    window.location.href = process.env.REACT_APP_REPLACE_URL || "https://bookstoreute.netlify.app/admin";
   };
   const Search = () => {
     navigate({
@@ -62,7 +61,6 @@ export default function Header() {
             </div>
           </div>
           <div className="c-3">
-            {/* <div className=""> */}
             <div className="row header-right">
               <div className="c-4 header-logo">
                 <div className="cart" onClick={gotoCart}>
@@ -89,7 +87,6 @@ export default function Header() {
                 )}
               </div>
             </div>
-            {/* </div> */}
           </div>
         </div>
       </div>

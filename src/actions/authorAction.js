@@ -18,7 +18,7 @@ import {
 } from '../constants/author'
 // import { logout } from './userActions'
 
-export const listAuthors = (props) => async(
+export const listAuthors = (props) => async (
     dispatch
 ) => {
     try {
@@ -38,7 +38,7 @@ export const listAuthors = (props) => async(
     }
 }
 
-export const listAuthorDetails = (id) => async(dispatch) => {
+export const listAuthorDetails = (id) => async (dispatch) => {
     try {
         dispatch({ type: AUTHOR_DETAILS_REQUEST })
 
@@ -56,25 +56,20 @@ export const listAuthorDetails = (id) => async(dispatch) => {
     }
 }
 
-export const deleteAuthor = (id) => async(dispatch, getState) => {
+export const deleteAuthor = (id) => async (dispatch) => {
     try {
         dispatch({
             type: AUTHOR_DELETE_REQUEST,
         })
-
-        const {
-            userLogin: { userInfo },
-        } = getState()
-
-        await AuthorApi.deleteAuthor(userInfo.token, id)
+        await AuthorApi.deleteAuthor(id)
         dispatch({
             type: AUTHOR_DELETE_SUCCESS,
         })
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-            error.response.data.message :
-            error.message
+                error.response.data.message :
+                error.message
         dispatch({
             type: AUTHOR_DELETE_FAIL,
             payload: message,
@@ -82,17 +77,13 @@ export const deleteAuthor = (id) => async(dispatch, getState) => {
     }
 }
 
-export const createAuthor = (name) => async(dispatch, getState) => {
+export const createAuthor = (name) => async (dispatch) => {
     try {
         dispatch({
             type: AUTHOR_CREATE_REQUEST,
         })
 
-        const {
-            userLogin: { userInfo },
-        } = getState()
-
-        const { data } = await AuthorApi.addAuthor(userInfo.token, name)
+        const { data } = await AuthorApi.addAuthor(name)
         dispatch({
             type: AUTHOR_CREATE_SUCCESS,
             payload: data,
@@ -100,8 +91,8 @@ export const createAuthor = (name) => async(dispatch, getState) => {
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-            error.response.data.message :
-            error.message
+                error.response.data.message :
+                error.message
         dispatch({
             type: AUTHOR_CREATE_FAIL,
             payload: message,
@@ -109,17 +100,13 @@ export const createAuthor = (name) => async(dispatch, getState) => {
     }
 }
 
-export const updateAuthor = (Author) => async(dispatch, getState) => {
+export const updateAuthor = (Author) => async (dispatch) => {
     try {
         dispatch({
             type: AUTHOR_UPDATE_REQUEST,
         })
 
-        const {
-            userLogin: { userInfo },
-        } = getState()
-
-        const { data } = await AuthorApi.updateAuthor(userInfo.token, Author)
+        const { data } = await AuthorApi.updateAuthor(Author)
 
         dispatch({
             type: AUTHOR_UPDATE_SUCCESS,
@@ -129,8 +116,8 @@ export const updateAuthor = (Author) => async(dispatch, getState) => {
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-            error.response.data.message :
-            error.message
+                error.response.data.message :
+                error.message
         dispatch({
             type: AUTHOR_UPDATE_FAIL,
             payload: message,

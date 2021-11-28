@@ -53,10 +53,16 @@
 
 .swiper-button-next,
 .swiper-button-prev {
+    transition: all 0.2s linear;
     z-index: 1000!important;
-    background-color: $gray100;
+    border: 1px solid $gray100;
+    background-color: white;
     width: 44px!important;
     &:hover {
         background-color: $dark;
+        color: white;
+    }
+    &::after {
+        color: $gray100;
     }
 }

@@ -1,0 +1,17 @@
+@import '../../scssStyles/variable';
+.detail-img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    display: block;
+}
+
+.detail-name {
+    font-size: $font-size;
+    color: $gray500;
+}
+
+.detail-price {
+    font-size: $font-size;
+    color: $red;
+}

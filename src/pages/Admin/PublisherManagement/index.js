@@ -46,7 +46,7 @@ export default function PublisherManagement() {
   } = publisherUpdate;
   useEffect(() => {
     dispatch(listPublishers());
-  }, [successCreate,successDelete,successUpdate]);
+  }, [successCreate, successDelete, successUpdate]);
 
   const gotoEdit = (item) => {
     setCurrenPublisher(item);
@@ -64,10 +64,10 @@ export default function PublisherManagement() {
   };
   const delPublisher = (id) => {
     if (window.confirm('Are you sure')) {
-        dispatch(deletePublisher(id));
-        setCurrenPublisher({})
-      }
-    
+      dispatch(deletePublisher(id));
+      setCurrenPublisher({})
+    }
+
   };
   return (
     <div className="container">
@@ -75,7 +75,7 @@ export default function PublisherManagement() {
         <p className="manage-title">Danh sách nhà xuất bản </p>
       </div>
       <div className="row">
-        <div className="c-8">
+        <div className="c-8 table-scroll" >
           <table>
             <thead>
               <tr>
@@ -85,7 +85,7 @@ export default function PublisherManagement() {
               </tr>
             </thead>
             <tbody>
-              {publishers?publishers.map((item, index) => (
+              {publishers ? publishers.map((item, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{item.name}</td>
@@ -108,24 +108,22 @@ export default function PublisherManagement() {
                     </div>
                   </td>
                 </tr>
-              )):<></>}
+              )) : <></>}
             </tbody>
           </table>
         </div>
         <div className="c-4 container">
           <div className="row center-item">
             <p
-              className={`manage-option ${
-                currentOption === "add" ? "current-option" : ""
-              }`}
+              className={`manage-option ${currentOption === "add" ? "current-option" : ""
+                }`}
               onClick={() => setCurrentAction("add")}
             >
               Tạo mới
             </p>
             <p
-              className={`manage-option  ${
-                currentOption === "edit" ? "current-option" : ""
-              }`}
+              className={`manage-option  ${currentOption === "edit" ? "current-option" : ""
+                }`}
               onClick={() => setCurrentAction("edit")}
             >
               Chỉnh sửa thông tin

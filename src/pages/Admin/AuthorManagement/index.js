@@ -35,18 +35,18 @@ export default function AuthorManagement() {
     loading: loadingCreate,
     error: errorCreate,
     success: successCreate,
-    author:authorcreate
+    author: authorcreate
   } = authorCreate;
   const authorUpdate = useSelector((state) => state.authorUpdate);
   const {
     loading: loadingUpdate,
     error: errorUpdate,
     success: successUpdate,
-    author:authorupdate
+    author: authorupdate
   } = authorUpdate;
   useEffect(() => {
     dispatch(listAuthors());
-  }, [successCreate,successDelete,successUpdate]);
+  }, [successCreate, successDelete, successUpdate]);
 
   const gotoEdit = (item) => {
     setCurrenAuthor(item);
@@ -64,10 +64,10 @@ export default function AuthorManagement() {
   };
   const delAuthor = (id) => {
     if (window.confirm('Are you sure')) {
-        dispatch(deleteAuthor(id));
-        setCurrenAuthor({})
-      }
-    
+      dispatch(deleteAuthor(id));
+      setCurrenAuthor({})
+    }
+
   };
   return (
     <div className="container">
@@ -75,7 +75,7 @@ export default function AuthorManagement() {
         <p className="manage-title">Danh sách tác giả </p>
       </div>
       <div className="row">
-        <div className="c-8">
+        <div className="c-8 table-scroll" >
           <table>
             <thead>
               <tr>
@@ -85,7 +85,7 @@ export default function AuthorManagement() {
               </tr>
             </thead>
             <tbody>
-              {authors?authors.map((item, index) => (
+              {authors ? authors.map((item, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{item.name}</td>
@@ -108,24 +108,22 @@ export default function AuthorManagement() {
                     </div>
                   </td>
                 </tr>
-              )):<></>}
+              )) : <></>}
             </tbody>
           </table>
         </div>
         <div className="c-4 container">
           <div className="row center-item">
             <p
-              className={`manage-option ${
-                currentOption === "add" ? "current-option" : ""
-              }`}
+              className={`manage-option ${currentOption === "add" ? "current-option" : ""
+                }`}
               onClick={() => setCurrentAction("add")}
             >
               Tạo mới
             </p>
             <p
-              className={`manage-option  ${
-                currentOption === "edit" ? "current-option" : ""
-              }`}
+              className={`manage-option  ${currentOption === "edit" ? "current-option" : ""
+                }`}
               onClick={() => setCurrentAction("edit")}
             >
               Chỉnh sửa thông tin
@@ -162,6 +160,6 @@ export default function AuthorManagement() {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }

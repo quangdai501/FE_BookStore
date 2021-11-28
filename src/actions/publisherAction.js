@@ -20,7 +20,7 @@ import {
 } from '../constants/publisher'
 // import { logout } from './userActions'
 
-export const listPublishers = (props) => async(
+export const listPublishers = (props) => async (
     dispatch
 ) => {
     try {
@@ -40,7 +40,7 @@ export const listPublishers = (props) => async(
     }
 }
 
-export const listPublisherDetails = (id) => async(dispatch) => {
+export const listPublisherDetails = (id) => async (dispatch) => {
     try {
         dispatch({ type: PUBLISHER_DETAILS_REQUEST })
 
@@ -58,25 +58,21 @@ export const listPublisherDetails = (id) => async(dispatch) => {
     }
 }
 
-export const deletePublisher = (id) => async(dispatch, getState) => {
+export const deletePublisher = (id) => async (dispatch) => {
     try {
         dispatch({
             type: PUBLISHER_DELETE_REQUEST,
         })
 
-        const {
-            userLogin: { userInfo },
-        } = getState()
-
-        await PublisherApi.deletePublisher(userInfo.token, id)
+        await PublisherApi.deletePublisher(id)
         dispatch({
             type: PUBLISHER_DELETE_SUCCESS,
         })
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-            error.response.data.message :
-            error.message
+                error.response.data.message :
+                error.message
         dispatch({
             type: PUBLISHER_DELETE_FAIL,
             payload: message,
@@ -84,17 +80,13 @@ export const deletePublisher = (id) => async(dispatch, getState) => {
     }
 }
 
-export const createPublisher = (name) => async(dispatch, getState) => {
+export const createPublisher = (name) => async (dispatch) => {
     try {
         dispatch({
             type: PUBLISHER_CREATE_REQUEST,
         })
 
-        const {
-            userLogin: { userInfo },
-        } = getState()
-
-        const { data } = await PublisherApi.addPublisher(userInfo.token, name)
+        const { data } = await PublisherApi.addPublisher(name)
         dispatch({
             type: PUBLISHER_CREATE_SUCCESS,
             payload: data,
@@ -102,8 +94,8 @@ export const createPublisher = (name) => async(dispatch, getState) => {
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-            error.response.data.message :
-            error.message
+                error.response.data.message :
+                error.message
         dispatch({
             type: PUBLISHER_CREATE_FAIL,
             payload: message,
@@ -111,17 +103,13 @@ export const createPublisher = (name) => async(dispatch, getState) => {
     }
 }
 
-export const updatePublisher = (Publisher) => async(dispatch, getState) => {
+export const updatePublisher = (Publisher) => async (dispatch) => {
     try {
         dispatch({
             type: PUBLISHER_UPDATE_REQUEST,
         })
 
-        const {
-            userLogin: { userInfo },
-        } = getState()
-
-        const { data } = await PublisherApi.updatePublisher(userInfo.token, Publisher)
+        const { data } = await PublisherApi.updatePublisher(Publisher)
 
         dispatch({
             type: PUBLISHER_UPDATE_SUCCESS,
@@ -131,8 +119,8 @@ export const updatePublisher = (Publisher) => async(dispatch, getState) => {
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-            error.response.data.message :
-            error.message
+                error.response.data.message :
+                error.message
         dispatch({
             type: PUBLISHER_UPDATE_FAIL,
             payload: message,

@@ -10,32 +10,17 @@ const AuthorApi = {
         const url = `/author/${id}`;
         return axiosClient.get(url);
     },
-    addAuthor: (token, name) => {
+    addAuthor: (name) => {
         const url = '/author';
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        }
-        return axiosClient.post(url, name, config);
+        return axiosClient.post(url, name);
     },
-    updateAuthor: (token, author) => {
+    updateAuthor: (author) => {
         const url = `/author/${author._id}`;
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        }
-        return axiosClient.patch(url, author, config);
+        return axiosClient.patch(url, author);
     },
-    deleteAuthor: (token, id) => {
+    deleteAuthor: (id) => {
         const url = `/author/${id}`;
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        }
-        return axiosClient.delete(url, config);
+        return axiosClient.delete(url);
     },
 
 }

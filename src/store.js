@@ -45,7 +45,8 @@ import {
     createOrderReducer,
     userOrderReducer,
     OrderApprove,
-    OrderDetailReducer
+    OrderDetailReducer,
+    getOrderByDeliveryStatusReducer
 } from './reducers/orderReducer';
 import { cartReducer } from './reducers/cartReducer'
 const reducer = combineReducers({
@@ -91,7 +92,8 @@ const reducer = combineReducers({
     createOrder: createOrderReducer,
     userOrder: userOrderReducer,
     orderApprove: OrderApprove,
-    orderDetail: OrderDetailReducer
+    orderDetail: OrderDetailReducer,
+    orderByStatus: getOrderByDeliveryStatusReducer
 });
 
 const cartItemsFromStorage = localStorage.getItem('cartItems') ?
