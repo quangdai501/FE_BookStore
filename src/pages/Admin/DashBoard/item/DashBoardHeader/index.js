@@ -1,7 +1,20 @@
 import React from 'react';
 import './style.scss';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { logout } from '../../../../../actions/userAction';
 export default function DashBoardHeader() {
+    const userLogin = useSelector((state) => state.userLogin);
+    const { userInfo } = userLogin;
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const logoutHandler = () => {
+        dispatch(logout());
+    };
+    const gotoShop = () => {
+        window.location.href = window.location.origin;
+    }
+
     return (
         <header className="header">
             <div className="row">
@@ -13,12 +26,15 @@ export default function DashBoardHeader() {
                 <div className="col c-10">
                     <div className="right-side">
                         <i className="far fa-user"></i>
-                        <div className="admin-name">
-                            Trần Quang Đại
+                        <div className="signin">
+                            <div class="dropdown">
+                                <span className="admin-name">{userInfo.name} <i class="fas fa-caret-down"></i></span>
+                                <div class="dropdown-content">
+                                    <span onClick={gotoShop}>Về shop</span>
+                                    <span onClick={logoutHandler}><p className="logout">Đăng xuất <i className="fas fa-sign-out-alt"></i></p></span>
+                                </div>
+                            </div>
                         </div>
-                        <p className="logout" title="Đăng xuất">
-                            <i className="fas fa-sign-out-alt"></i>
-                        </p>
                     </div>
 
                 </div>

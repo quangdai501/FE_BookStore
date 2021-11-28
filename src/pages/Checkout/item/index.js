@@ -10,11 +10,10 @@ const Item = (props) => {
         <div className="item row">
             <img className="col c-4" src={image} alt="Book" />
             <div className="subject col c-8">
-                <h4>{name}</h4>
+                <p className="subject__name">{name}</p>
                 <div className="row flex-row">
-
-                    <p >{qty}<b>X</b>{priceToString(price)}</p>
-                    <p >{priceToString(total)}</p>
+                    <p >{qty}<i class="fas fa-times"></i>{priceToString(price)}</p>
+                    <p className="total-order">{priceToString(total)}</p>
                 </div>
             </div>
         </div>

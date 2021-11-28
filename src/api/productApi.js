@@ -11,50 +11,29 @@ const ProductApi = {
         return axiosClient.get(url);
     },
 
-    addProduct: (product, token) => {
+    addProduct: (product) => {
         const url = `/products/addProduct`;
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        }
-        return axiosClient.post(url, product, config);
+
+        return axiosClient.post(url, product);
     },
-    deleteProductByID: (id, token) => {
+    deleteProductByID: (id) => {
         const url = `/products/deleteProduct/${id}`;
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        }
-        return axiosClient.delete(url, config);
+
+        return axiosClient.delete(url);
     },
-    updateProductByID: (product, token) => {
+    updateProductByID: (product) => {
         const url = `/products/updateProduct/${product._id}`;
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        }
-        return axiosClient.patch(url, product, config);
+
+        return axiosClient.patch(url, product);
     },
-    updateProductQuantityByID: (id, qty, token) => {
+    updateProductQuantityByID: (id, qty) => {
         const url = `/products/updateProductQuantity/${id}`;
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        }
-        return axiosClient.get(url, qty, config);
+
+        return axiosClient.get(url, qty);
     },
-    createReview: (review, token, id) => {
+    createReview: (review, id) => {
         const url = `/products/createreview/${id}`;
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        }
-        return axiosClient.post(url, review, config);
+        return axiosClient.post(url, review);
     },
 }
 export default ProductApi

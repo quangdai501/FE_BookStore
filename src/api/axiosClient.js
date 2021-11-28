@@ -7,17 +7,20 @@ const axiosClient = axios.create({
     },
 });
 
-axiosClient.interceptors.request.use(async(config) => {
+axiosClient.interceptors.request.use(async (config) => {
     //handle token here
+    const userInfo = localStorage.getItem('userInfo');
+    if (userInfo) {
+        config.headers.authentization = "Bearer " + JSON.parse(userInfo).token;
+    }
     return config;
 });
 axiosClient.interceptors.response.use((response) => {
     return response;
 }, (error) => {
-    const err = error.response && error.response.data.message ?
-        error.response.data.message : error.message
-        // console.log(err)
-    throw err
+    // const err = error.response && error.response.data.message ?
+    //     error.response.data.message : error.message
+    throw error
 });
 
 export default axiosClient;

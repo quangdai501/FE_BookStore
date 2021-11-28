@@ -18,7 +18,7 @@ import {
 } from '../constants/category'
 // import { logout } from './userActions'
 
-export const listCategorys = (props) => async(
+export const listCategorys = (props) => async (
     dispatch
 ) => {
     try {
@@ -38,7 +38,7 @@ export const listCategorys = (props) => async(
     }
 }
 
-export const listCategoryDetails = (id) => async(dispatch) => {
+export const listCategoryDetails = (id) => async (dispatch) => {
     try {
         dispatch({ type: CATEGORY_DETAILS_REQUEST })
 
@@ -56,25 +56,21 @@ export const listCategoryDetails = (id) => async(dispatch) => {
     }
 }
 
-export const deleteCategory = (id) => async(dispatch, getState) => {
+export const deleteCategory = (id) => async (dispatch) => {
     try {
         dispatch({
             type: CATEGORY_DELETE_REQUEST,
         })
 
-        const {
-            userLogin: { userInfo },
-        } = getState()
-
-        await CategoryApi.deleteCategory(userInfo.token, id)
+        await CategoryApi.deleteCategory(id)
         dispatch({
             type: CATEGORY_DELETE_SUCCESS,
         })
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-            error.response.data.message :
-            error.message
+                error.response.data.message :
+                error.message
         dispatch({
             type: CATEGORY_DELETE_FAIL,
             payload: message,
@@ -82,17 +78,12 @@ export const deleteCategory = (id) => async(dispatch, getState) => {
     }
 }
 
-export const createCategory = (name) => async(dispatch, getState) => {
+export const createCategory = (name) => async (dispatch) => {
     try {
         dispatch({
             type: CATEGORY_CREATE_REQUEST,
         })
-
-        const {
-            userLogin: { userInfo },
-        } = getState()
-
-        const { data } = await CategoryApi.addCategory(userInfo.token, name)
+        const { data } = await CategoryApi.addCategory(name)
         dispatch({
             type: CATEGORY_CREATE_SUCCESS,
             payload: data,
@@ -100,8 +91,8 @@ export const createCategory = (name) => async(dispatch, getState) => {
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-            error.response.data.message :
-            error.message
+                error.response.data.message :
+                error.message
         dispatch({
             type: CATEGORY_CREATE_FAIL,
             payload: message,
@@ -109,17 +100,12 @@ export const createCategory = (name) => async(dispatch, getState) => {
     }
 }
 
-export const updateCategory = (Category) => async(dispatch, getState) => {
+export const updateCategory = (Category) => async (dispatch) => {
     try {
         dispatch({
             type: CATEGORY_UPDATE_REQUEST,
         })
-
-        const {
-            userLogin: { userInfo },
-        } = getState()
-
-        const { data } = await CategoryApi.updateCategory(userInfo.token, Category)
+        const { data } = await CategoryApi.updateCategory(Category)
 
         dispatch({
             type: CATEGORY_UPDATE_SUCCESS,
@@ -129,8 +115,8 @@ export const updateCategory = (Category) => async(dispatch, getState) => {
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-            error.response.data.message :
-            error.message
+                error.response.data.message :
+                error.message
         dispatch({
             type: CATEGORY_UPDATE_FAIL,
             payload: message,

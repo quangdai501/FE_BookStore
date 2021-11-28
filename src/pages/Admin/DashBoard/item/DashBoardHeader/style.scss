@@ -18,15 +18,18 @@
         margin-left: 10px;
         margin-right: 10px;
         color: $gray600;
+        cursor: pointer;
     }
     i {
         font-size: 16px;
     }
 }
 
-.logout i {
+.logout {
     cursor: pointer;
-    color: $dark;
+    display: flex;
+    justify-content: space-between;
+    color: gray;
 }
 
 .left-side {

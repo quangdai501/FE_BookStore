@@ -12,8 +12,11 @@ import {
     ORDER_DETAILS_FAIL,
     ORDER_DETAILS_REQUEST,
     ORDER_DETAILS_SUCCESS,
+    GET_ORDER_BY_STATUS_REQUEST,
+    GET_ORDER_BY_STATUS_SUCCESS,
+    GET_ORDER_BY_STATUS_FAIL
+
 } from '../constants/order';
-import { CART_CLEAR_ITEMS } from '../constants/cart';
 import OrderApi from '../api/orderApi';
 // danh sach don  hang da dat cua 1 user
 const listOrderOfUser = () => async (dispatch, getState) => {
@@ -30,9 +33,17 @@ const listOrderOfUser = () => async (dispatch, getState) => {
         dispatch({ type: ORDER_MINE_LIST_FAIL, payload: message });
     }
 };
+const getOrderByDeliveryStatus = (deliveryStatus) => async (dispatch) => {
+    dispatch({ type: GET_ORDER_BY_STATUS_REQUEST });
+    try {
+        const { data } = await OrderApi.orderByStatus(deliveryStatus);
+        dispatch({ type: GET_ORDER_BY_STATUS_SUCCESS, payload: data });
+    } catch (error) {
+        dispatch({ type: GET_ORDER_BY_STATUS_FAIL, payload: error.message });
+    }
+}
 
-const createOrder = (user_id, name, total, address, phone, billDetail, payment) => async (dispatch, getState) => {
-
+const createOrder = (user_id, name, total, address, phone, billDetail, payment, navigate) => async (dispatch, getState) => {
     try {
         dispatch({ type: ORDER_CREATE_REQUEST });
         // const { cart: { cartItems } } = getState();
@@ -55,13 +66,16 @@ const createOrder = (user_id, name, total, address, phone, billDetail, payment) 
         }
         else {
             data = await OrderApi.createOrder(user_id, name, total, address, phone, billDetail, payment);
+            if (data) {
+                navigate("/order-success", { replace: true })
+            }
         }
         dispatch({
             type: ORDER_CREATE_SUCCESS,
             payload: data
         });
+
     } catch (error) {
-        console.log(error)
         dispatch({ type: ORDER_CREATE_FAIL, payload: error.message });
     }
 };
@@ -76,7 +90,6 @@ const adminApproveOrder = (orderID, action) => async (dispatch) => {
                     type: ORDER_APPROVE_SUCCESS,
                     payload: data
                 });
-
             }
         }
         else if (action === 'Huy') {
@@ -90,10 +103,9 @@ const adminApproveOrder = (orderID, action) => async (dispatch) => {
 
             }
         }
-
-
     } catch (error) {
-        dispatch({ type: ORDER_APPROVE_FAIL, payload: error.message });
+        const err = error.response && error.response.data.message ? error.response.data.message : error
+        dispatch({ type: ORDER_APPROVE_FAIL, payload: err });
     }
 };
 
@@ -110,5 +122,5 @@ const orderDetail = (orderID) => async (dispatch) => {
 }
 
 
-export { listOrderOfUser, createOrder, orderDetail, adminApproveOrder };
+export { listOrderOfUser, getOrderByDeliveryStatus, createOrder, orderDetail, adminApproveOrder };
 

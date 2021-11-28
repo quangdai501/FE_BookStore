@@ -14,10 +14,19 @@ const OrderApi = {
         return axiosClient.get('/orders/admin/orderDetail/' + orderID)
     },
     orderApprove: (orderID) => {
-        return axiosClient.patch('/orders/admin/' + orderID)
+        return axiosClient.post('/orders/admin/' + orderID)
     },
     orderCancel: (orderID) => {
         return axiosClient.patch('/orders/admin/cancelOrder/' + orderID)
+    },
+
+    orderByStatus: (diliveryStatus) => {
+        if (diliveryStatus === 'Tất cả') {
+            return axiosClient.get('/orders');
+        } else {
+            return axiosClient.post('/orders/order-by-delivery-status', { diliveryStatus });
+        }
     }
+
 }
 export default OrderApi

@@ -42,3 +42,8 @@ td img {
     display: inline-block;
     object-fit: cover;
 }
+
+.table-scroll {
+    max-height: calc(100vh - 180px);
+    overflow-y: scroll;
+}

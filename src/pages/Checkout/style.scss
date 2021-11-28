@@ -60,3 +60,14 @@ h3.title.mb-15 {
         }
     }
 }
+
+.sub-title {
+    display: flex;
+    align-items: center;
+    .payment-logo {
+        display: block;
+        object-fit: cover;
+        margin-left: 10px;
+        height: 18px;
+    }
+}

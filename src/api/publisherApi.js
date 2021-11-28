@@ -1,6 +1,5 @@
 import axiosClient from "./axiosClient";
 
-
 const PublisherApi = {
     getAll: (params) => {
         const url = '/publisher';
@@ -10,32 +9,20 @@ const PublisherApi = {
         const url = `/publisher/${id}`;
         return axiosClient.get(url);
     },
-    addPublisher: (token, name) => {
+    addPublisher: (name) => {
         const url = '/publisher';
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        }
-        return axiosClient.post(url, name, config);
+
+        return axiosClient.post(url, name);
     },
-    updatePublisher: (token, publisher) => {
+    updatePublisher: (publisher) => {
         const url = `/publisher/${publisher._id}`;
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        }
-        return axiosClient.patch(url, publisher, config);
+
+        return axiosClient.patch(url, publisher);
     },
-    deletePublisher: (token, id) => {
+    deletePublisher: (id) => {
         const url = `/publisher/${id}`;
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        }
-        return axiosClient.delete(url, config);
+
+        return axiosClient.delete(url);
     },
 }
 export default PublisherApi
