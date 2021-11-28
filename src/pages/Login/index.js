@@ -14,12 +14,6 @@ export default function Login() {
 
   let navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (userInfo) {
-  //     navigate("/shop");
-  //   }
-  // }, [JSON.stringify(userInfo)])
-
   const onSubmit = (data) => {
     const { email, password } = data;
     dispatch(login(email, password, navigate))

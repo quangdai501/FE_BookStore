@@ -11,7 +11,7 @@ export default function OrderManagement() {
     const [show, setShow] = useState('');
     const [change, setChange] = useState(false);
     const { orders, error } = useSelector(state => state.orderByStatus);
-    console.log("error", orders);
+
     const dispatch = useDispatch();
     const approveOrder = (id, action) => {
         dispatch(adminApproveOrder(id, action));
@@ -41,14 +41,16 @@ export default function OrderManagement() {
         setList();
     }, [orders])
     useEffect(() => {
-        console.log("call api nè")
         dispatch(getOrderByDeliveryStatus("Tất cả"))
     }, [change])
     return (
         <div className="container">
             <div class="manage-header">
-                <p class="manage-title">Đơn hàng chờ xử lý</p>
+                {/* <p class="manage-title">Đơn hàng chờ xử lý</p> */}
+                <a href="https://5sao.ghn.dev/order">Quản lý đơn hàng tại giao hàng nhanh</a>
             </div>
+            {error && <p>{error}</p>}
+
             {/* {listOrders && listOrders?.billDetail.map((detail) =>
                 <OrderDetail
                     key={detail._id}
@@ -100,9 +102,11 @@ export default function OrderManagement() {
                                     </div>
                                 </td>
                             </tr>
-                        )) : <></>}
+                        )) : <>
+                        </>}
                     </tbody>
                 </table>
+                {listOrders?.length !== 0 && <p className="order-empty">Không có đơn nào cần xử lý</p>}
             </div>
         </div>
     )

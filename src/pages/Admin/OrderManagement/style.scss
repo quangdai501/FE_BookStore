@@ -1,1 +1,6 @@
 @import '../../../scssStyles/variable';
+.order-empty {
+    padding: 10%;
+    font-size: $font-size;
+    text-align: center;
+}

@@ -29,7 +29,7 @@ export default function Header() {
     navigate("/shop");
   };
   const goToAdmin = () => {
-    window.location.href = process.env.REACT_APP_REPLACE_URL || "https://bookstoreute.netlify.app/admin";
+    window.location.href = `${window.location.origin}/admin`;
   };
   const Search = () => {
     navigate({
