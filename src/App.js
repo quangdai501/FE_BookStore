@@ -17,6 +17,7 @@ import Shop from "./pages/Shop";
 import Header from "./components/Header";
 import Profile from "./pages/Profile";
 import OrderSuccess from "./pages/OrderSuccess";
+import NotFound from "./pages/NotFound";
 function App() {
   const href = window.location.href;
 
@@ -45,6 +46,7 @@ function App() {
                 path="/product-detail/:productID"
                 element={<ProductDetail />}
               />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
           <Footer />

@@ -13,7 +13,9 @@ import {
     ORDER_DETAILS_FAIL,
     GET_ORDER_BY_STATUS_REQUEST,
     GET_ORDER_BY_STATUS_SUCCESS,
-    GET_ORDER_BY_STATUS_FAIL
+    GET_ORDER_BY_STATUS_FAIL,
+    SEND_MAIL_ORDER_REQUEST,
+    SEND_MAIL_ORDER_SUCCESS
 
 } from '../constants/order';
 
@@ -86,10 +88,21 @@ const getOrderByDeliveryStatusReducer = (state = { orders: [] }, action) => {
             return state;
     }
 }
+const sendMailOrderReducer = (state = { sendingProcess: false }, action) => {
+    switch (action.type) {
+        case SEND_MAIL_ORDER_REQUEST:
+            return { sendingProcess: true };
+        case SEND_MAIL_ORDER_SUCCESS:
+            return { sendingProcess: false };
+        default:
+            return state;
+    }
+}
 export {
     createOrderReducer,
     userOrderReducer,
     OrderApprove,
     OrderDetailReducer,
-    getOrderByDeliveryStatusReducer
+    getOrderByDeliveryStatusReducer,
+    sendMailOrderReducer
 };

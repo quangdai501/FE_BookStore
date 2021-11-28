@@ -3,7 +3,7 @@ import React, { useMemo, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { createOrder } from '../../actions/orderAction';
+import { createOrder, sendMailOrder } from '../../actions/orderAction';
 import { priceToString } from "../../common/convertNumberToPrice";
 import Item from "./item";
 import { CART_CLEAR_ITEMS } from "../../constants/cart";
@@ -13,19 +13,24 @@ const Checkout = () => {
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
   const orderInfo = useSelector(state => state.createOrder);
-  const { createOrderProcess } = orderInfo;
   const cart = useSelector((state) => state.cart);
+  const { userInfo } = useSelector((state) => state.userLogin);
+  const { sendingProcess } = useSelector(state => state.sendMailOrder);
+  const { createOrderProcess } = orderInfo;
   const { cartItems } = cart;
   const navigate = useNavigate();
   const shippingFee = 15000;
-
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
-
+  useEffect(() => {
+    setValue("name", userInfo.name)
+    setValue("phone", userInfo.phone)
+  }, [])
   const getProvince = async () => {
     const { data: { data } } = await axios.get(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province`, {
       headers: {
@@ -70,9 +75,6 @@ const Checkout = () => {
     getWard(district.DistrictID);
   }
 
-
-  const userLogin = useSelector((state) => state.userLogin);
-
   const dispatch = useDispatch();
 
   const totalCart = useMemo(() =>
@@ -106,11 +108,13 @@ const Checkout = () => {
         detail: data.address,
       }
       if (data.payment === "online") {
-        await dispatch(createOrder(userLogin._id, data.name, totalCart + shippingFee, address, data.phone, billDetail, "Thanh toán online"));
+        await dispatch(createOrder(userInfo._id, data.name, totalCart + shippingFee, address, data.phone, billDetail, "Thanh toán online"));
+        await dispatch(sendMailOrder(userInfo, cartItems));
         await dispatch({ type: CART_CLEAR_ITEMS });
       }
       else {
-        await dispatch(createOrder(userLogin._id, data.name, totalCart, address, data.phone, billDetail, "Thanh toán khi nhận hàng", navigate));
+        await dispatch(createOrder(userInfo._id, data.name, totalCart, address, data.phone, billDetail, "Thanh toán khi nhận hàng", navigate));
+        await dispatch(sendMailOrder(userInfo, cartItems));
         await dispatch({ type: CART_CLEAR_ITEMS });
       }
     }
@@ -247,7 +251,7 @@ const Checkout = () => {
                 className="btn btn--border-none btn--full-width"
                 type="submit"
               >
-                Đặt hàng {createOrderProcess && <span>Đang tải...</span>}
+                {createOrderProcess || sendingProcess ? "Đang xử lý..." : "Đặt hàng"}
               </button>
             </div>
           </div>
