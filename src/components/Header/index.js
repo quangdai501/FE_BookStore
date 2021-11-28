@@ -25,8 +25,8 @@ export default function Header() {
   const gotoProfile = () => {
     navigate("/profile");
   };
-  const gotoShop = () => {
-    navigate("/shop");
+  const gotoHome = () => {
+    navigate("/");
   };
   const goToAdmin = () => {
     window.location.href = `${window.location.origin}/admin`;
@@ -45,7 +45,7 @@ export default function Header() {
       <div className="container header-body">
         <div className="row gutter">
           <div className="c-3 lg-4 md-5 padding">
-            <div className="logo" onClick={gotoShop}><img src="/images/logo.png" alt="logo" /></div>
+            <div className="logo" onClick={gotoHome}><img src="/images/logo.png" alt="logo" /></div>
           </div>
           <div className="c-6 lg-8 md-7 padding">
             <div className="search">

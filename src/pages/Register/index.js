@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { confirmEmail, enterCode } from "../../actions/userAction";
-import {  useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import "./style.scss";
 export default function Register() {
   const [isMatch, setIsMatch] = useState(true);
@@ -31,11 +31,11 @@ export default function Register() {
   } = userEnterCode;
 
   useEffect(() => {
-   if(successEnterCode){
-    setTimeout(() => {
-      document.location.href = '/login'
-    }, 2000);
-   }
+    if (successEnterCode) {
+      setTimeout(() => {
+        document.location.href = '/login'
+      }, 2000);
+    }
   }, [successEnterCode]);
 
   const [isentercode, setIsentercodes] = useState(false);
@@ -51,7 +51,7 @@ export default function Register() {
     if (Object.keys(errors).length === 0) {
       // console.log(password, email,name);
       //submit form tại đây
-      if (code){
+      if (code) {
         if (isentercode) {
           dispatch(enterCode(code));
           // console.log(code)
@@ -59,10 +59,10 @@ export default function Register() {
           // console.log(password, email,name);
           dispatch(confirmEmail(name, email, password));
         }
-      }else{
+      } else {
         dispatch(confirmEmail(name, email, password));
       }
-     
+
     }
   };
 
@@ -140,9 +140,9 @@ export default function Register() {
             className="btn btn--border-none btn--full-width"
             onClick={() => setIsentercodes(true)}
           >
-            Đăng ký
+            {loading ? "Đang xử lý..." : "Đăng ký"}
           </button>
-          {successEnterCode&&<p className="sucess-register">Đăng ký thành công</p>}
+          {successEnterCode && <p className="sucess-register">Đăng ký thành công</p>}
         </form>
         <p className="login__form-panel">
           <Link to="/login">Tôi có tài khoản rồi</Link>

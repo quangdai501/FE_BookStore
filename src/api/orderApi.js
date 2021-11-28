@@ -26,6 +26,9 @@ const OrderApi = {
         } else {
             return axiosClient.post('/orders/order-by-delivery-status', { diliveryStatus });
         }
+    },
+    sendEmail: (userInfo, cartItems) => {
+        return axiosClient.post('/orders/sendmail', { userInfo, cartItems })
     }
 
 }

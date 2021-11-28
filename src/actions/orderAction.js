@@ -14,8 +14,9 @@ import {
     ORDER_DETAILS_SUCCESS,
     GET_ORDER_BY_STATUS_REQUEST,
     GET_ORDER_BY_STATUS_SUCCESS,
-    GET_ORDER_BY_STATUS_FAIL
-
+    GET_ORDER_BY_STATUS_FAIL,
+    SEND_MAIL_ORDER_REQUEST,
+    SEND_MAIL_ORDER_SUCCESS
 } from '../constants/order';
 import OrderApi from '../api/orderApi';
 // danh sach don  hang da dat cua 1 user
@@ -43,7 +44,7 @@ const getOrderByDeliveryStatus = (deliveryStatus) => async (dispatch) => {
     }
 }
 
-const createOrder = (user_id, name, total, address, phone, billDetail, payment, navigate) => async (dispatch, getState) => {
+const createOrder = (user_id, name, total, address, phone, billDetail, payment, navigate) => async (dispatch) => {
     try {
         dispatch({ type: ORDER_CREATE_REQUEST });
         // const { cart: { cartItems } } = getState();
@@ -121,6 +122,14 @@ const orderDetail = (orderID) => async (dispatch) => {
 
 }
 
+const sendMailOrder = (userInfo, cartItems) => async (dispatch) => {
+    dispatch({ type: SEND_MAIL_ORDER_REQUEST });
+    try {
+        await OrderApi.sendEmail(userInfo, cartItems);
+        dispatch({ type: SEND_MAIL_ORDER_SUCCESS });
+    } catch (error) {
 
-export { listOrderOfUser, getOrderByDeliveryStatus, createOrder, orderDetail, adminApproveOrder };
+    }
+}
+export { listOrderOfUser, getOrderByDeliveryStatus, createOrder, orderDetail, adminApproveOrder, sendMailOrder };
 
