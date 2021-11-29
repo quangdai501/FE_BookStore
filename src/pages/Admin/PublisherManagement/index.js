@@ -138,6 +138,7 @@ export default function PublisherManagement() {
               <label htmlFor="" className="form-label">
                 Tên nhà xuất bản
               </label>
+              {error && <p>Tên nhà xuất bản không được để trống</p>}
               <input
                 type="text"
                 onChange={changeCurrenPublisher}
