@@ -15,10 +15,13 @@ import {
     AUTHOR_UPDATE_REQUEST,
     AUTHOR_UPDATE_SUCCESS,
     AUTHOR_UPDATE_FAIL,
+    AUTHOR_CREATE_RESET,
+    AUTHOR_DELETE_RESET,
+    AUTHOR_UPDATE_RESET
 } from '../constants/author'
 // import { logout } from './userActions'
 
-export const listAuthors = (props) => async (
+export const listAuthors = (props) => async(
     dispatch
 ) => {
     try {
@@ -38,7 +41,7 @@ export const listAuthors = (props) => async (
     }
 }
 
-export const listAuthorDetails = (id) => async (dispatch) => {
+export const listAuthorDetails = (id) => async(dispatch) => {
     try {
         dispatch({ type: AUTHOR_DETAILS_REQUEST })
 
@@ -56,20 +59,26 @@ export const listAuthorDetails = (id) => async (dispatch) => {
     }
 }
 
-export const deleteAuthor = (id) => async (dispatch) => {
+export const deleteAuthor = (id) => async(dispatch) => {
     try {
         dispatch({
             type: AUTHOR_DELETE_REQUEST,
         })
-        await AuthorApi.deleteAuthor(id)
+        const data = await AuthorApi.deleteAuthor(id)
         dispatch({
             type: AUTHOR_DELETE_SUCCESS,
         })
+        if (data) {
+            setTimeout(() => {
+                dispatch({ type: AUTHOR_DELETE_RESET })
+            }, 2000);
+        }
+
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-                error.response.data.message :
-                error.message
+            error.response.data.message :
+            error.message
         dispatch({
             type: AUTHOR_DELETE_FAIL,
             payload: message,
@@ -77,7 +86,7 @@ export const deleteAuthor = (id) => async (dispatch) => {
     }
 }
 
-export const createAuthor = (name) => async (dispatch) => {
+export const createAuthor = (name) => async(dispatch) => {
     try {
         dispatch({
             type: AUTHOR_CREATE_REQUEST,
@@ -88,11 +97,16 @@ export const createAuthor = (name) => async (dispatch) => {
             type: AUTHOR_CREATE_SUCCESS,
             payload: data,
         })
+        if (data) {
+            setTimeout(() => {
+                dispatch({ type: AUTHOR_CREATE_RESET })
+            }, 2000);
+        }
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-                error.response.data.message :
-                error.message
+            error.response.data.message :
+            error.message
         dispatch({
             type: AUTHOR_CREATE_FAIL,
             payload: message,
@@ -100,7 +114,7 @@ export const createAuthor = (name) => async (dispatch) => {
     }
 }
 
-export const updateAuthor = (Author) => async (dispatch) => {
+export const updateAuthor = (Author) => async(dispatch) => {
     try {
         dispatch({
             type: AUTHOR_UPDATE_REQUEST,
@@ -109,15 +123,20 @@ export const updateAuthor = (Author) => async (dispatch) => {
         const { data } = await AuthorApi.updateAuthor(Author)
 
         dispatch({
-            type: AUTHOR_UPDATE_SUCCESS,
-            payload: data,
-        })
-        dispatch({ type: AUTHOR_DETAILS_SUCCESS, payload: data })
+                type: AUTHOR_UPDATE_SUCCESS,
+                payload: data,
+            })
+            // dispatch({ type: AUTHOR_DETAILS_SUCCESS, payload: data })
+        if (data) {
+            setTimeout(() => {
+                dispatch({ type: AUTHOR_UPDATE_RESET })
+            }, 2000);
+        }
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-                error.response.data.message :
-                error.message
+            error.response.data.message :
+            error.message
         dispatch({
             type: AUTHOR_UPDATE_FAIL,
             payload: message,

@@ -8,6 +8,7 @@ import {
     CATEGORY_DELETE_REQUEST,
     CATEGORY_DELETE_SUCCESS,
     CATEGORY_DELETE_FAIL,
+    CATEGORY_DELETE_RESET,
     CATEGORY_CREATE_RESET,
     CATEGORY_CREATE_FAIL,
     CATEGORY_CREATE_SUCCESS,
@@ -58,6 +59,8 @@ export const categoryDeleteReducer = (state = {}, action) => {
             return { loading: false, success: true }
         case CATEGORY_DELETE_FAIL:
             return { loading: false, error: action.payload }
+        case CATEGORY_DELETE_RESET:
+            return {}
         default:
             return state
     }
