@@ -8,16 +8,22 @@ import {
 } from "../../../actions/categoryAction";
 import "./style.scss";
 export default function CategoryManagement() {
-  const [currenCategory, setCurrenCategory] = useState({});
+  const [currenCategory, setCurrenCategory] = useState({ name: "" });
+  const [error, setError] = useState(false);
   const changeCurrenCategory = (e) => {
     setCurrenCategory({ ...currenCategory, name: e.target.value });
+    if (e.target.value === "") {
+      setError(true);
+    } else {
+      setError(false);
+    }
   };
 
   const [currentOption, setCurrentOption] = useState("add");
   const setCurrentAction = (option) => {
     if (currentOption !== option) setCurrentOption(option);
     if (option === "add") {
-      setCurrenCategory({});
+      setCurrenCategory({ name: "" });
     }
   };
 
@@ -25,22 +31,16 @@ export default function CategoryManagement() {
   const categoryList = useSelector((state) => state.categoryList);
   const { categorys } = categoryList;
   const categoryDelete = useSelector((state) => state.categoryDelete);
-  const {
-    loading: loadingDelete,
-    error: errorDelete,
-    success: successDelete,
-  } = categoryDelete;
+  const { loading: loadingDelete, success: successDelete } = categoryDelete;
   const categoryCreate = useSelector((state) => state.categoryCreate);
   const {
     loading: loadingCreate,
-    error: errorCreate,
     success: successCreate,
     // category:categorycreate
   } = categoryCreate;
   const categoryUpdate = useSelector((state) => state.categoryUpdate);
   const {
     loading: loadingUpdate,
-    error: errorUpdate,
     success: successUpdate,
     // category:categoryupdate
   } = categoryUpdate;
@@ -53,21 +53,21 @@ export default function CategoryManagement() {
     setCurrentAction("edit");
   };
   const addCategory = () => {
-    if (currenCategory.name && currenCategory.name !== "") {
+    if (currenCategory.name !== "") {
       dispatch(createCategory(currenCategory));
     }
   };
   const editCategoryInfo = () => {
-    if (currenCategory._id && currenCategory.name && currenCategory.name !== "") {
+    if (currenCategory._id && currenCategory.name !== "") {
       dispatch(updateCategory(currenCategory));
     }
   };
   const delCategory = (id) => {
-    if (window.confirm('Are you sure')) {
+    if (window.confirm("Are you sure")) {
       dispatch(deleteCategory(id));
-      setCurrenCategory({})
+      setCurrenCategory({ name: "" });
+      setCurrentAction("add");
     }
-
   };
   return (
     <div className="container">
@@ -75,7 +75,7 @@ export default function CategoryManagement() {
         <p className="manage-title">Danh sách danh mục </p>
       </div>
       <div className="row">
-        <div className="c-8 table-scroll" >
+        <div className="c-8 table-scroll">
           <table>
             <thead>
               <tr>
@@ -85,59 +85,68 @@ export default function CategoryManagement() {
               </tr>
             </thead>
             <tbody>
-              {categorys ? categorys.map((item, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{item.name}</td>
-                  <td>
-                    <div className="action">
-                      <p
-                        className="edit"
-                        title="Chỉnh sửa"
-                        onClick={() => gotoEdit(item)}
-                      >
-                        <i className="fas fa-edit"></i>
-                      </p>
-                      <p
-                        className="edit"
-                        title="delete"
-                        onClick={() => delCategory(item._id)}
-                      >
-                        <i class="fas fa-trash-alt"></i>
-                      </p>
-                    </div>
-                  </td>
-                </tr>
-              )) : <></>}
+              {categorys ? (
+                categorys.map((item, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{item.name}</td>
+                    <td>
+                      <div className="action">
+                        <p
+                          className="edit"
+                          title="Chỉnh sửa"
+                          onClick={() => gotoEdit(item)}
+                        >
+                          <i className="fas fa-edit"></i>
+                        </p>
+                        <p
+                          className="edit"
+                          title="delete"
+                          onClick={() => delCategory(item._id)}
+                        >
+                          <i class="fas fa-trash-alt"></i>
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <></>
+              )}
             </tbody>
           </table>
         </div>
         <div className="c-4 container">
           <div className="row center-item">
             <p
-              className={`manage-option ${currentOption === "add" ? "current-option" : ""
-                }`}
+              className={`manage-option ${
+                currentOption === "add" ? "current-option" : ""
+              }`}
               onClick={() => setCurrentAction("add")}
             >
               Tạo mới
             </p>
-            <p
-              className={`manage-option  ${currentOption === "edit" ? "current-option" : ""
+            {currenCategory._id && (
+              <p
+                className={`manage-option  ${
+                  currentOption === "edit" ? "current-option" : ""
                 }`}
-              onClick={() => setCurrentAction("edit")}
-            >
-              Chỉnh sửa thông tin
-            </p>
+                onClick={() => setCurrentAction("edit")}
+              >
+                Chỉnh sửa thông tin
+              </p>
+            )}
           </div>
           <div className="main-frame">
             <div className="form-input">
               <label htmlFor="" className="form-label">
                 Tên danh mục
               </label>
+              {error && <p>Tên danh mục không được để trống</p>}
               <input
                 type="text"
                 onChange={changeCurrenCategory}
-                value={currenCategory.name ? currenCategory.name : ""}
+                value={currenCategory.name}
               />
             </div>
             <div className="row center-item">
@@ -146,14 +155,16 @@ export default function CategoryManagement() {
                   className="btn btn--border-none"
                   onClick={() => addCategory()}
                 >
-                  Thêm
+                  {loadingCreate?'...Thêm':"Thêm"}
                 </button>
               ) : (
                 <button
                   className="btn btn--border-none"
                   onClick={() => editCategoryInfo()}
                 >
-                  Lưu thay đổi
+                  {loadingUpdate
+                    ? "... Lưu thay đổi"
+                    : "Lưu thay đổi"}
                 </button>
               )}
             </div>

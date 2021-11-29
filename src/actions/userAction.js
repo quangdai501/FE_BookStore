@@ -30,7 +30,7 @@ import {
 } from '../constants/user'
 // import { ORDER_LIST_MY_RESET } from '../constants/orderConstants'
 
-export const login = (email, password, navigate) => async (dispatch) => {
+export const login = (email, password, navigate) => async(dispatch) => {
     try {
         dispatch({
             type: USER_LOGIN_REQUEST,
@@ -56,17 +56,17 @@ export const login = (email, password, navigate) => async (dispatch) => {
 
 export const logout = () => (dispatch) => {
     localStorage.removeItem('userInfo')
-    // localStorage.removeItem('cartItems')
-    // localStorage.removeItem('shippingAddress')
-    // localStorage.removeItem('paymentMethod')
+        // localStorage.removeItem('cartItems')
+        // localStorage.removeItem('shippingAddress')
+        // localStorage.removeItem('paymentMethod')
     dispatch({ type: USER_LOGOUT })
     dispatch({ type: USER_DETAILS_RESET })
-    // dispatch({ type: ORDER_LIST_MY_RESET })
+        // dispatch({ type: ORDER_LIST_MY_RESET })
     dispatch({ type: USER_LIST_RESET })
     document.location.href = '/login'
 }
 
-export const confirmEmail = (name, email, password) => async (dispatch) => {
+export const confirmEmail = (name, email, password) => async(dispatch) => {
     try {
         dispatch({
             type: USER_REGISTER_REQUEST,
@@ -94,7 +94,7 @@ export const confirmEmail = (name, email, password) => async (dispatch) => {
         })
     }
 }
-export const enterCode = (code) => async (dispatch) => {
+export const enterCode = (code) => async(dispatch) => {
     try {
         dispatch({
             type: USER_ENTERCODE_REQUEST,
@@ -111,7 +111,11 @@ export const enterCode = (code) => async (dispatch) => {
         //     type: USER_LOGIN_SUCCESS,
         //     payload: data,
         // })
-
+        if (data) {
+            setTimeout(() => {
+                document.location.href = '/login'
+            }, 2000);
+        }
         // localStorage.setItem('userInfo', JSON.stringify(data))
     } catch (error) {
         dispatch({
@@ -123,7 +127,7 @@ export const enterCode = (code) => async (dispatch) => {
     }
 }
 
-export const getUserDetails = () => async (dispatch, getState) => {
+export const getUserDetails = () => async(dispatch, getState) => {
     try {
         dispatch({
             type: USER_DETAILS_REQUEST,
@@ -141,11 +145,11 @@ export const getUserDetails = () => async (dispatch, getState) => {
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-                error.response.data.message :
-                error.message
-        // if (message === 'Not authorized, token failed') {
-        //     dispatch(logout())
-        // }
+            error.response.data.message :
+            error.message
+            // if (message === 'Not authorized, token failed') {
+            //     dispatch(logout())
+            // }
         dispatch({
             type: USER_DETAILS_FAIL,
             payload: message,
@@ -153,7 +157,7 @@ export const getUserDetails = () => async (dispatch, getState) => {
     }
 }
 
-export const updateUserProfile = (userinfo) => async (dispatch, getState) => {
+export const updateUserProfile = (userinfo) => async(dispatch, getState) => {
     try {
         dispatch({
             type: USER_UPDATE_PROFILE_REQUEST,
@@ -164,8 +168,8 @@ export const updateUserProfile = (userinfo) => async (dispatch, getState) => {
         } = getState()
 
         const { data } = await UserApi.updateUserInfo(userInfo._id, userinfo)
-        // console.log(userInfo)
-        const newobj = { ...userInfo }
+            // console.log(userInfo)
+        const newobj = {...userInfo }
         newobj['name'] = data.name
         dispatch({
             type: USER_UPDATE_PROFILE_SUCCESS,
@@ -179,11 +183,11 @@ export const updateUserProfile = (userinfo) => async (dispatch, getState) => {
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-                error.response.data.message :
-                error.message
-        // if (message === 'Not authorized, token failed') {
-        //     dispatch(logout())
-        // }
+            error.response.data.message :
+            error.message
+            // if (message === 'Not authorized, token failed') {
+            //     dispatch(logout())
+            // }
         dispatch({
             type: USER_UPDATE_PROFILE_FAIL,
             payload: message,
@@ -191,19 +195,19 @@ export const updateUserProfile = (userinfo) => async (dispatch, getState) => {
     }
 }
 
-export const listUsers = () => async (dispatch) => {
+export const listUsers = () => async(dispatch) => {
     try {
         dispatch({
-            type: USER_LIST_REQUEST,
-        })
-        // const config = {
-        //     headers: {
-        //         Authorization: `Bearer ${userInfo.token}`,
-        //     },
-        // }
+                type: USER_LIST_REQUEST,
+            })
+            // const config = {
+            //     headers: {
+            //         Authorization: `Bearer ${userInfo.token}`,
+            //     },
+            // }
 
         const { data } = await UserApi.getAllUsers()
-        // const { data } = await axios.get(`/api/users`, config)
+            // const { data } = await axios.get(`/api/users`, config)
 
         dispatch({
             type: USER_LIST_SUCCESS,
@@ -212,8 +216,8 @@ export const listUsers = () => async (dispatch) => {
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-                error.response.data.message :
-                error.message
+            error.response.data.message :
+            error.message
         if (message === 'Not authorized, token failed') {
             dispatch(logout())
         }
@@ -224,7 +228,7 @@ export const listUsers = () => async (dispatch) => {
     }
 }
 
-export const deleteUser = (id) => async (dispatch) => {
+export const deleteUser = (id) => async(dispatch) => {
     try {
         dispatch({
             type: USER_DELETE_REQUEST,
@@ -236,8 +240,8 @@ export const deleteUser = (id) => async (dispatch) => {
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-                error.response.data.message :
-                error.message
+            error.response.data.message :
+            error.message
         if (message === 'Not authorized, token failed') {
             dispatch(logout())
         }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -29,14 +29,6 @@ export default function Register() {
     success: successEnterCode,
     userInfo: userInfoEnterCode,
   } = userEnterCode;
-
-  useEffect(() => {
-    if (successEnterCode) {
-      setTimeout(() => {
-        document.location.href = '/login'
-      }, 2000);
-    }
-  }, [successEnterCode]);
 
   const [isentercode, setIsentercodes] = useState(false);
   const onSubmit = (data) => {

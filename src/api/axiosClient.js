@@ -7,7 +7,7 @@ const axiosClient = axios.create({
     },
 });
 
-axiosClient.interceptors.request.use(async (config) => {
+axiosClient.interceptors.request.use(async(config) => {
     //handle token here
     const userInfo = localStorage.getItem('userInfo');
     if (userInfo) {

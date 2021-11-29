@@ -8,16 +8,22 @@ import {
 } from "../../../actions/publisherAction";
 import "./style.scss";
 export default function PublisherManagement() {
-  const [currenPublisher, setCurrenPublisher] = useState({});
+  const [currenPublisher, setCurrenPublisher] = useState({name:""});
+  const [error, setError] = useState(false);
   const changeCurrenPublisher = (e) => {
     setCurrenPublisher({ ...currenPublisher, name: e.target.value });
+    if (e.target.value === "") {
+      setError(true);
+    } else {
+      setError(false);
+    }
   };
 
   const [currentOption, setCurrentOption] = useState("add");
   const setCurrentAction = (option) => {
     if (currentOption !== option) setCurrentOption(option);
     if (option === "add") {
-      setCurrenPublisher({});
+      setCurrenPublisher({name:""});
     }
   };
 
@@ -27,20 +33,17 @@ export default function PublisherManagement() {
   const publisherDelete = useSelector((state) => state.publisherDelete);
   const {
     loading: loadingDelete,
-    error: errorDelete,
     success: successDelete,
   } = publisherDelete;
   const publisherCreate = useSelector((state) => state.publisherCreate);
   const {
     loading: loadingCreate,
-    error: errorCreate,
     success: successCreate,
     // Publisher:Publishercreate
   } = publisherCreate;
   const publisherUpdate = useSelector((state) => state.publisherUpdate);
   const {
     loading: loadingUpdate,
-    error: errorUpdate,
     success: successUpdate,
     // Publisher:Publisherupdate
   } = publisherUpdate;
@@ -53,19 +56,20 @@ export default function PublisherManagement() {
     setCurrentAction("edit");
   };
   const addPublisher = () => {
-    if (currenPublisher.name && currenPublisher.name !== "") {
+    if (currenPublisher.name !== "") {
       dispatch(createPublisher(currenPublisher));
     }
   };
   const editPublisherInfo = () => {
-    if (currenPublisher._id && currenPublisher.name && currenPublisher.name !== "") {
+    if (currenPublisher._id &&currenPublisher.name !== "") {
       dispatch(updatePublisher(currenPublisher));
     }
   };
   const delPublisher = (id) => {
     if (window.confirm('Are you sure')) {
       dispatch(deletePublisher(id));
-      setCurrenPublisher({})
+      setCurrenPublisher({name:""})
+      setCurrentAction("add");
     }
 
   };
@@ -121,13 +125,13 @@ export default function PublisherManagement() {
             >
               Tạo mới
             </p>
-            <p
+            {currenPublisher._id&&<p
               className={`manage-option  ${currentOption === "edit" ? "current-option" : ""
                 }`}
               onClick={() => setCurrentAction("edit")}
             >
               Chỉnh sửa thông tin
-            </p>
+            </p>}
           </div>
           <div className="main-frame">
             <div className="form-input">
@@ -137,7 +141,7 @@ export default function PublisherManagement() {
               <input
                 type="text"
                 onChange={changeCurrenPublisher}
-                value={currenPublisher.name ? currenPublisher.name : ""}
+                value={currenPublisher.name}
               />
             </div>
             <div className="row center-item">
@@ -146,14 +150,16 @@ export default function PublisherManagement() {
                   className="btn btn--border-none"
                   onClick={() => addPublisher()}
                 >
-                  Thêm
+                  {loadingCreate?'...Thêm':"Thêm"}
                 </button>
               ) : (
                 <button
                   className="btn btn--border-none"
                   onClick={() => editPublisherInfo()}
                 >
-                  Lưu thay đổi
+                  {loadingUpdate
+                    ? "... Lưu thay đổi"
+                    : "Lưu thay đổi"}
                 </button>
               )}
             </div>

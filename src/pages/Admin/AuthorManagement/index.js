@@ -8,16 +8,22 @@ import {
 } from "../../../actions/authorAction";
 import "./style.scss";
 export default function AuthorManagement() {
-  const [currenAuthor, setCurrenAuthor] = useState({});
+  const [currenAuthor, setCurrenAuthor] = useState({ name: "" });
+  const [error, setError] = useState(false);
   const changeCurrenAuthor = (e) => {
     setCurrenAuthor({ ...currenAuthor, name: e.target.value });
+    if (e.target.value === "") {
+      setError(true);
+    } else {
+      setError(false);
+    }
   };
 
   const [currentOption, setCurrentOption] = useState("add");
   const setCurrentAction = (option) => {
     if (currentOption !== option) setCurrentOption(option);
     if (option === "add") {
-      setCurrenAuthor({});
+      setCurrenAuthor({ name: "" });
     }
   };
 
@@ -25,24 +31,18 @@ export default function AuthorManagement() {
   const authorList = useSelector((state) => state.authorList);
   const { authors } = authorList;
   const authorDelete = useSelector((state) => state.authorDelete);
-  const {
-    loading: loadingDelete,
-    error: errorDelete,
-    success: successDelete,
-  } = authorDelete;
+  const { loading: loadingDelete, success: successDelete } = authorDelete;
   const authorCreate = useSelector((state) => state.authorCreate);
   const {
     loading: loadingCreate,
-    error: errorCreate,
     success: successCreate,
-    author: authorcreate
+    // author: authorcreate
   } = authorCreate;
   const authorUpdate = useSelector((state) => state.authorUpdate);
   const {
     loading: loadingUpdate,
-    error: errorUpdate,
     success: successUpdate,
-    author: authorupdate
+    // author: authorupdate
   } = authorUpdate;
   useEffect(() => {
     dispatch(listAuthors());
@@ -53,21 +53,21 @@ export default function AuthorManagement() {
     setCurrentAction("edit");
   };
   const addAuthor = () => {
-    if (currenAuthor.name && currenAuthor.name !== "") {
+    if (currenAuthor.name !== "") {
       dispatch(createAuthor(currenAuthor));
     }
   };
   const editAuthorInfo = () => {
-    if (currenAuthor._id && currenAuthor.name && currenAuthor.name !== "") {
+    if (currenAuthor._id && currenAuthor.name !== "") {
       dispatch(updateAuthor(currenAuthor));
     }
   };
   const delAuthor = (id) => {
-    if (window.confirm('Are you sure')) {
+    if (window.confirm("Are you sure")) {
       dispatch(deleteAuthor(id));
-      setCurrenAuthor({})
+      setCurrenAuthor({ name: "" });
+      setCurrentAction("add")
     }
-
   };
   return (
     <div className="container">
@@ -75,7 +75,7 @@ export default function AuthorManagement() {
         <p className="manage-title">Danh sách tác giả </p>
       </div>
       <div className="row">
-        <div className="c-8 table-scroll" >
+        <div className="c-8 table-scroll">
           <table>
             <thead>
               <tr>
@@ -85,59 +85,68 @@ export default function AuthorManagement() {
               </tr>
             </thead>
             <tbody>
-              {authors ? authors.map((item, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{item.name}</td>
-                  <td>
-                    <div className="action">
-                      <p
-                        className="edit"
-                        title="Chỉnh sửa"
-                        onClick={() => gotoEdit(item)}
-                      >
-                        <i className="fas fa-edit"></i>
-                      </p>
-                      <p
-                        className="edit"
-                        title="delete"
-                        onClick={() => delAuthor(item._id)}
-                      >
-                        <i class="fas fa-trash-alt"></i>
-                      </p>
-                    </div>
-                  </td>
-                </tr>
-              )) : <></>}
+              {authors ? (
+                authors.map((item, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{item.name}</td>
+                    <td>
+                      <div className="action">
+                        <p
+                          className="edit"
+                          title="Chỉnh sửa"
+                          onClick={() => gotoEdit(item)}
+                        >
+                          <i className="fas fa-edit"></i>
+                        </p>
+                        <p
+                          className="edit"
+                          title="delete"
+                          onClick={() => delAuthor(item._id)}
+                        >
+                          <i class="fas fa-trash-alt"></i>
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <></>
+              )}
             </tbody>
           </table>
         </div>
         <div className="c-4 container">
           <div className="row center-item">
             <p
-              className={`manage-option ${currentOption === "add" ? "current-option" : ""
-                }`}
+              className={`manage-option ${
+                currentOption === "add" ? "current-option" : ""
+              }`}
               onClick={() => setCurrentAction("add")}
             >
               Tạo mới
             </p>
-            <p
-              className={`manage-option  ${currentOption === "edit" ? "current-option" : ""
+            {currenAuthor._id && (
+              <p
+                className={`manage-option  ${
+                  currentOption === "edit" ? "current-option" : ""
                 }`}
-              onClick={() => setCurrentAction("edit")}
-            >
-              Chỉnh sửa thông tin
-            </p>
+                onClick={() => setCurrentAction("edit")}
+              >
+                Chỉnh sửa thông tin
+              </p>
+            )}
           </div>
           <div className="main-frame">
             <div className="form-input">
               <label htmlFor="" className="form-label">
                 Tên tác giả
               </label>
+              {error && <p>Tên tác giả không được để trống</p>}
               <input
                 type="text"
                 onChange={changeCurrenAuthor}
-                value={currenAuthor.name ? currenAuthor.name : ""}
+                value={currenAuthor.name}
               />
             </div>
             <div className="row center-item">
@@ -146,20 +155,22 @@ export default function AuthorManagement() {
                   className="btn btn--border-none"
                   onClick={() => addAuthor()}
                 >
-                  Thêm
+                 {loadingCreate?'...Thêm':"Thêm"}
                 </button>
               ) : (
                 <button
                   className="btn btn--border-none"
                   onClick={() => editAuthorInfo()}
                 >
-                  Lưu thay đổi
+                  {loadingUpdate
+                    ? "... Lưu thay đổi"
+                    : "Lưu thay đổi"}
                 </button>
               )}
             </div>
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 }
