@@ -8,6 +8,7 @@ import {
     AUTHOR_DELETE_REQUEST,
     AUTHOR_DELETE_SUCCESS,
     AUTHOR_DELETE_FAIL,
+    AUTHOR_DELETE_RESET,
     AUTHOR_CREATE_RESET,
     AUTHOR_CREATE_FAIL,
     AUTHOR_CREATE_SUCCESS,
@@ -58,6 +59,8 @@ export const authorDeleteReducer = (state = {}, action) => {
             return { loading: false, success: true }
         case AUTHOR_DELETE_FAIL:
             return { loading: false, error: action.payload }
+        case AUTHOR_DELETE_RESET:
+            return {}
         default:
             return state
     }

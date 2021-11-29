@@ -10,6 +10,7 @@ import {
     PUBLISHER_DELETE_FAIL,
     PUBLISHER_CREATE_RESET,
     PUBLISHER_CREATE_FAIL,
+    PUBLISHER_DELETE_RESET,
     PUBLISHER_CREATE_SUCCESS,
     PUBLISHER_CREATE_REQUEST,
     PUBLISHER_UPDATE_REQUEST,
@@ -58,6 +59,8 @@ export const publisherDeleteReducer = (state = {}, action) => {
             return { loading: false, success: true }
         case PUBLISHER_DELETE_FAIL:
             return { loading: false, error: action.payload }
+        case PUBLISHER_DELETE_RESET:
+            return {}
         default:
             return state
     }

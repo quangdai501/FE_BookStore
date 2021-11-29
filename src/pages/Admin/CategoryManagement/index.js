@@ -46,8 +46,12 @@ export default function CategoryManagement() {
   } = categoryUpdate;
   useEffect(() => {
     dispatch(listCategorys());
+  }, []);
+  useEffect(() => {
+    if(successCreate|| successDelete|| successUpdate){
+      dispatch(listCategorys());
+    }
   }, [successCreate, successDelete, successUpdate]);
-
   const gotoEdit = (item) => {
     setCurrenCategory(item);
     setCurrentAction("edit");
@@ -169,6 +173,9 @@ export default function CategoryManagement() {
               )}
             </div>
           </div>
+          {successCreate && <p>Thêm thành công</p>}
+            {successUpdate && <p>Sửa thành công</p>}
+            {successDelete && <p>Xóa thành công</p>}
         </div>
       </div>
     </div>

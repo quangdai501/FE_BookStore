@@ -15,10 +15,13 @@ import {
     CATEGORY_UPDATE_REQUEST,
     CATEGORY_UPDATE_SUCCESS,
     CATEGORY_UPDATE_FAIL,
+    CATEGORY_DELETE_RESET,
+    CATEGORY_CREATE_RESET,
+    CATEGORY_UPDATE_RESET
 } from '../constants/category'
 // import { logout } from './userActions'
 
-export const listCategorys = (props) => async (
+export const listCategorys = (props) => async(
     dispatch
 ) => {
     try {
@@ -38,7 +41,7 @@ export const listCategorys = (props) => async (
     }
 }
 
-export const listCategoryDetails = (id) => async (dispatch) => {
+export const listCategoryDetails = (id) => async(dispatch) => {
     try {
         dispatch({ type: CATEGORY_DETAILS_REQUEST })
 
@@ -56,21 +59,26 @@ export const listCategoryDetails = (id) => async (dispatch) => {
     }
 }
 
-export const deleteCategory = (id) => async (dispatch) => {
+export const deleteCategory = (id) => async(dispatch) => {
     try {
         dispatch({
             type: CATEGORY_DELETE_REQUEST,
         })
 
-        await CategoryApi.deleteCategory(id)
+        const data = await CategoryApi.deleteCategory(id)
         dispatch({
             type: CATEGORY_DELETE_SUCCESS,
         })
+        if (data) {
+            setTimeout(() => {
+                dispatch({ type: CATEGORY_DELETE_RESET })
+            }, 2000);
+        }
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-                error.response.data.message :
-                error.message
+            error.response.data.message :
+            error.message
         dispatch({
             type: CATEGORY_DELETE_FAIL,
             payload: message,
@@ -78,7 +86,7 @@ export const deleteCategory = (id) => async (dispatch) => {
     }
 }
 
-export const createCategory = (name) => async (dispatch) => {
+export const createCategory = (name) => async(dispatch) => {
     try {
         dispatch({
             type: CATEGORY_CREATE_REQUEST,
@@ -88,11 +96,16 @@ export const createCategory = (name) => async (dispatch) => {
             type: CATEGORY_CREATE_SUCCESS,
             payload: data,
         })
+        if (data) {
+            setTimeout(() => {
+                dispatch({ type: CATEGORY_CREATE_RESET })
+            }, 2000);
+        }
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-                error.response.data.message :
-                error.message
+            error.response.data.message :
+            error.message
         dispatch({
             type: CATEGORY_CREATE_FAIL,
             payload: message,
@@ -100,7 +113,7 @@ export const createCategory = (name) => async (dispatch) => {
     }
 }
 
-export const updateCategory = (Category) => async (dispatch) => {
+export const updateCategory = (Category) => async(dispatch) => {
     try {
         dispatch({
             type: CATEGORY_UPDATE_REQUEST,
@@ -108,15 +121,20 @@ export const updateCategory = (Category) => async (dispatch) => {
         const { data } = await CategoryApi.updateCategory(Category)
 
         dispatch({
-            type: CATEGORY_UPDATE_SUCCESS,
-            payload: data,
-        })
-        dispatch({ type: CATEGORY_DETAILS_SUCCESS, payload: data })
+                type: CATEGORY_UPDATE_SUCCESS,
+                payload: data,
+            })
+            // dispatch({ type: CATEGORY_DETAILS_SUCCESS, payload: data })
+        if (data) {
+            setTimeout(() => {
+                dispatch({ type: CATEGORY_UPDATE_RESET })
+            }, 2000);
+        }
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-                error.response.data.message :
-                error.message
+            error.response.data.message :
+            error.message
         dispatch({
             type: CATEGORY_UPDATE_FAIL,
             payload: message,

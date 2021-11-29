@@ -46,6 +46,11 @@ export default function AuthorManagement() {
   } = authorUpdate;
   useEffect(() => {
     dispatch(listAuthors());
+  }, []);
+  useEffect(() => {
+    if(successCreate|| successDelete|| successUpdate){
+      dispatch(listAuthors());
+    }
   }, [successCreate, successDelete, successUpdate]);
 
   const gotoEdit = (item) => {
@@ -169,6 +174,9 @@ export default function AuthorManagement() {
               )}
             </div>
           </div>
+          {successCreate && <p>Thêm thành công</p>}
+            {successUpdate && <p>Sửa thành công</p>}
+            {successDelete && <p>Xóa thành công</p>}
         </div>
       </div>
     </div>

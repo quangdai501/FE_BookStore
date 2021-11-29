@@ -9,6 +9,7 @@ import {
     PUBLISHER_DELETE_REQUEST,
     PUBLISHER_DELETE_SUCCESS,
     PUBLISHER_DELETE_FAIL,
+    PUBLISHER_DELETE_RESET,
     PUBLISHER_CREATE_RESET,
     PUBLISHER_CREATE_FAIL,
     PUBLISHER_CREATE_SUCCESS,
@@ -20,7 +21,7 @@ import {
 } from '../constants/publisher'
 // import { logout } from './userActions'
 
-export const listPublishers = (props) => async (
+export const listPublishers = (props) => async(
     dispatch
 ) => {
     try {
@@ -40,7 +41,7 @@ export const listPublishers = (props) => async (
     }
 }
 
-export const listPublisherDetails = (id) => async (dispatch) => {
+export const listPublisherDetails = (id) => async(dispatch) => {
     try {
         dispatch({ type: PUBLISHER_DETAILS_REQUEST })
 
@@ -58,21 +59,28 @@ export const listPublisherDetails = (id) => async (dispatch) => {
     }
 }
 
-export const deletePublisher = (id) => async (dispatch) => {
+export const deletePublisher = (id) => async(dispatch) => {
     try {
         dispatch({
             type: PUBLISHER_DELETE_REQUEST,
         })
 
-        await PublisherApi.deletePublisher(id)
+        const data = await PublisherApi.deletePublisher(id)
         dispatch({
             type: PUBLISHER_DELETE_SUCCESS,
         })
+        if (data) {
+            setTimeout(() => {
+                dispatch({ type: PUBLISHER_DELETE_RESET })
+            }, 2000);
+        }
+
+
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-                error.response.data.message :
-                error.message
+            error.response.data.message :
+            error.message
         dispatch({
             type: PUBLISHER_DELETE_FAIL,
             payload: message,
@@ -80,7 +88,7 @@ export const deletePublisher = (id) => async (dispatch) => {
     }
 }
 
-export const createPublisher = (name) => async (dispatch) => {
+export const createPublisher = (name) => async(dispatch) => {
     try {
         dispatch({
             type: PUBLISHER_CREATE_REQUEST,
@@ -91,11 +99,18 @@ export const createPublisher = (name) => async (dispatch) => {
             type: PUBLISHER_CREATE_SUCCESS,
             payload: data,
         })
+        if (data) {
+            setTimeout(() => {
+                dispatch({ type: PUBLISHER_CREATE_RESET })
+            }, 2000);
+        }
+
+
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-                error.response.data.message :
-                error.message
+            error.response.data.message :
+            error.message
         dispatch({
             type: PUBLISHER_CREATE_FAIL,
             payload: message,
@@ -103,7 +118,7 @@ export const createPublisher = (name) => async (dispatch) => {
     }
 }
 
-export const updatePublisher = (Publisher) => async (dispatch) => {
+export const updatePublisher = (Publisher) => async(dispatch) => {
     try {
         dispatch({
             type: PUBLISHER_UPDATE_REQUEST,
@@ -112,15 +127,20 @@ export const updatePublisher = (Publisher) => async (dispatch) => {
         const { data } = await PublisherApi.updatePublisher(Publisher)
 
         dispatch({
-            type: PUBLISHER_UPDATE_SUCCESS,
-            payload: data,
-        })
-        dispatch({ type: PUBLISHER_DETAILS_SUCCESS, payload: data })
+                type: PUBLISHER_UPDATE_SUCCESS,
+                payload: data,
+            })
+            // dispatch({ type: PUBLISHER_DETAILS_SUCCESS, payload: data })
+        if (data) {
+            setTimeout(() => {
+                dispatch({ type: PUBLISHER_UPDATE_RESET })
+            }, 2000);
+        }
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-                error.response.data.message :
-                error.message
+            error.response.data.message :
+            error.message
         dispatch({
             type: PUBLISHER_UPDATE_FAIL,
             payload: message,
