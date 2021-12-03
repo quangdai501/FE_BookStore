@@ -6,6 +6,10 @@ table {
     background-color: white;
 }
 
+tr {
+    cursor: pointer;
+}
+
 td,
 th {
     border: 1px solid $gray100;
