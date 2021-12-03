@@ -5,10 +5,10 @@ import { getOrderByDeliveryStatus } from '../../../actions/orderAction';
 import OrderDetail from './items/OrderDetail';
 import { priceToString } from '../../../common/convertNumberToPrice';
 import { adminApproveOrder } from '../../../actions/orderAction';
-
+import Item from "../../Checkout/item/index";
 export default function OrderManagement() {
     const [listOrders, setListOrders] = useState([]);
-    const [show, setShow] = useState('');
+    const [show, setShow] = useState(0);
     const [change, setChange] = useState(false);
     const { orders, error } = useSelector(state => state.orderByStatus);
 
@@ -18,8 +18,14 @@ export default function OrderManagement() {
         setChange(!change);
     }
     const openModal = (id) => {
-        setShow(id);
-    }
+        if(id===show){
+            setShow()
+        }
+        else{
+            setShow(id);
+        }
+        
+      };
     useEffect(() => {
         const setList = () => {
             const newList = orders?.reduce((list, curr) => {
@@ -77,7 +83,8 @@ export default function OrderManagement() {
                     <tbody>
                         {listOrders ? listOrders.map((item, index) => (
                             item.orderCode === undefined &&
-                            <tr key={index}>
+                            <>
+                             <tr key={index} onClick={() => openModal(index)}>
                                 <td>{index + 1}</td>
                                 <td>{item.name}</td>
                                 <td>{item.address}</td>
@@ -102,6 +109,21 @@ export default function OrderManagement() {
                                     </div>
                                 </td>
                             </tr>
+                            <tr>
+                    {show === index && (
+                      <td colspan="6">
+                        <div className="row center-item">
+                          <div className="col c-8 md-12">
+                            {item.billDetail.map((order, index) => (
+                              <Item cart={order} key={index} />
+                            ))}
+                          </div>
+                        </div>
+                      </td>
+                    )}
+                  </tr>
+                            </>
+                           
                         )) : <>
                         </>}
                     </tbody>

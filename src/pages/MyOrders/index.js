@@ -8,7 +8,13 @@ const MyOrders = () => {
   const [listOrders, setListOrders] = useState([]);
   const [show, setShow] = useState(0);
   const openModal = (id) => {
-    setShow(id);
+    if(id===show){
+        setShow()
+    }
+    else{
+        setShow(id);
+    }
+    
   };
 
   const { orders, error } = useSelector((state) => state.userOrder);
