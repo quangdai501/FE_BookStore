@@ -14,7 +14,7 @@ export default function OrderSuccess() {
                         <Link to="/shop" className="btn btn--border-none">Tiếp tục mua hàng</Link>
                     </div>
                     <div className="md-12 thankful-action">
-                        <Link to="/shop" className="btn btn--border-none">Lịch sử mua hàng</Link>
+                        <Link to="/myorder" className="btn btn--border-none">Lịch sử mua hàng</Link>
                     </div>
                 </div>
             </div>
