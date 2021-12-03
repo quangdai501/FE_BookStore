@@ -8,13 +8,11 @@ const MyOrders = () => {
   const [listOrders, setListOrders] = useState([]);
   const [show, setShow] = useState(0);
   const openModal = (id) => {
-    if(id===show){
-        setShow()
+    if (id === show) {
+      setShow();
+    } else {
+      setShow(id);
     }
-    else{
-        setShow(id);
-    }
-    
   };
 
   const { orders, error } = useSelector((state) => state.userOrder);
@@ -35,6 +33,7 @@ const MyOrders = () => {
           total: curr.total,
           orderCode: curr.orderCode,
           payment: curr.payment,
+          status: curr.deliveryStatus,
         };
         list.push(newFormat);
         return list;
@@ -56,7 +55,7 @@ const MyOrders = () => {
               <th>Điện thoại</th>
               <th>Tổng đơn</th>
               <th>Hình thức thanh toán</th>
-              <th>Thao tác</th>
+              <th>Trạng thái</th>
             </tr>
           </thead>
           <tbody>
@@ -70,7 +69,7 @@ const MyOrders = () => {
                     <td>{item.phone}</td>
                     <td>{priceToString(item.total)}</td>
                     <td>{item.payment}</td>
-                    <td></td>
+                    <td>{item.status}</td>
                   </tr>
                   <tr>
                     {show === index && (
