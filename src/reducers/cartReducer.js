@@ -45,6 +45,7 @@ export const cartReducer = (
                 paymentMethod: action.payload,
             }
         case CART_CLEAR_ITEMS:
+            localStorage.setItem("cartItems", []);
             return {
                 ...state,
                 cartItems: [],
