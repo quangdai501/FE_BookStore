@@ -20,6 +20,7 @@ export default function OrderManagement() {
     const openModal = (id) => {
         setShow(id);
     }
+    console.log(listOrders)
     useEffect(() => {
         const setList = () => {
             const newList = orders?.reduce((list, curr) => {
@@ -39,18 +40,17 @@ export default function OrderManagement() {
             setListOrders(newList);
         }
         setList();
-    }, [orders])
+        console.log("runOrderList");
+    }, [orders, change])
     useEffect(() => {
         dispatch(getOrderByDeliveryStatus("Tất cả"))
     }, [change])
     return (
         <div className="container">
             <div class="manage-header">
-                {/* <p class="manage-title">Đơn hàng chờ xử lý</p> */}
                 <a href="https://5sao.ghn.dev/order">Quản lý đơn hàng tại giao hàng nhanh</a>
+                {error && <p className="login__error">{error}</p>}
             </div>
-            {error && <p>{error}</p>}
-
             {/* {listOrders && listOrders?.billDetail.map((detail) =>
                 <OrderDetail
                     key={detail._id}
@@ -94,7 +94,7 @@ export default function OrderManagement() {
                                             Duyệt
                                         </p>
                                         <p
-                                            className="edit"
+                                            className="edit ml-5"
                                             title="delete"
                                         >
                                             Hủy đơn
@@ -106,7 +106,7 @@ export default function OrderManagement() {
                         </>}
                     </tbody>
                 </table>
-                {listOrders?.length !== 0 && <p className="order-empty">Không có đơn nào cần xử lý</p>}
+                {listOrders?.length === 0 ? <p className="order-empty">Không có đơn nào cần xử lý</p> : ""}
             </div>
         </div>
     )

@@ -28,7 +28,7 @@ export default function Home() {
           <h2>Mới ra mắt</h2>
           <div className="more" onClick={() => gotoShop(newProucts)}>
             <span>Xem thêm</span>
-            <i class="fas fa-greater-than"></i>
+            <i class="fas fa-angle-right"></i>
           </div>
         </div>
 
@@ -52,7 +52,7 @@ export default function Home() {
         <SwiperProduct query={saleProducts} />
         <div className="more" onClick={() => gotoShop(saleProducts)}>
           <span>Xem thêm</span>
-          <i class="fas fa-greater-than"></i>
+          <i class="fas fa-angle-right"></i>
         </div>
       </div>
       <div className="tab">
@@ -73,7 +73,7 @@ export default function Home() {
         <SwiperProduct query={sellProducts} />
         <div className="more" onClick={() => gotoShop(sellProducts)}>
           <span>Xem thêm</span>
-          <i class="fas fa-greater-than"></i>
+          <i class="fas fa-angle-right"></i>
         </div>
       </div>
     </div >

@@ -48,7 +48,7 @@ export default function CategoryManagement() {
     dispatch(listCategorys());
   }, []);
   useEffect(() => {
-    if(successCreate|| successDelete|| successUpdate){
+    if (successCreate || successDelete || successUpdate) {
       dispatch(listCategorys());
     }
   }, [successCreate, successDelete, successUpdate]);
@@ -104,7 +104,7 @@ export default function CategoryManagement() {
                           <i className="fas fa-edit"></i>
                         </p>
                         <p
-                          className="edit"
+                          className="edit ml-5"
                           title="delete"
                           onClick={() => delCategory(item._id)}
                         >
@@ -123,18 +123,16 @@ export default function CategoryManagement() {
         <div className="c-4 container">
           <div className="row center-item">
             <p
-              className={`manage-option ${
-                currentOption === "add" ? "current-option" : ""
-              }`}
+              className={`manage-option ${currentOption === "add" ? "current-option" : ""
+                }`}
               onClick={() => setCurrentAction("add")}
             >
               Tạo mới
             </p>
             {currenCategory._id && (
               <p
-                className={`manage-option  ${
-                  currentOption === "edit" ? "current-option" : ""
-                }`}
+                className={`manage-option  ${currentOption === "edit" ? "current-option" : ""
+                  }`}
                 onClick={() => setCurrentAction("edit")}
               >
                 Chỉnh sửa thông tin
@@ -159,7 +157,7 @@ export default function CategoryManagement() {
                   className="btn btn--border-none"
                   onClick={() => addCategory()}
                 >
-                  {loadingCreate?'...Thêm':"Thêm"}
+                  {loadingCreate ? '...Thêm' : "Thêm"}
                 </button>
               ) : (
                 <button
@@ -174,8 +172,8 @@ export default function CategoryManagement() {
             </div>
           </div>
           {successCreate && <p>Thêm thành công</p>}
-            {successUpdate && <p>Sửa thành công</p>}
-            {successDelete && <p>Xóa thành công</p>}
+          {successUpdate && <p>Sửa thành công</p>}
+          {successDelete && <p>Xóa thành công</p>}
         </div>
       </div>
     </div>
