@@ -18,6 +18,7 @@ import Header from "./components/Header";
 import Profile from "./pages/Profile";
 import OrderSuccess from "./pages/OrderSuccess";
 import NotFound from "./pages/NotFound";
+import MyOrders from "./pages/MyOrders";
 function App() {
   const href = window.location.href;
 
@@ -42,6 +43,7 @@ function App() {
               <Route path="/cart" element={<Cart />} />
               <Route path="/shop" element={<Shop />} />
               <Route path="/order-success" element={<OrderSuccess />} />
+              <Route path="/myorder" element={<MyOrders />} />
               <Route
                 path="/product-detail/:productID"
                 element={<ProductDetail />}
