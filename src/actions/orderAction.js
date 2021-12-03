@@ -23,7 +23,7 @@ import OrderApi from '../api/orderApi';
 const listOrderOfUser = () => async (dispatch, getState) => {
     dispatch({ type: ORDER_MINE_LIST_REQUEST });
     const {
-        userSignin: { userInfo },
+        userLogin: { userInfo },
     } = getState();
     const id = userInfo._id;
     try {

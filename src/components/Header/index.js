@@ -28,6 +28,9 @@ export default function Header() {
   const gotoHome = () => {
     navigate("/");
   };
+  const gotoMyOrder = () => {
+    navigate("/myorder");
+  };
   const goToAdmin = () => {
     window.location.href = `${window.location.origin}/admin`;
   };
@@ -75,6 +78,7 @@ export default function Header() {
                       <span >{userInfo.name} <i class="fas fa-caret-down"></i></span>
                       <div class="dropdown-content">
                         <span onClick={gotoProfile}>Thông tin cá nhân</span>
+                        <span onClick={gotoMyOrder}>Lịch sử mua hàng</span>
                         <span onClick={logoutHandler}>Đăng xuất</span>
                         {userInfo.role === "admin" && <span onClick={goToAdmin}>Trang admin</span>}
                       </div>
