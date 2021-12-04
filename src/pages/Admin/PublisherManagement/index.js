@@ -48,7 +48,7 @@ export default function PublisherManagement() {
     dispatch(listPublishers());
   }, []);
   useEffect(() => {
-    if(successCreate|| successDelete|| successUpdate){
+    if (successCreate || successDelete || successUpdate) {
       dispatch(listPublishers());
     }
   }, [successCreate, successDelete, successUpdate]);
@@ -105,7 +105,7 @@ export default function PublisherManagement() {
                           <i className="fas fa-edit"></i>
                         </p>
                         <p
-                          className="edit"
+                          className="edit ml-5"
                           title="delete"
                           onClick={() => delPublisher(item._id)}
                         >
@@ -124,18 +124,16 @@ export default function PublisherManagement() {
         <div className="c-4 container">
           <div className="row center-item">
             <p
-              className={`manage-option ${
-                currentOption === "add" ? "current-option" : ""
-              }`}
+              className={`manage-option ${currentOption === "add" ? "current-option" : ""
+                }`}
               onClick={() => setCurrentAction("add")}
             >
               Tạo mới
             </p>
             {currenPublisher._id && (
               <p
-                className={`manage-option  ${
-                  currentOption === "edit" ? "current-option" : ""
-                }`}
+                className={`manage-option  ${currentOption === "edit" ? "current-option" : ""
+                  }`}
                 onClick={() => setCurrentAction("edit")}
               >
                 Chỉnh sửa thông tin
@@ -167,14 +165,14 @@ export default function PublisherManagement() {
                   className="btn btn--border-none"
                   onClick={() => editPublisherInfo()}
                 >
-                  {loadingUpdate ? "... Lưu thay đổi" : "Lưu thay đổi"}
+                  {loadingUpdate ? "...Lưu thay đổi" : "Lưu thay đổi"}
                 </button>
               )}
             </div>
           </div>
           {successCreate && <p>Thêm thành công</p>}
-            {successUpdate && <p>Sửa thành công</p>}
-            {successDelete && <p>Xóa thành công</p>}
+          {successUpdate && <p>Sửa thành công</p>}
+          {successDelete && <p>Xóa thành công</p>}
         </div>
       </div>
     </div>

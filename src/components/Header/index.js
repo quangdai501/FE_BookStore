@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { logout } from "../../actions/userAction";
+import MobileMenu from "../MobileMenu";
 import "./style.scss";
 export default function Header() {
   const dispatch = useDispatch();
@@ -14,12 +15,18 @@ export default function Header() {
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
+  const [openMenu, setOpenMenu] = useState(false);
 
+  const handleOpenMenu = () => {
+    console.log("menu")
+    setOpenMenu(!openMenu);
+  }
   let navigate = useNavigate();
   const gotoCart = () => {
     navigate("/cart");
   };
   const gotoLogin = () => {
+    console.log('run')
     navigate("/login");
   };
   const gotoProfile = () => {
@@ -47,10 +54,10 @@ export default function Header() {
     <header className="main-header">
       <div className="container header-body">
         <div className="row gutter">
-          <div className="c-3 lg-4 md-5 padding">
+          <div className="c-3 lg-4 md-6 padding logo-area">
             <div className="logo" onClick={gotoHome}><img src="/images/logo.png" alt="logo" /></div>
           </div>
-          <div className="c-6 lg-8 md-7 padding">
+          <div className="c-6 lg-6 md-12 padding search-area">
             <div className="search">
               <input
                 onChange={changeQuery}
@@ -63,7 +70,36 @@ export default function Header() {
               </p>
             </div>
           </div>
-          <div className="c-3">
+
+          <div className="c-0 lg-1 md-3 mobile-menu">
+            <div className="row header-right">
+              <div className="c-4 header-logo">
+                <div className="cart" onClick={gotoCart}>
+                  <i class="fas fa-shopping-bag"></i>
+                  <span className="cart__notify">{cartItems.length}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="c-0 lg-1 md-3 mobile-menu">
+            <div className="menu" onClick={handleOpenMenu}>
+              <i class="fas fa-bars"></i>
+            </div>
+            <MobileMenu
+              open={openMenu}
+              userInfo={userInfo}
+              goToAdmin={goToAdmin}
+              gotoCart={gotoCart}
+              gotoHome={gotoHome}
+              gotoMyOrder={gotoMyOrder}
+              gotoProfile={gotoProfile}
+              gotoLogin={gotoLogin}
+              logoutHandler={logoutHandler}
+              handleOpenMenu={handleOpenMenu}
+            />
+          </div>
+          <div className="c-3 lg-0 md-0">
             <div className="row header-right">
               <div className="c-4 header-logo">
                 <div className="cart" onClick={gotoCart}>
@@ -94,6 +130,7 @@ export default function Header() {
           </div>
         </div>
       </div>
+
     </header>
   );
 }

@@ -35,6 +35,7 @@ export default function SwiperProduct(props) {
         },
         763: {
           slidesPerView: 3,
+          navigation: false
         },
         200: {
           slidesPerView: 2,

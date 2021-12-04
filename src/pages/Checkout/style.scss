@@ -71,3 +71,13 @@ h3.title.mb-15 {
         height: 18px;
     }
 }
+
+@media screen and(max-width: 736px) {
+    .Orders .order-row label {
+        font-size: 14px;
+        white-space: pre-wrap;
+    }
+    .Orders .row.sub-title {
+        padding-left: 0;
+    }
+}

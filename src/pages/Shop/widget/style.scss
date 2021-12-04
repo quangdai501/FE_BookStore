@@ -9,7 +9,7 @@
 }
 
 .widget {
-    max-width: 250px;
+    width: 250px;
     overflow-y: scroll;
     background: #fff;
     font-size: 16px;
@@ -54,9 +54,9 @@
 
 @media screen and(max-width: 992px) {
     .widget {
+        width: Max(60%, 250px);
         direction: rtl;
         max-width: unset;
-        width: Max(80%, 200px);
         height: 80vh;
         .close {
             display: block;

@@ -18,14 +18,15 @@ export default function OrderManagement() {
         setChange(!change);
     }
     const openModal = (id) => {
-        if(id===show){
+        // setShow(id);
+        if (id === show) {
             setShow()
         }
-        else{
+        else {
             setShow(id);
         }
-        
-      };
+
+    };
     useEffect(() => {
         const setList = () => {
             const newList = orders?.reduce((list, curr) => {
@@ -45,18 +46,17 @@ export default function OrderManagement() {
             setListOrders(newList);
         }
         setList();
-    }, [orders])
+        console.log("runOrderList");
+    }, [orders, change])
     useEffect(() => {
         dispatch(getOrderByDeliveryStatus("Tất cả"))
     }, [change])
     return (
         <div className="container">
             <div class="manage-header">
-                {/* <p class="manage-title">Đơn hàng chờ xử lý</p> */}
                 <a href="https://5sao.ghn.dev/order">Quản lý đơn hàng tại giao hàng nhanh</a>
+                {error && <p className="login__error">{error}</p>}
             </div>
-            {error && <p>{error}</p>}
-
             {/* {listOrders && listOrders?.billDetail.map((detail) =>
                 <OrderDetail
                     key={detail._id}
@@ -77,58 +77,71 @@ export default function OrderManagement() {
                             <th>Điện thoại</th>
                             <th>Tổng đơn</th>
                             <th>Hình thức thanh toán</th>
-                            <th>Thao tác</th>
+                            <th style={{ width: '120px' }}>Chi tiết đơn</th>
+                            <th style={{ width: '130px' }}>Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
                         {listOrders ? listOrders.map((item, index) => (
                             item.orderCode === undefined &&
                             <>
-                             <tr key={index} onClick={() => openModal(index)}>
-                                <td>{index + 1}</td>
-                                <td>{item.name}</td>
-                                <td>{item.address}</td>
-                                <td>{item.phone}</td>
-                                <td>{priceToString(item.total)}</td>
-                                <td>{item.payment}</td>
-                                <td>
-                                    <div className="action">
-                                        <p
-                                            className="edit"
-                                            title="Chỉnh sửa"
-                                            onClick={() => approveOrder(item._id, "Duyet")}
-                                        >
-                                            Duyệt
-                                        </p>
-                                        <p
-                                            className="edit"
-                                            title="delete"
-                                        >
-                                            Hủy đơn
-                                        </p>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                    {show === index && (
-                      <td colspan="6">
-                        <div className="row center-item">
-                          <div className="col c-8 md-12">
-                            {item.billDetail.map((order, index) => (
-                              <Item cart={order} key={index} />
-                            ))}
-                          </div>
-                        </div>
-                      </td>
-                    )}
-                  </tr>
+                                <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td>{item.name}</td>
+                                    <td>{item.address}</td>
+                                    <td>{item.phone}</td>
+                                    <td>{priceToString(item.total)}</td>
+                                    <td>{item.payment}</td>
+                                    <td>  <p
+                                        className="order-detail-item"
+                                        title="Chi tiết"
+                                        onClick={() => openModal(index)}
+                                    >
+                                        Chi tiết đơn
+                                    </p></td>
+                                    <td>
+                                        <div className="action">
+                                            <p
+                                                className="approve"
+                                                title="Chỉnh sửa"
+                                                onClick={() => approveOrder(item._id, "Duyet")}
+                                            >
+                                                Duyệt
+                                            </p>
+                                            <p
+                                                className="cancel ml-5"
+                                                title="Hủy"
+                                            >
+                                                Hủy đơn
+                                            </p>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    {show === index && (
+                                        <td colspan="8">
+                                            <div className="row center-item">
+                                                <div className="col c-2">
+                                                </div>
+                                                <div className="col c-8 md-12">
+                                                    {item.billDetail.map((order, index) => (
+                                                        <Item cart={order} key={index} />
+                                                    ))}
+                                                </div>
+                                                <div className="col c-2">
+                                                </div>
+                                            </div>
+                                        </td>
+                                    )}
+                                </tr>
                             </>
-                           
+
                         )) : <>
                         </>}
                     </tbody>
                 </table>
-                {listOrders?.length !== 0 && <p className="order-empty">Không có đơn nào cần xử lý</p>}
+                {listOrders?.length === 0 ? <p className="order-empty">Không có đơn nào cần xử lý</p> : ""}
             </div>
         </div>
     )

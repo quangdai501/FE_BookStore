@@ -40,7 +40,7 @@ export default function Product(props) {
         <p class="product-info__price">{priceToString(props.price)}</p>
       </div>
       <div class="action" onClick={addtoCart}>
-        <p class="btn--add-to-cart">Thêm vào giỏ</p>
+        <p class="btn--add-to-cart text-ml-small">Thêm vào giỏ</p>
       </div>
     </div>
   );

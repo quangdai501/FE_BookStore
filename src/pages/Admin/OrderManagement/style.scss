@@ -4,3 +4,22 @@
     font-size: $font-size;
     text-align: center;
 }
+
+.ml-5 {
+    margin-left: 5px;
+}
+
+.order-detail-item {
+    &:hover {
+        color: orange;
+    }
+}
+
+.action {
+    .approve,
+    .cancel {
+        &:hover {
+            color: orange;
+        }
+    }
+}

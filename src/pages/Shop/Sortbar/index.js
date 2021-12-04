@@ -9,7 +9,7 @@ const Sortbar = (props) => {
   };
   return (
     <div className="sort-bar row">
-      <p className="display">
+      <p className="display ml-none" >
         Hiển thị {props.display} trong {props.total} sản phẩm
       </p>
       <select name="sort" className="sortby" onChange={sortBy}>

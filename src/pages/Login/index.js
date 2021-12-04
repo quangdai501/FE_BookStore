@@ -38,7 +38,7 @@ export default function Login() {
             <input type="password" name="password" {...register("password")} />
           </div>
           <button type="submit" className="btn btn--border-none btn--full-width">
-            {loading ? "Đang tải..." : "Đăng nhập"}
+            {loading ? "Đang xử lý..." : "Đăng nhập"}
           </button>
         </form>
         <p className="login__form-panel">

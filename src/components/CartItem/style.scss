@@ -7,6 +7,14 @@
     border: 1px solid $gray-400;
     font-size: 14px;
     grid-gap: 8px;
+    position: relative;
+    &__title {
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+    }
     &__img {
         height: 120px;
         width: 90px;
@@ -29,7 +37,7 @@
             text-align: center;
             border: unset;
             outline: none;
-            width: 50px;
+            max-width: 40px;
         }
         button {
             padding: 4px 8px;
@@ -52,7 +60,13 @@
         font-weight: bold;
     }
     &__close {
-        font-weight: 900;
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        i {
+            color: $gray-700;
+            font-size: $font-size;
+        }
         cursor: pointer;
     }
 }

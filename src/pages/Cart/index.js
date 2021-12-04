@@ -29,8 +29,8 @@ const Cart = () => {
               <div className="Orders">
                 <div className="order-row">
                   <div className="row">
-                    <h3 className="title col c-8">Tổng Giỏ hàng:</h3>
-                    <div className="col c-4">{priceToString(totalCart)}</div>
+                    <h3 className="title col c-8 lg-12">Tổng Giỏ hàng:</h3>
+                    <div className="col c-4 lg-12">{priceToString(totalCart)}</div>
                   </div>
                 </div>
                 <div className="order-row">

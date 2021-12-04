@@ -66,3 +66,16 @@
         color: $gray100;
     }
 }
+
+@media screen and(max-width: 736px) {
+    .swiper-container.product-swiper {
+        padding: 0!important;
+        margin: 0!important;
+        &::after,
+        &::before {
+            content: "";
+            display: block;
+            width: 0px;
+        }
+    }
+}
