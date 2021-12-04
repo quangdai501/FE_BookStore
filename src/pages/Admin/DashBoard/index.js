@@ -16,13 +16,13 @@ import OrderManagement from '../OrderManagement';
 export default function DashBoard() {
     return (
         <div className="row">
-            <DashBoardHeader />
-            <div className="col c-2 flex">
+            <div className="col c-2-5 flex">
                 <div className="side-bar">
                     <SideBar />
                 </div>
             </div>
-            <div className="col c-10 flex">
+            <div className="col c-8-5">
+                <DashBoardHeader />
                 <div className="main-content">
                     <Routes>
                         <Route path="/" element={<OverView />} />

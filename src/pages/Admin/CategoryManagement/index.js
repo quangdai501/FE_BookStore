@@ -6,6 +6,7 @@ import {
   updateCategory,
   deleteCategory,
 } from "../../../actions/categoryAction";
+import Toast from "../../../components/Toast";
 import "./style.scss";
 export default function CategoryManagement() {
   const [currenCategory, setCurrenCategory] = useState({ name: "" });
@@ -144,24 +145,24 @@ export default function CategoryManagement() {
               <label htmlFor="" className="form-label">
                 Tên danh mục
               </label>
-              {error && <p>Tên danh mục không được để trống</p>}
               <input
                 type="text"
                 onChange={changeCurrenCategory}
                 value={currenCategory.name}
               />
+              {error && <p className="error-label">Tên danh mục không được để trống</p>}
             </div>
             <div className="row center-item">
               {currentOption === "add" ? (
                 <button
-                  className="btn btn--border-none"
+                  className="btn btn--border-none btn--color-second"
                   onClick={() => addCategory()}
                 >
                   {loadingCreate ? '...Thêm' : "Thêm"}
                 </button>
               ) : (
                 <button
-                  className="btn btn--border-none"
+                  className="btn btn--border-none btn--color-second"
                   onClick={() => editCategoryInfo()}
                 >
                   {loadingUpdate
@@ -171,9 +172,9 @@ export default function CategoryManagement() {
               )}
             </div>
           </div>
-          {successCreate && <p>Thêm thành công</p>}
-          {successUpdate && <p>Sửa thành công</p>}
-          {successDelete && <p>Xóa thành công</p>}
+          {successCreate && <Toast message={"Thêm thành công"} type={"success"} />}
+          {successUpdate && <Toast message={"Sửa thành công"} type={"success"} />}
+          {successDelete && <Toast message={"Xóa thành công"} type={"success"} />}
         </div>
       </div>
     </div>

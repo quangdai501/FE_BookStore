@@ -8,6 +8,7 @@ import { listAuthors } from "../../../actions/authorAction";
 import { listCategorys } from "../../../actions/categoryAction";
 import { listPublishers } from "../../../actions/publisherAction";
 import { createProduct } from "../../../actions/productAction";
+import Toast from "../../../components/Toast";
 
 export default function AddProduct() {
   const dispatch = useDispatch();
@@ -25,25 +26,25 @@ export default function AddProduct() {
     loading: loadingCreate,
     error: errorCreate,
     success: successCreate,
-    product:productcreate
+    product: productcreate
   } = productCreate;
 
   const defaultValues = {};
-  const { handleSubmit, register,reset  } = useForm({ defaultValues });
+  const { handleSubmit, register, reset } = useForm({ defaultValues });
   useEffect(() => {
     dispatch(listAuthors());
     dispatch(listCategorys());
     dispatch(listPublishers());
   }, []);
   useEffect(() => {
-   if(successCreate){
-     alert('thêm thành công')
-     reset(defaultValues);
-     setImg('')
-     setDesc('')
-   }
+    if (successCreate) {
+      alert('thêm thành công')
+      reset(defaultValues);
+      setImg('')
+      setDesc('')
+    }
   }, [successCreate])
-  
+
   const [desc, setDesc] = useState("");
 
   const [img, setImg] = useState("");
@@ -57,17 +58,23 @@ export default function AddProduct() {
     // console.log(data);
     // console.log(desc);
     // console.log(img);
-    const newdata={...data}
-    if(img!==''){
-      newdata['image']=img
+    const newdata = { ...data }
+    if (img !== '') {
+      newdata['image'] = img
     }
-    if(desc!==''){
-      newdata['description']=desc
+    if (desc !== '') {
+      newdata['description'] = desc
     }
     dispatch(createProduct(newdata))
   };
+  useEffect(() => {
+    return () => {
+
+    }
+  })
   return (
     <div className="container">
+
       <div className="create-product">
         <div className="create-title">Thêm sản phẩm mới</div>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -188,7 +195,7 @@ export default function AddProduct() {
           </label>
           <TextEditer handleDesc={handleDesc} />
           <div className="submit-area">
-            <button type="submit" className="btn btn--border-none">
+            <button type="submit" className="btn btn--border-none btn--color-second">
               Thêm sản phẩm
             </button>
           </div>

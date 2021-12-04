@@ -6,6 +6,7 @@ import {
   updateAuthor,
   deleteAuthor,
 } from "../../../actions/authorAction";
+import Toast from "../../../components/Toast";
 import "./style.scss";
 export default function AuthorManagement() {
   const [currenAuthor, setCurrenAuthor] = useState({ name: "" });
@@ -145,24 +146,24 @@ export default function AuthorManagement() {
               <label htmlFor="" className="form-label">
                 Tên tác giả
               </label>
-              {error && <p>Tên tác giả không được để trống</p>}
               <input
                 type="text"
                 onChange={changeCurrenAuthor}
                 value={currenAuthor.name}
               />
+              {error && <p className="error-label">Tên tác giả không được để trống</p>}
             </div>
             <div className="row center-item">
               {currentOption === "add" ? (
                 <button
-                  className="btn btn--border-none"
+                  className="btn btn--border-none btn--color-second"
                   onClick={() => addAuthor()}
                 >
                   {loadingCreate ? '...Thêm' : "Thêm"}
                 </button>
               ) : (
                 <button
-                  className="btn btn--border-none"
+                  className="btn btn--border-none btn--color-second"
                   onClick={() => editAuthorInfo()}
                 >
                   {loadingUpdate
@@ -172,9 +173,9 @@ export default function AuthorManagement() {
               )}
             </div>
           </div>
-          {successCreate && <p>Thêm thành công</p>}
-          {successUpdate && <p>Sửa thành công</p>}
-          {successDelete && <p>Xóa thành công</p>}
+          {successCreate && <Toast message={"Thêm thành công"} type={"success"} />}
+          {successUpdate && <Toast message={"Sửa thành công"} type={"success"} />}
+          {successDelete && <Toast message={"Xóa thành công"} type={"success"} />}
         </div>
       </div>
     </div>
