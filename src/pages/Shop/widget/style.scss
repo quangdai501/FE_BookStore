@@ -5,7 +5,7 @@
 }
 
 .widget::-webkit-scrollbar {
-    width: 7px;
+    width: 6px;
 }
 
 .widget {
@@ -54,16 +54,15 @@
 
 @media screen and(max-width: 992px) {
     .widget {
+        direction: rtl;
         max-width: unset;
         width: Max(80%, 200px);
         height: 80vh;
         .close {
             display: block;
         }
-        .category__list {
-            direction: rtl;
-            text-align: left;
-            padding-left: 16px;
+        .category {
+            direction: ltr;
         }
     }
 }
