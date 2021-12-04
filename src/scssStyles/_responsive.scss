@@ -24,6 +24,12 @@
     .text-center {
         text-align: center;
     }
+    .product {
+        padding: 5px;
+    }
+    .payment.text-sm {
+        font-size: 14px;
+    }
 }
 
 @media screen and(max-width: 922px) {

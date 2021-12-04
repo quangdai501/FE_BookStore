@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./style.scss";
 import Review from "./item/Review";
 import { useParams } from "react-router";
@@ -8,6 +8,7 @@ import { addToCart } from "../../actions/cartAction";
 import { priceToString } from "../../common/convertNumberToPrice";
 export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
+  const descRef = useRef('');
 
   const id = useParams();
   const dispatch = useDispatch();
@@ -21,7 +22,10 @@ export default function ProductDetail() {
     success: successCreate,
     review: reviewcreate
   } = productReviewCreate;
-
+  useEffect(() => {
+    console.log(product)
+    descRef.current.innerHTML = product.description || '';
+  }, [successCreate, product])
   useEffect(() => {
     dispatch(listProductDetails(id.productID));
     // console.log(JSON.stringify(product))
@@ -82,7 +86,7 @@ export default function ProductDetail() {
       <div className="row">
         <div className="product-desc">
           <h3 className="desc-title">Mô Tả Sản Phẩm</h3>
-          <p>{product ? product.description : ''}</p>
+          <p ref={descRef}></p>
         </div>
       </div>
       <Review reviews={product ? product.reviews : []} createReview={createReview} />

@@ -5,7 +5,7 @@ export default function Footer() {
     <div className="footer">
       <div className="container footer-body">
         <div className="row">
-          <div className="col c-3 lg-6 md-12">
+          <div className="col c-3 lg-6 md-6">
             <h3 className="footer-body-head">Sản phẩm và dịch vụ</h3>
             <div className="row">
               <div className="col c-6">
@@ -26,7 +26,7 @@ export default function Footer() {
               </div>
             </div>
           </div>
-          <div className="col c-3 lg-6 md-12">
+          <div className="col c-3 lg-6 md-6">
             <h3 className="footer-body-head">Chính sách</h3>
             <ul className="footer-list">
               <li className="footer-list__item">

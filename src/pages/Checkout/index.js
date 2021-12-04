@@ -207,20 +207,20 @@ const Checkout = () => {
             </div>
             <div className="order-row">
               <div className="row">
-                <p className=" col c-8">Tổng giỏ hàng:</p>
-                <div className="col c-4">{priceToString(totalCart)}</div>
+                <p className=" col c-8 md-6">Tổng giỏ hàng:</p>
+                <div className="col c-4 md-6">{priceToString(totalCart)}</div>
               </div>
             </div>
             <div className="order-row">
               <div className="row">
-                <p className=" col c-8">Chi phí vận chuyển:</p>
-                <div className="col c-4">{priceToString(shippingFee)}</div>
+                <p className=" col c-8 md-12">Chi phí vận chuyển:</p>
+                <div className="col c-4 md-12">{priceToString(shippingFee)}</div>
               </div>
             </div>
             <div className="order-row">
               <div className="row">
-                <h3 className=" col c-8">Tổng: </h3>
-                <h3 className=" col c-4">{priceToString(shippingFee + totalCart)}</h3>
+                <h3 className=" col c-8 md-6">Tổng: </h3>
+                <h3 className=" col c-4 md-6">{priceToString(shippingFee + totalCart)}</h3>
               </div>
             </div>
             <div className="order-row">
@@ -233,7 +233,7 @@ const Checkout = () => {
                   name="payment"
                   {...register("payment")}
                 />
-                <label htmlFor="payment">Thanh toán bằng tiền mặt</label>
+                <label htmlFor="payment text-sm">Thanh toán bằng tiền mặt</label>
               </div>
               <div className="row sub-title">
                 <input
@@ -242,7 +242,7 @@ const Checkout = () => {
                   value="online"
                   {...register("payment")}
                 />
-                <label htmlFor="payment">Thanh toán bằng ví điện tử vnpay</label>
+                <label htmlFor="payment text-sm">Thanh toán bằng ví điện tử vnpay</label>
                 <img className="payment-logo" src="./images/vnpay.png" alt="" />
               </div>
             </div>

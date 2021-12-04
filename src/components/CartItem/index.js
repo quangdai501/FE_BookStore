@@ -35,7 +35,7 @@ export default function CartItem(props) {
           <p className="cart-item__total ">{priceToString(price * qty)}</p>
         </div>
       </div>
-      <p onClick={removeFromCartHandler} className="cart-item__close">X</p>
+      <p onClick={removeFromCartHandler} className="cart-item__close"><i class="fas fa-times"></i></p>
     </div>
   )
 }

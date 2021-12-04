@@ -41,6 +41,11 @@
         font-size: 1.2rem;
         color: $red-light;
         margin-bottom: 4px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
     }
     &__name {
         height: 36px;
@@ -90,5 +95,14 @@
         &:hover:after {
             width: 100%;
         }
+    }
+}
+
+@media screen and(max-width: 736px) {
+    .product {
+        padding: 15px 10px;
+    }
+    .action .text-ml-small {
+        font-size: $font-size;
     }
 }
