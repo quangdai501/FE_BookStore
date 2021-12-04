@@ -1,0 +1,64 @@
+@import '../../scssStyles/variable';
+.toast {
+    position: fixed;
+    top: 60px;
+    width: 200px;
+    right: 30px;
+    height: 40px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: $font-size;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, .2);
+    border: 1px solid $gray100;
+    &__message {
+        text-align: center;
+    }
+    animation: fadeIn ease .5s,
+    fadeOut ease-in 3s forwards;
+}
+
+.toast.success {
+    border-left: 4px solid green;
+    background-color: rgb(201, 243, 201);
+    .toast__icon {
+        i {
+            color: green;
+        }
+    }
+    .toast__message {
+        color: green;
+    }
+}
+
+.toast.error {
+    border-left: 4px solid red;
+    background-color: rgb(243, 208, 208);
+    .toast__icon {
+        i {
+            color: red;
+        }
+    }
+    .toast__message {
+        color: red;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        transform: translateX(calc(100% + 30px));
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}

@@ -10,16 +10,21 @@
 }
 
 .order-detail-item {
-    &:hover {
-        color: orange;
-    }
+    padding: 3px 6px;
+    border-radius: 5px;
+    color: white;
 }
 
 .action {
     .approve,
     .cancel {
-        &:hover {
-            color: orange;
-        }
+        background-color: orange;
+        padding: 3px 6px;
+        border-radius: 8px;
+        border: 1px solid $gray100;
+        color: white;
+    }
+    .cancel {
+        background-color: $red-second;
     }
 }

@@ -18,12 +18,7 @@ export default function DashBoardHeader() {
     return (
         <header className="header">
             <div className="row">
-                <div className="col c-2">
-                    <div className="left-side">
-                        <Link to="/admin" className="link dash-board">Dash Board</Link>
-                    </div>
-                </div>
-                <div className="col c-10">
+                <div className="col c-12">
                     <div className="right-side">
                         <i className="far fa-user"></i>
                         <div className="signin">

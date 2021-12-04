@@ -4,7 +4,11 @@ import { Link, useLocation } from 'react-router-dom'
 export default function SideBar() {
     return (
         <nav className="nav-bar">
-
+            <div className="row">
+                <div className="col c-12">
+                    <Link to="/admin" className="link dash-board">Dash Board</Link>
+                </div>
+            </div>
             <MenuLink
                 to="/admin/product"
                 label="Quản lý sản phẩm"
@@ -33,7 +37,7 @@ export default function SideBar() {
                 label="Quản lý nhà xuất bản"
                 icon={<i className="fas fa-list"></i>}
             />
-              <MenuLink
+            <MenuLink
                 to="/admin/category"
                 label="Quản lý danh mục"
                 icon={<i className="fas fa-list"></i>}

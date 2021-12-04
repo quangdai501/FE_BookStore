@@ -3,39 +3,60 @@
     border: 1px solid $gray100;
     border-top: none;
     height: 100%;
-    color: $gray600;
+    padding: 15px;
+    color: $text-color-main;
     &__item {
         display: flex;
         align-items: center;
         padding-left: 15px;
+        margin-bottom: 6px;
         cursor: pointer;
+        border-radius: 10px;
+        font-weight: bolder;
         i {
             width: 20px;
             font-size: $font-size;
-            color: $gray500;
+            color: $text-color-main;
         }
         &:hover {
-            color: $dark;
+            color: $text-color-main;
+            background-color: #ffffff14;
         }
     }
 }
 
 .active-link {
     border-right: 2px solid $dark;
-    background-color: $gray100;
+    background-color: #ffffff14;
     i,
     a {
-        color: black;
+        color: $text-active;
+    }
+}
+
+.active-link .side-bar__item {
+    &:hover {
+        color: $text-active;
     }
 }
 
 .side-bar__item {
-    padding: 18px 16px;
+    padding: 16px;
     width: 100%;
     display: block;
-    color: $gray500;
+    color: $text-color-main;
     font-size: 1.4rem;
     &:hover {
-        color: black;
+        color: $text-color-main;
+    }
+}
+
+.dash-board {
+    color: $text-color-main;
+    text-align: center;
+    padding: 20px 0;
+    font-size: $text-large;
+    &:hover {
+        color: $text-active;
     }
 }

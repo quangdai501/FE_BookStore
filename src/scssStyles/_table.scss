@@ -8,18 +8,21 @@ table {
 
 tr {
     cursor: pointer;
+    &:nth-child(2n-2) {
+        background-color: $gray100;
+    }
 }
 
 td,
 th {
-    border: 1px solid $gray100;
     color: $dark-gray;
     padding: 10px;
     text-align: center;
 }
 
 th {
-    background-color: $gray100;
+    background-color: $text-active;
+    color: white;
 }
 
 .action {

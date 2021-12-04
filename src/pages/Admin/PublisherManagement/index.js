@@ -6,6 +6,7 @@ import {
   updatePublisher,
   deletePublisher,
 } from "../../../actions/publisherAction";
+import Toast from "../../../components/Toast";
 import "./style.scss";
 export default function PublisherManagement() {
   const [currenPublisher, setCurrenPublisher] = useState({ name: "" });
@@ -145,24 +146,24 @@ export default function PublisherManagement() {
               <label htmlFor="" className="form-label">
                 Tên nhà xuất bản
               </label>
-              {error && <p>Tên nhà xuất bản không được để trống</p>}
               <input
                 type="text"
                 onChange={changeCurrenPublisher}
                 value={currenPublisher.name}
               />
+              {error && <p className="error-label">Tên nhà xuất bản không được để trống</p>}
             </div>
             <div className="row center-item">
               {currentOption === "add" ? (
                 <button
-                  className="btn btn--border-none"
+                  className="btn btn--border-none btn--color-second"
                   onClick={() => addPublisher()}
                 >
                   {loadingCreate ? "...Thêm" : "Thêm"}
                 </button>
               ) : (
                 <button
-                  className="btn btn--border-none"
+                  className="btn btn--border-none btn--color-second"
                   onClick={() => editPublisherInfo()}
                 >
                   {loadingUpdate ? "...Lưu thay đổi" : "Lưu thay đổi"}
@@ -170,9 +171,9 @@ export default function PublisherManagement() {
               )}
             </div>
           </div>
-          {successCreate && <p>Thêm thành công</p>}
-          {successUpdate && <p>Sửa thành công</p>}
-          {successDelete && <p>Xóa thành công</p>}
+          {successCreate && <Toast message={"Thêm thành công"} type={"success"} />}
+          {successUpdate && <Toast message={"Sửa thành công"} type={"success"} />}
+          {successDelete && <Toast message={"Xóa thành công"} type={"success"} />}
         </div>
       </div>
     </div>

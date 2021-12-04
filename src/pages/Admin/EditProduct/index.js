@@ -23,7 +23,7 @@ export default function EditProduct() {
   const { publishers } = publisherList;
 
   const productDetails = useSelector((state) => state.productDetails);
-  const {success, product } = productDetails;
+  const { success, product } = productDetails;
 
   const productUpdate = useSelector((state) => state.productUpdate);
   const {
@@ -63,14 +63,14 @@ export default function EditProduct() {
     // console.log(data);
     // console.log(desc);
     // console.log(product)
-    const newdata={...data}
-    if(img!==''){
-      newdata['image']=img
+    const newdata = { ...data }
+    if (img !== '') {
+      newdata['image'] = img
     }
-    if(desc!==''){
-      newdata['description']=desc
+    if (desc !== '') {
+      newdata['description'] = desc
     }
-    newdata['publisher']=data.publisherId
+    newdata['publisher'] = data.publisherId
     // console.log(newdata)
     dispatch(updateProduct(newdata))
   };
@@ -154,8 +154,8 @@ export default function EditProduct() {
                   Tác giả
                 </label>
                 <select name="author" {...register("author", {
-                required: true,
-              })}>
+                  required: true,
+                })}>
                   {authors ? (
                     authors.map((item, index) => (
                       <option
@@ -178,8 +178,8 @@ export default function EditProduct() {
                   Nhà xuất bản
                 </label>
                 <select name="publisherId" {...register("publisherId", {
-                required: true,
-              })}>
+                  required: true,
+                })}>
                   {publishers ? (
                     publishers.map((item, index) => (
                       <option
@@ -206,7 +206,7 @@ export default function EditProduct() {
             initialContent={desc}
           />
           <div className="submit-area">
-            <button type="submit" className="btn btn--border-none">
+            <button type="submit" className="btn btn--border-none btn--color-second">
               Lưu thay đổi
             </button>
           </div>

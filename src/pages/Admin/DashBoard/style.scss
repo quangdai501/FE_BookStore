@@ -1,14 +1,15 @@
 @import '../../../scssStyles/variable';
 .side-bar {
-    min-height: calc(100vh - 48px);
-    background-color: white;
+    min-height: 100vh;
+    background-color: #111827;
     flex: 1;
 }
 
 .main-content {
+    min-height: calc(100vh - 48px);
     max-height: calc(100vh - 48px);
     overflow: auto;
-    background-color: $silver;
+    background-color: $gray50;
     flex: 1;
     padding-bottom: 40px;
 }
