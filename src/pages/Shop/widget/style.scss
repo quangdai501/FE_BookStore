@@ -5,7 +5,7 @@
 }
 
 .widget::-webkit-scrollbar {
-    width: 5px;
+    width: 6px;
 }
 
 .widget {
@@ -47,7 +47,7 @@
             border-radius: 10px;
         }
         &__list::-webkit-scrollbar {
-            width: 7px;
+            width: 5px;
         }
     }
 }
@@ -55,9 +55,14 @@
 @media screen and(max-width: 992px) {
     .widget {
         width: Max(60%, 250px);
+        direction: rtl;
+        max-width: unset;
         height: 80vh;
         .close {
             display: block;
+        }
+        .category {
+            direction: ltr;
         }
     }
 }

@@ -12,6 +12,17 @@
         outline: none;
         cursor: pointer;
     }
+    select {
+        height: 40px;
+        padding: 8px 16px; // border: none;
+        font-size: 1.4rem;
+        color: $dark;
+        background-color: white;
+        &:focus {
+            outline: none;
+            border-color: $gray-700;
+        }
+    }
     .display {
         align-self: center;
     }
