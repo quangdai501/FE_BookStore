@@ -67,11 +67,6 @@ export default function AddProduct() {
     }
     dispatch(createProduct(newdata))
   };
-  useEffect(() => {
-    return () => {
-
-    }
-  })
   return (
     <div className="container">
 
