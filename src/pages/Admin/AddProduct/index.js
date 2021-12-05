@@ -55,9 +55,6 @@ export default function AddProduct() {
     setDesc(content);
   };
   const onSubmit = (data) => {
-    // console.log(data);
-    // console.log(desc);
-    // console.log(img);
     const newdata = { ...data }
     if (img !== '') {
       newdata['image'] = img

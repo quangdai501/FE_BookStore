@@ -6,11 +6,13 @@ import {
   updateAuthor,
   deleteAuthor,
 } from "../../../actions/authorAction";
+import ConfirmBox from "../../../components/ConfirmBox";
 import Toast from "../../../components/Toast";
 import "./style.scss";
 export default function AuthorManagement() {
   const [currenAuthor, setCurrenAuthor] = useState({ name: "" });
   const [error, setError] = useState(false);
+  const [confirm, setConfirm] = useState();
   const changeCurrenAuthor = (e) => {
     setCurrenAuthor({ ...currenAuthor, name: e.target.value });
     if (e.target.value === "") {
@@ -68,15 +70,35 @@ export default function AuthorManagement() {
       dispatch(updateAuthor(currenAuthor));
     }
   };
+  // const delAuthor = (id) => {
+  //   if (window.confirm("Are you sure")) {
+  //     dispatch(deleteAuthor(id));
+  //     setCurrenAuthor({ name: "" });
+  //     setCurrentAction("add")
+  //   }
+  // };
   const delAuthor = (id) => {
-    if (window.confirm("Are you sure")) {
+    const author = authors.find(author => author._id === id)
+    setConfirm(author);
+  };
+  const handleConfirm = (type = "yes", id) => {
+    if (type === "yes") {
       dispatch(deleteAuthor(id));
       setCurrenAuthor({ name: "" });
       setCurrentAction("add")
     }
-  };
+    setConfirm();
+  }
   return (
     <div className="container">
+      {confirm &&
+        <ConfirmBox
+          object={confirm.name}
+          type={"xóa"}
+          category={"tác giả"}
+          handleConfirm={handleConfirm}
+          confirm={confirm}
+        />}
       <div className="manage-header">
         <p className="manage-title">Danh sách tác giả </p>
       </div>

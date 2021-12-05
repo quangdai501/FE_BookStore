@@ -6,11 +6,13 @@ import {
   updateCategory,
   deleteCategory,
 } from "../../../actions/categoryAction";
+import ConfirmBox from "../../../components/ConfirmBox";
 import Toast from "../../../components/Toast";
 import "./style.scss";
 export default function CategoryManagement() {
   const [currenCategory, setCurrenCategory] = useState({ name: "" });
   const [error, setError] = useState(false);
+  const [confirm, setConfirm] = useState();
   const changeCurrenCategory = (e) => {
     setCurrenCategory({ ...currenCategory, name: e.target.value });
     if (e.target.value === "") {
@@ -68,14 +70,27 @@ export default function CategoryManagement() {
     }
   };
   const delCategory = (id) => {
-    if (window.confirm("Are you sure")) {
+    const category = categorys.find(category => category._id === id)
+    setConfirm(category);
+  };
+  const handleConfirm = (type = "yes", id) => {
+    if (type === "yes") {
       dispatch(deleteCategory(id));
       setCurrenCategory({ name: "" });
       setCurrentAction("add");
     }
-  };
+    setConfirm();
+  }
   return (
     <div className="container">
+      {confirm &&
+        <ConfirmBox
+          object={confirm.name}
+          type={"xóa"}
+          category={"danh mục"}
+          handleConfirm={handleConfirm}
+          confirm={confirm}
+        />}
       <div className="manage-header">
         <p className="manage-title">Danh sách danh mục </p>
       </div>

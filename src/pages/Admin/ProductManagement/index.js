@@ -4,11 +4,12 @@ import { Link } from "react-router-dom";
 import { deleteProduct, listProducts } from "../../../actions/productAction";
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../../../components/Pagination";
+import ConfirmBox from "../../../components/ConfirmBox";
 export default function ProductManagement() {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, page, pages, total } = productList;
-
+  const [confirm, setConfirm] = useState();
   const productDelete = useSelector((state) => state.productDelete);
   const {
     loading: loadingDelete,
@@ -17,27 +18,38 @@ export default function ProductManagement() {
   } = productDelete;
 
 
-  const [query, setQuery] = useState({size:5,page:1});
+  const [query, setQuery] = useState({ size: 5, page: 1 });
 
   useEffect(() => {
     dispatch(listProducts(query));
-   
-  }, [query.page,successDelete]);
+
+  }, [query.page, successDelete]);
   const direct = (name, value) => {
     const newobj = { ...query };
     newobj[name] = value;
     setQuery(newobj);
   };
-  const delProduct=(id)=>{
-    if (window.confirm('Are you sure')) {
+  const delProduct = (id) => {
+    const product = products.find(product => product._id === id)
+    setConfirm(product);
+  }
+  const handleConfirm = (type = "yes", id) => {
+    if (type === "yes") {
       dispatch(deleteProduct(id))
-    // console.log(id)
     }
-   
+    setConfirm();
   }
   return (
     <>
       <div className="container">
+        {confirm &&
+          <ConfirmBox
+            object={confirm.name}
+            type={"xóa"}
+            category={"sản phẩm"}
+            handleConfirm={handleConfirm}
+            confirm={confirm}
+          />}
         <div className="product-manage">
           <div className="manage-header">
             <p className="manage-title">Danh sách sản phẩm</p>
@@ -58,7 +70,7 @@ export default function ProductManagement() {
               </tr>
             </thead>
             <tbody>
-              {products?products.map((item, index) => (
+              {products ? products.map((item, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>
@@ -68,7 +80,7 @@ export default function ProductManagement() {
                   <td>{item.price}</td>
                   <td>
                     <div className="action">
-                      <p className="delete" title="Xóa" onClick={()=>delProduct(item._id)}>
+                      <p className="delete" title="Xóa" onClick={() => delProduct(item._id)}>
                         <i className="fas fa-trash"></i>
                       </p>
                       <Link to={`/admin/product/edit/${item._id}`}>
@@ -79,7 +91,7 @@ export default function ProductManagement() {
                     </div>
                   </td>
                 </tr>
-              )):<></>}
+              )) : <></>}
             </tbody>
           </table>
           <Pagination page={page} pages={pages} direct={direct} />
