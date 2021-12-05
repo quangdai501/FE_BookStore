@@ -1,28 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUser, listUsers } from "../../../actions/userAction";
 import "./style.scss";
+import ConfirmBox from "../../../components/ConfirmBox";
 export default function UserManagement() {
-  // const data = [{
-  //     name: "Trần Quang Đại",
-  //     email: "tranquangdait02@gmail.com",
-  //     address: "Số 05, thôn 2, xã Hòa Bắc, Di Linh, Lâm Đồng"
-  // }, {
-  //     name: "Trần Quang Đại",
-  //     email: "tranquangdait02@gmail.com",
-  //     address: "Số 05, thôn 2, xã Hòa Bắc, Di Linh, Lâm Đồng"
-  // }, {
-  //     name: "Trần Quang Đại",
-  //     email: "tranquangdait02@gmail.com",
-  //     address: "Số 05, thôn 2, xã Hòa Bắc, Di Linh, Lâm Đồng"
-  // }, {
-  //     name: "Trần Quang Đại",
-  //     email: "tranquangdait02@gmail.com",
-  //     address: "Số 05, thôn 2, xã Hòa Bắc, Di Linh, Lâm Đồng"
-  // }]
+
   const dispatch = useDispatch();
   const userList = useSelector((state) => state.userList);
   const { users } = userList;
+  const [confirm, setConfirm] = useState();
 
   const userDelete = useSelector((state) => state.userDelete);
   const {
@@ -36,13 +22,26 @@ export default function UserManagement() {
   }, [successDelete]);
 
   const delUser = (id) => {
-    if (window.confirm('Are you sure')) {
+    const user = users.find(user => user._id === id)
+    setConfirm(user);
+  }
+
+  const handleConfirm = (type = "yes", id) => {
+    if (type === "yes") {
       dispatch(deleteUser(id));
-      // setCurrenAuthor({})
     }
+    setConfirm();
   }
   return (
     <div className="container">
+      {confirm &&
+        <ConfirmBox
+          object={confirm.email}
+          type={"xóa"}
+          category={"tài khoản"}
+          handleConfirm={handleConfirm}
+          confirm={confirm}
+        />}
       <div className="manage-header">
         <p className="manage-title">Danh sách người dùng</p>
       </div>

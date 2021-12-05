@@ -6,11 +6,13 @@ import {
   updatePublisher,
   deletePublisher,
 } from "../../../actions/publisherAction";
+import ConfirmBox from "../../../components/ConfirmBox";
 import Toast from "../../../components/Toast";
 import "./style.scss";
 export default function PublisherManagement() {
   const [currenPublisher, setCurrenPublisher] = useState({ name: "" });
   const [error, setError] = useState(false);
+  const [confirm, setConfirm] = useState();
   const changeCurrenPublisher = (e) => {
     setCurrenPublisher({ ...currenPublisher, name: e.target.value });
     if (e.target.value === "") {
@@ -69,14 +71,27 @@ export default function PublisherManagement() {
     }
   };
   const delPublisher = (id) => {
-    if (window.confirm("Are you sure")) {
+    const publisher = publishers.find(publisher => publisher._id === id)
+    setConfirm(publisher);
+  };
+  const handleConfirm = (type = "yes", id) => {
+    if (type === "yes") {
       dispatch(deletePublisher(id));
       setCurrenPublisher({ name: "" });
       setCurrentAction("add");
     }
-  };
+    setConfirm();
+  }
   return (
     <div className="container">
+      {confirm &&
+        <ConfirmBox
+          object={confirm.name}
+          type={"xóa"}
+          category={"nhà xuất bản"}
+          handleConfirm={handleConfirm}
+          confirm={confirm}
+        />}
       <div className="manage-header">
         <p className="manage-title">Danh sách nhà xuất bản </p>
       </div>
@@ -106,7 +121,7 @@ export default function PublisherManagement() {
                           <i className="fas fa-edit"></i>
                         </p>
                         <p
-                          className="edit ml-5"
+                          className="edit ml-15"
                           title="delete"
                           onClick={() => delPublisher(item._id)}
                         >

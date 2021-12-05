@@ -6,7 +6,7 @@ export default function SideBar() {
         <nav className="nav-bar">
             <div className="row">
                 <div className="col c-12">
-                    <Link to="/admin" className="link dash-board">Dash Board</Link>
+                    <Link to="/admin" className="link dash-board"><i class="fas fa-home"></i>Dash Board</Link>
                 </div>
             </div>
             <MenuLink
@@ -23,7 +23,7 @@ export default function SideBar() {
             <MenuLink
                 to="/admin/order"
                 label="Quản lý đơn hàng"
-                icon={<i className="fas fa-users"></i>}
+                icon={<i class="fas fa-box"></i>}
 
             />
             <MenuLink

@@ -6,11 +6,11 @@ export default function Toast(props) {
         error: "fas fa-times"
     }
     return (
-        <div className={`toast row ${props.type}`}>
-            <div className="toast__icon c-2">
+        <div className={`toast ${props.type}`}>
+            <div className="toast__icon">
                 <i class={`${icons[props.type]}`}></i>
             </div>
-            <div className="toast__message c-10">
+            <div className="toast__message">
                 {props.message}
             </div>
         </div>

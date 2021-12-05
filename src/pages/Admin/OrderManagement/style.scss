@@ -5,8 +5,8 @@
     text-align: center;
 }
 
-.ml-5 {
-    margin-left: 5px;
+.ml-15 {
+    margin-left: 15px;
 }
 
 .order-detail-item {
@@ -18,13 +18,12 @@
 .action {
     .approve,
     .cancel {
-        background-color: orange;
+        background-color: $bg-green;
         padding: 3px 6px;
-        border-radius: 8px;
-        border: 1px solid $gray100;
+        border-radius: 5px;
         color: white;
     }
     .cancel {
-        background-color: $red-second;
+        background-color: $error;
     }
 }

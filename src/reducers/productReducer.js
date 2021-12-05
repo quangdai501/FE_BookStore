@@ -50,7 +50,7 @@ export const productDetailsReducer = (
 ) => {
     switch (action.type) {
         case PRODUCT_DETAILS_REQUEST:
-            return {...state, loading: true }
+            return { ...state, loading: true }
         case PRODUCT_DETAILS_SUCCESS:
             return { loading: false, product: action.payload }
         case PRODUCT_DETAILS_FAIL:
