@@ -19,8 +19,8 @@ export default function ConfirmBox(props) {
                     <strong>{props.object} </strong>không?
                 </div>
                 <div className="confirm-option">
-                    <button className="btn btn--border-none" onClick={handleConfirmYes}>Đồng ý</button>
-                    <button className="btn btn--border-none" onClick={handleConfirmNo}>Hủy</button>
+                    <button className="btn btn--border-none btn--color-blue" onClick={handleConfirmYes}>Đồng ý</button>
+                    <button className="btn btn--border-none btn--color-red" onClick={handleConfirmNo}>Hủy</button>
                 </div>
             </div>
         </div>

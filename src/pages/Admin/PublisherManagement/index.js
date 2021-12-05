@@ -121,7 +121,7 @@ export default function PublisherManagement() {
                           <i className="fas fa-edit"></i>
                         </p>
                         <p
-                          className="edit ml-5"
+                          className="edit ml-15"
                           title="delete"
                           onClick={() => delPublisher(item._id)}
                         >

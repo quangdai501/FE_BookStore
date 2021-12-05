@@ -10,17 +10,18 @@
         padding: 30px;
         border-radius: 10px;
         width: 400px;
-        height: 180px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         background-color: white;
         .confirm-message {
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             font-size: $font-size;
             text-align: center;
+            flex: 1
         }
         .confirm-option {
+            height: 40px;
             display: flex;
             justify-content: space-around;
         }

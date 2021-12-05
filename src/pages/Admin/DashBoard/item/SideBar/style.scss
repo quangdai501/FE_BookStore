@@ -1,62 +1,72 @@
 @import '../../../../../scssStyles/variable';
 .nav-bar {
-    border: 1px solid $gray100;
-    border-top: none;
-    height: 100%;
-    padding: 15px;
+    min-height: 100vh;
+    width: 100%;
     color: $text-color-main;
     &__item {
         display: flex;
         align-items: center;
-        padding-left: 15px;
+        padding-left: 20px;
         margin-bottom: 6px;
         cursor: pointer;
-        border-radius: 10px;
-        font-weight: bolder;
+        font-weight: normal;
         i {
             width: 20px;
             font-size: $font-size;
             color: $text-color-main;
         }
         &:hover {
-            color: $text-color-main;
-            background-color: #ffffff14;
+            color: #1dc4e9;
+            i {
+                color: #1dc4e9;
+            }
         }
     }
 }
 
 .active-link {
-    border-right: 2px solid $dark;
-    background-color: #ffffff14;
+    border-left: 3px solid #1dc4e9;
+    background-color: #333f54;
     i,
     a {
         color: $text-active;
     }
-}
-
-.active-link .side-bar__item {
+    .side-bar__item {
+        &:hover {
+            color: $text-active;
+        }
+    }
     &:hover {
-        color: $text-active;
+        i {
+            color: $text-active;
+        }
     }
 }
 
 .side-bar__item {
-    padding: 16px;
+    padding: 12px;
     width: 100%;
     display: block;
     color: $text-color-main;
     font-size: 1.4rem;
     &:hover {
-        color: $text-color-main;
+        color: #1dc4e9;
     }
 }
 
 .dash-board {
-    color: $text-color-main;
+    color: $text-active;
     text-align: center;
     padding: 20px 0;
     font-size: $text-large;
     &:hover {
+        color: #1dc4e9;
+        i {
+            color: #1dc4e9;
+        }
+    }
+    i {
         color: $text-active;
+        margin-right: 20px;
     }
 }

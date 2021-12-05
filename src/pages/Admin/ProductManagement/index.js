@@ -5,6 +5,7 @@ import { deleteProduct, listProducts } from "../../../actions/productAction";
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../../../components/Pagination";
 import ConfirmBox from "../../../components/ConfirmBox";
+import Toast from '../../../components/Toast';
 export default function ProductManagement() {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
@@ -17,12 +18,10 @@ export default function ProductManagement() {
     success: successDelete,
   } = productDelete;
 
-
   const [query, setQuery] = useState({ size: 5, page: 1 });
 
   useEffect(() => {
     dispatch(listProducts(query));
-
   }, [query.page, successDelete]);
   const direct = (name, value) => {
     const newobj = { ...query };
@@ -42,6 +41,7 @@ export default function ProductManagement() {
   return (
     <>
       <div className="container">
+        {successDelete && <Toast message={"Đã xóa"} type="success" />}
         {confirm &&
           <ConfirmBox
             object={confirm.name}

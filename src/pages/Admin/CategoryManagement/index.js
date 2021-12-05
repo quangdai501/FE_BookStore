@@ -120,7 +120,7 @@ export default function CategoryManagement() {
                           <i className="fas fa-edit"></i>
                         </p>
                         <p
-                          className="edit ml-5"
+                          className="edit ml-15"
                           title="delete"
                           onClick={() => delCategory(item._id)}
                         >

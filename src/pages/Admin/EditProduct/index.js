@@ -9,9 +9,11 @@ import { listCategorys } from "../../../actions/categoryAction";
 import { listPublishers } from "../../../actions/publisherAction";
 import { listProductDetails, updateProduct } from "../../../actions/productAction";
 import { useParams } from "react-router";
+import Toast from '../../../components/Toast';
+
 export default function EditProduct() {
   const id = useParams();
-
+  const [check, setCheck] = useState(false);
   const dispatch = useDispatch();
   const authorList = useSelector((state) => state.authorList);
   const { authors } = authorList;
@@ -59,10 +61,7 @@ export default function EditProduct() {
     reset(product)
   }, [JSON.stringify(product)])
 
-  const onSubmit = (data) => {
-    // console.log(data);
-    // console.log(desc);
-    // console.log(product)
+  const onSubmit = async (data) => {
     const newdata = { ...data }
     if (img !== '') {
       newdata['image'] = img
@@ -71,12 +70,13 @@ export default function EditProduct() {
       newdata['description'] = desc
     }
     newdata['publisher'] = data.publisherId
-    // console.log(newdata)
-    dispatch(updateProduct(newdata))
+    await dispatch(updateProduct(newdata))
+    setCheck(true);
   };
-
   return (
     <div className="container">
+      {successUpdate && check && <Toast message={"Cập nhật sản phẩm thành công"} type={"success"} />}
+      {errorUpdate && <Toast message={errorUpdate} type={"error"} />}
       <div className="create-product">
         <div className="create-title">Sửa thông tin sản phẩm</div>
         <form onSubmit={handleSubmit(onSubmit)}>

@@ -2,26 +2,31 @@
 .toast {
     position: fixed;
     top: 60px;
-    width: 200px;
+    z-index: 2000;
     right: 30px;
-    height: 40px;
-    padding: 10px;
+    min-width: 200px;
+    max-width: 250px;
+    min-height: 40px;
+    padding: 5px 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: $font-size;
     box-shadow: 0 10px 15px rgba(0, 0, 0, .2);
-    border: 1px solid $gray100;
+    &__icon {
+        width: 25px;
+    }
     &__message {
+        flex: 1;
         text-align: center;
     }
-    animation: fadeIn ease .5s,
+    animation: fadeIn ease .4s,
     fadeOut ease-in 3s forwards;
 }
 
 .toast.success {
     border-left: 4px solid green;
-    background-color: rgb(201, 243, 201);
+    background-color: #e8f8f4;
     .toast__icon {
         i {
             color: green;
@@ -33,15 +38,15 @@
 }
 
 .toast.error {
-    border-left: 4px solid red;
-    background-color: rgb(243, 208, 208);
+    border-left: 4px solid $error;
+    background-color: rgb(252, 204, 204);
     .toast__icon {
         i {
-            color: red;
+            color: $error;
         }
     }
     .toast__message {
-        color: red;
+        color: $error;
     }
 }
 

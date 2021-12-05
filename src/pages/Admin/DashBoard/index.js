@@ -15,13 +15,13 @@ import CategoryManagement from '../CategoryManagement';
 import OrderManagement from '../OrderManagement';
 export default function DashBoard() {
     return (
-        <div className="row">
-            <div className="col c-2-5 flex">
+        <div className="dashboard">
+            <div className="dashboard__side">
                 <div className="side-bar">
                     <SideBar />
                 </div>
             </div>
-            <div className="col c-8-5">
+            <div className="dashboard__body">
                 <DashBoardHeader />
                 <div className="main-content">
                     <Routes>

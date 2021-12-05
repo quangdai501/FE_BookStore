@@ -9,8 +9,8 @@
 }
 
 .current-option {
-    background-color: $gray100;
-    color: $text-active;
+    background-color: $bg-green;
+    color: white;
 }
 
 .btn--submit {
@@ -19,6 +19,8 @@
 }
 
 .main-frame {
+    border-radius: 20px;
+    box-shadow: 0 5px 10px 4px rgba(0, 0, 0, .1);
     margin-top: 30px;
     padding: 20px;
     background-color: white;

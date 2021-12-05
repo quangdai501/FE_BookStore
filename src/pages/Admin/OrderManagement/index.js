@@ -63,12 +63,12 @@ export default function OrderManagement() {
                         <tr>
                             <th>STT</th>
                             <th>Tên người nhận</th>
-                            <th style={{ width: '280px' }}>Địa chỉ</th>
+                            <th style={{ minWidth: '240px' }}>Địa chỉ</th>
                             <th>Điện thoại</th>
                             <th>Tổng đơn</th>
                             <th>Hình thức thanh toán</th>
-                            <th style={{ width: '120px' }}>Chi tiết đơn</th>
-                            <th style={{ width: '150px' }}>Thao tác</th>
+                            <th style={{ minWidth: '120px' }}>Chi tiết đơn</th>
+                            <th style={{ minWidth: '160px' }}>Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -99,7 +99,7 @@ export default function OrderManagement() {
                                                 Duyệt
                                             </p>
                                             <p
-                                                className="cancel ml-5"
+                                                className="cancel ml-15"
                                                 title="Hủy"
                                             >
                                                 Hủy đơn
@@ -130,9 +130,10 @@ export default function OrderManagement() {
                         )) : <>
                         </>}
                     </tbody>
-                </table>
-                {listOrders?.length === 0 ? <p className="order-empty">Không có đơn nào cần xử lý</p> : ""}
-            </div>
-        </div>
+                </table >
+                {listOrders?.length === 0 ? <p className="order-empty">Không có đơn nào cần xử lý</p> : ""
+                }
+            </div >
+        </div >
     )
 }

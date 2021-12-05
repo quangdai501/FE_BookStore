@@ -15,6 +15,7 @@ export default function AddProduct() {
   const authorList = useSelector((state) => state.authorList);
   const { authors } = authorList;
 
+  const [check, setCheck] = useState(false);
   const categoryList = useSelector((state) => state.categoryList);
   const { categorys } = categoryList;
 
@@ -28,7 +29,7 @@ export default function AddProduct() {
     success: successCreate,
     product: productcreate
   } = productCreate;
-
+  console.log(loadingCreate, errorCreate, successCreate, productCreate);
   const defaultValues = {};
   const { handleSubmit, register, reset } = useForm({ defaultValues });
   useEffect(() => {
@@ -38,7 +39,6 @@ export default function AddProduct() {
   }, []);
   useEffect(() => {
     if (successCreate) {
-      alert('thêm thành công')
       reset(defaultValues);
       setImg('')
       setDesc('')
@@ -54,7 +54,7 @@ export default function AddProduct() {
   const handleDesc = (content) => {
     setDesc(content);
   };
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const newdata = { ...data }
     if (img !== '') {
       newdata['image'] = img
@@ -62,11 +62,13 @@ export default function AddProduct() {
     if (desc !== '') {
       newdata['description'] = desc
     }
-    dispatch(createProduct(newdata))
+    await dispatch(createProduct(newdata))
+    setCheck(true)
   };
   return (
     <div className="container">
-
+      {successCreate && check && <Toast message={"Thêm sản phẩm thành công"} type={"success"} />}
+      {errorCreate && <Toast message={errorCreate} type={"error"} />}
       <div className="create-product">
         <div className="create-title">Thêm sản phẩm mới</div>
         <form onSubmit={handleSubmit(onSubmit)}>
