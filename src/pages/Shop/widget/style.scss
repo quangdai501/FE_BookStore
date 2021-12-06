@@ -1,18 +1,17 @@
 @import '../../../scssStyles/variable';
-.widget::-webkit-scrollbar-thumb {
-    background: $dark;
-    border-radius: 10px;
-}
-
-.widget::-webkit-scrollbar {
-    width: 6px;
-}
-
+// .widget::-webkit-scrollbar-thumb {
+//     background: $gray-400;
+//     border-radius: 10px;
+// }
+// .widget::-webkit-scrollbar {
+//     width: 8px;
+// }
 .widget {
     width: 250px;
-    overflow-y: scroll;
+    // overflow-y: scroll;
     background: #fff;
     font-size: 16px;
+    border-radius: 5px;
     .close {
         display: none;
     }
@@ -31,7 +30,7 @@
             }
         }
         &__list {
-            height: 30vh;
+            height: 40vh;
             overflow-y: scroll;
             color: $dark;
             p {
@@ -41,13 +40,13 @@
             p:hover {
                 color: $red-light;
             }
-        }
-        &__list::-webkit-scrollbar-thumb {
-            background: $dark;
-            border-radius: 10px;
-        }
-        &__list::-webkit-scrollbar {
-            width: 5px;
+            &::-webkit-scrollbar-thumb {
+                background: $gray-400;
+                border-radius: 10px;
+            }
+            &::-webkit-scrollbar {
+                width: 5px;
+            }
         }
     }
 }
@@ -55,14 +54,22 @@
 @media screen and(max-width: 992px) {
     .widget {
         width: Max(60%, 250px);
-        direction: rtl;
+        // direction: rtl;
         max-width: unset;
-        height: 80vh;
+        // height: 80vh;
         .close {
             display: block;
         }
-        .category {
-            direction: ltr;
+        &__list {
+            overflow-y: scroll;
+            height: 70vh;
+            &::-webkit-scrollbar-thumb {
+                background: $gray-400;
+                border-radius: 10px;
+            }
+            &::-webkit-scrollbar {
+                width: 8px;
+            }
         }
     }
 }

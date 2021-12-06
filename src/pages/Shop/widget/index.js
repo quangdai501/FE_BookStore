@@ -45,6 +45,7 @@ const Widget = (props) => {
             </div>
           </div>
         </div>
+        <div className="widget__list">
         <div className="category">
           <div className="category__title">
             <h4>Danh mục</h4>
@@ -103,6 +104,8 @@ const Widget = (props) => {
             <></>
           )}
         </div>
+          </div>        
+       
       </div>
     </>
   );
