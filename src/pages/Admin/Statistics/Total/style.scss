@@ -1,0 +1,33 @@
+@import '../../../../scssStyles/variable';
+.total {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-gap: 16px;
+    .total-item {
+        padding: 32px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        &__icon {
+            font-size: 32px;
+            i {
+                color: $dark;
+            }
+        }
+        &__info {
+            font-size: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            &-title {
+                color: $gray-400;
+            }
+            &-total {
+                text-align: center;
+                color: $dark;
+                font-size: 22px;
+            }
+        }
+    }
+}
