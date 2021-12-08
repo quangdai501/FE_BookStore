@@ -23,7 +23,7 @@ function Table() {
 
 
     return (
-        <div className="table">
+        <div className="statistic-table">
             <div className="card">
                 <div className="review">
                     <h3 className="review-title">Đánh Giá - Nhận Xét Mới Nhất</h3>             
@@ -32,7 +32,7 @@ function Table() {
             </div>
             <div className="row">
                     <div className="c-12 table-scroll">
-                            <div className="table__header">
+                            <div className="statistic-table__header">
                                 <h3 className="review-title">Sản Phẩm Bán Chạy</h3> 
                             </div>
                         <table>
