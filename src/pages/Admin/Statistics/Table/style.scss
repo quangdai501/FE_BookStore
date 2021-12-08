@@ -1,5 +1,18 @@
+@import '../../../../scssStyles/variable';
 .table {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     grid-gap: 16px;
+    &__header {
+        padding: 16px;
+        background-color: white;
+        .review-title {
+            margin-bottom: unset;
+            padding-bottom: 20px;
+            border-bottom: 1px solid $gray200;
+        }
+    }
+    table {
+        box-shadow: unset;
+    }
 }

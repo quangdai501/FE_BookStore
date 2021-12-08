@@ -27,7 +27,6 @@ export default function Review(props) {
             <div className="col c-6 md-12 review">
                 <h3 className="review-title">Đánh Giá - Nhận Xét Từ Khách Hàng
                 </h3>
-                {/* {[1, 2, 3].map((index) => <Comment key={index} />)} */}
                 {reviews?reviews.map((item,index) => <Comment key={index} review={item} />):<></>}
             </div>
             <div className="col c-6 md-12 write-review">
