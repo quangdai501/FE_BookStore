@@ -14,9 +14,9 @@ const StatisticApi = {
         const url = '/statistic/get-revenue';
         return axiosClient.get(url, { params: by });
     },
-    getNewReviews: () => {
+    getNewReviews: (size) => {
         const url = '/statistic/get-new-review';
-        return axiosClient.get(url);
+        return axiosClient.get(url, { params: size });
     },
 
 }

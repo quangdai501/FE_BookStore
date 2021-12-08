@@ -12,6 +12,8 @@
         select {
             border: unset;
             outline: unset;
+            border-bottom: 1px solid $dark;
+            padding-bottom: 5px;
             background-color: transparent;
         }
     }

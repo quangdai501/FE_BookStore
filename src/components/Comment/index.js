@@ -1,6 +1,7 @@
 import React from 'react'
 import './style.scss';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 Comment.propTypes = {
     review:{
@@ -11,17 +12,21 @@ Comment.propTypes = {
     }
 }
 export default function Comment(props) {
-    const { name, updatedAt, rating, comment } = props.review;
+    const { name, updatedAt, rating, comment,productName,product } = props.review;
 
     return (
         <div className="comment">
             <div className="comment__item">
+                {product?
+                    <div className='comment-product-name'>
+                        <Link to={`/product-detail/${product}`}>{productName}</Link>
+                    </div>:<></>
+                }
                 <div className="row-space-between">
                     <div className="comment-author">
                         {name}
-                        {/* Lưu Đình vương */}
                     </div>
-                    <div className="comment-date">{updatedAt}</div>
+                    <div className="comment-date">{new Date(updatedAt).toLocaleString()}</div>
                 </div>
                 <div className="row star">
                     {
@@ -36,7 +41,6 @@ export default function Comment(props) {
                 </div>
                 <div className="comment-content">
                     {comment}
-                    {/* Máy của VN cũng k đòi hỏi gì nhiều nhưng thực sự nó k phù hợp với giá tiền. Midnh mua về dùng được vài tháng thì lỗi loa. Bảo hành sửa chữa máy rất rất lâu . */}
                 </div>
             </div>
         </div>

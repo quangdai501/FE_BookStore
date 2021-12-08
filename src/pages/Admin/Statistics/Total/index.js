@@ -5,9 +5,15 @@ import './style.scss'
 function Total() {
     const [data, setData] = useState();
     useEffect(() => {
+
     const fetchData = async () => {
-      const result = await StatisticApi.getAll()
-      setData(result.data);
+        try {
+            const result = await StatisticApi.getAll()
+            setData(result.data);
+        } catch (error) {
+            console.log(error)
+        }
+    
     };
 
     fetchData();

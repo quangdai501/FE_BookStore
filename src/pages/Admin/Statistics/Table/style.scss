@@ -1,5 +1,23 @@
-.table {
+@import '../../../../scssStyles/variable';
+.statistic-table {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     grid-gap: 16px;
+    .table-scroll {
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        background: #fff;
+        border-radius: 12px;
+    }
+    &__header {
+        padding: 16px;
+        background-color: white;
+        .review-title {
+            margin-bottom: unset;
+            padding-bottom: 20px;
+            border-bottom: 1px solid $gray200;
+        }
+    }
+    table {
+        box-shadow: unset;
+    }
 }

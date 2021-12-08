@@ -7,6 +7,13 @@
         .comment-author {
             color: $dark-gray;
         }
+        .comment-product-name {
+            padding: 4px 0;
+            a {
+                text-decoration: none;
+                color: $btn-color-second;
+            }
+        }
     }
 }
 
