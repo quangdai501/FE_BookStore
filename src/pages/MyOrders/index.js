@@ -3,17 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { listOrderOfUser } from "../../actions/orderAction";
 import { priceToString } from "../../common/convertNumberToPrice";
 import Item from "../Checkout/item";
-
+import Order from "./Item/index";
+import './style.scss'
 const MyOrders = () => {
   const [listOrders, setListOrders] = useState([]);
-  const [show, setShow] = useState(0);
-  const openModal = (id) => {
-    if (id === show) {
-      setShow();
-    } else {
-      setShow(id);
-    }
-  };
 
   const { orders, error } = useSelector((state) => state.userOrder);
 
@@ -44,55 +37,16 @@ const MyOrders = () => {
   }, [orders]);
 
   return (
-    <div className="container">
-      <div className="table">
-        <table>
-          <thead>
-            <tr>
-              <th>STT</th>
-              <th>Tên người nhận</th>
-              <th style={{ width: "300px" }}>Địa chỉ</th>
-              <th>Điện thoại</th>
-              <th>Tổng đơn</th>
-              <th>Hình thức thanh toán</th>
-              <th>Trạng thái</th>
-            </tr>
-          </thead>
-          <tbody>
-            {listOrders ? (
+    <div className="my-order">
+      {listOrders ? (
               listOrders.map((item, index) => (
-                <>
-                  <tr key={index} onClick={() => openModal(index)}>
-                    <td rowspan="2">{index + 1}</td>
-                    <td>{item.name}</td>
-                    <td>{item.address}</td>
-                    <td>{item.phone}</td>
-                    <td>{priceToString(item.total)}</td>
-                    <td>{item.payment}</td>
-                    <td>{item.status}</td>
-                  </tr>
-                  <tr>
-                    {show === index && (
-                      <td colspan="6">
-                        <div className="row center-item">
-                          <div className="col c-8 md-12">
-                            {item.billDetail.map((order, index) => (
-                              <Item cart={order} key={index} />
-                            ))}
-                          </div>
-                        </div>
-                      </td>
-                    )}
-                  </tr>
-                </>
-              ))
-            ) : (
-              <></>
-            )}
-          </tbody>
-        </table>
-        {/* {listOrders?.length !== 0 && <p className="order-empty">Không có đơn nào cần xử lý</p>} */}
-      </div>
+                <div className="card">
+                    <Order key={index} order={item}/>          
+                </div>
+              ))):<></>
+      }
+    
+      
     </div>
   );
 };
