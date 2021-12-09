@@ -19,7 +19,7 @@ export default function Comment(props) {
             <div className="comment__item">
                 {product?
                     <div className='comment-product-name'>
-                        <Link to={`/product-detail/${product}`}>{productName}</Link>
+                        <Link to={`/product-detail/${product}`}  target="_blank" rel="noopener noreferrer" >{productName}</Link>
                     </div>:<></>
                 }
                 <div className="row-space-between">
