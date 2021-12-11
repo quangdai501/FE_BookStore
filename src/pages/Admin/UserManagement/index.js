@@ -43,7 +43,7 @@ export default function UserManagement() {
           confirm={confirm}
         />}
       <div className="manage-header">
-        <p className="manage-title">Danh sách người dùng</p>
+        <p className="manage-title"><i class="fas fa-users"></i>Danh sách người dùng</p>
       </div>
       <div className="table-scroll" >
         <table >

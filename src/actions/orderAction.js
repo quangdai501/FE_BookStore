@@ -40,7 +40,8 @@ const getOrderByDeliveryStatus = (deliveryStatus) => async (dispatch) => {
         const { data } = await OrderApi.orderByStatus(deliveryStatus);
         dispatch({ type: GET_ORDER_BY_STATUS_SUCCESS, payload: data });
     } catch (error) {
-        dispatch({ type: GET_ORDER_BY_STATUS_FAIL, payload: error.message });
+        const message = error.response && error.response.data.message ? error.response.data.message : error
+        dispatch({ type: GET_ORDER_BY_STATUS_FAIL, payload: message });
     }
 }
 
@@ -89,7 +90,7 @@ const adminApproveOrder = (orderID, action) => async (dispatch) => {
             if (data) {
                 dispatch({
                     type: ORDER_APPROVE_SUCCESS,
-                    payload: data
+                    payload: "Tạo đơn hàng thành công"
                 });
             }
         }
@@ -99,7 +100,7 @@ const adminApproveOrder = (orderID, action) => async (dispatch) => {
             if (data) {
                 dispatch({
                     type: ORDER_APPROVE_SUCCESS,
-                    payload: data
+                    payload: "Đã hủy đơn hàng"
                 });
 
             }

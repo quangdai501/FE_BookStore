@@ -1,7 +1,7 @@
 @import '../../scssStyles/variable';
 @import '../../scssStyles/mixin';
 .main-header {
-    height: 100px;
+    min-height: 100px;
     background-color: white;
     border-bottom: 1px solid $gray50;
     font-size: $font-size;
@@ -65,6 +65,7 @@
     .header-logo {
         display: flex;
         align-items: center;
+        justify-content: center;
     }
     .cart {
         position: relative;
@@ -127,6 +128,22 @@
 }
 
 @media screen and(max-width: 736px) {
+    .main-header {
+        padding: 20px 0;
+    }
+    .search {
+        height: 35px;
+        border-radius: 20px;
+        overflow: hidden;
+        .search-icon {
+            // border-radius: 20px;
+            // min-width: 35px;
+            background-color: white;
+            i {
+                color: black;
+            }
+        }
+    }
     .logo-area {
         order: 1;
     }

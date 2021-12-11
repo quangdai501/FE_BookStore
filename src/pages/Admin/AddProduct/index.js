@@ -29,7 +29,7 @@ export default function AddProduct() {
     success: successCreate,
     product: productcreate
   } = productCreate;
-  console.log(loadingCreate, errorCreate, successCreate, productCreate);
+
   const defaultValues = {};
   const { handleSubmit, register, reset } = useForm({ defaultValues });
   useEffect(() => {
@@ -68,7 +68,7 @@ export default function AddProduct() {
   return (
     <div className="container">
       {successCreate && check && <Toast message={"Thêm sản phẩm thành công"} type={"success"} />}
-      {errorCreate && <Toast message={errorCreate} type={"error"} />}
+      {errorCreate && check && <Toast message={errorCreate} type={"error"} />}
       <div className="create-product">
         <div className="create-title">Thêm sản phẩm mới</div>
         <form onSubmit={handleSubmit(onSubmit)}>

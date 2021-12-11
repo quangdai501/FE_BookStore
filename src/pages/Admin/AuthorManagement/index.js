@@ -100,7 +100,7 @@ export default function AuthorManagement() {
           confirm={confirm}
         />}
       <div className="manage-header">
-        <p className="manage-title">Danh sách tác giả </p>
+        <p className="manage-title"><i class="fas fa-user-tie"></i>Danh sách tác giả </p>
       </div>
       <div className="row">
         <div className="c-8 table-scroll">

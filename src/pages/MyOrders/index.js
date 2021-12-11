@@ -37,16 +37,16 @@ const MyOrders = () => {
   }, [orders]);
 
   return (
-    <div className="my-order">
+    <div className="my-order space">
       {listOrders ? (
-              listOrders.map((item, index) => (
-                <div className="card">
-                    <Order key={index} order={item}/>          
-                </div>
-              ))):<></>
+        listOrders.map((item, index) => (
+          <div className="card" key={index}>
+            <Order order={item} />
+          </div>
+        ))) : <></>
       }
-    
-      
+
+
     </div>
   );
 };

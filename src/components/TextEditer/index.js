@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import './style.scss';
 import { Editor } from '@tinymce/tinymce-react';
 import PropTypes from 'prop-types';
@@ -22,6 +22,9 @@ export default function TextEditer(props) {
             setSaveStatus(false);
         }
     }
+    useEffect(() => {
+        props.handleDesc(initContent)
+    }, [initContent])
     return (
         <div>
             <Editor
@@ -44,7 +47,7 @@ export default function TextEditer(props) {
                 }}
                 onEditorChange={() => onChange()}
             />
-            <button type="button" onClick={submitContent} disabled={saveStatus} className="btn btn--border-none">Lưu nội dung</button>
+            <button type="button" onClick={submitContent} disabled={saveStatus} className="btn btn--border-none mt-5">Lưu nội dung</button>
         </div>
     );
 }

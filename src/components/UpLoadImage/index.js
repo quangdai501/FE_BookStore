@@ -6,7 +6,7 @@ UpLoadImage.propTypes = {
   setImage: PropTypes.func.isRequired,
 };
 export default function UpLoadImage(props) {
- 
+
   const fileRef = useRef();
   const handleImage = () => {
     if (fileRef.current) {
@@ -24,10 +24,6 @@ export default function UpLoadImage(props) {
 
   return (
     <div className="row upload-img">
-      <div > 
-        <img src={props.img} alt="" />
-      </div>
-
       <input type="file" ref={fileRef} />
       <button
         type="button"
@@ -36,6 +32,9 @@ export default function UpLoadImage(props) {
       >
         Tải ảnh lên
       </button>
+      <div>
+        <img src={props.img} alt="" />
+      </div>
     </div>
   );
 }

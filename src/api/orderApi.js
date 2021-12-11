@@ -20,11 +20,11 @@ const OrderApi = {
         return axiosClient.patch('/orders/admin/cancelOrder/' + orderID)
     },
 
-    orderByStatus: (diliveryStatus) => {
-        if (diliveryStatus === 'Tất cả') {
+    orderByStatus: (deliveryStatus) => {
+        if (deliveryStatus === 'Tất cả') {
             return axiosClient.get('/orders');
         } else {
-            return axiosClient.post('/orders/order-by-delivery-status', { diliveryStatus });
+            return axiosClient.post('/orders/order-by-delivery-status', { deliveryStatus });
         }
     },
     sendEmail: (userInfo, cartItems) => {

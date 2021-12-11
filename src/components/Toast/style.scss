@@ -19,27 +19,27 @@
     &__message {
         flex: 1;
         text-align: center;
+        word-break: break-all;
     }
     animation: fadeIn ease .4s,
     fadeOut ease-in 3s forwards;
+    background-color: white;
 }
 
 .toast.success {
-    border-left: 4px solid green;
-    background-color: #e8f8f4;
+    background-color: white;
     .toast__icon {
         i {
-            color: green;
+            color: #1890ff;
         }
     }
     .toast__message {
-        color: green;
+        color: #1890ff;
     }
 }
 
 .toast.error {
-    border-left: 4px solid $error;
-    background-color: rgb(252, 204, 204);
+    background-color: white;
     .toast__icon {
         i {
             color: $error;

@@ -25,7 +25,7 @@
 }
 
 .active-menu .signin-mobile {
-    max-width: Max(40%, 200px);
+    max-width: Max(50%, 250px);
     width: 100%;
 }
 
@@ -37,7 +37,7 @@
     right: 40px;
     i {
         font-size: 28px;
-        color: orange;
+        color: white;
     }
 }
 
@@ -47,10 +47,12 @@
     &__item {
         white-space: nowrap;
         cursor: pointer;
-        padding: 16px 16px;
+        padding: 12px 16px;
+        color: $gray600;
         border-bottom: 1px solid $gray100;
         &:first-child {
             cursor: text;
+            color: orange;
             i {
                 color: orange;
                 margin-right: 30px;

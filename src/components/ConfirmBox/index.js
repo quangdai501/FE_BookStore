@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import useClickOutside from '../../hooks/useClickOutside';
 import './style.scss';
 
 export default function ConfirmBox(props) {
     const [close, setClose] = useState(false);
+    const confirmRef = useRef(null);
+    useClickOutside(confirmRef, () => handleConfirmNo());
     const handleConfirmYes = () => {
         setClose(true);
         setTimeout(() => { props.handleConfirm("yes", props.confirm._id) }, 200)
@@ -13,7 +16,7 @@ export default function ConfirmBox(props) {
     }
     return (
         <div className={`confirm ${close ? "close" : ""}`}>
-            <div className="confirm__body">
+            <div className="confirm__body" ref={confirmRef}>
                 <div className="confirm-message">
                     {`Bạn có muốn ${props.type} ${props.category} `}
                     <strong>{props.object} </strong>không?

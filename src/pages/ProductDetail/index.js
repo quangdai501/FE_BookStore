@@ -23,12 +23,10 @@ export default function ProductDetail() {
     review: reviewcreate
   } = productReviewCreate;
   useEffect(() => {
-    console.log(product)
     descRef.current.innerHTML = product.description || '';
   }, [successCreate, product])
   useEffect(() => {
     dispatch(listProductDetails(id.productID));
-    // console.log(JSON.stringify(product))
   }, [successCreate]);
 
   const changeQuantity = (payload) => {
@@ -84,7 +82,7 @@ export default function ProductDetail() {
         </div>
       </div>
       <div className="row">
-        <div className="product-desc">
+        <div className="c-12 product-desc">
           <h3 className="desc-title">Mô Tả Sản Phẩm</h3>
           <p ref={descRef}></p>
         </div>

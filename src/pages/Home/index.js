@@ -25,10 +25,12 @@ export default function Home() {
       </div>
       <div className="tab">
         <div className="tab__header row">
-          <h2 className="c-12">Mới ra mắt</h2>
-          <div className="c-12 more" onClick={() => gotoShop(newProucts)}>
-            <span>Xem thêm</span>
-            <i class="fas fa-angle-right"></i>
+          <h2 className="c-6">Mới ra mắt</h2>
+          <div className="c-6 more" >
+            <div className="" onClick={() => gotoShop(newProucts)}>
+              <span>Xem thêm</span>
+              <i class="fas fa-angle-right"></i>
+            </div>
           </div>
         </div>
 
@@ -51,8 +53,10 @@ export default function Home() {
 
         <SwiperProduct query={saleProducts} />
         <div className="more" onClick={() => gotoShop(saleProducts)}>
-          <span>Xem thêm</span>
-          <i class="fas fa-angle-right"></i>
+          <div className="">
+            <span>Xem thêm</span>
+            <i class="fas fa-angle-right"></i>
+          </div>
         </div>
       </div>
       <div className="tab">
