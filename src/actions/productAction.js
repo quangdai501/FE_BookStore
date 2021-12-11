@@ -107,6 +107,7 @@ export const createProduct = (product) => async (dispatch) => {
             error.response && error.response.data.message ?
                 error.response.data.message :
                 error.message
+        console.log(error.response.error)
         // if (message === 'Not authorized, token failed') {
         //   dispatch(logout())
         // }
@@ -144,20 +145,12 @@ export const updateProduct = (product) => async (dispatch) => {
 
 export const createProductReview = (productId, review) => async (
     dispatch,
-    getState
 ) => {
     try {
         dispatch({
             type: PRODUCT_CREATE_REVIEW_REQUEST,
         })
-        // const config = {
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //     Authorization: `Bearer ${userInfo.token}`,
-        //   },
-        // }
 
-        // await axios.post(`/api/products/${productId}/reviews`, review, config)
         await ProductApi.createReview(review, productId)
 
         dispatch({

@@ -92,7 +92,7 @@ export default function CategoryManagement() {
           confirm={confirm}
         />}
       <div className="manage-header">
-        <p className="manage-title">Danh sách danh mục </p>
+        <p className="manage-title"><i class="fas fa-clipboard-list"></i>Danh sách danh mục </p>
       </div>
       <div className="row">
         <div className="c-8 table-scroll">

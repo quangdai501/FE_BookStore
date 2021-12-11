@@ -93,7 +93,7 @@ export default function PublisherManagement() {
           confirm={confirm}
         />}
       <div className="manage-header">
-        <p className="manage-title">Danh sách nhà xuất bản </p>
+        <p className="manage-title"><i class="fas fa-list"></i>Danh sách nhà xuất bản </p>
       </div>
       <div className="row">
         <div className="c-8 table-scroll">

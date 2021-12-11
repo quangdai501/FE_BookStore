@@ -4,15 +4,19 @@ table {
     width: 100%;
     font-size: 14px;
     background-color: white;
-    box-shadow: 0 0 15px 10px rgba(0, 0, 0, .1);
+    box-shadow: 0 0 15px 5px rgba(0, 0, 0, .1);
 }
 
 tr {
     cursor: pointer;
-    &:nth-child(2n-2) {
-        background-color: $gray50;
+    &:hover {
+        background-color: rgba(4, 169, 245, 0.05);
     }
     border-bottom: 1px solid $gray50;
+}
+
+thead tr th {
+    color: $gray-700;
 }
 
 td,
@@ -62,7 +66,7 @@ td img {
 .table-scroll {
     max-height: calc(100vh - 180px);
     overflow-y: scroll;
-    box-shadow: 0 0 15px 10px rgba(0, 0, 0, .1);
+    box-shadow: 0 0 15px 5px rgba(0, 0, 0, .1);
     &::-webkit-scrollbar {
         width: 4px;
     }

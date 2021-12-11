@@ -1,6 +1,6 @@
 @import '../../../scssStyles/variable';
 .order-empty {
-    padding: 10%;
+    padding: 2%;
     font-size: $font-size;
     text-align: center;
 }
@@ -25,5 +25,12 @@
     }
     .cancel {
         background-color: $error;
+    }
+}
+
+.ghn-link {
+    transition: transform .1s linear;
+    &:hover {
+        transform: scale(1.3);
     }
 }

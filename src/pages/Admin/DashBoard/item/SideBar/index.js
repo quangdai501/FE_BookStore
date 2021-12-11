@@ -40,7 +40,7 @@ export default function SideBar() {
             <MenuLink
                 to="/admin/category"
                 label="Quản lý danh mục"
-                icon={<i className="fas fa-list"></i>}
+                icon={<i class="fas fa-clipboard-list"></i>}
             />
             <MenuLink
                 to="/admin/statistics"

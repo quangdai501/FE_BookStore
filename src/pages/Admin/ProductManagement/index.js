@@ -9,6 +9,7 @@ import Toast from '../../../components/Toast';
 export default function ProductManagement() {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
+  const [check, setCheck] = useState();
   const { loading, error, products, page, pages, total } = productList;
   const [confirm, setConfirm] = useState();
   const productDelete = useSelector((state) => state.productDelete);
@@ -19,7 +20,6 @@ export default function ProductManagement() {
   } = productDelete;
 
   const [query, setQuery] = useState({ size: 5, page: 1 });
-
   useEffect(() => {
     dispatch(listProducts(query));
   }, [query.page, successDelete]);
@@ -36,12 +36,13 @@ export default function ProductManagement() {
     if (type === "yes") {
       dispatch(deleteProduct(id))
     }
+    setCheck(true);
     setConfirm();
   }
   return (
     <>
       <div className="container">
-        {successDelete && <Toast message={"Đã xóa"} type="success" />}
+        {successDelete && check && <Toast message={"Đã xóa"} type="success" />}
         {confirm &&
           <ConfirmBox
             object={confirm.name}
@@ -52,7 +53,7 @@ export default function ProductManagement() {
           />}
         <div className="product-manage">
           <div className="manage-header">
-            <p className="manage-title">Danh sách sản phẩm</p>
+            <p className="manage-title"><i class="fas fa-book"></i>Danh sách sản phẩm</p>
             <Link to="/admin/product/create">
               <div className="product-action" title="Thêm sản phẩm">
                 <i className="fas fa-plus"></i>

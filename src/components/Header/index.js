@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { logout } from "../../actions/userAction";
@@ -9,18 +9,20 @@ export default function Header() {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-
   const [query, setQuery] = useState("");
   const changeQuery = (e) => setQuery(e.target.value);
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
   const [openMenu, setOpenMenu] = useState(false);
-
   const handleOpenMenu = () => {
-    console.log("menu")
-    setOpenMenu(!openMenu);
+    setOpenMenu(true);
   }
+
+  const handleCloseMenu = () => {
+    setOpenMenu(false);
+  }
+
   let navigate = useNavigate();
   const gotoCart = () => {
     navigate("/cart");
@@ -97,6 +99,7 @@ export default function Header() {
               gotoLogin={gotoLogin}
               logoutHandler={logoutHandler}
               handleOpenMenu={handleOpenMenu}
+              handleCloseMenu={handleCloseMenu}
             />
           </div>
           <div className="c-3 lg-0 md-0">

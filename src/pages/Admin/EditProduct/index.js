@@ -76,7 +76,7 @@ export default function EditProduct() {
   return (
     <div className="container">
       {successUpdate && check && <Toast message={"Cập nhật sản phẩm thành công"} type={"success"} />}
-      {errorUpdate && <Toast message={errorUpdate} type={"error"} />}
+      {errorUpdate && check && <Toast message={errorUpdate} type={"error"} />}
       <div className="create-product">
         <div className="create-title">Sửa thông tin sản phẩm</div>
         <form onSubmit={handleSubmit(onSubmit)}>
