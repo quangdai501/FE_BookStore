@@ -4,11 +4,11 @@ export default function Footer() {
   return (
     <div className="footer">
       <div className="container footer-body">
-        <div className="row">
-          <div className="col c-3 lg-6 md-6">
+        <div className="row gutter">
+          <div className="c-3 lg-6 md-6 padding">
             <h3 className="footer-body-head">Sản phẩm và dịch vụ</h3>
             <div className="row">
-              <div className="col c-6">
+              <div className="c-6">
                 <ul className="footer-list">
                   <li className="footer-list__item">
                     <a href="/#">Tiểu thuyết</a>
@@ -26,7 +26,7 @@ export default function Footer() {
               </div>
             </div>
           </div>
-          <div className="col c-3 lg-6 md-6">
+          <div className="c-3 lg-6 md-6 padding">
             <h3 className="footer-body-head">Chính sách</h3>
             <ul className="footer-list">
               <li className="footer-list__item">
@@ -37,7 +37,7 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          <div className="col c-3 lg-6 md-12">
+          <div className="c-3 lg-6 md-12 padding">
             <h3 className="footer-body-head">Về chúng tôi</h3>
             <ul className="footer-list">
               <li className="footer-list__item">
@@ -51,10 +51,10 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          <div className="col c-3 lg-6 md-12">
+          <div className="c-3 lg-6 md-12 padding">
             <h3 className="footer-body-head">Hệ thống cửa hàng</h3>
             <div className="row address">
-              <div className="col c-6">
+              <div className="c-6">
                 <h4 className="footer-body-head-2">TP.Hồ Chí Minh:</h4>
                 <ul className="address-list">
                   <li className="address-list__item">
