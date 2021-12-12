@@ -16,7 +16,10 @@ import {
     GET_ORDER_BY_STATUS_SUCCESS,
     GET_ORDER_BY_STATUS_FAIL,
     SEND_MAIL_ORDER_REQUEST,
-    SEND_MAIL_ORDER_SUCCESS
+    SEND_MAIL_ORDER_SUCCESS,
+    ORDER_DELETE_REQUEST,
+    ORDER_DELETE_FAIL,
+    ORDER_DELETE_SUCCESS,
 } from '../constants/order';
 import OrderApi from '../api/orderApi';
 // danh sach don  hang da dat cua 1 user
@@ -122,6 +125,13 @@ const orderDetail = (orderID) => async (dispatch) => {
     }
 
 }
+const deleteOrder = (vnp_Params) => async (dispatch) => {
+    try {
+        await OrderApi.orderReturn(vnp_Params)
+    } catch (error) {
+
+    }
+}
 
 const sendMailOrder = (userInfo, cartItems) => async (dispatch) => {
     dispatch({ type: SEND_MAIL_ORDER_REQUEST });
@@ -132,5 +142,5 @@ const sendMailOrder = (userInfo, cartItems) => async (dispatch) => {
 
     }
 }
-export { listOrderOfUser, getOrderByDeliveryStatus, createOrder, orderDetail, adminApproveOrder, sendMailOrder };
+export { listOrderOfUser, getOrderByDeliveryStatus, createOrder, orderDetail, adminApproveOrder, sendMailOrder, deleteOrder };
 
