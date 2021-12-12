@@ -3,6 +3,7 @@ import SwiperProduct from "./items/SwiperProduct";
 import { useState } from "react";
 import SwpiperBanner from "./items/SwiperBanner";
 import { useNavigate } from "react-router";
+import MenuOption from "./items/MenuOption";
 
 export default function Home() {
   const features = ["Đặc sắc", "Mua nhiều", "Giảm giá"];
@@ -21,7 +22,14 @@ export default function Home() {
   return (
     <div className="space">
       <div className="tab">
-        <SwpiperBanner />
+        <div className="row gutter">
+          <div className="c-3 lg-0 md-0 padding">
+            <MenuOption />
+          </div>
+          <div className="c-9 lg-12 md-12 padding">
+            <SwpiperBanner />
+          </div>
+        </div>
       </div>
       <div className="tab">
         <div className="tab__header row">

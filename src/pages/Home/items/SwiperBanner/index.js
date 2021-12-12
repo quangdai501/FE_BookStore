@@ -11,10 +11,8 @@ import 'swiper/components/navigation';
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 export default function SwpiperBanner() {
     const swiperRef = useRef(null);
-
     return (
         <Swiper
-            navigation
             slidesPerView={1}
             ref={swiperRef}
             pagination={true}
@@ -33,10 +31,10 @@ export default function SwpiperBanner() {
                                 <span class="item-title__below">Tháng 12</span>
                             </p>
                             <Link to="/shop">
-                                <p class="btn btn--fadeIn">Khám phá</p>
+                                <p class="btn btn--fadeIn btn--bg-white">Khám phá</p>
                             </Link>
                         </div>
-                        <div class="c-5 lg-5 md-12 hero-right"><img src="https://www.vinabook.com/images/thumbnails/product/240x/364602_p93100mcdaa4509b8a65ba0278012629aca6183.jpg" alt="Book" srcset="" /></div>
+                        <div class="c-5 lg-5 md-12 hero-right"><img src="/images/img4.jpg" alt="Book" srcset="" /></div>
                     </div>
                 </SwiperSlide>
             ))

@@ -1,24 +1,26 @@
 @import '../../../../scssStyles/variable';
 @import '../../../../scssStyles/animation';
 .banner-swiper {
-    background-image: url('./slide.jpg');
-    min-height: 350px;
+    background-image: url('./banner.jpg');
+    background-position: center;
+    opacity: .9;
+    min-height: 400px;
     .swiper-item {
         min-width: 100%;
     }
     .hero-item {
         padding: 0 50px;
         align-items: center;
-        min-height: 350px;
+        min-height: 400px;
         .hero-right {
             img {
-                min-width: auto;
+                max-height: 260px;
             }
         }
     }
 }
 
-.owl-item.active {
+.swiper-item.swiper-slide-active {
     .item-title {
         animation: fadeInBottom 1.7s;
     }
@@ -37,12 +39,13 @@
     }
     .btn--fadeIn {
         animation: fadeInLeft 1s;
+        font-weight: 600;
     }
 }
 
 .item-title {
     font-size: 4rem;
-    color: $dark;
+    color: white;
     line-height: 67px;
     margin-bottom: 34px;
     &__above {

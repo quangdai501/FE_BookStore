@@ -4,6 +4,9 @@
     height: 100%;
     justify-content: center;
     font-size: $font-size;
+    h3 {
+        line-height: 25px;
+    }
     .thankful-title {
         @include center-item;
         h3 {
@@ -22,5 +25,14 @@
         a {
             margin: 0 10px;
         }
+    }
+}
+
+.payment-detail {
+    cursor: pointer;
+    transition: all .2s ease;
+    &:hover {
+        color: orange;
+        text-decoration: underline;
     }
 }
