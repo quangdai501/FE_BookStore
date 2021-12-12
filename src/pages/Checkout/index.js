@@ -109,8 +109,6 @@ const Checkout = () => {
       }
       if (data.payment === "online") {
         await dispatch(createOrder(userInfo._id, data.name, totalCart + shippingFee, address, data.phone, billDetail, "Thanh toán online"));
-        await dispatch(sendMailOrder(userInfo, cartItems));
-        await dispatch({ type: CART_CLEAR_ITEMS });
       }
       else {
         await dispatch(createOrder(userInfo._id, data.name, totalCart, address, data.phone, billDetail, "Thanh toán khi nhận hàng", navigate));

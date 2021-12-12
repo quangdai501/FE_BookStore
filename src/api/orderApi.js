@@ -7,6 +7,9 @@ const OrderApi = {
     createOrderAndPay: (user_id, name, total, address, phone, billDetail, payment) => {
         return axiosClient.post('/payment/create_payment_url', { user_id, name, total, address, phone, billDetail, payment });
     },
+    orderReturn: (params) => {
+        return axiosClient.get(`/payment/vnpay_return${params}`);
+    },
     createOrder: (user_id, name, total, address, phone, billDetail, payment) => {
         return axiosClient.post('/orders/createOrder', { user_id, name, total, address, phone, billDetail, payment });
     },
