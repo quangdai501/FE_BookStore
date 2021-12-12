@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Widget from "./widget";
 import "./style.scss";
 import Product from "../../components/Product";
+import { useParams } from "react-router-dom";
 import Pagination from "../../components/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../../actions/productAction";

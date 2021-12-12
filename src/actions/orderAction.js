@@ -63,7 +63,7 @@ const createOrder = (user_id, name, total, address, phone, billDetail, payment, 
             data = await OrderApi.createOrderAndPay(user_id, name, total, address, phone, billDetail, payment);
             const res = data
             if (res.data?.code === "00") {
-                window.location.href = res.data.data;
+                window.location.replace(res.data.data);
             }
         }
         else {
