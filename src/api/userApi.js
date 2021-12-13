@@ -6,6 +6,10 @@ const UserApi = {
         const url = '/auth/login';
         return axiosClient.post(url, { email, password });
     },
+    loginGoogle: (token) => {
+        const url = '/auth/login-google';
+        return axiosClient.post(url, { token });
+    },
     confirmEmail: (name, email, password) => {
         const url = '/auth/confirm-email';
         return axiosClient.post(url, { name, email, password });
