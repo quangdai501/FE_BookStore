@@ -43,6 +43,7 @@ export default function Register() {
     if (Object.keys(errors).length === 0) {
       // console.log(password, email,name);
       //submit form tại đây
+      
       if (code) {
         if (isentercode) {
           dispatch(enterCode(code));
@@ -77,7 +78,7 @@ export default function Register() {
             <label htmlFor="email" className="form-label">
               Email
             </label>
-            <input type="email" name="email" {...register("email")} />
+            <input type="email" name="email" {...register("email",{ required: true })} />
             {error && <p className="error-label">{error}</p>}
           </div>
           <div className="form-input">
@@ -87,7 +88,7 @@ export default function Register() {
             <input
               type="password"
               name="password"
-              {...register("password", { pattern: passwordPattern })}
+              {...register("password",{ required: true }, { pattern: passwordPattern })}
             />
           </div>
           <div className="form-input">
@@ -97,7 +98,7 @@ export default function Register() {
             <input
               type="password"
               name="passwordAgain"
-              {...register("passwordAgain")}
+              {...register("passwordAgain",{ required: true })}
             />
             {errors.password && (
               <p className="error-label">{errors.password.message}</p>
@@ -109,7 +110,7 @@ export default function Register() {
               <label htmlFor="code" className="form-label">
                 Mã xác nhận
               </label>
-              <p className="">Chúng tôi vừa gủi mã xác nhận đến email của bạn</p>
+              {success && <p className="">Chúng tôi vừa gủi mã xác nhận đến email của bạn</p>}
               {errorEnterCode && (
                 <p className="error-label">{errorEnterCode}</p>
               )}
@@ -123,7 +124,7 @@ export default function Register() {
                 className="reload-btn"
                 onClick={() => setIsentercodes(false)}
               >
-                Gủi lại <i class="fas fa-sync"></i>
+                {success?'Gủi lại':'Gủi lại ...'} <i class="fas fa-sync"></i>
               </button>
             </div>
           )}
