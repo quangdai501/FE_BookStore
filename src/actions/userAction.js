@@ -111,9 +111,9 @@ export const confirmEmail = (name, email, password) => async(dispatch) => {
     } catch (error) {
         dispatch({
             type: USER_REGISTER_FAIL,
-            // payload: error.response && error.response.data.message ?
-            //     error.response.data.message : error.message,
-            payload: error,
+            payload: error.response && error.response.data.message ?
+                error.response.data.message : error.message,
+            // payload: error,
         })
     }
 }
@@ -143,9 +143,9 @@ export const enterCode = (code) => async(dispatch) => {
     } catch (error) {
         dispatch({
             type: USER_ENTERCODE_FAIL,
-            // payload: error.response && error.response.data.message ?
-            //     error.response.data.message : error.message,
-            payload: error,
+            payload: error.response && error.response.data.message ?
+                error.response.data.message : error.message,
+            // payload: error,
         })
     }
 }
