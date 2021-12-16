@@ -21,8 +21,8 @@ axiosClient.interceptors.response.use((response) => {
 
     const err = error.response && error.response.data.message ?
         error.response.data.message : error.message
-
-    if (err === "Invalid Token") {
+    const status = error.response.status
+    if (err === "Invalid Token" || status === 500) {
         localStorage.removeItem('userInfo')
         document.location.href = '/login'
         return

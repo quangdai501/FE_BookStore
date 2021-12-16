@@ -38,13 +38,13 @@ export default function Login() {
             <label htmlFor="email" className="form-label">
               Email
             </label>
-            <input type="text" name="email" {...register("email")} />
+            <input type="text" name="email" {...register("email",{ required: true })} />
           </div>
           <div className="form-input">
             <label htmlFor="password" className="form-label">
               Mật khẩu
             </label>
-            <input type="password" name="password" {...register("password")} />
+            <input type="password" name="password" {...register("password",{ required: true })} />
           </div>
           <button type="submit" className="btn btn--border-none btn--full-width">
             {loading ? "Đang xử lý..." : "Đăng nhập"}    
