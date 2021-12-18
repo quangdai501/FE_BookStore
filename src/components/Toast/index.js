@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './style.scss';
 export default function Toast(props) {
     const [show, setShow] = useState(true);
@@ -6,7 +6,10 @@ export default function Toast(props) {
         success: "far fa-check-circle",
         error: "fas fa-times"
     }
-    setTimeout(() => { setShow(false) }, 3000)
+    useEffect(() => {
+        setTimeout(() => { setShow(false) }, 3000)
+        return () => clearTimeout();
+    }, [])
     return <>
         {
             show ?

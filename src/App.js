@@ -19,6 +19,7 @@ import Profile from "./pages/Profile";
 import OrderSuccess from "./pages/OrderSuccess";
 import NotFound from "./pages/NotFound";
 import MyOrders from "./pages/MyOrders";
+import ResetPassword from "./pages/ResetPassword";
 function App() {
   const href = window.location.href;
 
@@ -40,6 +41,7 @@ function App() {
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/changepassword" element={<ChangePassword />} />
+              <Route path="/resetpassword" element={<ResetPassword />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/shop" element={<Shop />} />
               <Route path="/order-success" element={<OrderSuccess />} />

@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { updatePassword } from "../../actions/userAction";
+import { resetPassword } from "../../actions/userAction";
 import { useNavigate } from 'react-router-dom';
 import Toast from "../../components/Toast";
 
-export default function ChangePassword() {
+export default function ResetPassword() {
   const [isMatch, setIsMatch] = useState(true);
-  const { userInfo } = useSelector((state) => state.userLogin);
-  const { loading, success, error } = useSelector(state => state.userUpdatePass);
+  const { emailInfo, loading, error } = useSelector(state => state.forgotPassword);
+  const { success } = useSelector(state => state.userResetPass);
   const [check, setCheck] = useState(false);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
@@ -18,13 +17,14 @@ export default function ChangePassword() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const passwordPattern = {
     value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/,
     message:
       "Mật khẩu phải chứa ít nhất một số và một chữ cái viết hoa và viết thường và ít nhất 8 ký tự trở lên",
   };
   const onSubmit = (data) => {
-    const { passwordAgain, password, prepass } = data;
+    const { passwordAgain, password } = data;
     if (password !== passwordAgain) {
       setIsMatch(false);
       return;
@@ -33,30 +33,24 @@ export default function ChangePassword() {
     }
     if (Object.keys(errors).length === 0) {
       setCheck(true);
-      dispatch(updatePassword(userInfo.email, prepass, password, navigate));
+      dispatch(resetPassword(emailInfo.email, password, navigate));
     }
   };
 
   return (
     <div className="space">
-      {success && check && <Toast message="Cập nhật thành công" type="success" />}
+      {success && check && <Toast message="Cập nhật mật khẩu thành công" type="success" />}
       <div className="login">
         <div className="login__header">Đổi mật khẩu</div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="form-input">
-            <label htmlFor="prepass" className="form-label">
-              Mật khẩu trước đây
-            </label>
-            <input type="password" name="prepass" {...register("prepass", { pattern: passwordPattern })} />
-          </div>
-          <div className="form-input">
             <label htmlFor="password" className="form-label">
-              Mật khẩu
+              Mật khẩu mới
             </label>
             <input
               type="password"
               name="password"
-              {...register("password", { pattern: passwordPattern })}
+              {...register("password", { required: true, pattern: passwordPattern })}
             />
           </div>
           <div className="form-input">
@@ -66,7 +60,7 @@ export default function ChangePassword() {
             <input
               type="password"
               name="passwordAgain"
-              {...register("passwordAgain")}
+              {...register("passwordAgain", { required: true })}
             />
             {error && (
               <p className="error-label">{error}</p>

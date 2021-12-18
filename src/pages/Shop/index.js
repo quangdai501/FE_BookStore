@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import Widget from "./widget";
 import "./style.scss";
 import Product from "../../components/Product";
-import { useParams } from "react-router-dom";
 import Pagination from "../../components/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../../actions/productAction";
 import { useLocation, useNavigate } from "react-router";
 import Sortbar from "./Sortbar";
 import FilterBar from "./FilterBar";
+import Loading from "../../components/Loading";
 const useQuery = () => {
   const { search } = useLocation();
   if (search) {
@@ -61,13 +61,11 @@ const Shop = (props) => {
       direct("search", url_query);
     }
   }, [JSON.stringify(url_query)]);
-
   const direct = (name, value) => {
     const newobj = { ...query };
     newobj[name] = value;
     setQuery(newobj);
   };
-
   const removeFilter = (name) => {
     const newobj = { ...query };
     delete newobj[name];
@@ -96,27 +94,28 @@ const Shop = (props) => {
                 showSidebar={showSidebar}
               />
             </div>
-            <div className="c-12">
-              <div className="row">
-                {products ? products.map((item, index) => (
-                  <div className="col c-3 lg-4 md-6">
-                    <Product
-                      imageURL={item.image}
-                      name={item.name}
-                      price={item.price}
-                      author={item.authors.name}
-                      publisher={item.publisher.name}
-                      productId={item._id}
-                    />
-                  </div>
-                )) : <></>}
+            {loading ? <Loading /> : <>
+              <div className="c-12">
+                <div className="row">
+                  {products ? products.map((item, index) => (
+                    <div className="col c-3 lg-4 md-6" key={index}>
+                      <Product
+                        imageURL={item.image}
+                        name={item.name}
+                        price={item.price}
+                        author={item.authors.name}
+                        publisher={item.publisher.name}
+                        productId={item._id}
+                      />
+                    </div>
+                  )) : <></>}
+                </div>
               </div>
-            </div>
-            <div className="c-12">
-              <div className="pagination-section">
-                <Pagination page={page} pages={pages} direct={direct} />
-              </div>
-            </div>
+              <div className="c-12">
+                <div className="pagination-section">
+                  <Pagination page={page} pages={pages} direct={direct} />
+                </div>
+              </div></>}
           </div>
         </div>
       </div>

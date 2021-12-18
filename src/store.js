@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import counterReducer from "./reducers/counterReducer";
 import {
@@ -39,7 +39,9 @@ import {
     userUpdateProfileReducer,
     userListReducer,
     userDeleteReducer,
-    userUpdateReducer,
+    userUpdatePassReducer,
+    userForgotPasswordReducer,
+    userResetPassReducer
 } from './reducers/userReducer'
 import {
     createOrderReducer,
@@ -86,7 +88,9 @@ const reducer = combineReducers({
     userUpdateProfile: userUpdateProfileReducer,
     userList: userListReducer,
     userDelete: userDeleteReducer,
-    userUpdate: userUpdateReducer,
+    userUpdatePass: userUpdatePassReducer,
+    userResetPass: userResetPassReducer,
+    forgotPassword: userForgotPasswordReducer,
     // cart
     cart: cartReducer,
     //order: 
@@ -116,12 +120,14 @@ const initialState = {
     userLogin: { userInfo: userInfoFromStorage },
 }
 
-
+const middlewareEnhancer = applyMiddleware(thunk)
+const composedEnhancers = compose(middlewareEnhancer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)
 
 const store = createStore(
     reducer,
     initialState,
-    applyMiddleware(thunk)
+    composedEnhancers
 )
 
 export default store

@@ -33,11 +33,11 @@ export default function OrderSuccess() {
                 responseCode === "00" || !search ?
                     <>
                         <div className="c-12 thankful-title">
-                            <img src="./images/tick-yellow.png" alt="" srcset="" />
+                            <img src="./images/tick-yellow.png" alt=""  />
                             <h3>Đặt hàng thành công</h3>
                         </div>
                     </> : <div className="c-12 thankful-title">
-                        <img src="./images/order-fail.png" alt="" srcset="" />
+                        <img src="./images/order-fail.png" alt=""  />
                         <h3>Đặt hàng không thành công</h3>
                     </div>
             }

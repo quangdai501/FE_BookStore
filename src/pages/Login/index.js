@@ -20,7 +20,7 @@ export default function Login() {
     const { email, password } = data;
     dispatch(login(email, password, navigate))
   };
-  const googleClientID='193330644512-6vdsndui852tmbd9ddegtbd4h90a6cld.apps.googleusercontent.com'
+  const googleClientID = '193330644512-6vdsndui852tmbd9ddegtbd4h90a6cld.apps.googleusercontent.com'
 
   const googleSuccess = async (res) => {
     const token = res?.tokenId;
@@ -38,33 +38,33 @@ export default function Login() {
             <label htmlFor="email" className="form-label">
               Email
             </label>
-            <input type="text" name="email" {...register("email",{ required: true })} />
+            <input type="text" name="email" {...register("email", { required: true })} />
           </div>
           <div className="form-input">
             <label htmlFor="password" className="form-label">
               Mật khẩu
             </label>
-            <input type="password" name="password" {...register("password",{ required: true })} />
+            <input type="password" name="password" {...register("password", { required: true })} />
           </div>
           <button type="submit" className="btn btn--border-none btn--full-width">
-            {loading ? "Đang xử lý..." : "Đăng nhập"}    
+            {loading ? "Đang xử lý..." : "Đăng nhập"}
           </button>
           <div className="google-btn">
-              <GoogleLogin
-            clientId={googleClientID}
-            buttonText="Đăng nhập bằng tài khoản google"
-            onSuccess={googleSuccess}
-            onFailure={googleError}
-            cookiePolicy={'single_host_origin'}
-          />
-            </div>
-            
+            <GoogleLogin
+              clientId={googleClientID}
+              buttonText="Đăng nhập bằng tài khoản google"
+              onSuccess={googleSuccess}
+              onFailure={googleError}
+              cookiePolicy={'single_host_origin'}
+            />
+          </div>
+
         </form>
         <p className="login__form-panel">
-          <Link to="/register">Tạo tài khoản mới?</Link>
+          <Link className="link" to="/register">Tạo tài khoản mới?</Link>
         </p>
         <p className="login__form-panel">
-          <Link to="/#">Quên mật khẩu</Link>
+          <Link className="link" to="/forgot-password">Quên mật khẩu</Link>
         </p>
       </div>
     </div>

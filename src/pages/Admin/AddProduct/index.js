@@ -190,7 +190,7 @@ export default function AddProduct() {
           <TextEditer handleDesc={handleDesc} />
           <div className="submit-area">
             <button type="submit" className="btn btn--border-none btn--color-second">
-              Thêm sản phẩm
+              Thêm sản phẩm {loadingCreate ? "..." : ''}
             </button>
           </div>
         </form>

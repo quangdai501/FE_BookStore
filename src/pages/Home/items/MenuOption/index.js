@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { listAuthors } from "../../../../actions/authorAction";
 import { listCategorys } from "../../../../actions/categoryAction";
+import Loading from '../../../../components/Loading';
 import './style.scss';
 export default function MenuOption(props) {
     const authorList = useSelector((state) => state.authorList);
-    const { authors } = authorList;
+    const { authors, loading } = authorList;
     const categoryList = useSelector((state) => state.categoryList);
     const { categorys } = categoryList;
     const dispatch = useDispatch();
@@ -21,8 +22,9 @@ export default function MenuOption(props) {
     }, []);
     return (
         <div className="main-menu">
+            {loading && <Loading />}
             <div className="main-menu__item menu-header">
-                <i class="fas fa-stream"></i><p className="option-name">Danh mục</p><i class="fas fa-sort-down"></i>
+                <p className="option-name"> <i class="fas fa-stream"></i>Danh mục</p><i class="fas fa-sort-down"></i>
             </div>
             <div className="main-menu__item">
                 <Link to="/shop" className="option-name">Tất cả</Link> <i class="fas fa-angle-right"></i>
