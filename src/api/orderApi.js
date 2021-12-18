@@ -1,8 +1,8 @@
 import axiosClient from "./axiosClient";
 
 const OrderApi = {
-    getAll: (id) => {
-        return axiosClient.get('/orders/mine/' + id);
+    getAll: (id, type) => {
+        return axiosClient.get(`/orders/mine/${id}?type=${type}`);
     },
     createOrderAndPay: (user_id, name, total, address, phone, billDetail, payment) => {
         return axiosClient.post('/payment/create_payment_url', { user_id, name, total, address, phone, billDetail, payment });

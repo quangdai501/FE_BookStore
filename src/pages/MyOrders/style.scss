@@ -6,7 +6,6 @@
         position: -webkit-sticky;
         position: sticky;
         top: 0;
-        font-size: 16px;
         display: grid;
         grid-template-columns: repeat(5, minmax(max-content, 1fr));
         grid-gap: 16px;
@@ -19,6 +18,8 @@
             background-color: $gray-700;
         }
         .status {
+            background-color: transparent;
+            font-size: 16px;
             padding: 5px;
             text-align: center;
             border: unset;
