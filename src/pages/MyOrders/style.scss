@@ -2,4 +2,33 @@
 .my-order {
     display: grid;
     grid-gap: 32px;
+    .sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(max-content, 1fr));
+        grid-gap: 16px;
+        overflow-x: scroll;
+        &::-webkit-scrollbar {
+            height: 5px;
+        }
+        &::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background-color: $gray-700;
+        }
+        .status {
+            background-color: transparent;
+            font-size: 16px;
+            padding: 5px;
+            text-align: center;
+            border: unset;
+            cursor: pointer;
+        }
+        .status--active {
+            border: unset;
+            color: $red;
+            border-bottom: 1px solid $red;
+        }
+    }
 }
