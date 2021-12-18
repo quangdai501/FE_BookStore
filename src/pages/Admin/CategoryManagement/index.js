@@ -15,15 +15,11 @@ export default function CategoryManagement() {
   const [confirm, setConfirm] = useState();
   const changeCurrenCategory = (e) => {
     setCurrenCategory({ ...currenCategory, name: e.target.value });
-    if (e.target.value === "") {
-      setError(true);
-    } else {
-      setError(false);
-    }
   };
 
   const [currentOption, setCurrentOption] = useState("add");
   const setCurrentAction = (option) => {
+    setError(false)
     if (currentOption !== option) setCurrentOption(option);
     if (option === "add") {
       setCurrenCategory({ name: "" });
@@ -61,12 +57,20 @@ export default function CategoryManagement() {
   };
   const addCategory = () => {
     if (currenCategory.name !== "") {
+      setError(false)
       dispatch(createCategory(currenCategory));
+    }
+    else{
+      setError(true)
     }
   };
   const editCategoryInfo = () => {
     if (currenCategory._id && currenCategory.name !== "") {
+      setError(false)
       dispatch(updateCategory(currenCategory));
+    }
+    else{
+      setError(true)
     }
   };
   const delCategory = (id) => {

@@ -15,15 +15,11 @@ export default function AuthorManagement() {
   const [confirm, setConfirm] = useState();
   const changeCurrenAuthor = (e) => {
     setCurrenAuthor({ ...currenAuthor, name: e.target.value });
-    if (e.target.value === "") {
-      setError(true);
-    } else {
-      setError(false);
-    }
   };
 
   const [currentOption, setCurrentOption] = useState("add");
   const setCurrentAction = (option) => {
+    setError(false)
     if (currentOption !== option) setCurrentOption(option);
     if (option === "add") {
       setCurrenAuthor({ name: "" });
@@ -62,21 +58,21 @@ export default function AuthorManagement() {
   };
   const addAuthor = () => {
     if (currenAuthor.name !== "") {
+      setError(false)
       dispatch(createAuthor(currenAuthor));
+    }
+    else{
+      setError(true)
     }
   };
   const editAuthorInfo = () => {
     if (currenAuthor._id && currenAuthor.name !== "") {
+      setError(false)
       dispatch(updateAuthor(currenAuthor));
+    }else{
+      setError(true)
     }
   };
-  // const delAuthor = (id) => {
-  //   if (window.confirm("Are you sure")) {
-  //     dispatch(deleteAuthor(id));
-  //     setCurrenAuthor({ name: "" });
-  //     setCurrentAction("add")
-  //   }
-  // };
   const delAuthor = (id) => {
     const author = authors.find(author => author._id === id)
     setConfirm(author);
