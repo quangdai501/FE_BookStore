@@ -42,9 +42,9 @@ const UserApi = {
         const url = '/users/add-user';
         return axiosClient.post(url, { code });
     },
-    updatePassword: (newPassword, oldPassword) => {
+    updatePassword: (email, password) => {
         const url = '/users/update-password';
-        return axiosClient.patch(url, { newPassword, oldPassword });
+        return axiosClient.patch(url, { email, password });
     },
     deleteUser: (id) => {
         const url = `/users/${id}`;
