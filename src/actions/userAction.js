@@ -27,6 +27,9 @@ import {
     USER_UPDATE_FAIL,
     USER_UPDATE_SUCCESS,
     USER_UPDATE_REQUEST,
+    USER_UPDATE_PASSWORD_REQUEST,
+    USER_UPDATE_PASSWORD_SUCCESS,
+    USER_UPDATE_PASSWORD_FAIL
 } from '../constants/user'
 // import { ORDER_LIST_MY_RESET } from '../constants/orderConstants'
 
@@ -80,11 +83,8 @@ export const loginGoogle = (token, navigate) => async(dispatch) => {
 export const logout = () => (dispatch) => {
     localStorage.removeItem('userInfo')
         // localStorage.removeItem('cartItems')
-        // localStorage.removeItem('shippingAddress')
-        // localStorage.removeItem('paymentMethod')
     dispatch({ type: USER_LOGOUT })
     dispatch({ type: USER_DETAILS_RESET })
-        // dispatch({ type: ORDER_LIST_MY_RESET })
     dispatch({ type: USER_LIST_RESET })
     document.location.href = '/login'
 }
@@ -102,12 +102,6 @@ export const confirmEmail = (name, email, password) => async(dispatch) => {
             payload: data,
         })
 
-        // dispatch({
-        //     type: USER_LOGIN_SUCCESS,
-        //     payload: data,
-        // })
-
-        // localStorage.setItem('userInfo', JSON.stringify(data))
     } catch (error) {
         dispatch({
             type: USER_REGISTER_FAIL,
@@ -130,10 +124,6 @@ export const enterCode = (code) => async(dispatch) => {
             payload: data,
         })
 
-        // dispatch({
-        //     type: USER_LOGIN_SUCCESS,
-        //     payload: data,
-        // })
         if (data) {
             setTimeout(() => {
                 document.location.href = '/login'
@@ -158,8 +148,6 @@ export const getUserDetails = () => async(dispatch, getState) => {
 
 
         const { data } = await UserApi.getUserInfoByID()
-
-        // const { data } = await axios.get(`/api/users/${id}`, config)
 
         dispatch({
             type: USER_DETAILS_SUCCESS,
@@ -230,8 +218,6 @@ export const listUsers = () => async(dispatch) => {
             // }
 
         const { data } = await UserApi.getAllUsers()
-            // const { data } = await axios.get(`/api/users`, config)
-
         dispatch({
             type: USER_LIST_SUCCESS,
             payload: data,
@@ -256,8 +242,6 @@ export const deleteUser = (id) => async(dispatch) => {
         dispatch({
             type: USER_DELETE_REQUEST,
         })
-
-        // await axios.delete(`/api/users/${id}`, config)
         await UserApi.deleteUser(id)
         dispatch({ type: USER_DELETE_SUCCESS })
     } catch (error) {
@@ -275,41 +259,26 @@ export const deleteUser = (id) => async(dispatch) => {
     }
 }
 
-// export const updateUser = (user) => async(dispatch, getState) => {
-//     try {
-//         dispatch({
-//             type: USER_UPDATE_REQUEST,
-//         })
+export const updatePassword = (newPassword, oldPassword) => async(dispatch) => {
+    try {
+        dispatch({
+            type: USER_UPDATE_PASSWORD_REQUEST,
+        })
 
-//         const {
-//             userLogin: { userInfo },
-//         } = getState()
 
-//         const config = {
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 Authorization: `Bearer ${userInfo.token}`,
-//             },
-//         }
-
-//         const { data } = await axios.put(`/api/users/${user._id}`, user, config)
-
-//         dispatch({ type: USER_UPDATE_SUCCESS })
-
-//         dispatch({ type: USER_DETAILS_SUCCESS, payload: data })
-
-//         dispatch({ type: USER_DETAILS_RESET })
-//     } catch (error) {
-//         const message =
-//             error.response && error.response.data.message ?
-//             error.response.data.message :
-//             error.message
-//         if (message === 'Not authorized, token failed') {
-//             dispatch(logout())
-//         }
-//         dispatch({
-//             type: USER_UPDATE_FAIL,
-//             payload: message,
-//         })
-//     }
-// }
+        const { data } = await UserApi.updatePassword(newPassword, oldPassword)
+        dispatch({ type: USER_UPDATE_PASSWORD_SUCCESS, payload: data })
+        setTimeout(() => {
+            dispatch(logout())
+        }, 2000)
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message ?
+            error.response.data.message :
+            error.message
+        dispatch({
+            type: USER_UPDATE_PASSWORD_FAIL,
+            payload: message,
+        })
+    }
+}
