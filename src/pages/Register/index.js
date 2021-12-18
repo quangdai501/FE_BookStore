@@ -1,9 +1,8 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { confirmEmail, enterCode } from "../../actions/userAction";
-import { useNavigate } from "react-router";
 import "./style.scss";
 export default function Register() {
   const [isMatch, setIsMatch] = useState(true);
@@ -18,7 +17,7 @@ export default function Register() {
     message:
       "Mật khẩu phải chứa ít nhất một số và một chữ cái viết hoa và viết thường và ít nhất 8 ký tự trở lên",
   };
-  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const userRegister = useSelector((state) => state.userRegister);
   const { loading, error, success, userInfo } = userRegister;
@@ -33,7 +32,6 @@ export default function Register() {
   const [isentercode, setIsentercodes] = useState(false);
   const onSubmit = (data) => {
     const { code, name, passwordAgain, password, email } = data;
-    // console.log(passwordAgain, password, email);
     if (password !== passwordAgain) {
       setIsMatch(false);
       return;
@@ -41,21 +39,15 @@ export default function Register() {
       setIsMatch(true);
     }
     if (Object.keys(errors).length === 0) {
-      // console.log(password, email,name);
-      //submit form tại đây
-      
       if (code) {
         if (isentercode) {
           dispatch(enterCode(code));
-          // console.log(code)
         } else {
-          // console.log(password, email,name);
           dispatch(confirmEmail(name, email, password));
         }
       } else {
         dispatch(confirmEmail(name, email, password));
       }
-
     }
   };
 
@@ -78,7 +70,7 @@ export default function Register() {
             <label htmlFor="email" className="form-label">
               Email
             </label>
-            <input type="email" name="email" {...register("email",{ required: true })} />
+            <input type="email" name="email" {...register("email", { required: true })} />
             {error && <p className="error-label">{error}</p>}
           </div>
           <div className="form-input">
@@ -88,7 +80,7 @@ export default function Register() {
             <input
               type="password"
               name="password"
-              {...register("password",{ required: true }, { pattern: passwordPattern })}
+              {...register("password", { required: true }, { pattern: passwordPattern })}
             />
           </div>
           <div className="form-input">
@@ -98,7 +90,7 @@ export default function Register() {
             <input
               type="password"
               name="passwordAgain"
-              {...register("passwordAgain",{ required: true })}
+              {...register("passwordAgain", { required: true })}
             />
             {errors.password && (
               <p className="error-label">{errors.password.message}</p>
@@ -124,7 +116,7 @@ export default function Register() {
                 className="reload-btn"
                 onClick={() => setIsentercodes(false)}
               >
-                {success?'Gủi lại':'Gủi lại ...'} <i class="fas fa-sync"></i>
+                {success ? 'Gửi lại' : 'Gửi lại ...'} <i class="fas fa-sync"></i>
               </button>
             </div>
           )}
@@ -138,7 +130,7 @@ export default function Register() {
           {successEnterCode && <p className="sucess-register">Đăng ký thành công</p>}
         </form>
         <p className="login__form-panel">
-          <Link to="/login">Tôi có tài khoản rồi</Link>
+          <Link to="/login" className="link">Tôi có tài khoản rồi</Link>
         </p>
       </div>
     </div>

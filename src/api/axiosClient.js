@@ -7,7 +7,7 @@ const axiosClient = axios.create({
     },
 });
 
-axiosClient.interceptors.request.use(async(config) => {
+axiosClient.interceptors.request.use(async (config) => {
     //handle token here
     const userInfo = localStorage.getItem('userInfo');
     if (userInfo) {
@@ -18,17 +18,13 @@ axiosClient.interceptors.request.use(async(config) => {
 axiosClient.interceptors.response.use((response) => {
     return response;
 }, (error) => {
-
     const err = error.response && error.response.data.message ?
         error.response.data.message : error.message
-    const status = error.response.status
-    if (err === "Invalid Token" || status === 500) {
+    if (err === "Invalid Token") {
         localStorage.removeItem('userInfo')
         document.location.href = '/login'
         return
     }
-
-
     throw error
 });
 

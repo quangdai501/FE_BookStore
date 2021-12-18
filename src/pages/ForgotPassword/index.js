@@ -1,12 +1,25 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { forgotPassword } from "../../actions/userAction";
 export default function ForgetPassword() {
+  const { loading, error } = useSelector(state => state.forgotPassword);
+
   const { register, handleSubmit } = useForm();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const onSubmit = (data) => {
     const { email } = data;
-    //handle submit here
-  };
+    if (email) {
+      dispatch(forgotPassword(email, navigate));
+    }
+  }
+  // useEffect(() => {
+  //   if (emailInfo?.email)
+  //     navigate("/enter-code");
+  // }, [emailInfo])
 
   return (
     <div className="space">
@@ -18,13 +31,16 @@ export default function ForgetPassword() {
               Email
             </label>
             <input type="email" name="email" {...register("email")} />
+            {error && (
+              <p className="error-label">{error}</p>
+            )}
           </div>
           <button type="submit" className="btn btn--border-none btn--full-width">
-            Tiếp tục
+            Tiếp tục {loading ? "..." : ''}
           </button>
         </form>
         <p className="login__form-panel">
-          <Link to="/login">Quay lại</Link>
+          <Link to="/login" className="link">Quay lại</Link>
         </p>
       </div>
     </div>

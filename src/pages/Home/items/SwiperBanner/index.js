@@ -34,7 +34,7 @@ export default function SwpiperBanner() {
                                 <p class="btn btn--fadeIn btn--bg-white">Khám phá</p>
                             </Link>
                         </div>
-                        <div class="c-5 lg-5 md-12 hero-right"><img src="/images/img4.jpg" alt="Book" srcset="" /></div>
+                        <div class="c-5 lg-5 md-12 hero-right"><img src="/images/img4.jpg" alt="Book" /></div>
                     </div>
                 </SwiperSlide>
             ))

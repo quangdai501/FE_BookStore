@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../../../components/Pagination";
 import ConfirmBox from "../../../components/ConfirmBox";
 import Toast from '../../../components/Toast';
+import Loading from '../../../components/Loading'
 export default function ProductManagement() {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
@@ -42,6 +43,7 @@ export default function ProductManagement() {
   return (
     <>
       <div className="container">
+
         {successDelete && check && <Toast message={"Đã xóa"} type="success" />}
         {confirm &&
           <ConfirmBox
@@ -60,42 +62,43 @@ export default function ProductManagement() {
               </div>
             </Link>
           </div>
-          <table>
-            <thead>
-              <tr>
-                <th>STT</th>
-                <th>Hình ảnh</th>
-                <th style={{ width: "40%" }}>Tên sản phẩm</th>
-                <th>Giá bán</th>
-                <th>Thao tác</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products ? products.map((item, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>
-                    <img src={item.image} alt="Book" />
-                  </td>
-                  <td>{item.name}</td>
-                  <td>{item.price}</td>
-                  <td>
-                    <div className="action">
-                      <p className="delete" title="Xóa" onClick={() => delProduct(item._id)}>
-                        <i className="fas fa-trash"></i>
-                      </p>
-                      <Link to={`/admin/product/edit/${item._id}`}>
-                        <p className="edit" title="Chỉnh sửa">
-                          <i className="fas fa-edit"></i>
-                        </p>
-                      </Link>
-                    </div>
-                  </td>
+          {loading ? <Loading /> : <>
+            <table>
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Hình ảnh</th>
+                  <th style={{ width: "40%" }}>Tên sản phẩm</th>
+                  <th>Giá bán</th>
+                  <th>Thao tác</th>
                 </tr>
-              )) : <></>}
-            </tbody>
-          </table>
-          <Pagination page={page} pages={pages} direct={direct} />
+              </thead>
+              <tbody>
+                {products ? products.map((item, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>
+                      <img src={item.image} alt="Book" />
+                    </td>
+                    <td>{item.name}</td>
+                    <td>{item.price}</td>
+                    <td>
+                      <div className="action">
+                        <p className="delete" title="Xóa" onClick={() => delProduct(item._id)}>
+                          <i className="fas fa-trash"></i>
+                        </p>
+                        <Link to={`/admin/product/edit/${item._id}`}>
+                          <p className="edit" title="Chỉnh sửa">
+                            <i className="fas fa-edit"></i>
+                          </p>
+                        </Link>
+                      </div>
+                    </td>
+                  </tr>
+                )) : <></>}
+              </tbody>
+            </table>
+            <Pagination page={page} pages={pages} direct={direct} /></>}
         </div>
       </div>
     </>

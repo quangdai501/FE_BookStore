@@ -1,75 +1,68 @@
-@import '../../../scssStyles/variable';
-// .widget::-webkit-scrollbar-thumb {
-//     background: $gray-400;
-//     border-radius: 10px;
-// }
-// .widget::-webkit-scrollbar {
-//     width: 8px;
-// }
+@import "../../../scssStyles/variable";
+
 .widget {
-    max-width: 250px;
-    // overflow-y: scroll;
-    background: #fff;
-    font-size: 16px;
-    border-radius: 5px;
-    .close {
-        display: none;
-    }
-    .category {
-        padding: 16px;
-        border: 1px solid $gray100;
-        &__title {
-            padding: 16px 0;
-            display: flex;
-            justify-content: space-between;
-            .toggle {
-                cursor: pointer;
-                i {
-                    color: $dark;
-                }
-            }
+  max-width: 250px;
+  background: #fff;
+  font-size: 16px;
+  border-radius: 5px;
+  .close {
+    display: none;
+  }
+  .category {
+    padding: 16px;
+    border: 1px solid $gray100;
+    &__title {
+      padding: 16px 0;
+      display: flex;
+      justify-content: space-between;
+      .toggle {
+        cursor: pointer;
+        i {
+          color: $dark;
         }
-        &__list {
-            height: 40vh;
-            overflow-y: scroll;
-            color: $dark;
-            p {
-                padding: 8px 0;
-                cursor: pointer;
-            }
-            p:hover {
-                color: $red-light;
-            }
-            &::-webkit-scrollbar-thumb {
-                background: $gray-400;
-                border-radius: 10px;
-            }
-            &::-webkit-scrollbar {
-                width: 5px;
-            }
-        }
+      }
     }
+    &__list {
+      height: 40vh;
+      overflow-y: scroll;
+      color: $dark;
+      p {
+        padding: 8px 0;
+        cursor: pointer;
+      }
+      p:hover {
+        color: $red-light;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: $gray-400;
+        border-radius: 10px;
+      }
+      &::-webkit-scrollbar {
+        width: 5px;
+      }
+    }
+  }
 }
 
 @media screen and(max-width: 992px) {
-    .widget {
-        width: Max(60%, 250px);
-        // direction: rtl;
-        max-width: unset;
-        // height: 80vh;
-        .close {
-            display: block;
-        }
-        &__list {
-            overflow-y: scroll;
-            height: 70vh;
-            &::-webkit-scrollbar-thumb {
-                background: $gray-400;
-                border-radius: 10px;
-            }
-            &::-webkit-scrollbar {
-                width: 8px;
-            }
-        }
+  .widget {
+    width: Max(60%, 300px);
+    // direction: rtl;
+    max-width: unset;
+    // height: 80vh;
+    .close {
+      display: block;
     }
+    &__list {
+      overflow-y: scroll;
+      height: 70vh;
+      &::-webkit-scrollbar-thumb {
+        background: $gray-400;
+        border-radius: 10px;
+      }
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+    }
+  }
 }

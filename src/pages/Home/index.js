@@ -50,6 +50,7 @@ export default function Home() {
           <ul className="feature">
             {features.map((item, index) => (
               <li
+                key={index}
                 onClick={() => setFeature(index)}
                 className={index === feature ? "feature--active" : ""}
               >
@@ -73,6 +74,7 @@ export default function Home() {
           <ul className="feature">
             {features.map((item, index) => (
               <li
+                key={index}
                 onClick={() => setFeature(index)}
                 className={index === feature ? "feature--active" : ""}
               >

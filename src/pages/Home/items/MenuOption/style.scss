@@ -1,74 +1,77 @@
-@import '../../../../scssStyles/variable';
+@import "../../../../scssStyles/variable";
 .main-menu {
-    background-color: white;
-    border: 1px solid $gray100;
-    width: 100%;
-    position: relative;
-    &__item {
-        border-bottom: 1px solid $gray100;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        cursor: pointer;
-        padding: 0 20px;
-        &:hover {
-            i,
-            a {
-                color: orange;
-            }
-        }
-        &:last-child {
-            border: none
-        }
-        i {
-            color: $gray600;
-            font-size: $font-size;
-        }
-        .option-name {
-            color: $gray600;
-            flex: 1;
-            display: block;
-            padding: 12px 16px;
-            font-size: $font-size;
-        }
-        &:hover .menu-right {
-            display: block;
-        }
-        .menu-right {
-            padding: 20px;
-            position: absolute;
-            right: -300%;
-            font-size: $font-size;
-            display: none;
-            transition: all .3s ease;
-            top: 0;
-            background-color: white;
-            z-index: 100;
-            border: 1px solid $gray100;
-            height: 100%;
-            width: 300%;
-        }
+  background-color: white;
+  border: 1px solid $gray100;
+  width: 100%;
+  position: relative;
+  &__item {
+    border-bottom: 1px solid $gray100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 0 20px;
+    &:hover {
+      i,
+      a {
+        color: orange;
+      }
     }
+    &:last-child {
+      border: none;
+    }
+    i {
+      color: $gray600;
+      font-size: $font-size;
+    }
+    .option-name {
+      color: $gray600;
+      flex: 1;
+      display: block;
+      padding: 12px 16px;
+      font-size: $font-size;
+    }
+    &:hover .menu-right {
+      display: block;
+    }
+    .menu-right {
+      padding: 20px;
+      position: absolute;
+      right: -300%;
+      font-size: $font-size;
+      display: none;
+      transition: all 0.3s ease;
+      top: 0;
+      background-color: white;
+      z-index: 100;
+      border: 1px solid $gray100;
+      height: 100%;
+      width: 300%;
+    }
+  }
 }
 
 .menu-right__item {
-    padding: 5px 10px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    &:hover {
-        color: orange;
-    }
+  padding: 5px 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  &:hover {
+    color: orange;
+  }
 }
 
 .main-menu__item.menu-header {
-    justify-content: start;
-    align-items: center;
-    background: #000;
-    padding: 6px 20px;
-    i,
-    p {
-        color: white;
-        font-size: $font-size;
-    }
+  justify-content: start;
+  align-items: center;
+  background: #000;
+  padding: 6px 10px 6px 0;
+  i {
+    margin-right: 10px;
+  }
+  i,
+  p {
+    color: white;
+    font-size: $font-size;
+  }
 }

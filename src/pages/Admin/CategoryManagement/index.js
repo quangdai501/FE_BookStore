@@ -9,6 +9,8 @@ import {
 import ConfirmBox from "../../../components/ConfirmBox";
 import Toast from "../../../components/Toast";
 import "./style.scss";
+import Loading from '../../../components/Loading';
+
 export default function CategoryManagement() {
   const [currenCategory, setCurrenCategory] = useState({ name: "" });
   const [error, setError] = useState(false);
@@ -32,7 +34,7 @@ export default function CategoryManagement() {
 
   const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.categoryList);
-  const { categorys } = categoryList;
+  const { categorys, loading } = categoryList;
   const categoryDelete = useSelector((state) => state.categoryDelete);
   const { loading: loadingDelete, success: successDelete } = categoryDelete;
   const categoryCreate = useSelector((state) => state.categoryCreate);
@@ -96,45 +98,46 @@ export default function CategoryManagement() {
       </div>
       <div className="row">
         <div className="c-8 table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>STT</th>
-                <th>Tên</th>
-                <th>Thao tác</th>
-              </tr>
-            </thead>
-            <tbody>
-              {categorys ? (
-                categorys.map((item, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{item.name}</td>
-                    <td>
-                      <div className="action">
-                        <p
-                          className="edit"
-                          title="Chỉnh sửa"
-                          onClick={() => gotoEdit(item)}
-                        >
-                          <i className="fas fa-edit"></i>
-                        </p>
-                        <p
-                          className="edit ml-15"
-                          title="delete"
-                          onClick={() => delCategory(item._id)}
-                        >
-                          <i class="fas fa-trash-alt"></i>
-                        </p>
-                      </div>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <></>
-              )}
-            </tbody>
-          </table>
+          {loading ? <Loading /> :
+            <table>
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Tên</th>
+                  <th>Thao tác</th>
+                </tr>
+              </thead>
+              <tbody>
+                {categorys ? (
+                  categorys.map((item, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{item.name}</td>
+                      <td>
+                        <div className="action">
+                          <p
+                            className="edit"
+                            title="Chỉnh sửa"
+                            onClick={() => gotoEdit(item)}
+                          >
+                            <i className="fas fa-edit"></i>
+                          </p>
+                          <p
+                            className="edit ml-15"
+                            title="delete"
+                            onClick={() => delCategory(item._id)}
+                          >
+                            <i class="fas fa-trash-alt"></i>
+                          </p>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <></>
+                )}
+              </tbody>
+            </table>}
         </div>
         <div className="c-4 container">
           <div className="row center-item">

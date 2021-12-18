@@ -18,7 +18,7 @@ const UserApi = {
         const url = '/auth/fogot-password';
         return axiosClient.post(url, { email });
     },
-    entercCodeResetPass: (code) => {
+    enterCodeResetPass: (code) => {
         const url = '/auth/enter-code-reset-pass';
         return axiosClient.post(url, { code });
     },
@@ -42,13 +42,16 @@ const UserApi = {
         const url = '/users/add-user';
         return axiosClient.post(url, { code });
     },
-    updatePassword: (email, password) => {
+    updatePassword: (email, oldPassword, newPassword) => {
         const url = '/users/update-password';
+        return axiosClient.patch(url, { email, oldPassword, newPassword });
+    },
+    resetPassword: (email, password) => {
+        const url = '/auth/reset-pass';
         return axiosClient.patch(url, { email, password });
     },
     deleteUser: (id) => {
         const url = `/users/${id}`;
-
         return axiosClient.delete(url);
     },
 }
