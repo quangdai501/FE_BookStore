@@ -1,15 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { updatePassword } from "../../actions/userAction";
-import Toast from "../../components/Toast";
 export default function ChangePassword() {
-
-  const dispatch = useDispatch()
-  const {error,success } = useSelector((state) => state.userUpdatePassword)
-
-
   const [isMatch, setIsMatch] = useState(true);
   const {
     register,
@@ -33,7 +25,6 @@ export default function ChangePassword() {
     }
     if (Object.keys(errors).length === 0) {
       //submit form tại đây
-      dispatch(updatePassword(password,prepass))
     }
   };
 
@@ -46,8 +37,7 @@ export default function ChangePassword() {
             <label htmlFor="prepass" className="form-label">
               Mật khẩu trước đây
             </label>
-            <input type="password" name="prepass" {...register("prepass")} />
-            {error && <p className="error-label">Mật khẩu trước đây không khớp</p>}
+            <input type="password" name="prepass" {...register("prepass", { pattern: passwordPattern })} />
           </div>
           <div className="form-input">
             <label htmlFor="password" className="form-label">
@@ -77,7 +67,7 @@ export default function ChangePassword() {
             Đổi mật khẩu
           </button>
         </form>
-        {success && <Toast message={"Đổi mật khẩu thành công"} type={"success"} />}
+
       </div>
     </div>
   );
