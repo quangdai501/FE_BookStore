@@ -263,7 +263,6 @@ export const enterCodeResetPass = (code, navigate) => async (dispatch) => {
             type: USER_ENTERCODE_REQUEST,
         })
         const { data } = await UserApi.enterCodeResetPass(code)
-        console.log(data);
         dispatch({
             type: USER_ENTERCODE_SUCCESS,
             payload: data,

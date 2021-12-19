@@ -1,10 +1,13 @@
 .center-item {
-    justify-content: center;
+  justify-content: center;
+}
+.center-item--mobile {
+  justify-content: start;
 }
 
 .card {
-    padding: 16px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    background: #fff;
-    border-radius: 12px;
+  padding: 16px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  background: #fff;
+  border-radius: 12px;
 }
