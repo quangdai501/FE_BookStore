@@ -2,16 +2,16 @@ import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { logout } from "../../actions/userAction";
+import useKeyPress from "../../hooks/useKeyPress";
 import MobileMenu from "../MobileMenu";
 import "./style.scss";
 export default function Header() {
   const dispatch = useDispatch();
-
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   const [query, setQuery] = useState("");
   const changeQuery = (e) => setQuery(e.target.value);
-
+  const inputRef = useRef(null);
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
   const [openMenu, setOpenMenu] = useState(false);
@@ -43,15 +43,17 @@ export default function Header() {
   const goToAdmin = () => {
     window.location.href = `${window.location.origin}/admin`;
   };
-  const Search = () => {
-    navigate({
-      pathname: "shop",
-      search: `search=${query}`,
-    });
+  const Search = (query) => {
+    if (query)
+      navigate({
+        pathname: "shop",
+        search: `search=${query}`,
+      });
   };
   const logoutHandler = () => {
     dispatch(logout());
   };
+  useKeyPress(inputRef, (q) => Search(q))
   return (
     <header className="main-header">
       <div className="container header-body">
@@ -62,12 +64,13 @@ export default function Header() {
           <div className="c-6 lg-6 md-12 padding search-area">
             <div className="search">
               <input
+                ref={inputRef}
                 onChange={changeQuery}
                 type="text"
                 className="search-input"
                 value={query}
               />
-              <p className="search-icon" onClick={Search}>
+              <p className="search-icon" onClick={() => Search(query)}>
                 <i class="fas fa-search"></i>
               </p>
             </div>

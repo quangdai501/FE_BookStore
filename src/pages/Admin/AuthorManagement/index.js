@@ -72,13 +72,6 @@ export default function AuthorManagement() {
       dispatch(updateAuthor(currenAuthor));
     }
   };
-  // const delAuthor = (id) => {
-  //   if (window.confirm("Are you sure")) {
-  //     dispatch(deleteAuthor(id));
-  //     setCurrenAuthor({ name: "" });
-  //     setCurrentAction("add")
-  //   }
-  // };
   const delAuthor = (id) => {
     const author = authors.find(author => author._id === id)
     setConfirm(author);
