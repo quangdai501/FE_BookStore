@@ -16,11 +16,6 @@ export default function ForgetPassword() {
       dispatch(forgotPassword(email, navigate));
     }
   }
-  // useEffect(() => {
-  //   if (emailInfo?.email)
-  //     navigate("/enter-code");
-  // }, [emailInfo])
-
   return (
     <div className="space">
       <div className="login">
@@ -30,7 +25,7 @@ export default function ForgetPassword() {
             <label htmlFor="email" className="form-label">
               Email
             </label>
-            <input type="email" name="email" {...register("email")} />
+            <input type="email" name="email" {...register("email", { required: true })} />
             {error && (
               <p className="error-label">{error}</p>
             )}

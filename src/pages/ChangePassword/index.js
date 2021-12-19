@@ -36,6 +36,11 @@ export default function ChangePassword() {
       dispatch(updatePassword(userInfo.email, prepass, password, navigate));
     }
   };
+  useEffect(() => {
+    if (!userInfo?.email) {
+      navigate("/login")
+    }
+  }, [])
 
   return (
     <div className="space">
@@ -47,7 +52,7 @@ export default function ChangePassword() {
             <label htmlFor="prepass" className="form-label">
               Mật khẩu trước đây
             </label>
-            <input type="password" name="prepass" {...register("prepass", { pattern: passwordPattern })} />
+            <input type="password" name="prepass" {...register("prepass", { required: true, pattern: passwordPattern })} />
           </div>
           <div className="form-input">
             <label htmlFor="password" className="form-label">
@@ -56,7 +61,7 @@ export default function ChangePassword() {
             <input
               type="password"
               name="password"
-              {...register("password", { pattern: passwordPattern })}
+              {...register("password", { required: true, pattern: passwordPattern })}
             />
           </div>
           <div className="form-input">
@@ -66,7 +71,7 @@ export default function ChangePassword() {
             <input
               type="password"
               name="passwordAgain"
-              {...register("passwordAgain")}
+              {...register("passwordAgain", { required: true })}
             />
             {error && (
               <p className="error-label">{error}</p>

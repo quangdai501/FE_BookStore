@@ -118,7 +118,7 @@ export default function EditProduct() {
                   type="number"
                   // value={product ? product.quantity : ""}
                   name="quantity"
-                  {...register("quantity")}
+                  {...register("quantity", { required: true })}
                 />
               </div>
             </div>

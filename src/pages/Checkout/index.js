@@ -154,7 +154,7 @@ const Checkout = () => {
               <label htmlFor="province" className="form-label">
                 Tỉnh, Thành phố
               </label>
-              <select name="province" {...register("province")} onChange={onChangeProvince}>
+              <select name="province" {...register("province", { required: true })} onChange={onChangeProvince}>
                 <option defaultValue>Chọn Tỉnh, Thành phố</option>
                 {provinces?.map((item) => (
                   <option value={item.ProvinceName} key={item.ProvinceID}>{item.ProvinceName}</option>
@@ -165,7 +165,7 @@ const Checkout = () => {
               <label htmlFor="district" className="form-label">
                 Quận, Huyện
               </label>
-              <select name="district" {...register("district")} onChange={onChangeDistrict}>
+              <select name="district" {...register("district", { required: true })} onChange={onChangeDistrict}>
                 <option defaultValue>Chọn Quận, Huyện</option>
                 {districts.map((item) => (
                   <option value={item.DistrictName} key={item.DistrictID}>{item.DistrictName}</option>
@@ -176,7 +176,7 @@ const Checkout = () => {
               <label htmlFor="village" className="form-label">
                 Xã, Phường
               </label>
-              <select name="village" {...register("village")}>
+              <select name="village" {...register("village", { required: true })}>
                 <option defaultValue>Chọn Xã, Phường</option>
                 {wards.map((item) => (
                   <option value={item.WardName} key={item.WardCode}>{item.WardName}</option>
@@ -196,9 +196,9 @@ const Checkout = () => {
           </div>
         </div>
         <div className="c-7 lg-8 md-12 padding">
+          <h3 className="title mb-15 text-center">Sản phẩm của bạn</h3>
           <div className="Orders ">
             <div className="order-row">
-              <h3 className="title">Sản phẩm của bạn:</h3>
               {cartItems ? cartItems.map((item, index) => (
                 <Item cart={item} key={index} />
               )) : <></>}

@@ -107,7 +107,7 @@ export default function AddProduct() {
                 <input
                   type="number"
                   name="quantity"
-                  {...register("quantity")}
+                  {...register("quantity", { required: true })}
                 />
               </div>
             </div>

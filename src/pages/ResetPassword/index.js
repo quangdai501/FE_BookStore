@@ -36,7 +36,11 @@ export default function ResetPassword() {
       dispatch(resetPassword(emailInfo.email, password, navigate));
     }
   };
-
+  useEffect(() => {
+    if (!emailInfo.email) {
+      navigate("/forgot-password")
+    }
+  }, [])
   return (
     <div className="space">
       {success && check && <Toast message="Cập nhật mật khẩu thành công" type="success" />}
