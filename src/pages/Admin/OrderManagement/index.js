@@ -13,12 +13,14 @@ export default function OrderManagement() {
     const [show, setShow] = useState();
     const [change, setChange] = useState(false);
     const [action, setAction] = useState("");
+    const [currId, setCurrId] = useState("");
     const { orders, error, loading } = useSelector(state => state.orderByStatus);
     const { orders: orderApprove, error: approveError, loading: loadingApprove } = useSelector(state => state.orderApprove);
 
     const dispatch = useDispatch();
     const approveOrder = async (id, action) => {
         setAction(action);
+        setCurrId(id);
         await dispatch(adminApproveOrder(id, action));
         await dispatch(getOrderByDeliveryStatus("Đang chờ xử lý"))
         setChange(true);
@@ -57,7 +59,7 @@ export default function OrderManagement() {
     }, [])
     return (
         <div className="container">
-            {approveError && <Toast message={approveError.message} type={"error"} />}
+            {approveError && change && <Toast message={approveError.message} type={"error"} />}
             {orderApprove && change && < Toast message={orderApprove} type={"success"} />}
             <div class="manage-header">
                 <a href="https://5sao.ghn.dev/order" className="ghn-link" title="Đi tới giao hàng nhanh"><img src="../../images/ghn.png" alt="" height="30" /></a>
@@ -104,14 +106,14 @@ export default function OrderManagement() {
                                                         title="Duyệt"
                                                         onClick={() => approveOrder(item._id, "Duyet")}
                                                     >
-                                                        {(loadingApprove && action === "Duyet") ? "Xử lý..." : "Duyệt"}
+                                                        {(loadingApprove && action === "Duyet" && currId === item._id) ? "Xử lý..." : "Duyệt"}
                                                     </p>
                                                     <p
                                                         className="cancel ml-15"
                                                         title="Hủy"
                                                         onClick={() => approveOrder(item._id, "Huy")}
                                                     >
-                                                        {(loadingApprove && action === "Huy") ? "Xử lý..." : "Hủy đơn"}
+                                                        {(loadingApprove && action === "Huy" && currId === item._id) ? "Xử lý..." : "Hủy đơn"}
                                                     </p>
 
                                                 </div>
