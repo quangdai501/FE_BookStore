@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import counterReducer from "./reducers/counterReducer";
 import {
@@ -120,13 +120,11 @@ const initialState = {
     userLogin: { userInfo: userInfoFromStorage },
 }
 
-const middlewareEnhancer = applyMiddleware(thunk)
-const composedEnhancers = compose(middlewareEnhancer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 const store = createStore(
     reducer,
     initialState,
-    composedEnhancers
+    applyMiddleware(thunk)
 )
 
 export default store
