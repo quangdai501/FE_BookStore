@@ -33,6 +33,7 @@ const MyOrders = () => {
           orderCode: curr.orderCode,
           payment: curr.payment,
           status: curr.deliveryStatus,
+          createdAt:curr.createdAt
         };
         list.push(newFormat);
         return list;
