@@ -4,16 +4,22 @@ import { listOrderOfUser } from "../../actions/orderAction";
 import { priceToString } from "../../common/convertNumberToPrice";
 import Item from "../Checkout/item";
 import Order from "./Item/index";
-import './style.scss'
+import "./style.scss";
+
+
 const MyOrders = () => {
+  const listStatus=[
+    "Tất cả","Chờ xử lý","Đang giao","Đã giao","Đã hủy"
+  ]
+  const [statusActive, setStatusActive] = useState(0)
   const [listOrders, setListOrders] = useState([]);
 
   const { orders, error } = useSelector((state) => state.userOrder);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(listOrderOfUser());
-  }, []);
+    dispatch(listOrderOfUser(statusActive));
+  }, [statusActive]);
   useEffect(() => {
     const setList = () => {
       const newList = orders?.reduce((list, curr) => {
@@ -27,6 +33,7 @@ const MyOrders = () => {
           orderCode: curr.orderCode,
           payment: curr.payment,
           status: curr.deliveryStatus,
+          createdAt:curr.createdAt
         };
         list.push(newFormat);
         return list;
@@ -38,15 +45,25 @@ const MyOrders = () => {
 
   return (
     <div className="my-order space">
+      <div className="sticky card">
+        {listStatus.map((item,index)=>
+          (<button onClick={()=>setStatusActive(index)} className={index===statusActive?"status status--active":"status"}>{item}</button>)
+        )}
+        {/* <div className="status status--active">Tất cả</div>
+        <div className="status">Chờ xử lý</div>
+        <div className="status">Đang giao</div>
+        <div className="status">Đã giao</div>
+        <div className="status">Đã hủy</div> */}
+      </div>
       {listOrders ? (
         listOrders.map((item, index) => (
           <div className="card" key={index}>
             <Order order={item} />
           </div>
-        ))) : <></>
-      }
-
-
+        ))
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

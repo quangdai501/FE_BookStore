@@ -23,14 +23,14 @@ import {
 } from '../constants/order';
 import OrderApi from '../api/orderApi';
 // danh sach don  hang da dat cua 1 user
-const listOrderOfUser = () => async (dispatch, getState) => {
+const listOrderOfUser = (type) => async (dispatch, getState) => {
     dispatch({ type: ORDER_MINE_LIST_REQUEST });
     const {
         userLogin: { userInfo },
     } = getState();
     const id = userInfo._id;
     try {
-        const { data } = await OrderApi.getAll(id);
+        const { data } = await OrderApi.getAll(id,type);
         dispatch({ type: ORDER_MINE_LIST_SUCCESS, payload: data });
     } catch (error) {
         const message = error.response.data.message

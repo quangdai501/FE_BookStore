@@ -17,15 +17,11 @@ export default function PublisherManagement() {
   const [confirm, setConfirm] = useState();
   const changeCurrenPublisher = (e) => {
     setCurrenPublisher({ ...currenPublisher, name: e.target.value });
-    if (e.target.value === "") {
-      setError(true);
-    } else {
-      setError(false);
-    }
   };
 
   const [currentOption, setCurrentOption] = useState("add");
   const setCurrentAction = (option) => {
+    setError(false)
     if (currentOption !== option) setCurrentOption(option);
     if (option === "add") {
       setCurrenPublisher({ name: "" });
@@ -64,12 +60,20 @@ export default function PublisherManagement() {
   };
   const addPublisher = () => {
     if (currenPublisher.name !== "") {
+      setError(false)
       dispatch(createPublisher(currenPublisher));
+    }
+    else{
+      setError(true)
     }
   };
   const editPublisherInfo = () => {
     if (currenPublisher._id && currenPublisher.name !== "") {
+      setError(false)
       dispatch(updatePublisher(currenPublisher));
+    }
+    else{
+      setError(true)
     }
   };
   const delPublisher = (id) => {

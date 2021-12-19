@@ -3,11 +3,12 @@ import { priceToString } from "../../../common/convertNumberToPrice";
 import Item from "../../Checkout/item";
 import "./style.scss";
 function Order(props) {
-  const {_id, billDetail, name, address, phone, total, orderCode, payment, status } =props.order;
+  const {_id, billDetail, name, address, phone, total, orderCode, payment, status,createdAt } =props.order;
   return (
     <div class="order">
-      <div class="order__header">
-        <span>Order ID: {_id}</span>
+      <div class="order__header row row-space-between">
+        <span>Mã đơn hàng: {_id}</span>
+        <span>Thời gian đặt Hàng: {new Date(createdAt).toLocaleString()}</span>
       </div>
       <div class="order__info">
         <div class="info">
