@@ -2,21 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './style.scss';
 import { getOrderByDeliveryStatus } from '../../../actions/orderAction';
-import OrderDetail from './items/OrderDetail';
 import { priceToString } from '../../../common/convertNumberToPrice';
 import { adminApproveOrder } from '../../../actions/orderAction';
 import Toast from '../../../components/Toast';
 import Item from "../../Checkout/item/index";
 import Loading from '../../../components/Loading';
+import Model from '../../../components/Model';
 export default function OrderManagement() {
     const [listOrders, setListOrders] = useState([]);
-    const [show, setShow] = useState(0);
+    const [show, setShow] = useState();
     const [change, setChange] = useState(false);
+    const [action, setAction] = useState("");
     const { orders, error, loading } = useSelector(state => state.orderByStatus);
-    const { orders: orderApprove, error: approveError } = useSelector(state => state.orderApprove);
+    const { orders: orderApprove, error: approveError, loading: loadingApprove } = useSelector(state => state.orderApprove);
 
     const dispatch = useDispatch();
     const approveOrder = async (id, action) => {
+        setAction(action);
         await dispatch(adminApproveOrder(id, action));
         await dispatch(getOrderByDeliveryStatus("Đang chờ xử lý"))
         setChange(true);
@@ -29,6 +31,7 @@ export default function OrderManagement() {
             setShow(id);
         }
     };
+
     useEffect(() => {
         const setList = () => {
             const newList = orders?.reduce((list, curr) => {
@@ -86,13 +89,14 @@ export default function OrderManagement() {
                                             <td>{item.phone}</td>
                                             <td>{priceToString(item.total)}</td>
                                             <td>{item.payment}</td>
-                                            <td>  <p
-                                                className="order-detail-item btn--color-second"
-                                                title="Chi tiết"
-                                                onClick={() => openModal(index)}
-                                            >
-                                                Chi tiết đơn
-                                            </p></td>
+                                            <td>
+                                                <p
+                                                    className="order-detail-item btn--color-second"
+                                                    title="Chi tiết"
+                                                    onClick={() => openModal(index)}
+                                                >
+                                                    Chi tiết đơn
+                                                </p></td>
                                             <td>
                                                 <div className="action">
                                                     <p
@@ -100,38 +104,44 @@ export default function OrderManagement() {
                                                         title="Duyệt"
                                                         onClick={() => approveOrder(item._id, "Duyet")}
                                                     >
-                                                        Duyệt
+                                                        {(loadingApprove && action === "Duyet") ? "Xử lý..." : "Duyệt"}
                                                     </p>
                                                     <p
                                                         className="cancel ml-15"
                                                         title="Hủy"
                                                         onClick={() => approveOrder(item._id, "Huy")}
                                                     >
-                                                        Hủy đơn
+                                                        {(loadingApprove && action === "Huy") ? "Xử lý..." : "Hủy đơn"}
                                                     </p>
 
                                                 </div>
                                             </td>
                                         </tr>
                                         <tr>
-                                            {show === index && (
-                                                <td colspan="8">
-                                                    <div className="row center-item">
-                                                        <div className="col c-2">
+                                            <td>
+                                                {show === index &&
+                                                    <Model
+                                                        openHandler={openModal}
+                                                        visible={show === index}
+                                                        id={index}
+                                                    >
+                                                        <div className="row center-item">
+                                                            <h4 className="detail-title">
+                                                                Danh sách sản phẩm
+                                                            </h4>
+                                                            <p className="detail-total">Tổng số: <strong>{item.billDetail.length}</strong> cuốn sách</p>
                                                         </div>
-                                                        <div className="col c-8 md-12">
-                                                            {item.billDetail.map((order, index) => (
-                                                                <Item cart={order} key={index} />
-                                                            ))}
+                                                        <div className="row center-item">
+                                                            <div className="c-12">
+                                                                {item.billDetail.map((order, index) => (
+                                                                    <Item cart={order} key={index} />
+                                                                ))}
+                                                            </div>
                                                         </div>
-                                                        <div className="col c-2">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            )}
+                                                    </Model>}
+                                            </td>
                                         </tr>
                                     </>
-
                                 )) : <>
                                 </>}
                             </tbody>

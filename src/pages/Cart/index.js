@@ -7,11 +7,15 @@ import { priceToString } from "../../common/convertNumberToPrice";
 const Cart = () => {
   const cart = useSelector((state) => state.cart)
   const { cartItems } = cart
-
+  const { userInfo } = useSelector(state => state.userLogin);
   const totalCart = cartItems.reduce((s, i) => s + (i.qty * i.price), 0)
   let navigate = useNavigate();
   const gotoCheckout = () => {
-    navigate("/checkout");
+    if (userInfo?.email) {
+      navigate("/checkout");
+    } else {
+      navigate("/login?redirect=/checkout");
+    }
   };
   return (
     <div className="space">

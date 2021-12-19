@@ -1,54 +1,56 @@
-@import './variable';
+@import "./variable";
 .btn {
-    display: inline-block;
-    padding: 12px 48px;
-    font-size: 1.6rem;
-    text-decoration: none;
-    // line-height: 50px;
-    background-color: black;
-    cursor: pointer;
-    color: white;
+  display: inline-block;
+  padding: 12px 48px;
+  font-size: 1.6rem;
+  text-decoration: none;
+  // line-height: 50px;
+  background-color: black;
+  cursor: pointer;
+  color: white;
 }
 
 .btn--color-second {
-    background-color: cornflowerblue;
+  background-color: cornflowerblue;
 }
 
 .btn--color-blue {
-    background-color: cornflowerblue;
+  background-color: cornflowerblue;
 }
 
 .btn--color-red {
-    background-color: red;
+  background-color: red;
 }
 
 .btn--bg-white {
-    background-color: white;
-    color: $gray600;
+  background-color: white;
+  color: $gray600;
 }
 
 .space-bt {
-    margin-bottom: 90px;
+  margin-bottom: 90px;
 }
 
 .link {
-    text-decoration: none;
-    font-size: $font-size;
-    color: $dark;
-    &:hover {
-        color: $red-light;
-    }
+  font-size: $font-size;
+  color: $dark;
+  &:hover {
+    text-decoration: underline;
+    color: orange;
+  }
 }
-
+.link--underline {
+  text-decoration: underline;
+}
 .nav-active {
-    color: $dark;
-    border-bottom: 1px solid $dark;
+  color: $dark;
+  border-bottom: 1px solid $dark;
 }
 
 ul {
-    list-style: none;
+  list-style: none;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }

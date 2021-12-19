@@ -1,69 +1,68 @@
-@import '../../scssStyles/variable';
+@import "../../scssStyles/variable";
 .toast {
-    position: fixed;
-    top: 60px;
-    z-index: 2000;
-    right: 30px;
-    min-width: 200px;
-    max-width: 250px;
-    min-height: 40px;
-    padding: 5px 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: $font-size;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, .2);
-    &__icon {
-        width: 25px;
-    }
-    &__message {
-        flex: 1;
-        text-align: center;
-        word-break: break-all;
-    }
-    animation: fadeIn ease .4s,
-    fadeOut ease-in 3s forwards;
-    background-color: white;
+  position: fixed;
+  top: 60px;
+  z-index: 2000;
+  right: 30px;
+  min-width: 200px;
+  max-width: 250px;
+  min-height: 40px;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: $font-size;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+  &__icon {
+    width: 25px;
+  }
+  &__message {
+    flex: 1;
+    text-align: center;
+    word-break: break-all;
+  }
+  animation: fadeIn ease 0.4s, fadeOut ease-in 3s forwards;
+  background-color: white;
 }
 
 .toast.success {
-    background-color: white;
-    .toast__icon {
-        i {
-            color: #1890ff;
-        }
+  background-color: white;
+  .toast__icon {
+    i {
+      color: #1890ff;
     }
-    .toast__message {
-        color: #1890ff;
-    }
+  }
+  .toast__message {
+    color: #1890ff;
+  }
 }
 
 .toast.error {
-    background-color: white;
-    .toast__icon {
-        i {
-            color: $error;
-        }
+  background-color: white;
+  .toast__icon {
+    i {
+      color: $error;
     }
-    .toast__message {
-        color: $error;
-    }
+  }
+  .toast__message {
+    color: $error;
+  }
 }
 
 @keyframes fadeIn {
-    from {
-        transform: translateX(calc(100% + 30px));
-    }
-    to {
-        transform: translateX(0);
-    }
+  from {
+    transform: translateX(calc(100% + 30px));
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 @keyframes fadeOut {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }

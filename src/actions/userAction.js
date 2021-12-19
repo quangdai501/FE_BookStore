@@ -35,7 +35,7 @@ import {
     USER_RESET_PASS_REQUEST,
 } from '../constants/user'
 
-export const login = (email, password, navigate) => async (dispatch) => {
+export const login = (email, password, navigate, redirect) => async (dispatch) => {
     try {
         dispatch({
             type: USER_LOGIN_REQUEST,
@@ -46,7 +46,7 @@ export const login = (email, password, navigate) => async (dispatch) => {
             payload: data,
         })
         if (data) {
-            navigate("/shop");
+            navigate(`${redirect}`);
         }
 
         localStorage.setItem('userInfo', JSON.stringify(data))
@@ -58,7 +58,7 @@ export const login = (email, password, navigate) => async (dispatch) => {
         })
     }
 }
-export const loginGoogle = (token, navigate) => async (dispatch) => {
+export const loginGoogle = (token, navigate, redirect) => async (dispatch) => {
     try {
         dispatch({
             type: USER_LOGIN_REQUEST,
@@ -69,7 +69,7 @@ export const loginGoogle = (token, navigate) => async (dispatch) => {
             payload: data,
         })
         if (data) {
-            navigate("/shop");
+            navigate(`${redirect}`);
         }
 
         localStorage.setItem('userInfo', JSON.stringify(data))

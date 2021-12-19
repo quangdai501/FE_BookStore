@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getUserDetails, updateUserProfile } from "../../actions/userAction";
+import { USER_UPDATE_PROFILE_RESET } from '../../constants/user';
+import Toast from '../../components/Toast';
 import "./style.scss";
 const Profile = () => {
   const dispatch = useDispatch();
@@ -17,7 +19,6 @@ const Profile = () => {
   const {
     register,
     handleSubmit,
-    // formState: { errors },
     reset,
   } = useForm({ defaultValues });
 
@@ -27,12 +28,10 @@ const Profile = () => {
 
   useEffect(() => {
     reset(user);
-    // console.log(userdetail);
   }, [JSON.stringify(user)]);
 
   const onSubmit = (data) => {
     if (data) {
-      // console.log(data);
       const phone = data.phone ? { phone: data.phone } : {};
       const address = data.address ? { address: data.address } : {};
       const user = {
@@ -42,10 +41,16 @@ const Profile = () => {
       };
       dispatch(updateUserProfile(user));
     }
-    //handle submit here
   };
+  useEffect(() => {
+    setTimeout(() => dispatch({ type: USER_UPDATE_PROFILE_RESET }), 2000)
+    return () => {
+      clearTimeout();
+    }
+  }, [successUpdate])
   return (
     <div className="space myaccount ">
+      {successUpdate && <Toast message="Cập nhật thông tin thành công" type="success" />}
       <h1>Thông tin</h1>
       <div className="myaccount-form row">
         <form onSubmit={handleSubmit(onSubmit)} className="col c-6 md-12">
@@ -64,7 +69,7 @@ const Profile = () => {
           </div>
           <div className="form-input">
             <label htmlFor="phone" className="form-label">
-              Sdt
+              Số điện thoại
             </label>
             <input
               type="phone"

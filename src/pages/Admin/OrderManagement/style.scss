@@ -1,36 +1,43 @@
-@import '../../../scssStyles/variable';
+@import "../../../scssStyles/variable";
 .order-empty {
-    padding: 2%;
-    font-size: $font-size;
-    text-align: center;
+  padding: 2%;
+  font-size: $font-size;
+  text-align: center;
 }
 
 .ml-15 {
-    margin-left: 15px;
+  margin-left: 15px;
 }
 
 .order-detail-item {
-    padding: 3px 6px;
-    border-radius: 5px;
-    color: white;
+  padding: 3px 6px;
+  border-radius: 5px;
+  color: white;
 }
 
 .action {
-    .approve,
-    .cancel {
-        background-color: $bg-green;
-        padding: 3px 6px;
-        border-radius: 5px;
-        color: white;
-    }
-    .cancel {
-        background-color: $error;
-    }
+  .approve,
+  .cancel {
+    background-color: $bg-green;
+    padding: 3px 6px;
+    border-radius: 5px;
+    color: white;
+  }
+  .cancel {
+    background-color: $error;
+  }
 }
 
 .ghn-link {
-    transition: transform .1s linear;
-    &:hover {
-        transform: scale(1.3);
-    }
+  transition: transform 0.1s linear;
+  &:hover {
+    transform: scale(1.3);
+  }
+}
+
+.detail-title,
+.detail-total {
+  font-size: $font-size;
+  margin-right: 30px;
+  margin-bottom: 20px;
 }
