@@ -1,46 +1,65 @@
 @import "../../scssStyles/variable";
 .my-order {
-  display: grid;
-  grid-gap: 32px;
-  .sticky {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
     display: grid;
-    grid-template-columns: repeat(5, minmax(max-content, 1fr));
-    grid-gap: 16px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-snap-stop: always;
-    &::-webkit-scrollbar {
-      height: 8px;
+    grid-gap: 32px;
+    .empty-order {
+        flex-flow: column;
+        gap: 16px;
+        text-align: center;
+        font-size: 16px;
+        img {
+            display: block;
+            object-fit: cover;
+            max-height: 220px;
+            max-width: 100%;
+        }
     }
-    &::-webkit-scrollbar-thumb {
-      border-radius: 5px;
-      background-color: $gray-700;
+    .sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        .status-container--mobile {
+            display: none;
+        }
+        .status-container {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(max-content, 1fr));
+            grid-gap: 16px;
+            .status {
+                background-color: transparent;
+                font-size: 16px;
+                padding: 5px;
+                text-align: center;
+                border: unset;
+                cursor: pointer;
+            }
+            .status--active {
+                border: unset;
+                color: $red;
+                border-bottom: 1px solid $red;
+            }
+        }
     }
-    .status {
-      scroll-snap-align: start;
-      background-color: transparent;
-      font-size: 16px;
-      padding: 5px;
-      text-align: center;
-      border: unset;
-      cursor: pointer;
-    }
-    .status--active {
-      border: unset;
-      color: $red;
-      border-bottom: 1px solid $red;
-    }
-  }
 }
 
 @media screen and(max-width: 576px) {
-  .my-order {
-    .sticky {
-      grid-template-columns: repeat(5, minmax(220px, 80%));
-      grid-gap: 5px;
+    .my-order {
+        .sticky {
+            .status-container {
+                display: none;
+            }
+            .status-container--mobile {
+                select {
+                    background: transparent;
+                    border: unset;
+                    outline: unset;
+                    width: 100%;
+                    text-align: center;
+                    font-size: 16px;
+                    padding: 8px;
+                }
+                display: block;
+            }
+        }
     }
-  }
 }
