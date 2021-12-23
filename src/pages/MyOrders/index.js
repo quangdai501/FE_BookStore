@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { listOrderOfUser } from "../../actions/orderAction";
-import { priceToString } from "../../common/convertNumberToPrice";
-import Item from "../Checkout/item";
 import Order from "./Item/index";
 import "./style.scss";
 
-
 const MyOrders = () => {
-  const listStatus=[
-    "Tất cả","Chờ xử lý","Đang giao","Đã giao","Đã hủy"
-  ]
-  const [statusActive, setStatusActive] = useState(0)
+  const listStatus = ["Tất cả", "Chờ xử lý", "Đang giao", "Đã giao", "Đã hủy"];
+  const [statusActive, setStatusActive] = useState(0);
   const [listOrders, setListOrders] = useState([]);
 
   const { orders, error } = useSelector((state) => state.userOrder);
@@ -33,7 +29,7 @@ const MyOrders = () => {
           orderCode: curr.orderCode,
           payment: curr.payment,
           status: curr.deliveryStatus,
-          createdAt:curr.createdAt
+          createdAt: curr.createdAt,
         };
         list.push(newFormat);
         return list;
@@ -42,27 +38,48 @@ const MyOrders = () => {
     };
     setList();
   }, [orders]);
-
+  const onChangeStatus=(e)=>{
+    setStatusActive(e.target.value)
+  }
   return (
     <div className="my-order space">
       <div className="sticky card">
-        {listStatus.map((item,index)=>
-          (<button onClick={()=>setStatusActive(index)} className={index===statusActive?"status status--active":"status"}>{item}</button>)
-        )}
-        {/* <div className="status status--active">Tất cả</div>
-        <div className="status">Chờ xử lý</div>
-        <div className="status">Đang giao</div>
-        <div className="status">Đã giao</div>
-        <div className="status">Đã hủy</div> */}
+        <div className="status-container">
+          {listStatus.map((item, index) => (
+            <button
+              onClick={() => setStatusActive(index)}
+              className={
+                index === statusActive ? "status status--active" : "status"
+              }
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+        <div className="status-container--mobile">
+          <select name="status" onClick={onChangeStatus}>
+            {listStatus.map((item, index) => (
+              <option selected={index===statusActive} value={index}>Trạng thái đơn hàng: {item}</option>
+            ))}
+          </select>
+        </div>
       </div>
-      {listOrders ? (
+      {listOrders && listOrders.length > 0 ? (
         listOrders.map((item, index) => (
           <div className="card" key={index}>
             <Order order={item} />
           </div>
         ))
       ) : (
-        <></>
+        <div className="row center-item">
+          <div className="empty-order row">
+            <img src="./images/empty-order.png" alt="Empty" />
+            <p>Đơn hàng của bản hiện đang trống</p>
+            <Link to="/shop" className="btn btn--border-none">
+              Tiếp tục mua hàng
+            </Link>
+          </div>
+        </div>
       )}
     </div>
   );
