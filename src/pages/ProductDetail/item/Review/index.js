@@ -8,7 +8,7 @@ export default function Review(props) {
     const { userInfo } = useSelector(state => state.userLogin);
     const [ratingNumber, setRatingNumber] = useState(5);
     const { pathname } = useLocation();
-
+    console.log(reviews);
     function onChangeRating(number) {
         setRatingNumber(number);
     }
@@ -26,11 +26,11 @@ export default function Review(props) {
         }
     }
     return (
-        <div className="row">
+        <div className="row shadow">
             <div className="col c-6 md-12 review">
                 <h3 className="review-title">Đánh Giá - Nhận Xét Từ Khách Hàng
                 </h3>
-                {reviews ? reviews.map((item, index) => <Comment key={index} review={item} />) : <></>}
+                {(reviews !== undefined && reviews.length > 0) ? reviews.map((item, index) => <Comment key={index} review={item} />) : <div className="row center-item review-none">Chưa có nhận xét nào</div>}
             </div>
             <div className="col c-6 md-12 write-review">
                 <h3 className="review-title">Thêm đánh giá</h3>
@@ -48,7 +48,7 @@ export default function Review(props) {
                         }
                     </div>
                     <p><span className="title-text">Nhận xét:</span><textarea type="text" onChange={onChangeComment} /></p>
-                    <button className="btn" onClick={sendReview}>Gửi đánh giá</button></> :
+                    <button className="btn" onClick={sendReview}>Gửi đánh giá {props.loading ? "..." : ""}</button></> :
                     <div className="client">
                         <p className="title">Đăng nhập để gửi nhận xét của bạn</p>
                         <div className="row">

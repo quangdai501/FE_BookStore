@@ -40,9 +40,27 @@
   a {
     font-size: $text-large;
   }
+  .menu {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    i {
+      font-size: $text-large;
+      color: $gray600;
+    }
+  }
+  &.c-0 {
+    display: none;
+  }
 }
 
 .dash-board {
   margin: 0;
   display: block;
+}
+@media screen and(max-width: 992px) {
+  .c-0.lg-2 {
+    display: block;
+  }
 }

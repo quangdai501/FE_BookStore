@@ -67,6 +67,7 @@
 
 .product-desc {
   border-top: 1px solid $gray200;
+  border-bottom: 1px solid $gray200;
   margin: 40px 0;
   padding: 40px 0;
   font-size: $font-size;
@@ -104,7 +105,7 @@ textarea {
   min-width: 100%;
   font-size: $font-size;
   border-radius: 5px;
-  min-height: 150px;
+  min-height: 80px;
   padding: 20px;
   &:focus {
     outline: none;

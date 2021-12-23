@@ -1,7 +1,7 @@
 @import "../../scssStyles/variable";
 @import "../../scssStyles/mixin";
 .main-header {
-  min-height: 100px;
+  min-height: 80px;
   background-color: white;
   border-bottom: 1px solid $gray50;
   font-size: $font-size;
@@ -164,7 +164,7 @@
   }
 }
 
-@media screen and(max-width: 922px) {
+@media screen and(max-width: 992px) {
   .logo-area {
     order: 1;
   }

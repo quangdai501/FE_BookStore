@@ -14,7 +14,7 @@
     &:hover {
       i,
       a {
-        color: orange;
+        color: $red-light;
       }
     }
     &:last-child {
@@ -57,7 +57,7 @@
   overflow: hidden;
   white-space: nowrap;
   &:hover {
-    color: orange;
+    color: $red-light;
   }
 }
 

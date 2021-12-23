@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './style.scss';
 import SideBar from './item/SideBar';
@@ -14,15 +14,24 @@ import OverView from './item/OverView';
 import CategoryManagement from '../CategoryManagement';
 import OrderManagement from '../OrderManagement';
 export default function DashBoard() {
+    const [isShow, setIsShow] = useState(false);
+    const openSidebar = () => {
+        setIsShow(!isShow)
+    }
     return (
         <div className="dashboard">
-            <div className="dashboard__side">
+            <div className={`dashboard__side lg-0 mobile-sidebar ${isShow ? 'active' : ''}`}>
+                <div className="menu-close c-0" onClick={() => openSidebar()}>
+                    <i class="fas fa-times"></i>
+                </div>
                 <div className="side-bar">
                     <SideBar />
                 </div>
             </div>
             <div className="dashboard__body">
-                <DashBoardHeader />
+                <DashBoardHeader
+                    openSidebar={openSidebar}
+                />
                 <div className="main-content">
                     <Routes>
                         <Route path="/" element={<OverView />} />

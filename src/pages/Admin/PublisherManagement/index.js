@@ -63,7 +63,7 @@ export default function PublisherManagement() {
       setError(false)
       dispatch(createPublisher(currenPublisher));
     }
-    else{
+    else {
       setError(true)
     }
   };
@@ -72,7 +72,7 @@ export default function PublisherManagement() {
       setError(false)
       dispatch(updatePublisher(currenPublisher));
     }
-    else{
+    else {
       setError(true)
     }
   };
@@ -104,7 +104,7 @@ export default function PublisherManagement() {
         <p className="manage-title"><i class="fas fa-list"></i>Danh sách nhà xuất bản </p>
       </div>
       <div className="row">
-        <div className="c-8 table-scroll">
+        <div className="c-8 table-scroll lg-12 md-12">
           {loading ? <Loading /> :
             <table>
               <thead>
@@ -146,7 +146,7 @@ export default function PublisherManagement() {
               </tbody>
             </table>}
         </div>
-        <div className="c-4 container">
+        <div className="c-4 container lg-12 md-12">
           <div className="row center-item">
             <p
               className={`manage-option ${currentOption === "add" ? "current-option" : ""

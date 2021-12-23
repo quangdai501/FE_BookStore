@@ -38,7 +38,7 @@ const MyOrders = () => {
     };
     setList();
   }, [orders]);
-  const onChangeStatus=(e)=>{
+  const onChangeStatus = (e) => {
     setStatusActive(e.target.value)
   }
   return (
@@ -59,7 +59,7 @@ const MyOrders = () => {
         <div className="status-container--mobile">
           <select name="status" onClick={onChangeStatus}>
             {listStatus.map((item, index) => (
-              <option selected={index===statusActive} value={index}>Trạng thái đơn hàng: {item}</option>
+              <option selected={index === statusActive} value={index}>Trạng thái đơn hàng: {item}</option>
             ))}
           </select>
         </div>
@@ -74,7 +74,7 @@ const MyOrders = () => {
         <div className="row center-item">
           <div className="empty-order row">
             <img src="./images/empty-order.png" alt="Empty" />
-            <p>Đơn hàng của bản hiện đang trống</p>
+            <p>Đơn hàng của bạn hiện đang trống</p>
             <Link to="/shop" className="btn btn--border-none">
               Tiếp tục mua hàng
             </Link>
