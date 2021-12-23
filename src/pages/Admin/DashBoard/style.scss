@@ -1,28 +1,58 @@
-@import '../../../scssStyles/variable';
+@import "../../../scssStyles/variable";
+
 .side-bar {
-    min-height: 100vh;
-    background-color: #3f4d67;
+  min-height: 100vh;
+  background-color: #3f4d67;
 }
 
 .dashboard {
-    display: flex;
-    &__side {
-        max-width: 250px;
-        width: 250px;
-    }
-    &__body {
-        flex: 1;
-    }
+  display: flex;
+  &__side {
+    max-width: 250px;
+    width: 250px;
+  }
+  &__body {
+    flex: 1;
+  }
 }
 
 .main-content {
-    min-height: calc(100vh - 48px);
-    max-height: calc(100vh - 48px);
-    overflow: auto;
-    background-color: #f4f7fa;
-    padding-bottom: 40px;
+  min-height: calc(100vh - 48px);
+  max-height: calc(100vh - 48px);
+  overflow: auto;
+  background-color: #f4f7fa;
+  padding: 0 20px;
+  padding-bottom: 40px;
 }
 
 .flex {
-    display: flex;
+  display: flex;
+}
+
+@media screen and (max-width: 992px) {
+  .mobile-sidebar {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    inset: 0;
+  }
+  .mobile-sidebar.active {
+    display: block;
+    .menu-close.c-0 {
+      display: block;
+    }
+  }
+  .dashboard {
+    &__side {
+      max-width: 100%;
+      width: 100%;
+      .side-bar {
+        max-width: Max(280px, 60%);
+        height: 100vh;
+      }
+    }
+  }
+  .main-content {
+    max-width: 100vw;
+  }
 }

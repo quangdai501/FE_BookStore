@@ -62,7 +62,7 @@ export default function CategoryManagement() {
       setError(false)
       dispatch(createCategory(currenCategory));
     }
-    else{
+    else {
       setError(true)
     }
   };
@@ -71,7 +71,7 @@ export default function CategoryManagement() {
       setError(false)
       dispatch(updateCategory(currenCategory));
     }
-    else{
+    else {
       setError(true)
     }
   };
@@ -101,7 +101,7 @@ export default function CategoryManagement() {
         <p className="manage-title"><i class="fas fa-clipboard-list"></i>Danh sách danh mục </p>
       </div>
       <div className="row">
-        <div className="c-8 table-scroll">
+        <div className="c-8 table-scroll lg-12 md-12">
           {loading ? <Loading /> :
             <table>
               <thead>
@@ -143,7 +143,7 @@ export default function CategoryManagement() {
               </tbody>
             </table>}
         </div>
-        <div className="c-4 container">
+        <div className="c-4 container lg-12 md-12">
           <div className="row center-item">
             <p
               className={`manage-option ${currentOption === "add" ? "current-option" : ""

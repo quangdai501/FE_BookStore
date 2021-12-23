@@ -30,7 +30,7 @@ const Cart = () => {
             ))}
           </div>
             <div className="c-4 md-12 padding">
-              <div className="Orders">
+              <div className="Orders shadow">
                 <div className="order-row">
                   <div className="row">
                     <h3 className="title col c-8 lg-12">Tổng Giỏ hàng:</h3>

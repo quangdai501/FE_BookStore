@@ -20,7 +20,7 @@ export default function Home() {
     });
   }
   return (
-    <div className="space">
+    <>
       <div className="tab">
         <div className="row gutter">
           <div className="c-3 lg-0 md-0 padding">
@@ -90,6 +90,6 @@ export default function Home() {
           <i class="fas fa-angle-right"></i>
         </div>
       </div>
-    </div >
+    </ >
   );
 }

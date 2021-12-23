@@ -62,7 +62,7 @@ export default function OrderManagement() {
             {approveError && change && <Toast message={approveError.message} type={"error"} />}
             {orderApprove && change && < Toast message={orderApprove} type={"success"} />}
             <div class="manage-header">
-                <a href="https://5sao.ghn.dev/order" className="ghn-link" title="Đi tới giao hàng nhanh"><img src="../../images/ghn.png" alt="" height="30" /></a>
+                <a href="https://5sao.ghn.dev/order" className="ghn-link" title="Đi tới giao hàng nhanh"><img src="../../images/ghn_logo.png" alt="" height="30" /></a>
             </div>
             {loading ? <Loading /> : <>
                 {listOrders?.length === 0 ? <p className="order-empty"><img src="../../images/empty-order.png" alt="" /></p> :
@@ -70,19 +70,19 @@ export default function OrderManagement() {
                         <table>
                             <thead>
                                 <tr>
-                                    <th>STT</th>
+                                    <th style={{ minWidth: '60px' }}>STT</th>
                                     <th>Tên người nhận</th>
-                                    <th style={{ minWidth: '240px' }}>Địa chỉ</th>
+                                    <th style={{ maxWidth: '200px', minWidth: '200px' }}>Địa chỉ</th>
                                     <th>Điện thoại</th>
                                     <th>Tổng đơn</th>
                                     <th>Hình thức thanh toán</th>
                                     <th style={{ minWidth: '120px' }}>Chi tiết đơn</th>
                                     <th style={{ minWidth: '160px' }}>Thao tác</th>
+                                    <th style={{ width: '0' }}></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {listOrders ? listOrders.map((item, index) => (
-                                    item.orderCode === undefined &&
                                     <>
                                         <tr key={index}>
                                             <td>{index + 1}</td>
@@ -118,8 +118,6 @@ export default function OrderManagement() {
 
                                                 </div>
                                             </td>
-                                        </tr>
-                                        <tr>
                                             <td>
                                                 {show === index &&
                                                     <Model
@@ -136,7 +134,9 @@ export default function OrderManagement() {
                                                         <div className="row center-item">
                                                             <div className="c-12">
                                                                 {item.billDetail.map((order, index) => (
-                                                                    <Item cart={order} key={index} />
+                                                                    <div key={index}>
+                                                                        <Item cart={order} />
+                                                                    </div>
                                                                 ))}
                                                             </div>
                                                         </div>
@@ -146,6 +146,7 @@ export default function OrderManagement() {
                                     </>
                                 )) : <>
                                 </>}
+
                             </tbody>
                         </table >
                     </div >

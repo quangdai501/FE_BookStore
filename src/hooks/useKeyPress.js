@@ -9,7 +9,8 @@ export default function useKeyPress(ref, handler) {
         if (ref.current)
             ref.current.addEventListener('keyup', onEnter)
         return () => {
-            ref.current.removeEventListener('keyup', onEnter)
+            if (ref.current)
+                ref.current?.removeEventListener('keyup', onEnter)
         }
     }, [ref.current])
 } 

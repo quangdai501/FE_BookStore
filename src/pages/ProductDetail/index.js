@@ -45,9 +45,9 @@ export default function ProductDetail() {
   }
   return (
     <div className="space">
-      {(loadingCreate || loading) ? <Loading /> : <>
+      {loading ? <Loading /> : <>
         <div className="row gutter">
-          <div className="c-6 md-12 padding">
+          <div className="c-6 md-12 padding ">
             <div className="product-image">
               <img src={product ? product.image : ''} alt="" />
             </div>
@@ -90,7 +90,7 @@ export default function ProductDetail() {
             <p ref={descRef}></p>
           </div>
         </div>
-        <Review reviews={product ? product.reviews : []} createReview={createReview} /></>}
+        <Review reviews={product ? product.reviews : []} createReview={createReview} loading={loadingCreate} /></>}
     </div>
   );
 

@@ -98,6 +98,7 @@ const Checkout = () => {
   };
 
   const onSubmit = async (data) => {
+    console.log(data);
     if (data) {
       const address = {
         to_ward_code: Number(wards.find(item => item.WardName === data.village).WardCode),
@@ -111,7 +112,7 @@ const Checkout = () => {
         await dispatch(createOrder(userInfo._id, data.name, totalCart + shippingFee, address, data.phone, billDetail, "Thanh toán online"));
       }
       else {
-        await dispatch(createOrder(userInfo._id, data.name, totalCart, address, data.phone, billDetail, "Thanh toán khi nhận hàng", navigate));
+        await dispatch(createOrder(userInfo._id, data.name, totalCart + shippingFee, address, data.phone, billDetail, "Thanh toán khi nhận hàng", navigate));
         await dispatch(sendMailOrder(userInfo, cartItems));
         await dispatch({ type: CART_CLEAR_ITEMS });
       }
@@ -124,7 +125,7 @@ const Checkout = () => {
     <div className="checkout space">
       <h1>Thanh toán</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="row gutter checkout-session">
-        <div className="c-5 lg-4 md-12 padding center-item">
+        <div className="c-6 lg-6 md-12 padding center-item">
           <div className="Billing-details checkout-info">
             <h3 className="title mb-15 text-center">Thông tin khách hàng</h3>
             <div className="form-input">
@@ -155,7 +156,7 @@ const Checkout = () => {
                 Tỉnh, Thành phố
               </label>
               <select name="province" {...register("province", { required: true })} onChange={onChangeProvince}>
-                <option defaultValue>Chọn Tỉnh, Thành phố</option>
+                <option defaultValue value="">Chọn Tỉnh, Thành phố</option>
                 {provinces?.map((item) => (
                   <option value={item.ProvinceName} key={item.ProvinceID}>{item.ProvinceName}</option>
                 ))}
@@ -166,7 +167,7 @@ const Checkout = () => {
                 Quận, Huyện
               </label>
               <select name="district" {...register("district", { required: true })} onChange={onChangeDistrict}>
-                <option defaultValue>Chọn Quận, Huyện</option>
+                <option defaultValue value="">Chọn Quận, Huyện</option>
                 {districts.map((item) => (
                   <option value={item.DistrictName} key={item.DistrictID}>{item.DistrictName}</option>
                 ))}
@@ -177,7 +178,7 @@ const Checkout = () => {
                 Xã, Phường
               </label>
               <select name="village" {...register("village", { required: true })}>
-                <option defaultValue>Chọn Xã, Phường</option>
+                <option defaultValue value="">Chọn Xã, Phường</option>
                 {wards.map((item) => (
                   <option value={item.WardName} key={item.WardCode}>{item.WardName}</option>
                 ))}
@@ -195,9 +196,9 @@ const Checkout = () => {
             </div>
           </div>
         </div>
-        <div className="c-7 lg-8 md-12 padding">
-          <h3 className="title mb-15 text-center">Sản phẩm của bạn</h3>
-          <div className="Orders ">
+        <div className="c-6 lg-6 md-12 padding">
+          <div className="Orders shadow">
+            <h3 className="title mb-15 text-center">Sản phẩm của bạn</h3>
             <div className="order-row">
               {cartItems ? cartItems.map((item, index) => (
                 <Item cart={item} key={index} />

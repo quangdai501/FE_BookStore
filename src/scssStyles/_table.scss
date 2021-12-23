@@ -1,80 +1,88 @@
-@import './variable';
+@import "./variable";
 table {
-    border-collapse: collapse;
-    width: 100%;
-    font-size: 14px;
-    background-color: white;
-    box-shadow: 0 0 15px 5px rgba(0, 0, 0, .1);
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+  background-color: white;
+  box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.1);
 }
 
 tr {
-    cursor: pointer;
-    &:hover {
-        background-color: rgba(4, 169, 245, 0.05);
-    }
-    border-bottom: 1px solid $gray50;
+  cursor: pointer;
+  &:hover {
+    background-color: rgb(235, 248, 255);
+  }
+  border-bottom: 1px solid $gray50;
 }
 
 thead tr th {
-    color: $gray-700;
+  color: white;
+  background-color: rgb(139, 207, 247);
+  padding: 16px 5px;
 }
 
-td,
-th {
-    color: $dark-gray;
-    padding: 10px;
-    text-align: center;
+td {
+  color: $dark-gray;
+  padding: 16px 5px;
+  text-align: center;
 }
 
 th {
-    background-color: white;
-    color: $dark-gray;
+  background-color: white;
+  color: $dark-gray;
 }
 
 .action {
-    display: flex;
-    justify-content: center;
-    .delete {
-        cursor: pointer;
-        margin-right: 30px;
-        i {
-            color: $bg-gray;
-        }
-        &:hover i {
-            transform: scale(1.3);
-            transition: all .2s ease-in-out;
-        }
+  display: flex;
+  justify-content: center;
+  .delete {
+    cursor: pointer;
+    margin-right: 30px;
+    i {
+      color: $bg-gray;
     }
-    .edit {
-        cursor: pointer;
-        i {
-            color: $bg-gray;
-        }
-        &:hover i {
-            transform: scale(1.3);
-        }
+    &:hover i {
+      transform: scale(1.3);
+      transition: all 0.2s ease-in-out;
     }
+  }
+  .edit {
+    cursor: pointer;
+    i {
+      color: $bg-gray;
+    }
+    &:hover i {
+      transform: scale(1.3);
+    }
+  }
 }
 
 td img {
-    width: 60px;
-    height: 60px;
-    display: inline-block;
-    object-fit: cover;
+  width: 60px;
+  height: 60px;
+  display: inline-block;
+  object-fit: cover;
 }
 
 .table-scroll {
-    max-height: calc(100vh - 180px);
-    overflow-y: scroll;
-    box-shadow: 0 0 15px 5px rgba(0, 0, 0, .1);
-    &::-webkit-scrollbar {
-        width: 4px;
-    }
-    &::-webkit-scrollbar-track {
-        background-color: white;
-    }
-    &::-webkit-scrollbar-thumb {
-        background-color: $gray500;
-        border-radius: 5px;
-    }
+  max-height: calc(100vh - 180px);
+  overflow-y: scroll;
+  box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.1);
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: white;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $gray500;
+    border-radius: 5px;
+  }
+}
+
+@media screen and(max-width: 992px) {
+  .table-scroll {
+    margin-bottom: 30px;
+    max-height: 100%;
+  }
 }

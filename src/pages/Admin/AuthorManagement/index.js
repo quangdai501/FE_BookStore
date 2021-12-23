@@ -63,7 +63,7 @@ export default function AuthorManagement() {
       setError(false)
       dispatch(createAuthor(currenAuthor));
     }
-    else{
+    else {
       setError(true)
     }
   };
@@ -71,7 +71,7 @@ export default function AuthorManagement() {
     if (currenAuthor._id && currenAuthor.name !== "") {
       setError(false)
       dispatch(updateAuthor(currenAuthor));
-    }else{
+    } else {
       setError(true)
     }
   };
@@ -101,7 +101,7 @@ export default function AuthorManagement() {
         <p className="manage-title"><i class="fas fa-user-tie"></i>Danh sách tác giả </p>
       </div>
       <div className="row">
-        <div className="c-8 table-scroll">
+        <div className="c-8 table-scroll lg-12 md-12">
           {loading ? <Loading /> :
             <table>
               <thead>
@@ -143,7 +143,7 @@ export default function AuthorManagement() {
               </tbody>
             </table>
           }</div>
-        <div className="c-4 container">
+        <div className="c-4 container lg-12 md-12">
           <div className="row center-item">
             <p
               className={`manage-option ${currentOption === "add" ? "current-option" : ""

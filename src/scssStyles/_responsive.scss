@@ -1,45 +1,45 @@
 //code responsive here ex @media screen and (min-width: 700px)
 @media screen and(max-width: 736px) {
-    .container {
-        max-width: 500px;
+  .container {
+    max-width: 500px;
+  }
+  .space {
+    padding: 10px 0;
+  }
+  .md-12.write-review {
+    padding-left: 0;
+  }
+  .md-12.product-infor {
+    padding-left: 0;
+  }
+  .md-12 .rating {
+    .star {
+      padding: 4px 0;
+      padding-right: 5px;
     }
-    .space {
-        padding: 10px 0;
+    i {
+      font-size: $font-size;
     }
-    .md-12.write-review {
-        padding-left: 0;
-    }
-    .md-12.product-infor {
-        padding-left: 0;
-    }
-    .md-12 .rating {
-        .star {
-            padding: 4px 0;
-            padding-right: 5px;
-        }
-        i {
-            font-size: $font-size;
-        }
-    }
-    .text-center {
-        text-align: center;
-    }
-    .product {
-        padding: 5px;
-    }
-    .payment.text-sm {
-        font-size: 14px;
-    }
+  }
+  .text-center {
+    text-align: center;
+  }
+  .product {
+    padding: 5px;
+  }
+  .payment.text-sm {
+    font-size: 14px;
+  }
 }
 
-@media screen and(max-width: 922px) {
-    .container {
-        max-width: 700px;
-    }
-    .space {
-        padding: 20px 0;
-    }
-    .text-center {
-        text-align: center;
-    }
+@media screen and(max-width: 992px) {
+  .container {
+    max-width: 700px;
+  }
+  .space {
+    padding: 20px 0;
+  }
+  .text-center {
+    text-align: center;
+  }
 }
