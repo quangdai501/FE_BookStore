@@ -1,8 +1,9 @@
 @import "../../../../scssStyles/variable";
 @import "../../../../scssStyles/animation";
 .banner-swiper {
-  background-image: url("./banner.jpg");
+  background-image: url("./noel.gif");
   background-position: center;
+  background-size: cover;
   opacity: 0.9;
   min-height: 400px;
   .swiper-item {

@@ -48,7 +48,7 @@ export default function Review(props) {
                         }
                     </div>
                     <p><span className="title-text">Nhận xét:</span><textarea type="text" onChange={onChangeComment} /></p>
-                    <button className="btn" onClick={sendReview}>Gửi đánh giá {props.loading ? "..." : ""}</button></> :
+                    <button className="btn btn--border-none" onClick={sendReview}>Gửi đánh giá {props.loading ? "..." : ""}</button></> :
                     <div className="client">
                         <p className="title">Đăng nhập để gửi nhận xét của bạn</p>
                         <div className="row">

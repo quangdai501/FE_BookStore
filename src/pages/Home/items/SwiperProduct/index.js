@@ -30,7 +30,7 @@ export default function SwiperProduct(props) {
       navigation={true}
       ref={swiperRef}
       breakpoints={{
-        922: {
+        992: {
           slidesPerView: 5,
         },
         763: {

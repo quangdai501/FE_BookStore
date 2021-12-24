@@ -78,7 +78,7 @@ export default function ProductDetail() {
                   </div>
                 </div>
               </div>
-              <button onClick={addCart} className="btn">
+              <button onClick={addCart} className="btn btn--border-none">
                 Thêm vào giỏ hàng
               </button>
             </div>
@@ -86,7 +86,9 @@ export default function ProductDetail() {
         </div>
         <div className="row">
           <div className="c-12 product-desc">
-            <h3 className="desc-title">Mô Tả Sản Phẩm</h3>
+            <div className="desc-header">
+              <h3 className="desc-header__title">Mô Tả Sản Phẩm</h3>
+            </div>
             <p ref={descRef}></p>
           </div>
         </div>

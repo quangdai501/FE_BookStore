@@ -66,16 +66,29 @@
 }
 
 .product-desc {
-  border-top: 1px solid $gray200;
   border-bottom: 1px solid $gray200;
   margin: 40px 0;
   padding: 40px 0;
   font-size: $font-size;
-  .desc-title {
-    margin-bottom: 20px;
-    color: $dark-gray;
-    font-size: $text-large;
-    font-weight: normal;
+  .desc-header {
+    display: flex;
+    border-bottom: 1px solid $gray100;
+    position: relative;
+    margin: 40px 0;
+    &__title {
+      position: absolute;
+      top: -41px;
+      background: white;
+      color: $dark-gray;
+      font-size: $text-large;
+      font-weight: normal;
+      display: inline-block;
+      border-top: 4px solid black;
+      border-left: 1px solid $gray100;
+      border-right: 1px solid $gray100;
+      padding: 10px 10px;
+      white-space: nowrap;
+    }
   }
 }
 
