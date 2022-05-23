@@ -1,0 +1,81 @@
+@import "../../../../scssStyles/variable";
+// @import '../../../../scssStyles/mixin';
+.swiper-button-next.swiper-button-disabled,
+.swiper-button-prev.swiper-button-disabled {
+  display: none;
+}
+
+.swiper-button-next {
+  right: 0 !important;
+}
+
+.swiper-button-prev {
+  left: 0 !important;
+}
+
+.swiper-pagination-bullet {
+  background: white !important;
+}
+
+.swiper-container.product-swiper {
+  position: relative;
+  padding: 0 50px !important;
+  margin: 0 -50px !important;
+  &::after {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background-color: white;
+  }
+  &::before {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    background-color: white;
+  }
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 14px !important;
+  color: white;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  transition: all 0.2s linear;
+  z-index: 1000 !important;
+  border: 1px solid $gray100;
+  background-color: white;
+  width: 44px !important;
+  &:hover {
+    background-color: $dark;
+    color: white;
+  }
+  &::after {
+    color: $gray100;
+  }
+}
+
+@media screen and(max-width: 736px) {
+  .swiper-container.product-swiper {
+    padding: 0 !important;
+    margin: 0 !important;
+    &::after,
+    &::before {
+      content: "";
+      display: block;
+      width: 0px;
+    }
+  }
+}
