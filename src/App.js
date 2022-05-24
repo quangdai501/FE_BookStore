@@ -20,6 +20,8 @@ import OrderSuccess from "./pages/OrderSuccess";
 import NotFound from "./pages/NotFound";
 import MyOrders from "./pages/MyOrders";
 import ResetPassword from "./pages/ResetPassword";
+import MessengerCustomerChat from 'react-messenger-customer-chat';
+
 function App() {
   const href = window.location.href;
 
@@ -53,6 +55,10 @@ function App() {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
+          <MessengerCustomerChat
+            pageId="111476998238351"
+            appId="386867046710656"
+          />
           <Footer />
         </>}
       <Routes>
