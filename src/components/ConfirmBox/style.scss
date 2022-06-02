@@ -1,56 +1,57 @@
-@import '../../scssStyles/variable';
+@import "../../scssStyles/variable";
 .confirm {
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, .3);
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  z-index: 2001;
+  align-items: center;
+  &__body {
+    padding: 30px;
+    border-radius: 10px;
+    width: 400px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    &__body {
-        padding: 30px;
-        border-radius: 10px;
-        width: 400px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        background-color: white;
-        .confirm-message {
-            margin-bottom: 20px;
-            font-size: $font-size;
-            text-align: center;
-            flex: 1
-        }
-        .confirm-option {
-            height: 40px;
-            display: flex;
-            justify-content: space-around;
-        }
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: white;
+    .confirm-message {
+      margin-bottom: 20px;
+      font-size: $font-size;
+      text-align: center;
+      flex: 1;
     }
-    animation: zoomIn ease .1s;
+    .confirm-option {
+      height: 40px;
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+  animation: zoomIn ease 0.1s;
 }
 
 .confirm.close {
-    animation: zoomOut ease-in-out .1s forwards;
+  animation: zoomOut ease-in-out 0.1s forwards;
 }
 
 @keyframes zoomIn {
-    from {
-        transform: scale(0);
-        opacity: 0;
-    }
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 @keyframes zoomOut {
-    from {
-        transform: scale(1);
-        opacity: 1;
-    }
-    to {
-        transform: scale(0);
-        opacity: 0;
-    }
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0);
+    opacity: 0;
+  }
 }

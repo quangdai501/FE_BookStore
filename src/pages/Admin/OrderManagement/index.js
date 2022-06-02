@@ -78,7 +78,6 @@ export default function OrderManagement() {
                                     <th>Hình thức thanh toán</th>
                                     <th style={{ minWidth: '120px' }}>Chi tiết đơn</th>
                                     <th style={{ minWidth: '160px' }}>Thao tác</th>
-                                    <th style={{ width: '0' }}></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -115,33 +114,30 @@ export default function OrderManagement() {
                                                     >
                                                         {(loadingApprove && action === "Huy" && currId === item._id) ? "Xử lý..." : "Hủy đơn"}
                                                     </p>
-
                                                 </div>
                                             </td>
-                                            <td>
-                                                {show === index &&
-                                                    <Model
-                                                        openHandler={openModal}
-                                                        visible={show === index}
-                                                        id={index}
-                                                    >
-                                                        <div className="row center-item">
-                                                            <h4 className="detail-title">
-                                                                Danh sách sản phẩm
-                                                            </h4>
-                                                            <p className="detail-total">Tổng số: <strong>{item.billDetail.length}</strong> cuốn sách</p>
+                                            {show === index &&
+                                                <Model
+                                                    openHandler={openModal}
+                                                    visible={show === index}
+                                                    id={index}
+                                                >
+                                                    <div className="row center-item">
+                                                        <h4 className="detail-title">
+                                                            Danh sách sản phẩm
+                                                        </h4>
+                                                        <p className="detail-total">Tổng số: <strong>{item.billDetail.length}</strong> cuốn sách</p>
+                                                    </div>
+                                                    <div className="row center-item">
+                                                        <div className="c-12">
+                                                            {item.billDetail.map((order, index) => (
+                                                                <div key={index}>
+                                                                    <Item cart={order} />
+                                                                </div>
+                                                            ))}
                                                         </div>
-                                                        <div className="row center-item">
-                                                            <div className="c-12">
-                                                                {item.billDetail.map((order, index) => (
-                                                                    <div key={index}>
-                                                                        <Item cart={order} />
-                                                                    </div>
-                                                                ))}
-                                                            </div>
-                                                        </div>
-                                                    </Model>}
-                                            </td>
+                                                    </div>
+                                                </Model>}
                                         </tr>
                                     </>
                                 )) : <>

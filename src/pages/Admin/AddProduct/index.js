@@ -84,8 +84,8 @@ export default function AddProduct() {
               })}
             />
           </div>
-          <div className="row">
-            <div className="col c-6 pr-20">
+          <div className="row gutter">
+            <div className="padding c-6 md-12">
               <div className="form-input">
                 <label htmlFor="price" className="form-label">
                   Giá
@@ -99,7 +99,7 @@ export default function AddProduct() {
                 />
               </div>
             </div>
-            <div className="col c-6 pl-20">
+            <div className="padding c-6 md-12">
               <div className="form-input">
                 <label htmlFor="quantity" className="form-label">
                   Số lượng
@@ -112,7 +112,7 @@ export default function AddProduct() {
               </div>
             </div>
           </div>
-          <div className="col c-6 ">
+          <div className="col c-12 md-12">
             <div className="form-select">
               <label htmlFor="category" className="form-label">
                 Danh mục
@@ -135,8 +135,8 @@ export default function AddProduct() {
               </select>
             </div>
           </div>
-          <div className="row">
-            <div className="col c-6 pr-20">
+          <div className="row gutter">
+            <div className="c-6 md-12 padding">
               <div className="form-select">
                 <label htmlFor="author" className="form-label">
                   Tác giả
@@ -159,7 +159,7 @@ export default function AddProduct() {
                 </select>
               </div>
             </div>
-            <div className="col c-6 pl-20">
+            <div className="c-6 md-12 padding">
               <div className="form-select">
                 <label htmlFor="publisher" className="form-label">
                   Nhà xuất bản

@@ -5,7 +5,7 @@
   z-index: 2000;
   right: 30px;
   min-width: 200px;
-  max-width: 500px;
+  max-width: 400px;
   min-height: 40px;
   padding: 15px 30px;
   display: flex;
@@ -48,7 +48,11 @@
     color: $error;
   }
 }
-
+.top {
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+}
 @keyframes fadeIn {
   from {
     transform: translateX(calc(100% + 30px));

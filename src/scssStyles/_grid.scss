@@ -37,7 +37,7 @@
 }
 
 @for $i from 1 to 13 {
-    $width: percentage(1/12*$i);
+    $width: percentage(calc(1/12)*$i);
     .c-#{$i} {
         flex: $width;
         max-width: $width;
@@ -59,7 +59,7 @@
         display: none;
     }
     @for $i from 1 to 13 {
-        $width: percentage(1/12*$i);
+        $width: percentage(calc(1/12)*$i);
         .lg-#{$i} {
             flex: $width;
             max-width: $width;
@@ -72,7 +72,7 @@
         display: none;
     }
     @for $i from 1 to 13 {
-        $width: percentage( 1/12*$i);
+        $width: percentage( calc(1/12)*$i);
         .md-#{$i} {
             flex: $width;
             max-width: $width;

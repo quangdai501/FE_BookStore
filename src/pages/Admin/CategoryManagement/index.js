@@ -128,7 +128,7 @@ export default function CategoryManagement() {
                           </p>
                           <p
                             className="edit ml-15"
-                            title="delete"
+                            title="Xóa"
                             onClick={() => delCategory(item._id)}
                           >
                             <i class="fas fa-trash-alt"></i>

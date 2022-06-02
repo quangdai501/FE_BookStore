@@ -8,12 +8,15 @@ export default function Toast(props) {
     }
     useEffect(() => {
         setTimeout(() => { setShow(false) }, 3000)
-        return () => clearTimeout();
+        return () => {
+            clearTimeout();
+            setShow(false);
+        };
     }, [])
     return <>
         {
             show ?
-                <div className={`toast ${props.type}`}>
+                <div className={`toast ${props.type} ${props.position}`}>
                     <div className="toast__icon">
                         <i class={`${icons[props.type]}`}></i>
                     </div>

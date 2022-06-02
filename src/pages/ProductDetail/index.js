@@ -45,54 +45,54 @@ export default function ProductDetail() {
   }
   return (
     <div className="space">
-      {loading ? <Loading /> : <>
-        <div className="row gutter">
-          <div className="c-6 md-12 padding ">
-            <div className="product-image">
-              <img src={product ? product.image : ''} alt="" />
-            </div>
+      {loading && <Loading />}
+      <div className="row gutter">
+        <div className="c-6 md-12 padding ">
+          <div className="product-image">
+            <img src={product ? product.image : ''} alt="" />
           </div>
-          <div className="c-6 md-12 padding">
-            <div className="product-infor">
-              <div className="product-name">{product ? product.name : ''}</div>
-              <div className="product-publisher">
-                Nhà cung cấp: {product && product.publisher ? product.publisher.name : ''}
-              </div>
-              <div className="product-author">
-                Tác giả: {product && product.authors ? product.authors.name : ''}
-              </div>
-              <div className="product-price">{priceToString(product?.price || 0)}</div>
-              <div className="purchase">
-                <div className="number">
-                  <div className="minus" onClick={() => changeQuantity(-1)}>
-                    <i class="fas fa-minus"></i>
-                  </div>
-                  <input
-                    type="text"
-                    disabled
-                    className="product-number"
-                    value={quantity}
-                  />
-                  <div className="plus" onClick={() => changeQuantity(+1)}>
-                    <i class="fas fa-plus"></i>
-                  </div>
+        </div>
+        <div className="c-6 md-12 padding">
+          <div className="product-infor">
+            <div className="product-name">{product ? product.name : ''}</div>
+            <div className="product-publisher">
+              Nhà cung cấp: {product && product.publisher ? product.publisher.name : ''}
+            </div>
+            <div className="product-author">
+              Tác giả: {product && product.authors ? product.authors.name : ''}
+            </div>
+            <div className="product-price">{priceToString(product?.price || 0)}</div>
+            <div className="purchase">
+              <div className="number">
+                <div className="minus" onClick={() => changeQuantity(-1)}>
+                  <i class="fas fa-minus"></i>
+                </div>
+                <input
+                  type="text"
+                  disabled
+                  className="product-number"
+                  value={quantity}
+                />
+                <div className="plus" onClick={() => changeQuantity(+1)}>
+                  <i class="fas fa-plus"></i>
                 </div>
               </div>
-              <button onClick={addCart} className="btn btn--border-none">
-                Thêm vào giỏ hàng
-              </button>
             </div>
+            <button onClick={addCart} className="btn btn--border-none">
+              Thêm vào giỏ hàng
+            </button>
           </div>
         </div>
-        <div className="row">
-          <div className="c-12 product-desc">
-            <div className="desc-header">
-              <h3 className="desc-header__title">Mô Tả Sản Phẩm</h3>
-            </div>
-            <p ref={descRef}></p>
+      </div>
+      <div className="row">
+        <div className="c-12 product-desc">
+          <div className="desc-header">
+            <h3 className="desc-header__title">Mô Tả Sản Phẩm</h3>
           </div>
+          <p ref={descRef}></p>
         </div>
-        <Review reviews={product ? product.reviews : []} createReview={createReview} loading={loadingCreate} /></>}
+      </div>
+      <Review reviews={product ? product.reviews : []} createReview={createReview} loading={loadingCreate} />
     </div>
   );
 

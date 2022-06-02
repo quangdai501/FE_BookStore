@@ -32,14 +32,14 @@ function App() {
     if (success)
       setTimeout(() => dispatch({ type: CART_ADD_RESET }), 1000)
     return () => {
-      clearTimeout()
+      clearTimeout();
     }
   }, [success])
   return (
     <Router>
       {(href.includes('admin') && userInfo.role === "admin") ? "" :
         <>
-          {success && <Toast message="Đã thêm vào giỏ hàng" type="success" />}
+          {success && <Toast message="Đã thêm vào giỏ hàng" type="success" position="top" />}
           <Header />
           <div className="container main-container">
             <Routes>

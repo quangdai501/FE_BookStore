@@ -9,6 +9,7 @@ import { useLocation, useNavigate } from "react-router";
 import Sortbar from "./Sortbar";
 import FilterBar from "./FilterBar";
 import Loading from "../../components/Loading";
+import ProductSkeleton from "../../components/ProducSkeleton";
 const useQuery = () => {
   const { search } = useLocation();
   if (search) {
@@ -94,7 +95,9 @@ const Shop = (props) => {
                 showSidebar={showSidebar}
               />
             </div>
-            {loading ? <Loading /> : <>
+            {loading ? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((item, index) => <div className="c-3 lg-4 md-6">
+              <ProductSkeleton></ProductSkeleton>
+            </div>) : <>
               <div className="c-12">
                 <div className="row">
                   {products ? products.map((item, index) => (

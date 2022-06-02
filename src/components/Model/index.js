@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react'
+import ReactDOM from 'react-dom';
 import "./style.scss";
 import useClickOutside from '../../hooks/useClickOutside';
 export default function Model({ children, openHandler, visible }) {
@@ -13,13 +14,15 @@ export default function Model({ children, openHandler, visible }) {
             setOpenModal(false);
         }
     }, [visible])
-    return <div className={`modal-common ${openModal ? "active" : ""}`}>
-        <div className="modal-container" ref={mainRef}>
-            <div className="modal-close-icon" onClick={() => openHandler()}>
-                <i class="far fa-times-circle"></i>
+
+    return ReactDOM.createPortal(
+        <div className={`modal-common ${openModal ? "active" : ""}`}>
+            <div className="modal-container" ref={mainRef}>
+                <div className="modal-close-icon" onClick={() => openHandler()}>
+                    <i class="far fa-times-circle"></i>
+                </div>
+                {children}
             </div>
-            {children}
-        </div>
-    </div>
+        </div>, document.getElementById("portal"))
 
 }

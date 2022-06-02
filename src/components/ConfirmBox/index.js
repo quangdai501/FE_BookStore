@@ -16,7 +16,7 @@ export default function ConfirmBox(props) {
     }
     return (
         <div className={`confirm ${close ? "close" : ""}`}>
-            <div className="confirm__body" ref={confirmRef}>
+            <div className="confirm__body shadow" ref={confirmRef}>
                 <div className="confirm-message">
                     {`Bạn có muốn ${props.type} ${props.category} `}
                     <strong>{props.object} </strong>không?
