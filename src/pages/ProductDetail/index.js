@@ -7,6 +7,7 @@ import { createProductReview, listProductDetails } from "../../actions/productAc
 import { addToCart } from "../../actions/cartAction";
 import { priceToString } from "../../common/convertNumberToPrice";
 import Loading from '../../components/Loading'
+import SwiperProduct from "./item/SwiperProduct";
 
 export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
@@ -92,8 +93,13 @@ export default function ProductDetail() {
           <p ref={descRef}></p>
         </div>
       </div>
-      <Review reviews={product ? product.reviews : []} createReview={createReview} loading={loadingCreate} />
-    </div>
+        <Review reviews={product ? product.reviews : []} createReview={createReview} loading={loadingCreate} />
+        <div className="row">
+          <div className="c-12 product-desc">
+            <h3 className="desc-title">Sản phẩm liên quan</h3>
+            <SwiperProduct id={id.productID}/>
+          </div>
+        </div>
+          </div>
   );
-
 }

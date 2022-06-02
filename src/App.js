@@ -22,6 +22,8 @@ import MyOrders from "./pages/MyOrders";
 import ResetPassword from "./pages/ResetPassword";
 import { CART_ADD_RESET } from './constants/cart';
 import Toast from './components/Toast';
+import MessengerCustomerChat from 'react-messenger-customer-chat';
+
 function App() {
   const href = window.location.href;
   const { success } = useSelector(state => state.cart)
@@ -63,6 +65,10 @@ function App() {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </div>
+          <MessengerCustomerChat
+            pageId="111476998238351"
+            appId="386867046710656"
+          />
           <Footer />
         </>}
       <Routes>

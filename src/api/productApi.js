@@ -11,6 +11,11 @@ const ProductApi = {
         return axiosClient.get(url);
     },
 
+    getProductRecommend: (id) => {
+        const url = `/products/${id}/recommend`;
+        return axiosClient.get(url);
+    },
+
     addProduct: (product) => {
         const url = `/products/addProduct`;
 
