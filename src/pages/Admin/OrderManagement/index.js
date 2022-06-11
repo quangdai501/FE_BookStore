@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './style.scss';
 import { getOrderByDeliveryStatus } from '../../../actions/orderAction';
@@ -6,24 +6,29 @@ import { priceToString } from '../../../common/convertNumberToPrice';
 import { adminApproveOrder } from '../../../actions/orderAction';
 import Toast from '../../../components/Toast';
 import Item from "../../Checkout/item/index";
-import Loading from '../../../components/Loading';
-import Model from '../../../components/Model';
+import TableLoading from '../../../components/TableLoading';
+import Modal from '../../../components/Modal';
+import { ORDER_RESET } from '../../../constants/order';
 export default function OrderManagement() {
     const [listOrders, setListOrders] = useState([]);
     const [show, setShow] = useState();
     const [change, setChange] = useState(false);
     const [action, setAction] = useState("");
     const [currId, setCurrId] = useState("");
-    const { orders, error, loading } = useSelector(state => state.orderByStatus);
-    const { orders: orderApprove, error: approveError, loading: loadingApprove } = useSelector(state => state.orderApprove);
+    const { orders, error, loading, approveMessage, approving } = useSelector(state => state.orderByStatus);
+    const [currentStatus, setCurrentStatus] = useState('');
+    const timeoutRef = useRef();
 
     const dispatch = useDispatch();
     const approveOrder = async (id, action) => {
+        if (timeoutRef.current) {
+            dispatch({ type: ORDER_RESET });
+        }
         setAction(action);
         setCurrId(id);
         await dispatch(adminApproveOrder(id, action));
-        await dispatch(getOrderByDeliveryStatus("Đang chờ xử lý"))
         setChange(true);
+        timeoutRef.current = setTimeout(() => dispatch({ type: ORDER_RESET }), 4000);
     }
     const openModal = (id) => {
         if (id === show) {
@@ -33,6 +38,10 @@ export default function OrderManagement() {
             setShow(id);
         }
     };
+
+    const handleOnChange = (e) => {
+        setCurrentStatus(e.target.value);
+    }
 
     useEffect(() => {
         const setList = () => {
@@ -45,7 +54,8 @@ export default function OrderManagement() {
                     billDetail: curr.billDetail,
                     total: curr.total,
                     orderCode: curr.orderCode,
-                    payment: curr.payment
+                    payment: curr.payment,
+                    deliveryStatus: curr.deliveryStatus
                 }
                 list.push(newFormat)
                 return list
@@ -54,100 +64,117 @@ export default function OrderManagement() {
         }
         setList();
     }, [orders])
+
     useEffect(() => {
-        dispatch(getOrderByDeliveryStatus("Đang chờ xử lý"))
-    }, [])
+        if (!currentStatus)
+            dispatch(getOrderByDeliveryStatus("Đang chờ xử lý"));
+        else {
+            dispatch(getOrderByDeliveryStatus(currentStatus));
+        }
+    }, [currentStatus])
+
     return (
         <div className="container">
-            {approveError && change && <Toast message={approveError.message} type={"error"} />}
-            {orderApprove && change && < Toast message={orderApprove} type={"success"} />}
+            {error && change && <Toast message={error} type={"error"} />}
+            {approveMessage && change && < Toast message={approveMessage} type={"success"} />}
             <div class="manage-header">
                 <a href="https://5sao.ghn.dev/order" className="ghn-link" title="Đi tới giao hàng nhanh"><img src="../../images/ghn_logo.png" alt="" height="30" /></a>
             </div>
-            {loading ? <Loading /> : <>
-                {listOrders?.length === 0 ? <p className="order-empty"><img src="../../images/empty-order.png" alt="" /></p> :
-                    <div className="table-scroll" >
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th style={{ minWidth: '60px' }}>STT</th>
-                                    <th>Tên người nhận</th>
-                                    <th style={{ maxWidth: '200px', minWidth: '200px' }}>Địa chỉ</th>
-                                    <th>Điện thoại</th>
-                                    <th>Tổng đơn</th>
-                                    <th>Hình thức thanh toán</th>
-                                    <th style={{ minWidth: '120px' }}>Chi tiết đơn</th>
-                                    <th style={{ minWidth: '160px' }}>Thao tác</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {listOrders ? listOrders.map((item, index) => (
-                                    <>
-                                        <tr key={index}>
-                                            <td>{index + 1}</td>
-                                            <td>{item.name}</td>
-                                            <td>{item.address}</td>
-                                            <td>{item.phone}</td>
-                                            <td>{priceToString(item.total)}</td>
-                                            <td>{item.payment}</td>
-                                            <td>
-                                                <p
-                                                    className="order-detail-item btn--color-second"
-                                                    title="Chi tiết"
-                                                    onClick={() => openModal(index)}
-                                                >
-                                                    Chi tiết đơn
-                                                </p></td>
-                                            <td>
-                                                <div className="action">
-                                                    <p
-                                                        className="approve"
-                                                        title="Duyệt"
-                                                        onClick={() => approveOrder(item._id, "Duyet")}
-                                                    >
-                                                        {(loadingApprove && action === "Duyet" && currId === item._id) ? "Xử lý..." : "Duyệt"}
-                                                    </p>
-                                                    <p
-                                                        className="cancel ml-15"
-                                                        title="Hủy"
-                                                        onClick={() => approveOrder(item._id, "Huy")}
-                                                    >
-                                                        {(loadingApprove && action === "Huy" && currId === item._id) ? "Xử lý..." : "Hủy đơn"}
-                                                    </p>
-                                                </div>
-                                            </td>
-                                            {show === index &&
-                                                <Model
-                                                    openHandler={openModal}
-                                                    visible={show === index}
-                                                    id={index}
-                                                >
-                                                    <div className="row center-item">
-                                                        <h4 className="detail-title">
-                                                            Danh sách sản phẩm
-                                                        </h4>
-                                                        <p className="detail-total">Tổng số: <strong>{item.billDetail.length}</strong> cuốn sách</p>
-                                                    </div>
-                                                    <div className="row center-item">
-                                                        <div className="c-12">
-                                                            {item.billDetail.map((order, index) => (
-                                                                <div key={index}>
-                                                                    <Item cart={order} />
-                                                                </div>
-                                                            ))}
+            <div className="table-scroll" >
+                <table>
+                    <thead>
+                        <tr>
+                            <th style={{ minWidth: '60px' }}>STT</th>
+                            <th style={{ minWidth: '150px' }}>Tên người nhận</th>
+                            <th style={{ width: '550px', maxWidth: '550px' }}>Địa chỉ</th>
+                            <th>Điện thoại</th>
+                            <th>Tổng đơn</th>
+                            <th>Hình thức thanh toán</th>
+                            <th>
+                                <select name="" onChange={handleOnChange}>
+                                    <option defaultValue="Đang chờ xử lý">Đang chờ xử lý</option>
+                                    <option value="Tất cả">Tất cả</option>
+                                    <option value="Chờ vận chuyển">Chờ vận chuyển</option>
+                                    <option value="Đã giao">Đã giao</option>
+                                    <option value="Đã hủy">Đã hủy</option>
+                                </select>
+                            </th>
+                            <th style={{ minWidth: '120px' }}>Chi tiết đơn</th>
+                            <th style={{ minWidth: '160px' }}>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {loading && <TableLoading />}
+                        {listOrders ? listOrders.map((item, index) => {
+                            const hasAction = item.deliveryStatus === "Đang chờ xử lý";
+                            return <>
+                                <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td>{item.name}</td>
+                                    <td>{item.address}</td>
+                                    <td>{item.phone}</td>
+                                    <td>{priceToString(item.total)}</td>
+                                    <td>{item.payment}</td>
+                                    <td>{item.deliveryStatus}</td>
+                                    <td>
+                                        <button
+                                            className="btn btn--no-border order-detail-item btn--color-second"
+                                            title="Chi tiết"
+                                            onClick={() => openModal(index)}
+                                        >
+                                            Chi tiết đơn
+                                        </button></td>
+                                    <td>
+                                        <div className="action">
+                                            <button
+                                                disabled={!hasAction}
+                                                className="btn btn--no-border approve"
+                                                title="Duyệt"
+                                                onClick={() => approveOrder(item._id, "Duyet")}
+                                            >
+                                                {(approving && action === "Duyet" && currId === item._id) ? "Xử lý..." : "Duyệt"}
+                                            </button>
+                                            <button
+                                                disabled={!hasAction}
+                                                className="btn btn--no-border cancel ml-15"
+                                                title="Hủy"
+                                                onClick={() => approveOrder(item._id, "Huy")}
+                                            >
+                                                {(approving && action === "Huy" && currId === item._id) ? "Xử lý..." : "Hủy đơn"}
+                                            </button>
+                                        </div>
+                                    </td>
+                                    {show === index &&
+                                        <Modal
+                                            openHandler={openModal}
+                                            visible={show === index}
+                                            id={index}
+                                        >
+                                            <div className="row center-item">
+                                                <h4 className="detail-title">
+                                                    Danh sách sản phẩm
+                                                </h4>
+                                                <p className="detail-total">Tổng số: <strong>{item.billDetail.length}</strong> cuốn sách</p>
+                                            </div>
+                                            <div className="row center-item">
+                                                <div className="c-12">
+                                                    {item.billDetail.map((order, index) => (
+                                                        <div key={index}>
+                                                            <Item cart={order} />
                                                         </div>
-                                                    </div>
-                                                </Model>}
-                                        </tr>
-                                    </>
-                                )) : <>
-                                </>}
-
-                            </tbody>
-                        </table >
-                    </div >
-                }</>}
-            {error && <p className="login__error">{error}</p>}
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </Modal>}
+                                </tr>
+                            </>
+                        }
+                        ) : <>
+                        </>}
+                    </tbody>
+                </table >
+                {listOrders?.length === 0 && <p className="order-empty"><img src="../../images/empty-order.png" alt="" /></p>}
+            </div >
         </div >
     )
 }

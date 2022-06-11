@@ -20,6 +20,7 @@ import {
     ORDER_DELETE_REQUEST,
     ORDER_DELETE_FAIL,
     ORDER_DELETE_SUCCESS,
+    ORDER_RESET,
 } from '../constants/order';
 import OrderApi from '../api/orderApi';
 // danh sach don  hang da dat cua 1 user
@@ -30,7 +31,7 @@ const listOrderOfUser = (type) => async (dispatch, getState) => {
     } = getState();
     const id = userInfo._id;
     try {
-        const { data } = await OrderApi.getAll(id,type);
+        const { data } = await OrderApi.getAll(id, type);
         dispatch({ type: ORDER_MINE_LIST_SUCCESS, payload: data });
     } catch (error) {
         const message = error.response.data.message
@@ -93,7 +94,7 @@ const adminApproveOrder = (orderID, action) => async (dispatch) => {
             if (data) {
                 dispatch({
                     type: ORDER_APPROVE_SUCCESS,
-                    payload: "Tạo đơn hàng thành công"
+                    payload: { id: orderID, message: "Tạo đơn hàng thành công" }
                 });
             }
         }
@@ -103,14 +104,25 @@ const adminApproveOrder = (orderID, action) => async (dispatch) => {
             if (data) {
                 dispatch({
                     type: ORDER_APPROVE_SUCCESS,
-                    payload: "Đã hủy đơn hàng"
+                    payload: { id: orderID, message: "Đã hủy đơn hàng" }
                 });
-
             }
         }
+        // setTimeout(() => dispatch({
+        //     type: ORDER_RESET,
+        // }), 3000);
+
     } catch (error) {
-        const err = error.response && error.response.data.message ? error.response.data.message : error
+        const err =
+            error.response &&
+                error.response.data.message ?
+                error.response.data.message.message ? error.response.data.message.message :
+                    error.response.data.message : error
+
         dispatch({ type: ORDER_APPROVE_FAIL, payload: err });
+        // setTimeout(() => dispatch({
+        //     type: ORDER_RESET,
+        // }), 3000);
     }
 };
 
@@ -142,5 +154,6 @@ const sendMailOrder = (userInfo, cartItems) => async (dispatch) => {
 
     }
 }
+
 export { listOrderOfUser, getOrderByDeliveryStatus, createOrder, orderDetail, adminApproveOrder, sendMailOrder, deleteOrder };
 

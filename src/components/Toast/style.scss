@@ -21,7 +21,7 @@
     text-align: center;
     word-break: break-all;
   }
-  animation: fadeIn ease 0.4s, fadeOut ease-in 3s forwards;
+  animation:fadeOut ease-in 3s forwards;
   background-color: white;
 }
 
@@ -48,11 +48,13 @@
     color: $error;
   }
 }
+
 .top {
   top: 60px;
   left: 50%;
   transform: translateX(-50%);
 }
+
 @keyframes fadeIn {
   from {
     transform: translateX(calc(100% + 30px));

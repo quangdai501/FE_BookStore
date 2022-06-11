@@ -18,10 +18,10 @@ import {
     PUBLISHER_UPDATE_SUCCESS,
     PUBLISHER_UPDATE_FAIL,
     PUBLISHER_UPDATE_RESET,
+    PUBLISHER_RESET
 } from "../constants/publisher";
-// import { logout } from './userActions'
 
-export const listPublishers = (props) => async(dispatch) => {
+export const listPublishers = (props) => async (dispatch) => {
     try {
         dispatch({ type: PUBLISHER_LIST_REQUEST });
         const { data } = await PublisherApi.getAll(props);
@@ -39,7 +39,7 @@ export const listPublishers = (props) => async(dispatch) => {
     }
 };
 
-export const listPublisherDetails = (id) => async(dispatch) => {
+export const listPublisherDetails = (id) => async (dispatch) => {
     try {
         dispatch({ type: PUBLISHER_DETAILS_REQUEST });
 
@@ -57,34 +57,34 @@ export const listPublisherDetails = (id) => async(dispatch) => {
     }
 };
 
-export const deletePublisher = (id) => async(dispatch) => {
+export const deletePublisher = (id) => async (dispatch) => {
     try {
         dispatch({
             type: PUBLISHER_DELETE_REQUEST,
         });
 
         const data = await PublisherApi.deletePublisher(id);
-        dispatch({
-            type: PUBLISHER_DELETE_SUCCESS,
-        });
-        if (data) {
-            setTimeout(() => {
-                dispatch({ type: PUBLISHER_DELETE_RESET })
-            }, 2000);
-        }
+        if (data.status == 200)
+            dispatch({
+                type: PUBLISHER_DELETE_SUCCESS,
+                payload: { id }
+            });
+        setTimeout(() => dispatch({ type: PUBLISHER_RESET }), 1000)
+
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-            error.response.data.message :
-            error.message;
+                error.response.data.message :
+                error.message;
         dispatch({
             type: PUBLISHER_DELETE_FAIL,
             payload: message,
         });
+        setTimeout(() => dispatch({ type: PUBLISHER_RESET }), 1000)
     }
 };
 
-export const createPublisher = (name) => async(dispatch) => {
+export const createPublisher = (name) => async (dispatch) => {
     try {
         dispatch({
             type: PUBLISHER_CREATE_REQUEST,
@@ -95,48 +95,43 @@ export const createPublisher = (name) => async(dispatch) => {
             type: PUBLISHER_CREATE_SUCCESS,
             payload: data,
         });
-        if (data) {
-            setTimeout(() => {
-                dispatch({ type: PUBLISHER_CREATE_RESET })
-            }, 2000);
-        }
+        setTimeout(() => dispatch({ type: PUBLISHER_RESET }), 1000)
+
     } catch (error) {
         const message =
-            error.response && error.response.data.message ?
-            error.response.data.message :
-            error.message;
+            error.response && error.response.data.error ?
+                error.response.data.error :
+                error.message;
         dispatch({
             type: PUBLISHER_CREATE_FAIL,
             payload: message,
         });
+        setTimeout(() => dispatch({ type: PUBLISHER_RESET }), 1000)
     }
 };
 
-export const updatePublisher = (Publisher) => async(dispatch) => {
+export const updatePublisher = (Publisher) => async (dispatch) => {
     try {
         dispatch({
             type: PUBLISHER_UPDATE_REQUEST,
         });
 
         const { data } = await PublisherApi.updatePublisher(Publisher);
-
-        dispatch({
-            type: PUBLISHER_UPDATE_SUCCESS,
-            payload: data,
-        });
-        if (data) {
-            setTimeout(() => {
-                dispatch({ type: PUBLISHER_UPDATE_RESET })
-            }, 2000);
-        }
+        if (data.data.ok)
+            dispatch({
+                type: PUBLISHER_UPDATE_SUCCESS,
+                payload: { publisher: Publisher },
+            });
+        setTimeout(() => dispatch({ type: PUBLISHER_RESET }), 1000)
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-            error.response.data.message :
-            error.message;
+                error.response.data.message :
+                error.message;
         dispatch({
             type: PUBLISHER_UPDATE_FAIL,
             payload: message,
         });
+        setTimeout(() => dispatch({ type: PUBLISHER_RESET }), 1000)
     }
 };

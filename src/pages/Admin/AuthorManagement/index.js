@@ -6,10 +6,11 @@ import {
   updateAuthor,
   deleteAuthor,
 } from "../../../actions/authorAction";
+import { CREATE, UPDATE, FETCH_DATA, DELETE } from '../../../constants/common';
 import ConfirmBox from "../../../components/ConfirmBox";
 import Toast from "../../../components/Toast";
 import "./style.scss";
-import Loading from '../../../components/Loading';
+import TableLoading from '../../../components/TableLoading';
 
 export default function AuthorManagement() {
   const [currenAuthor, setCurrenAuthor] = useState({ name: "" });
@@ -30,29 +31,11 @@ export default function AuthorManagement() {
 
   const dispatch = useDispatch();
   const authorList = useSelector((state) => state.authorList);
-  const { authors, loading } = authorList;
-  const authorDelete = useSelector((state) => state.authorDelete);
-  const { loading: loadingDelete, success: successDelete } = authorDelete;
-  const authorCreate = useSelector((state) => state.authorCreate);
-  const {
-    loading: loadingCreate,
-    success: successCreate,
-    // author: authorcreate
-  } = authorCreate;
-  const authorUpdate = useSelector((state) => state.authorUpdate);
-  const {
-    loading: loadingUpdate,
-    success: successUpdate,
-    // author: authorupdate
-  } = authorUpdate;
+  const { authors, loading, type, success } = authorList;
+
   useEffect(() => {
     dispatch(listAuthors());
   }, []);
-  useEffect(() => {
-    if (successCreate || successDelete || successUpdate) {
-      dispatch(listAuthors());
-    }
-  }, [successCreate, successDelete, successUpdate]);
 
   const gotoEdit = (item) => {
     setCurrenAuthor(item);
@@ -102,47 +85,47 @@ export default function AuthorManagement() {
       </div>
       <div className="row">
         <div className="c-8 table-scroll lg-12 md-12">
-          {loading ? <Loading /> :
-            <table>
-              <thead>
-                <tr>
-                  <th>STT</th>
-                  <th>Tên</th>
-                  <th>Thao tác</th>
-                </tr>
-              </thead>
-              <tbody>
-                {authors ? (
-                  authors.map((item, index) => (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-                      <td>{item.name}</td>
-                      <td>
-                        <div className="action">
-                          <p
-                            className="edit"
-                            title="Chỉnh sửa"
-                            onClick={() => gotoEdit(item)}
-                          >
-                            <i className="fas fa-edit"></i>
-                          </p>
-                          <p
-                            className="edit ml-15"
-                            title="Xóa"
-                            onClick={() => delAuthor(item._id)}
-                          >
-                            <i class="fas fa-trash-alt"></i>
-                          </p>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <></>
-                )}
-              </tbody>
-            </table>
-          }</div>
+          <table>
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Tên</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+             {loading && type === FETCH_DATA && <TableLoading />}
+              {authors ? (
+                authors.map((item, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{item.name}</td>
+                    <td>
+                      <div className="action">
+                        <p
+                          className="edit"
+                          title="Chỉnh sửa"
+                          onClick={() => gotoEdit(item)}
+                        >
+                          <i className="fas fa-edit"></i>
+                        </p>
+                        <p
+                          className="edit ml-15"
+                          title="Xóa"
+                          onClick={() => delAuthor(item._id)}
+                        >
+                          <i class="fas fa-trash-alt"></i>
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <></>
+              )}
+            </tbody>
+          </table>
+        </div>
         <div className="c-4 container lg-12 md-12">
           <div className="row center-item">
             <p
@@ -180,23 +163,23 @@ export default function AuthorManagement() {
                   className="btn btn--border-none btn--color-second"
                   onClick={() => addAuthor()}
                 >
-                  {loadingCreate ? '...Thêm' : "Thêm"}
+                  {loading && type===CREATE ? '...Thêm' : "Thêm"}
                 </button>
               ) : (
                 <button
                   className="btn btn--border-none btn--color-second"
                   onClick={() => editAuthorInfo()}
                 >
-                  {loadingUpdate
+                  {loading && type===UPDATE
                     ? "... Lưu thay đổi"
                     : "Lưu thay đổi"}
                 </button>
               )}
             </div>
           </div>
-          {successCreate && <Toast message={"Thêm thành công"} type={"success"} />}
-          {successUpdate && <Toast message={"Sửa thành công"} type={"success"} />}
-          {successDelete && <Toast message={"Xóa thành công"} type={"success"} />}
+          {success && type===CREATE && <Toast message={"Thêm thành công"} type={"success"} />}
+          {success && type===UPDATE && <Toast message={"Sửa thành công"} type={"success"} />}
+          {success && type===DELETE && <Toast message={"Xóa thành công"} type={"success"} />}
         </div>
       </div>
     </div>

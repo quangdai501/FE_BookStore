@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import ReactDOM from 'react-dom';
 import "./style.scss";
 import useClickOutside from '../../hooks/useClickOutside';
-export default function Model({ children, openHandler, visible }) {
+export default function Modal({ children, openHandler, visible }) {
     const mainRef = useRef(null);
     const [openModal, setOpenModal] = useState(false);
     useClickOutside(mainRef, () => openHandler());

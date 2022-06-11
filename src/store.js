@@ -13,23 +13,23 @@ import {
 import {
     authorListReducer,
     authorDetailsReducer,
-    authorDeleteReducer,
-    authorCreateReducer,
-    authorUpdateReducer,
+    // authorDeleteReducer,
+    // authorCreateReducer,
+    // authorUpdateReducer,
 } from './reducers/authorReducer'
 import {
     categoryListReducer,
     categoryDetailsReducer,
-    categoryDeleteReducer,
-    categoryCreateReducer,
-    categoryUpdateReducer,
+    // categoryDeleteReducer,
+    // categoryCreateReducer,
+    // categoryUpdateReducer,
 } from './reducers/categoryReducer'
 import {
     publisherListReducer,
     publisherDetailsReducer,
-    publisherDeleteReducer,
-    publisherCreateReducer,
-    publisherUpdateReducer,
+    // publisherDeleteReducer,
+    // publisherCreateReducer,
+    // publisherUpdateReducer,
 } from './reducers/publisherReducer'
 import {
     userLoginReducer,
@@ -46,7 +46,7 @@ import {
 import {
     createOrderReducer,
     userOrderReducer,
-    OrderApprove,
+    // OrderApprove,
     OrderDetailReducer,
     getOrderByDeliveryStatusReducer,
     sendMailOrderReducer
@@ -65,21 +65,21 @@ const reducer = combineReducers({
     // author 
     authorList: authorListReducer,
     authorDetails: authorDetailsReducer,
-    authorDelete: authorDeleteReducer,
-    authorCreate: authorCreateReducer,
-    authorUpdate: authorUpdateReducer,
+    // authorDelete: authorDeleteReducer,
+    // authorCreate: authorCreateReducer,
+    // authorUpdate: authorUpdateReducer,
     // category 
     categoryList: categoryListReducer,
     categoryDetails: categoryDetailsReducer,
-    categoryDelete: categoryDeleteReducer,
-    categoryCreate: categoryCreateReducer,
-    categoryUpdate: categoryUpdateReducer,
+    // categoryDelete: categoryDeleteReducer,
+    // categoryCreate: categoryCreateReducer,
+    // categoryUpdate: categoryUpdateReducer,
     // publisher 
     publisherList: publisherListReducer,
     publisherDetails: publisherDetailsReducer,
-    publisherDelete: publisherDeleteReducer,
-    publisherCreate: publisherCreateReducer,
-    publisherUpdate: publisherUpdateReducer,
+    // publisherDelete: publisherDeleteReducer,
+    // publisherCreate: publisherCreateReducer,
+    // publisherUpdate: publisherUpdateReducer,
     // user
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
@@ -96,7 +96,7 @@ const reducer = combineReducers({
     //order: 
     createOrder: createOrderReducer,
     userOrder: userOrderReducer,
-    orderApprove: OrderApprove,
+    // orderApprove: OrderApprove,
     orderDetail: OrderDetailReducer,
     orderByStatus: getOrderByDeliveryStatusReducer,
     sendMailOrder: sendMailOrderReducer
@@ -119,7 +119,6 @@ const initialState = {
     },
     userLogin: { userInfo: userInfoFromStorage },
 }
-
 
 const store = createStore(
     reducer,

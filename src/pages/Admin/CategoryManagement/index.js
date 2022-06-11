@@ -9,7 +9,8 @@ import {
 import ConfirmBox from "../../../components/ConfirmBox";
 import Toast from "../../../components/Toast";
 import "./style.scss";
-import Loading from '../../../components/Loading';
+import TableLoading from '../../../components/TableLoading';
+import { CREATE, DELETE, FETCH_DATA, UPDATE } from "../../../constants/common";
 
 export default function CategoryManagement() {
   const [currenCategory, setCurrenCategory] = useState({ name: "" });
@@ -30,29 +31,11 @@ export default function CategoryManagement() {
 
   const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.categoryList);
-  const { categorys, loading } = categoryList;
-  const categoryDelete = useSelector((state) => state.categoryDelete);
-  const { loading: loadingDelete, success: successDelete } = categoryDelete;
-  const categoryCreate = useSelector((state) => state.categoryCreate);
-  const {
-    loading: loadingCreate,
-    success: successCreate,
-    // category:categorycreate
-  } = categoryCreate;
-  const categoryUpdate = useSelector((state) => state.categoryUpdate);
-  const {
-    loading: loadingUpdate,
-    success: successUpdate,
-    // category:categoryupdate
-  } = categoryUpdate;
+  const { categorys, loading, type, success, error: categoryError } = categoryList;
   useEffect(() => {
     dispatch(listCategorys());
   }, []);
-  useEffect(() => {
-    if (successCreate || successDelete || successUpdate) {
-      dispatch(listCategorys());
-    }
-  }, [successCreate, successDelete, successUpdate]);
+
   const gotoEdit = (item) => {
     setCurrenCategory(item);
     setCurrentAction("edit");
@@ -102,46 +85,46 @@ export default function CategoryManagement() {
       </div>
       <div className="row">
         <div className="c-8 table-scroll lg-12 md-12">
-          {loading ? <Loading /> :
-            <table>
-              <thead>
-                <tr>
-                  <th>STT</th>
-                  <th>Tên</th>
-                  <th>Thao tác</th>
-                </tr>
-              </thead>
-              <tbody>
-                {categorys ? (
-                  categorys.map((item, index) => (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-                      <td>{item.name}</td>
-                      <td>
-                        <div className="action">
-                          <p
-                            className="edit"
-                            title="Chỉnh sửa"
-                            onClick={() => gotoEdit(item)}
-                          >
-                            <i className="fas fa-edit"></i>
-                          </p>
-                          <p
-                            className="edit ml-15"
-                            title="Xóa"
-                            onClick={() => delCategory(item._id)}
-                          >
-                            <i class="fas fa-trash-alt"></i>
-                          </p>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <></>
-                )}
-              </tbody>
-            </table>}
+          <table>
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Tên</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              {loading && type === FETCH_DATA && <TableLoading />}
+              {categorys ? (
+                categorys.map((item, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{item.name}</td>
+                    <td>
+                      <div className="action">
+                        <p
+                          className="edit"
+                          title="Chỉnh sửa"
+                          onClick={() => gotoEdit(item)}
+                        >
+                          <i className="fas fa-edit"></i>
+                        </p>
+                        <p
+                          className="edit ml-15"
+                          title="Xóa"
+                          onClick={() => delCategory(item._id)}
+                        >
+                          <i class="fas fa-trash-alt"></i>
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <></>
+              )}
+            </tbody>
+          </table>
         </div>
         <div className="c-4 container lg-12 md-12">
           <div className="row center-item">
@@ -180,23 +163,25 @@ export default function CategoryManagement() {
                   className="btn btn--border-none btn--color-second"
                   onClick={() => addCategory()}
                 >
-                  {loadingCreate ? '...Thêm' : "Thêm"}
+                  {loading && type === CREATE ? '...Thêm' : "Thêm"}
                 </button>
               ) : (
                 <button
                   className="btn btn--border-none btn--color-second"
                   onClick={() => editCategoryInfo()}
                 >
-                  {loadingUpdate
+                  {loading && type === UPDATE
                     ? "... Lưu thay đổi"
                     : "Lưu thay đổi"}
                 </button>
               )}
             </div>
           </div>
-          {successCreate && <Toast message={"Thêm thành công"} type={"success"} />}
-          {successUpdate && <Toast message={"Sửa thành công"} type={"success"} />}
-          {successDelete && <Toast message={"Xóa thành công"} type={"success"} />}
+          {categoryError && <Toast message={categoryError} type={"error"} />}
+
+          {success && type === CREATE && <Toast message={"Thêm thành công"} type={"success"} />}
+          {success && type === UPDATE && <Toast message={"Sửa thành công"} type={"success"} />}
+          {success && type === DELETE && <Toast message={"Xóa thành công"} type={"success"} />}
         </div>
       </div>
     </div>

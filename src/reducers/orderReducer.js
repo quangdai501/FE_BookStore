@@ -15,7 +15,8 @@ import {
     GET_ORDER_BY_STATUS_SUCCESS,
     GET_ORDER_BY_STATUS_FAIL,
     SEND_MAIL_ORDER_REQUEST,
-    SEND_MAIL_ORDER_SUCCESS
+    SEND_MAIL_ORDER_SUCCESS,
+    ORDER_RESET
 
 } from '../constants/order';
 
@@ -51,19 +52,14 @@ function createOrderReducer(state = { createOrderProcess: false }, action) {
 
 
 //duyet don hang
-const OrderApprove = (state = { orders: [] }, action) => {
-    switch (action.type) {
-        case ORDER_APPROVE_REQUEST:
-            return { loading: true };
-        case ORDER_APPROVE_SUCCESS:
-            return { loading: false, orders: action.payload };
-        case ORDER_APPROVE_FAIL:
-            return { loading: false, error: action.payload };
-        default:
-            return state;
+// const OrderApprove = (state = { orders: [] }, action) => {
+//     switch (action.type) {
 
-    }
-};
+//         default:
+//             return state;
+//     }
+// };
+
 const OrderDetailReducer = (state = { order: { billDetail: [] } }, action) => {
     switch (action.type) {
         case ORDER_DETAILS_REQUEST:
@@ -76,6 +72,7 @@ const OrderDetailReducer = (state = { order: { billDetail: [] } }, action) => {
             return state;
     }
 }
+
 const getOrderByDeliveryStatusReducer = (state = { orders: [] }, action) => {
     switch (action.type) {
         case GET_ORDER_BY_STATUS_REQUEST:
@@ -84,6 +81,20 @@ const getOrderByDeliveryStatusReducer = (state = { orders: [] }, action) => {
             return { loading: false, orders: action.payload };
         case GET_ORDER_BY_STATUS_FAIL:
             return { loading: false, error: action.payload };
+
+
+        case ORDER_APPROVE_REQUEST:
+            return { ...state, approving: true };
+        case ORDER_APPROVE_SUCCESS:
+            const {id, message} = action.payload;
+            const newOrders= state.orders.filter(order=> order._id !== id);
+            return { ...state, approving: false, orders: newOrders, approveMessage: message };
+        case ORDER_APPROVE_FAIL:
+            console.log('error123', action.payload);
+            return { ...state, approving: false, error: action.payload };
+
+        case ORDER_RESET:
+            return { ...state, error: '', approveMessage: '' }
         default:
             return state;
     }
@@ -101,7 +112,7 @@ const sendMailOrderReducer = (state = { sendingProcess: false }, action) => {
 export {
     createOrderReducer,
     userOrderReducer,
-    OrderApprove,
+    // OrderApprove,
     OrderDetailReducer,
     getOrderByDeliveryStatusReducer,
     sendMailOrderReducer

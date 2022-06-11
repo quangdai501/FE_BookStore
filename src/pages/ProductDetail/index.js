@@ -30,7 +30,7 @@ export default function ProductDetail() {
   }, [successCreate, product])
   useEffect(() => {
     dispatch(listProductDetails(id.productID));
-  }, [successCreate]);
+  }, [successCreate, id]);
 
   const changeQuantity = (payload) => {
     if ((quantity + payload > 0) & (quantity + payload <= product.quantity)) {
@@ -93,13 +93,13 @@ export default function ProductDetail() {
           <p ref={descRef}></p>
         </div>
       </div>
-        <Review reviews={product ? product.reviews : []} createReview={createReview} loading={loadingCreate} />
-        <div className="row">
-          <div className="c-12 product-desc">
-            <h3 className="desc-title">Sản phẩm liên quan</h3>
-            <SwiperProduct id={id.productID}/>
-          </div>
+      <Review reviews={product ? product.reviews : []} createReview={createReview} loading={loadingCreate} />
+      <div className="row">
+        <div className="c-12 product-desc">
+          <h3 className="desc-title">Sản phẩm liên quan</h3>
+          <SwiperProduct id={id.productID} />
         </div>
-          </div>
+      </div>
+    </div>
   );
 }
