@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   listCategorys,
@@ -11,7 +11,8 @@ import Toast from "../../../components/Toast";
 import "./style.scss";
 import TableLoading from '../../../components/TableLoading';
 import { CREATE, DELETE, FETCH_DATA, UPDATE } from "../../../constants/common";
-
+import { CATEGORY_RESET } from "../../../constants/category";
+const TIME_OUT = 5000;
 export default function CategoryManagement() {
   const [currenCategory, setCurrenCategory] = useState({ name: "" });
   const [error, setError] = useState(false);
@@ -19,6 +20,7 @@ export default function CategoryManagement() {
   const changeCurrenCategory = (e) => {
     setCurrenCategory({ ...currenCategory, name: e.target.value });
   };
+  const timeoutRef = useRef();
 
   const [currentOption, setCurrentOption] = useState("add");
   const setCurrentAction = (option) => {
@@ -32,27 +34,45 @@ export default function CategoryManagement() {
   const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.categoryList);
   const { categorys, loading, type, success, error: categoryError } = categoryList;
+
   useEffect(() => {
     dispatch(listCategorys());
   }, []);
 
+  useEffect(() => {
+    return ()=>{
+      dispatch({ type: CATEGORY_RESET });
+    }
+  }, []);
+  
   const gotoEdit = (item) => {
     setCurrenCategory(item);
     setCurrentAction("edit");
   };
+
   const addCategory = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+      dispatch({ type: CATEGORY_RESET })
+    } 
     if (currenCategory.name !== "") {
       setError(false)
       dispatch(createCategory(currenCategory));
+      timeoutRef.current = setTimeout(() => dispatch({ type: CATEGORY_RESET }), TIME_OUT)
     }
     else {
       setError(true)
     }
   };
   const editCategoryInfo = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+      dispatch({ type: CATEGORY_RESET })
+    } 
     if (currenCategory._id && currenCategory.name !== "") {
       setError(false)
       dispatch(updateCategory(currenCategory));
+      timeoutRef.current = setTimeout(() => dispatch({ type: CATEGORY_RESET }), TIME_OUT)
     }
     else {
       setError(true)
@@ -64,7 +84,12 @@ export default function CategoryManagement() {
   };
   const handleConfirm = (type = "yes", id) => {
     if (type === "yes") {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+        dispatch({ type: CATEGORY_RESET })
+      } 
       dispatch(deleteCategory(id));
+      timeoutRef.current = setTimeout(() => dispatch({ type: CATEGORY_RESET }), TIME_OUT)
       setCurrenCategory({ name: "" });
       setCurrentAction("add");
     }
@@ -177,11 +202,10 @@ export default function CategoryManagement() {
               )}
             </div>
           </div>
-          {categoryError && <Toast message={categoryError} type={"error"} />}
-
-          {success && type === CREATE && <Toast message={"Thêm thành công"} type={"success"} />}
-          {success && type === UPDATE && <Toast message={"Sửa thành công"} type={"success"} />}
-          {success && type === DELETE && <Toast message={"Xóa thành công"} type={"success"} />}
+          {categoryError && <Toast message={categoryError} type={"error"}/>}
+          { success && type === CREATE && <Toast message={"Thêm thành công"} type={"success"} />}
+          { success && type === UPDATE && <Toast message={"Sửa thành công"} type={"success"} />}
+          { success && type === DELETE && <Toast message={"Xóa thành công"} type={"success"} />}
         </div>
       </div>
     </div>

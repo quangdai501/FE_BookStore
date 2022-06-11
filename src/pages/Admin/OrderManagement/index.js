@@ -9,6 +9,8 @@ import Item from "../../Checkout/item/index";
 import TableLoading from '../../../components/TableLoading';
 import Modal from '../../../components/Modal';
 import { ORDER_RESET } from '../../../constants/order';
+
+const TIME_OUT = 5000;
 export default function OrderManagement() {
     const [listOrders, setListOrders] = useState([]);
     const [show, setShow] = useState();
@@ -22,13 +24,14 @@ export default function OrderManagement() {
     const dispatch = useDispatch();
     const approveOrder = async (id, action) => {
         if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
             dispatch({ type: ORDER_RESET });
         }
         setAction(action);
         setCurrId(id);
         await dispatch(adminApproveOrder(id, action));
         setChange(true);
-        timeoutRef.current = setTimeout(() => dispatch({ type: ORDER_RESET }), 4000);
+        timeoutRef.current = setTimeout(() => dispatch({ type: ORDER_RESET }), TIME_OUT);
     }
     const openModal = (id) => {
         if (id === show) {

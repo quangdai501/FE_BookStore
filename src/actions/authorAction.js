@@ -68,7 +68,7 @@ export const deleteAuthor = (id) => async (dispatch) => {
                 type: AUTHOR_DELETE_SUCCESS,
                 payload: { id }
             });
-        setTimeout(() => dispatch({ type: AUTHOR_RESET }), 1000)
+        // setTimeout(() => dispatch({ type: AUTHOR_RESET }), 1000)
 
     } catch (error) {
         const message =
@@ -79,7 +79,7 @@ export const deleteAuthor = (id) => async (dispatch) => {
             type: AUTHOR_DELETE_FAIL,
             payload: message,
         });
-        setTimeout(() => dispatch({ type: AUTHOR_RESET }), 1000)
+        // setTimeout(() => dispatch({ type: AUTHOR_RESET }), 1000)
 
     }
 };
@@ -95,7 +95,7 @@ export const createAuthor = (name) => async (dispatch) => {
             type: AUTHOR_CREATE_SUCCESS,
             payload: data,
         });
-        setTimeout(() => dispatch({ type: AUTHOR_RESET }), 1000)
+        // setTimeout(() => dispatch({ type: AUTHOR_RESET }), 1000)
 
     } catch (error) {
         const message =
@@ -106,7 +106,7 @@ export const createAuthor = (name) => async (dispatch) => {
             type: AUTHOR_CREATE_FAIL,
             payload: message,
         });
-        setTimeout(() => dispatch({ type: AUTHOR_RESET }), 1000)
+        // setTimeout(() => dispatch({ type: AUTHOR_RESET }), 1000)
 
     }
 };
@@ -123,7 +123,7 @@ export const updateAuthor = (Author) => async (dispatch) => {
                 type: AUTHOR_UPDATE_SUCCESS,
                 payload: { author: Author },
             });
-        setTimeout(() => dispatch({ type: AUTHOR_RESET }), 1000)
+        // setTimeout(() => dispatch({ type: AUTHOR_RESET }), 1000)
 
     } catch (error) {
         const message =
@@ -134,7 +134,7 @@ export const updateAuthor = (Author) => async (dispatch) => {
             type: AUTHOR_UPDATE_FAIL,
             payload: message,
         });
-        setTimeout(() => dispatch({ type: AUTHOR_RESET }), 1000)
+        // setTimeout(() => dispatch({ type: AUTHOR_RESET }), 1000)
 
     }
 };

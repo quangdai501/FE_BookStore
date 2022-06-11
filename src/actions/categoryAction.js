@@ -72,7 +72,7 @@ export const deleteCategory = (id) => async (dispatch) => {
                 type: CATEGORY_DELETE_SUCCESS,
                 payload: { id }
             });
-        setTimeout(() => dispatch({ type: CATEGORY_RESET }), 1000)
+        // setTimeout(() => dispatch({ type: CATEGORY_RESET }), 1000)
 
     } catch (error) {
         const message =
@@ -83,7 +83,7 @@ export const deleteCategory = (id) => async (dispatch) => {
             type: CATEGORY_DELETE_FAIL,
             payload: message,
         });
-        setTimeout(() => dispatch({ type: CATEGORY_RESET }), 1000)
+        // setTimeout(() => dispatch({ type: CATEGORY_RESET }), 1000)
 
     }
 };
@@ -98,7 +98,7 @@ export const createCategory = (name) => async (dispatch) => {
             type: CATEGORY_CREATE_SUCCESS,
             payload: data,
         });
-        setTimeout(() => dispatch({ type: CATEGORY_RESET }), 1000)
+        // setTimeout(() => dispatch({ type: CATEGORY_RESET }), 1000)
     } catch (error) {
         const message =
             error.response && error.response.data.error ?
@@ -108,7 +108,7 @@ export const createCategory = (name) => async (dispatch) => {
             type: CATEGORY_CREATE_FAIL,
             payload: message,
         });
-        setTimeout(() => dispatch({ type: CATEGORY_RESET }), 1000)
+        // setTimeout(() => dispatch({ type: CATEGORY_RESET }), 1000)
     }
 };
 
@@ -123,7 +123,7 @@ export const updateCategory = (Category) => async (dispatch) => {
                 type: CATEGORY_UPDATE_SUCCESS,
                 payload: { category: Category },
             });
-        setTimeout(() => dispatch({ type: CATEGORY_RESET }), 1000)
+        // setTimeout(() => dispatch({ type: CATEGORY_RESET }), 1000)
 
     } catch (error) {
         const message =
@@ -134,6 +134,6 @@ export const updateCategory = (Category) => async (dispatch) => {
             type: CATEGORY_UPDATE_FAIL,
             payload: message,
         });
-        setTimeout(() => dispatch({ type: CATEGORY_RESET }), 1000)
+        // setTimeout(() => dispatch({ type: CATEGORY_RESET }), 1000)
     }
 };

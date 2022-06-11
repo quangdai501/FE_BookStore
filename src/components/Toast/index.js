@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './style.scss';
-export default function Toast({ type, position, message }) {
+export default function Toast({ type, position, message,  }) {
     const [show, setShow] = useState(true);
 
     const icons = {
@@ -9,7 +9,8 @@ export default function Toast({ type, position, message }) {
     }
 
     const onAnimationEnd = () => {
-        setShow(false);
+        
+            setShow(false);
     }
 
     useEffect(() => {

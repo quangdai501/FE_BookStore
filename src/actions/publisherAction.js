@@ -69,7 +69,7 @@ export const deletePublisher = (id) => async (dispatch) => {
                 type: PUBLISHER_DELETE_SUCCESS,
                 payload: { id }
             });
-        setTimeout(() => dispatch({ type: PUBLISHER_RESET }), 1000)
+        // setTimeout(() => dispatch({ type: PUBLISHER_RESET }), 1000)
 
     } catch (error) {
         const message =
@@ -80,7 +80,7 @@ export const deletePublisher = (id) => async (dispatch) => {
             type: PUBLISHER_DELETE_FAIL,
             payload: message,
         });
-        setTimeout(() => dispatch({ type: PUBLISHER_RESET }), 1000)
+        // setTimeout(() => dispatch({ type: PUBLISHER_RESET }), 1000)
     }
 };
 
@@ -95,7 +95,7 @@ export const createPublisher = (name) => async (dispatch) => {
             type: PUBLISHER_CREATE_SUCCESS,
             payload: data,
         });
-        setTimeout(() => dispatch({ type: PUBLISHER_RESET }), 1000)
+        // setTimeout(() => dispatch({ type: PUBLISHER_RESET }), 1000)
 
     } catch (error) {
         const message =
@@ -106,7 +106,7 @@ export const createPublisher = (name) => async (dispatch) => {
             type: PUBLISHER_CREATE_FAIL,
             payload: message,
         });
-        setTimeout(() => dispatch({ type: PUBLISHER_RESET }), 1000)
+        // setTimeout(() => dispatch({ type: PUBLISHER_RESET }), 1000)
     }
 };
 
@@ -122,7 +122,7 @@ export const updatePublisher = (Publisher) => async (dispatch) => {
                 type: PUBLISHER_UPDATE_SUCCESS,
                 payload: { publisher: Publisher },
             });
-        setTimeout(() => dispatch({ type: PUBLISHER_RESET }), 1000)
+        // setTimeout(() => dispatch({ type: PUBLISHER_RESET }), 1000)
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
@@ -132,6 +132,6 @@ export const updatePublisher = (Publisher) => async (dispatch) => {
             type: PUBLISHER_UPDATE_FAIL,
             payload: message,
         });
-        setTimeout(() => dispatch({ type: PUBLISHER_RESET }), 1000)
+        // setTimeout(() => dispatch({ type: PUBLISHER_RESET }), 1000)
     }
 };

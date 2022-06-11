@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   listPublishers,
@@ -11,6 +11,8 @@ import Toast from "../../../components/Toast";
 import "./style.scss";
 import TableLoading from '../../../components/TableLoading';
 import { CREATE, UPDATE, FETCH_DATA, DELETE } from '../../../constants/common';
+import { PUBLISHER_RESET } from "../../../constants/publisher";
+const TIME_OUT = 5000;
 
 export default function PublisherManagement() {
   const [currenPublisher, setCurrenPublisher] = useState({ name: "" });
@@ -19,6 +21,7 @@ export default function PublisherManagement() {
   const changeCurrenPublisher = (e) => {
     setCurrenPublisher({ ...currenPublisher, name: e.target.value });
   };
+  const timeoutRef = useRef();
 
   const [currentOption, setCurrentOption] = useState("add");
   const setCurrentAction = (option) => {
@@ -37,24 +40,41 @@ export default function PublisherManagement() {
     dispatch(listPublishers());
   }, []);
 
+  useEffect(() => {
+    return ()=>{
+      dispatch({ type: PUBLISHER_RESET });
+    }
+  }, []);
 
   const gotoEdit = (item) => {
     setCurrenPublisher(item);
     setCurrentAction("edit");
   };
   const addPublisher = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+      dispatch({ type: PUBLISHER_RESET })
+    } 
     if (currenPublisher.name !== "") {
       setError(false)
       dispatch(createPublisher(currenPublisher));
+      timeoutRef.current = setTimeout(() => dispatch({ type: PUBLISHER_RESET }), TIME_OUT)
+
     }
     else {
       setError(true)
     }
   };
   const editPublisherInfo = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+      dispatch({ type: PUBLISHER_RESET })
+    } 
     if (currenPublisher._id && currenPublisher.name !== "") {
       setError(false)
       dispatch(updatePublisher(currenPublisher));
+      timeoutRef.current = setTimeout(() => dispatch({ type: PUBLISHER_RESET }), TIME_OUT)
+
     }
     else {
       setError(true)
@@ -66,9 +86,15 @@ export default function PublisherManagement() {
   };
   const handleConfirm = (type = "yes", id) => {
     if (type === "yes") {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+        dispatch({ type: PUBLISHER_RESET })
+      } 
       dispatch(deletePublisher(id));
       setCurrenPublisher({ name: "" });
       setCurrentAction("add");
+      timeoutRef.current = setTimeout(() => dispatch({ type: PUBLISHER_RESET }), TIME_OUT)
+
     }
     setConfirm();
   }

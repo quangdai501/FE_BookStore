@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   listAuthors,
@@ -11,7 +11,8 @@ import ConfirmBox from "../../../components/ConfirmBox";
 import Toast from "../../../components/Toast";
 import "./style.scss";
 import TableLoading from '../../../components/TableLoading';
-
+import { AUTHOR_RESET } from "../../../constants/author";
+const TIME_OUT = 5000;
 export default function AuthorManagement() {
   const [currenAuthor, setCurrenAuthor] = useState({ name: "" });
   const [error, setError] = useState(false);
@@ -19,6 +20,7 @@ export default function AuthorManagement() {
   const changeCurrenAuthor = (e) => {
     setCurrenAuthor({ ...currenAuthor, name: e.target.value });
   };
+  const timeoutRef = useRef();
 
   const [currentOption, setCurrentOption] = useState("add");
   const setCurrentAction = (option) => {
@@ -37,23 +39,41 @@ export default function AuthorManagement() {
     dispatch(listAuthors());
   }, []);
 
+  useEffect(() => {
+    return ()=>{
+      dispatch({ type: AUTHOR_RESET });
+    }
+  }, []);
+
   const gotoEdit = (item) => {
     setCurrenAuthor(item);
     setCurrentAction("edit");
   };
   const addAuthor = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+      dispatch({ type: AUTHOR_RESET })
+    } 
     if (currenAuthor.name !== "") {
       setError(false)
       dispatch(createAuthor(currenAuthor));
+      timeoutRef.current = setTimeout(() => dispatch({ type: AUTHOR_RESET }), TIME_OUT)
+
     }
     else {
       setError(true)
     }
   };
   const editAuthorInfo = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+      dispatch({ type: AUTHOR_RESET })
+    } 
     if (currenAuthor._id && currenAuthor.name !== "") {
       setError(false)
       dispatch(updateAuthor(currenAuthor));
+      timeoutRef.current = setTimeout(() => dispatch({ type: AUTHOR_RESET }), TIME_OUT)
+
     } else {
       setError(true)
     }
@@ -64,9 +84,15 @@ export default function AuthorManagement() {
   };
   const handleConfirm = (type = "yes", id) => {
     if (type === "yes") {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+        dispatch({ type: AUTHOR_RESET })
+      } 
       dispatch(deleteAuthor(id));
       setCurrenAuthor({ name: "" });
       setCurrentAction("add")
+      timeoutRef.current = setTimeout(() => dispatch({ type: AUTHOR_RESET }), TIME_OUT)
+
     }
     setConfirm();
   }
