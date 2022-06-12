@@ -1,160 +1,166 @@
 @import "../../scssStyles/variable";
 @import "../../scssStyles/mixin";
 .detail-container {
-  padding: 50px 0;
+    padding: 50px 0;
 }
 
 .product-image {
-  border: 1px solid $gray200;
-  border-radius: 5px;
-  min-height: 100%;
-  @include center-item;
-  img {
-    max-height: 380px;
+    border: 1px solid $gray200;
+    border-radius: 5px;
     min-height: 100%;
-    display: block;
-    object-fit: cover;
-    max-width: 100%;
-  }
+    @include center-item;
+    img {
+        max-height: 380px;
+        min-height: 100%;
+        display: block;
+        object-fit: cover;
+        max-width: 100%;
+    }
 }
 
 .product-infor {
-  padding-left: 20px;
-  font-size: $font-size;
-  color: $gray500;
-  .product-name {
-    margin-bottom: 15px;
-    font-size: $text-large;
-    line-height: 3rem;
-    font-weight: normal;
-    color: $dark-gray;
-  }
-  .product-author {
-    margin-top: 10px;
-    margin-bottom: 30px;
-  }
-  .product-price {
-    font-size: $text-large;
-    color: $red;
-  }
+    padding-left: 20px;
+    font-size: $font-size;
+    color: $gray500;
+    .product-name {
+        margin-bottom: 15px;
+        font-size: $text-large;
+        line-height: 3rem;
+        font-weight: normal;
+        color: $dark-gray;
+    }
+    .product-author {
+        margin-top: 10px;
+        margin-bottom: 30px;
+    }
+    .product-price {
+        font-size: $text-large;
+        color: $red;
+    }
 }
 
 .number {
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid $gray200;
-  border-radius: 2px;
-  height: 40px;
-  margin: 20px 0;
-  .product-number {
-    width: 40px;
-    text-align: center;
-    border: none;
-    height: 100%;
-    outline: none;
-    background: none;
-    font-size: $font-size;
-  }
-  .minus,
-  .plus {
-    width: 40px;
-    text-align: center;
-    cursor: pointer;
-    // height: 20px;
-  }
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid $gray200;
+    border-radius: 2px;
+    height: 40px;
+    margin: 20px 0;
+    .product-number {
+        width: 40px;
+        text-align: center;
+        border: none;
+        height: 100%;
+        outline: none;
+        background: none;
+        font-size: $font-size;
+    }
+    .minus,
+    .plus {
+        width: 40px;
+        text-align: center;
+        cursor: pointer;
+        // height: 20px;
+    }
+}
+
+.deprecated-btn {
+    margin-top: 50px;
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .product-desc {
-  border-bottom: 1px solid $gray200;
-  margin: 40px 0;
-  padding: 40px 0;
-  font-size: $font-size;
-  .desc-header {
-    display: flex;
-    border-bottom: 1px solid $gray100;
-    position: relative;
+    border-bottom: 1px solid $gray200;
     margin: 40px 0;
-    &__title {
-      position: absolute;
-      top: -41px;
-      background: white;
-      color: $dark-gray;
-      font-size: $text-large;
-      font-weight: normal;
-      display: inline-block;
-      border-top: 4px solid black;
-      border-left: 1px solid $gray100;
-      border-right: 1px solid $gray100;
-      padding: 10px 10px;
-      white-space: nowrap;
+    padding: 40px 0;
+    font-size: $font-size;
+    .desc-header {
+        display: flex;
+        border-bottom: 1px solid $gray100;
+        position: relative;
+        margin: 40px 0;
+        &__title {
+            position: absolute;
+            top: -41px;
+            background: white;
+            color: $dark-gray;
+            font-size: $text-large;
+            font-weight: normal;
+            display: inline-block;
+            border-top: 4px solid black;
+            border-left: 1px solid $gray100;
+            border-right: 1px solid $gray100;
+            padding: 10px 10px;
+            white-space: nowrap;
+        }
     }
-  }
 }
 
 .review-title {
-  margin-bottom: 20px;
-  line-height: 3rem;
-  color: $dark-gray;
-  font-size: $text-large;
-  font-weight: normal;
+    margin-bottom: 20px;
+    line-height: 3rem;
+    color: $dark-gray;
+    font-size: $text-large;
+    font-weight: normal;
 }
 
 .write-review {
-  padding-left: 50px;
-  font-size: $font-size;
-  .review-title {
-    text-align: center;
-  }
+    padding-left: 50px;
+    font-size: $font-size;
+    .review-title {
+        text-align: center;
+    }
 }
 
 .title-text {
-  display: block;
-  margin: 10px 0;
+    display: block;
+    margin: 10px 0;
 }
 
 textarea {
-  border-color: $gray200;
-  min-width: 100%;
-  font-size: $font-size;
-  border-radius: 5px;
-  min-height: 80px;
-  padding: 20px;
-  &:focus {
-    outline: none;
-  }
+    border-color: $gray200;
+    min-width: 100%;
+    font-size: $font-size;
+    border-radius: 5px;
+    min-height: 80px;
+    padding: 20px;
+    &:focus {
+        outline: none;
+    }
 }
 
 .rating {
-  display: flex;
-  align-items: center;
-  .title-text {
-    margin-right: 15px;
-  }
-  .star {
-    padding: 4px 0;
-    padding-right: 15px;
-  }
-  i {
-    font-size: $text-large;
-    color: $gray-400;
-    cursor: pointer;
-  }
+    display: flex;
+    align-items: center;
+    .title-text {
+        margin-right: 15px;
+    }
+    .star {
+        padding: 4px 0;
+        padding-right: 15px;
+    }
+    i {
+        font-size: $text-large;
+        color: $gray-400;
+        cursor: pointer;
+    }
 }
 
 .star.checked i {
-  color: orange;
+    color: orange;
 }
 
 .desc-title {
-  margin-bottom: 20px;
-  margin-left: 8px;
+    margin-bottom: 20px;
+    margin-left: 8px;
 }
 
 @media screen and(max-width: 736px) {
-  .product-infor {
-    .product-name {
-      margin-top: 15px;
+    .product-infor {
+        .product-name {
+            margin-top: 15px;
+        }
     }
-  }
 }
