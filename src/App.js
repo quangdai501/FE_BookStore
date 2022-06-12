@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 import Home from "./pages/Home";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes, useMatch } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -23,25 +23,26 @@ import ResetPassword from "./pages/ResetPassword";
 import { CART_ADD_RESET } from './constants/cart';
 import Toast from './components/Toast';
 import MessengerCustomerChat from 'react-messenger-customer-chat';
+const TIME_OUT = 200;
 
 function App() {
   const href = window.location.href;
-  const { success } = useSelector(state => state.cart)
+  const { success, loading } = useSelector(state => state.cart)
   const userLogin = useSelector((state) => state.userLogin);
   const dispatch = useDispatch()
   const { userInfo } = userLogin;
-  useEffect(() => {
-    if (success)
-      setTimeout(() => dispatch({ type: CART_ADD_RESET }), 1000)
-    return () => {
-      clearTimeout();
+  useLayoutEffect(() => {
+    if (success) {
+      setTimeout(() => dispatch({ type: CART_ADD_RESET }), TIME_OUT)
     }
+    return () => { clearTimeout() }
   }, [success])
+
   return (
     <Router>
       {(href.includes('admin') && userInfo.role === "admin") ? "" :
         <>
-          {success && <Toast message="Đã thêm vào giỏ hàng" type="success" position="top" />}
+          {!href.includes('cart') && loading && <Toast message="Đã thêm vào giỏ hàng" type="success" position="top" />}
           <Header />
           <div className="container main-container">
             <Routes>

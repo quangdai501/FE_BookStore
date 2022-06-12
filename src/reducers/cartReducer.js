@@ -4,7 +4,8 @@ import {
     CART_SAVE_SHIPPING_ADDRESS,
     CART_SAVE_PAYMENT_METHOD,
     CART_CLEAR_ITEMS,
-    CART_ADD_RESET
+    CART_ADD_RESET,
+    CART_ADD_ITEM_REQUEST
 } from '../constants/cart'
 
 export const cartReducer = (
@@ -12,6 +13,9 @@ export const cartReducer = (
     action
 ) => {
     switch (action.type) {
+        case CART_ADD_ITEM_REQUEST: return {
+            ...state, loading: true
+        }
         case CART_ADD_ITEM:
             const item = action.payload
 
@@ -28,7 +32,7 @@ export const cartReducer = (
                 return {
                     ...state,
                     cartItems: [...state.cartItems, item],
-                    success: true
+                    success: true,
                 }
             }
         case CART_REMOVE_ITEM:
@@ -54,7 +58,7 @@ export const cartReducer = (
             }
         case CART_ADD_RESET: {
             return {
-                ...state, success: false
+                ...state, success: false, loading: false
             }
         }
         default:
