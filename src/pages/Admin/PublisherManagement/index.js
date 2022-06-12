@@ -9,8 +9,8 @@ import {
 import ConfirmBox from "../../../components/ConfirmBox";
 import Toast from "../../../components/Toast";
 import "./style.scss";
-import TableLoading from '../../../components/TableLoading';
-import { CREATE, UPDATE, FETCH_DATA, DELETE } from '../../../constants/common';
+import TableLoading from "../../../components/TableLoading";
+import { CREATE, UPDATE, FETCH_DATA, DELETE } from "../../../constants/common";
 import { PUBLISHER_RESET } from "../../../constants/publisher";
 const TIME_OUT = 5000;
 
@@ -25,7 +25,7 @@ export default function PublisherManagement() {
 
   const [currentOption, setCurrentOption] = useState("add");
   const setCurrentAction = (option) => {
-    setError(false)
+    setError(false);
     if (currentOption !== option) setCurrentOption(option);
     if (option === "add") {
       setCurrenPublisher({ name: "" });
@@ -34,16 +34,22 @@ export default function PublisherManagement() {
 
   const dispatch = useDispatch();
   const publisherList = useSelector((state) => state.publisherList);
-  const { publishers, loading, type, success, error: publisherError } = publisherList;
+  const {
+    publishers,
+    loading,
+    type,
+    success,
+    error: publisherError,
+  } = publisherList;
 
   useEffect(() => {
     dispatch(listPublishers());
   }, []);
 
   useEffect(() => {
-    return ()=>{
+    return () => {
       dispatch({ type: PUBLISHER_RESET });
-    }
+    };
   }, []);
 
   const gotoEdit = (item) => {
@@ -52,66 +58,71 @@ export default function PublisherManagement() {
   };
   const addPublisher = () => {
     if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current)
-      dispatch({ type: PUBLISHER_RESET })
-    } 
-    if (currenPublisher.name !== "") {
-      setError(false)
-      dispatch(createPublisher(currenPublisher));
-      timeoutRef.current = setTimeout(() => dispatch({ type: PUBLISHER_RESET }), TIME_OUT)
-
+      clearTimeout(timeoutRef.current);
+      dispatch({ type: PUBLISHER_RESET });
     }
-    else {
-      setError(true)
+    if (currenPublisher.name !== "") {
+      setError(false);
+      dispatch(createPublisher(currenPublisher));
+      timeoutRef.current = setTimeout(
+        () => dispatch({ type: PUBLISHER_RESET }),
+        TIME_OUT
+      );
+    } else {
+      setError(true);
     }
   };
   const editPublisherInfo = () => {
     if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current)
-      dispatch({ type: PUBLISHER_RESET })
-    } 
-    if (currenPublisher._id && currenPublisher.name !== "") {
-      setError(false)
-      dispatch(updatePublisher(currenPublisher));
-      timeoutRef.current = setTimeout(() => dispatch({ type: PUBLISHER_RESET }), TIME_OUT)
-
+      clearTimeout(timeoutRef.current);
+      dispatch({ type: PUBLISHER_RESET });
     }
-    else {
-      setError(true)
+    if (currenPublisher._id && currenPublisher.name !== "") {
+      setError(false);
+      dispatch(updatePublisher(currenPublisher));
+      timeoutRef.current = setTimeout(
+        () => dispatch({ type: PUBLISHER_RESET }),
+        TIME_OUT
+      );
+    } else {
+      setError(true);
     }
   };
   const delPublisher = (id) => {
-    const publisher = publishers.find(publisher => publisher._id === id)
+    const publisher = publishers.find((publisher) => publisher._id === id);
     setConfirm(publisher);
   };
   const handleConfirm = (type = "yes", id) => {
     if (type === "yes") {
       if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current)
-        dispatch({ type: PUBLISHER_RESET })
-      } 
+        clearTimeout(timeoutRef.current);
+        dispatch({ type: PUBLISHER_RESET });
+      }
       dispatch(deletePublisher(id));
       setCurrenPublisher({ name: "" });
       setCurrentAction("add");
-      timeoutRef.current = setTimeout(() => dispatch({ type: PUBLISHER_RESET }), TIME_OUT)
-
+      timeoutRef.current = setTimeout(
+        () => dispatch({ type: PUBLISHER_RESET }),
+        TIME_OUT
+      );
     }
     setConfirm();
-  }
+  };
   return (
     <div className="container">
-
-
-      {confirm &&
+      {confirm && (
         <ConfirmBox
           object={confirm.name}
           type={"xóa"}
           category={"nhà xuất bản"}
           handleConfirm={handleConfirm}
           confirm={confirm}
-        />}
+        />
+      )}
       <div className="manage-header">
-        <p className="manage-title"><i class="fas fa-list"></i>Danh sách nhà xuất bản </p>
+        <p className="manage-title">
+          <i class="fas fa-list"></i>Danh sách nhà xuất bản{" "}
+        </p>
       </div>
       <div className="row">
         <div className="c-8 table-scroll lg-12 md-12">
@@ -139,13 +150,15 @@ export default function PublisherManagement() {
                         >
                           <i className="fas fa-edit"></i>
                         </p>
-                        <p
-                          className="edit ml-15"
-                          title="Xóa"
-                          onClick={() => delPublisher(item._id)}
-                        >
-                          <i class="fas fa-trash-alt"></i>
-                        </p>
+                        {item.isDelete && (
+                          <p
+                            className="edit ml-15"
+                            title="Xóa"
+                            onClick={() => delPublisher(item._id)}
+                          >
+                            <i class="fas fa-trash-alt"></i>
+                          </p>
+                        )}
                       </div>
                     </td>
                   </tr>
@@ -159,16 +172,18 @@ export default function PublisherManagement() {
         <div className="c-4 container lg-12 md-12">
           <div className="row center-item">
             <p
-              className={`manage-option ${currentOption === "add" ? "current-option" : ""
-                }`}
+              className={`manage-option ${
+                currentOption === "add" ? "current-option" : ""
+              }`}
               onClick={() => setCurrentAction("add")}
             >
               Tạo mới
             </p>
             {currenPublisher._id && (
               <p
-                className={`manage-option  ${currentOption === "edit" ? "current-option" : ""
-                  }`}
+                className={`manage-option  ${
+                  currentOption === "edit" ? "current-option" : ""
+                }`}
                 onClick={() => setCurrentAction("edit")}
               >
                 Chỉnh sửa thông tin
@@ -185,7 +200,11 @@ export default function PublisherManagement() {
                 onChange={changeCurrenPublisher}
                 value={currenPublisher.name}
               />
-              {error && <p className="error-label">Tên nhà xuất bản không được để trống</p>}
+              {error && (
+                <p className="error-label">
+                  Tên nhà xuất bản không được để trống
+                </p>
+              )}
             </div>
             <div className="row center-item">
               {currentOption === "add" ? (
@@ -200,15 +219,23 @@ export default function PublisherManagement() {
                   className="btn btn--border-none btn--color-second"
                   onClick={() => editPublisherInfo()}
                 >
-                  {loading && type === UPDATE ? "...Lưu thay đổi" : "Lưu thay đổi"}
+                  {loading && type === UPDATE
+                    ? "...Lưu thay đổi"
+                    : "Lưu thay đổi"}
                 </button>
               )}
             </div>
           </div>
           {publisherError && <Toast message={publisherError} type={"error"} />}
-          {success && type === CREATE && <Toast message={"Thêm thành công"} type={"success"} />}
-          {success && type === UPDATE && <Toast message={"Sửa thành công"} type={"success"} />}
-          {success && type === DELETE && <Toast message={"Xóa thành công"} type={"success"} />}
+          {success && type === CREATE && (
+            <Toast message={"Thêm thành công"} type={"success"} />
+          )}
+          {success && type === UPDATE && (
+            <Toast message={"Sửa thành công"} type={"success"} />
+          )}
+          {success && type === DELETE && (
+            <Toast message={"Xóa thành công"} type={"success"} />
+          )}
         </div>
       </div>
     </div>
