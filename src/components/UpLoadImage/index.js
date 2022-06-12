@@ -10,7 +10,6 @@ export default function UpLoadImage(props) {
   const fileRef = useRef();
   const handleImage = () => {
     if (fileRef.current) {
-      //   console.log(fileRef.current.files[0]);
       updateImage(fileRef.current.files[0])
         .then((data) => {
           console.log(data);

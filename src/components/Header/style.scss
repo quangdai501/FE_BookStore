@@ -2,7 +2,7 @@
 @import "../../scssStyles/mixin";
 .main-header {
   min-height: 80px;
-  background-color: white;
+  background-color: #111;
   border-bottom: 1px solid $gray50;
   font-size: $font-size;
   display: flex;
@@ -72,7 +72,7 @@
     cursor: pointer;
     i {
       font-size: 20px;
-      color: black;
+      color: white;
     }
     &__notify {
       display: flex;
@@ -97,12 +97,16 @@
   align-items: center;
   justify-content: flex-end;
   cursor: pointer;
+  color: white;
 }
 
 .dropdown {
   z-index: 1001;
   position: relative;
   display: inline-block;
+  & > span {
+    color: white;
+  }
   .dropdown-content {
     overflow: hidden;
     position: absolute;
@@ -140,8 +144,6 @@
     border-radius: 20px;
     overflow: hidden;
     .search-icon {
-      // border-radius: 20px;
-      // min-width: 35px;
       background-color: white;
       i {
         color: black;
@@ -181,7 +183,7 @@
       justify-content: center;
       i {
         font-size: 30px;
-        color: $gray500;
+        color: white;
       }
     }
   }

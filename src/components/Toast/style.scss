@@ -5,14 +5,14 @@
   z-index: 2000;
   right: 30px;
   min-width: 200px;
-  max-width: 250px;
+  max-width: 400px;
   min-height: 40px;
   padding: 15px 30px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: $font-size;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
   &__icon {
     width: 25px;
   }
@@ -21,7 +21,7 @@
     text-align: center;
     word-break: break-all;
   }
-  animation: fadeIn ease 0.4s, fadeOut ease-in 3s forwards;
+  animation:fadeOut ease-in 3s forwards;
   background-color: white;
 }
 
@@ -47,6 +47,12 @@
   .toast__message {
     color: $error;
   }
+}
+
+.top {
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 @keyframes fadeIn {

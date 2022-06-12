@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteUser, listUsers } from "../../../actions/userAction";
 import "./style.scss";
 import ConfirmBox from "../../../components/ConfirmBox";
-import Loading from '../../../components/Loading'
+import TableLoading from '../../../components/TableLoading'
 
 export default function UserManagement() {
 
@@ -47,35 +47,35 @@ export default function UserManagement() {
       <div className="manage-header">
         <p className="manage-title"><i class="fas fa-users"></i>Danh sách người dùng</p>
       </div>
-      {loading ? <Loading /> :
-        <div className="table-scroll" >
-          <table >
-            <thead>
-              <tr>
-                <th>STT</th>
-                <th>Tên</th>
-                <th>Email</th>
-                <th style={{ width: "40%" }}>Địa chỉ</th>
-                <th>Thao tác</th>
+      <div className="table-scroll" >
+        <table >
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Tên</th>
+              <th>Email</th>
+              <th style={{ width: "40%" }}>Địa chỉ</th>
+              <th>Thao tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            {loading && <TableLoading />}
+            {users ? users.map((item, index) => (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{item.name}</td>
+                <td>{item.email}</td>
+                <td>{item.address}</td>
+                <td>
+                  <div className="action" onClick={() => delUser(item._id)}>
+                    <i className="fas fa-trash"></i>
+                  </div>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {users ? users.map((item, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{item.name}</td>
-                  <td>{item.email}</td>
-                  <td>{item.address}</td>
-                  <td>
-                    <div className="action" onClick={() => delUser(item._id)}>
-                      <i className="fas fa-trash"></i>
-                    </div>
-                  </td>
-                </tr>
-              )) : <></>}
-            </tbody>
-          </table>
-        </div>}
+            )) : <></>}
+          </tbody>
+        </table>
+      </div>
 
     </div>
   );

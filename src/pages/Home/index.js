@@ -90,6 +90,6 @@ export default function Home() {
           <i class="fas fa-angle-right"></i>
         </div>
       </div>
-    </ >
+    </>
   );
 }

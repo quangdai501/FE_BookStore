@@ -1,6 +1,7 @@
 @import "../../../scssStyles/variable";
 .order-empty {
   padding: 2%;
+  width: 100%;
   font-size: $font-size;
   text-align: center;
 }
@@ -40,4 +41,10 @@
   font-size: $font-size;
   margin-right: 30px;
   margin-bottom: 20px;
+}
+
+select{
+  outline: none;
+  padding: 2px 0;
+  border: none;
 }

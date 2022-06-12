@@ -22,7 +22,6 @@ export default function MenuOption(props) {
     }, []);
     return (
         <div className="main-menu">
-            {loading && <Loading />}
             <div className="main-menu__item menu-header">
                 <p className="option-name"> <i class="fas fa-stream"></i>Danh mục</p><i class="fas fa-sort-down"></i>
             </div>

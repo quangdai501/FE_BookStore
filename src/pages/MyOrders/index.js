@@ -38,6 +38,7 @@ const MyOrders = () => {
     };
     setList();
   }, [orders]);
+
   const onChangeStatus = (e) => {
     setStatusActive(e.target.value)
   }
@@ -57,7 +58,7 @@ const MyOrders = () => {
           ))}
         </div>
         <div className="status-container--mobile">
-          <select name="status" onClick={onChangeStatus}>
+          <select name="status" onChange={onChangeStatus}>
             {listStatus.map((item, index) => (
               <option selected={index === statusActive} value={index}>Trạng thái đơn hàng: {item}</option>
             ))}

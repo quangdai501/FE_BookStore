@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   listPublishers,
@@ -9,7 +9,10 @@ import {
 import ConfirmBox from "../../../components/ConfirmBox";
 import Toast from "../../../components/Toast";
 import "./style.scss";
-import Loading from '../../../components/Loading'
+import TableLoading from '../../../components/TableLoading';
+import { CREATE, UPDATE, FETCH_DATA, DELETE } from '../../../constants/common';
+import { PUBLISHER_RESET } from "../../../constants/publisher";
+const TIME_OUT = 5000;
 
 export default function PublisherManagement() {
   const [currenPublisher, setCurrenPublisher] = useState({ name: "" });
@@ -18,6 +21,7 @@ export default function PublisherManagement() {
   const changeCurrenPublisher = (e) => {
     setCurrenPublisher({ ...currenPublisher, name: e.target.value });
   };
+  const timeoutRef = useRef();
 
   const [currentOption, setCurrentOption] = useState("add");
   const setCurrentAction = (option) => {
@@ -30,47 +34,47 @@ export default function PublisherManagement() {
 
   const dispatch = useDispatch();
   const publisherList = useSelector((state) => state.publisherList);
-  const { publishers, loading } = publisherList;
-  const publisherDelete = useSelector((state) => state.publisherDelete);
-  const { loading: loadingDelete, success: successDelete } = publisherDelete;
-  const publisherCreate = useSelector((state) => state.publisherCreate);
-  const {
-    loading: loadingCreate,
-    success: successCreate,
-    // Publisher:Publishercreate
-  } = publisherCreate;
-  const publisherUpdate = useSelector((state) => state.publisherUpdate);
-  const {
-    loading: loadingUpdate,
-    success: successUpdate,
-    // Publisher:Publisherupdate
-  } = publisherUpdate;
+  const { publishers, loading, type, success, error: publisherError } = publisherList;
+
   useEffect(() => {
     dispatch(listPublishers());
   }, []);
+
   useEffect(() => {
-    if (successCreate || successDelete || successUpdate) {
-      dispatch(listPublishers());
+    return ()=>{
+      dispatch({ type: PUBLISHER_RESET });
     }
-  }, [successCreate, successDelete, successUpdate]);
+  }, []);
 
   const gotoEdit = (item) => {
     setCurrenPublisher(item);
     setCurrentAction("edit");
   };
   const addPublisher = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+      dispatch({ type: PUBLISHER_RESET })
+    } 
     if (currenPublisher.name !== "") {
       setError(false)
       dispatch(createPublisher(currenPublisher));
+      timeoutRef.current = setTimeout(() => dispatch({ type: PUBLISHER_RESET }), TIME_OUT)
+
     }
     else {
       setError(true)
     }
   };
   const editPublisherInfo = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+      dispatch({ type: PUBLISHER_RESET })
+    } 
     if (currenPublisher._id && currenPublisher.name !== "") {
       setError(false)
       dispatch(updatePublisher(currenPublisher));
+      timeoutRef.current = setTimeout(() => dispatch({ type: PUBLISHER_RESET }), TIME_OUT)
+
     }
     else {
       setError(true)
@@ -82,9 +86,15 @@ export default function PublisherManagement() {
   };
   const handleConfirm = (type = "yes", id) => {
     if (type === "yes") {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+        dispatch({ type: PUBLISHER_RESET })
+      } 
       dispatch(deletePublisher(id));
       setCurrenPublisher({ name: "" });
       setCurrentAction("add");
+      timeoutRef.current = setTimeout(() => dispatch({ type: PUBLISHER_RESET }), TIME_OUT)
+
     }
     setConfirm();
   }
@@ -105,46 +115,46 @@ export default function PublisherManagement() {
       </div>
       <div className="row">
         <div className="c-8 table-scroll lg-12 md-12">
-          {loading ? <Loading /> :
-            <table>
-              <thead>
-                <tr>
-                  <th>STT</th>
-                  <th>Tên</th>
-                  <th>Thao tác</th>
-                </tr>
-              </thead>
-              <tbody>
-                {publishers ? (
-                  publishers.map((item, index) => (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-                      <td>{item.name}</td>
-                      <td>
-                        <div className="action">
-                          <p
-                            className="edit"
-                            title="Chỉnh sửa"
-                            onClick={() => gotoEdit(item)}
-                          >
-                            <i className="fas fa-edit"></i>
-                          </p>
-                          <p
-                            className="edit ml-15"
-                            title="delete"
-                            onClick={() => delPublisher(item._id)}
-                          >
-                            <i class="fas fa-trash-alt"></i>
-                          </p>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <></>
-                )}
-              </tbody>
-            </table>}
+          <table>
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Tên</th>
+                <th>Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              {loading && type === FETCH_DATA && <TableLoading />}
+              {publishers ? (
+                publishers.map((item, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{item.name}</td>
+                    <td>
+                      <div className="action">
+                        <p
+                          className="edit"
+                          title="Chỉnh sửa"
+                          onClick={() => gotoEdit(item)}
+                        >
+                          <i className="fas fa-edit"></i>
+                        </p>
+                        <p
+                          className="edit ml-15"
+                          title="Xóa"
+                          onClick={() => delPublisher(item._id)}
+                        >
+                          <i class="fas fa-trash-alt"></i>
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <></>
+              )}
+            </tbody>
+          </table>
         </div>
         <div className="c-4 container lg-12 md-12">
           <div className="row center-item">
@@ -183,21 +193,22 @@ export default function PublisherManagement() {
                   className="btn btn--border-none btn--color-second"
                   onClick={() => addPublisher()}
                 >
-                  {loadingCreate ? "...Thêm" : "Thêm"}
+                  {loading && type === CREATE ? "...Thêm" : "Thêm"}
                 </button>
               ) : (
                 <button
                   className="btn btn--border-none btn--color-second"
                   onClick={() => editPublisherInfo()}
                 >
-                  {loadingUpdate ? "...Lưu thay đổi" : "Lưu thay đổi"}
+                  {loading && type === UPDATE ? "...Lưu thay đổi" : "Lưu thay đổi"}
                 </button>
               )}
             </div>
           </div>
-          {successCreate && <Toast message={"Thêm thành công"} type={"success"} />}
-          {successUpdate && <Toast message={"Sửa thành công"} type={"success"} />}
-          {successDelete && <Toast message={"Xóa thành công"} type={"success"} />}
+          {publisherError && <Toast message={publisherError} type={"error"} />}
+          {success && type === CREATE && <Toast message={"Thêm thành công"} type={"success"} />}
+          {success && type === UPDATE && <Toast message={"Sửa thành công"} type={"success"} />}
+          {success && type === DELETE && <Toast message={"Xóa thành công"} type={"success"} />}
         </div>
       </div>
     </div>

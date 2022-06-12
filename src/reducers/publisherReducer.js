@@ -17,19 +17,66 @@ import {
     PUBLISHER_UPDATE_SUCCESS,
     PUBLISHER_UPDATE_FAIL,
     PUBLISHER_UPDATE_RESET,
+    PUBLISHER_RESET
 } from '../constants/publisher'
+import {
+    FETCH_DATA,
+    CREATE,
+    UPDATE,
+    DELETE
+} from '../constants/common';
 
 export const publisherListReducer = (state = { publishers: [] }, action) => {
     switch (action.type) {
         case PUBLISHER_LIST_REQUEST:
-            return { loading: true, publishers: [] }
+            return { loading: true, publishers: [], type: FETCH_DATA }
         case PUBLISHER_LIST_SUCCESS:
             return {
+                ...state,
                 loading: false,
                 publishers: action.payload
             }
         case PUBLISHER_LIST_FAIL:
-            return { loading: false, error: action.payload }
+            return { ...state, loading: false, error: action.payload }
+
+
+        case PUBLISHER_CREATE_REQUEST: return {
+            ...state, loading: true, type: CREATE
+        }
+        case PUBLISHER_CREATE_SUCCESS:
+            const newPublishers = [...state.publishers, action.payload.data];
+            return {
+                ...state, loading: false, publishers: newPublishers, success: true
+            }
+        case PUBLISHER_CREATE_FAIL:
+            return { ...state, loading: false, error: action.payload }
+
+
+        case PUBLISHER_UPDATE_REQUEST: return {
+            ...state, loading: true, type: UPDATE
+        }
+        case PUBLISHER_UPDATE_SUCCESS:
+            const publisher = action.payload.publisher;
+            const publishersUpdated = state.publishers.map(item => item._id === publisher._id ? publisher : item)
+            return {
+                ...state, loading: false, publishers: publishersUpdated, success: true
+            }
+        case PUBLISHER_UPDATE_FAIL:
+            return { ...state, loading: false, error: action.payload }
+
+
+        case PUBLISHER_DELETE_REQUEST: return {
+            ...state, loading: true, type: DELETE
+        }
+        case PUBLISHER_DELETE_SUCCESS:
+            const publishers = state.publishers.filter(item => item._id !== action.payload.id)
+            return {
+                ...state, loading: false, publishers: publishers, success: true
+            }
+        case PUBLISHER_DELETE_FAIL:
+            return { ...state, loading: false, error: action.payload }
+
+        case PUBLISHER_RESET: return { ...state, success: false, error: '' }
         default:
             return state
     }
@@ -41,56 +88,11 @@ export const publisherDetailsReducer = (
 ) => {
     switch (action.type) {
         case PUBLISHER_DETAILS_REQUEST:
-            return {...state, loading: true }
+            return { ...state, loading: true }
         case PUBLISHER_DETAILS_SUCCESS:
             return { loading: false, publisher: action.payload }
         case PUBLISHER_DETAILS_FAIL:
             return { loading: false, error: action.payload }
-        default:
-            return state
-    }
-}
-
-export const publisherDeleteReducer = (state = {}, action) => {
-    switch (action.type) {
-        case PUBLISHER_DELETE_REQUEST:
-            return { loading: true }
-        case PUBLISHER_DELETE_SUCCESS:
-            return { loading: false, success: true }
-        case PUBLISHER_DELETE_FAIL:
-            return { loading: false, error: action.payload }
-        case PUBLISHER_DELETE_RESET:
-            return {}
-        default:
-            return state
-    }
-}
-
-export const publisherCreateReducer = (state = {}, action) => {
-    switch (action.type) {
-        case PUBLISHER_CREATE_REQUEST:
-            return { loading: true }
-        case PUBLISHER_CREATE_SUCCESS:
-            return { loading: false, success: true, publisher: action.payload }
-        case PUBLISHER_CREATE_FAIL:
-            return { loading: false, error: action.payload }
-        case PUBLISHER_CREATE_RESET:
-            return {}
-        default:
-            return state
-    }
-}
-
-export const publisherUpdateReducer = (state = { publisher: {} }, action) => {
-    switch (action.type) {
-        case PUBLISHER_UPDATE_REQUEST:
-            return { loading: true }
-        case PUBLISHER_UPDATE_SUCCESS:
-            return { loading: false, success: true, publisher: action.payload }
-        case PUBLISHER_UPDATE_FAIL:
-            return { loading: false, error: action.payload }
-        case PUBLISHER_UPDATE_RESET:
-            return { publisher: {} }
         default:
             return state
     }

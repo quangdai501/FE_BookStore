@@ -15,13 +15,11 @@ import {
     AUTHOR_UPDATE_REQUEST,
     AUTHOR_UPDATE_SUCCESS,
     AUTHOR_UPDATE_FAIL,
-    AUTHOR_CREATE_RESET,
-    AUTHOR_DELETE_RESET,
-    AUTHOR_UPDATE_RESET,
-} from "../constants/author";
-// import { logout } from './userActions'
+    AUTHOR_RESET,
 
-export const listAuthors = (props) => async(dispatch) => {
+} from "../constants/author";
+
+export const listAuthors = (props) => async (dispatch) => {
     try {
         dispatch({ type: AUTHOR_LIST_REQUEST });
         const { data } = await AuthorApi.getAll(props);
@@ -40,7 +38,7 @@ export const listAuthors = (props) => async(dispatch) => {
     }
 };
 
-export const listAuthorDetails = (id) => async(dispatch) => {
+export const listAuthorDetails = (id) => async (dispatch) => {
     try {
         dispatch({ type: AUTHOR_DETAILS_REQUEST });
 
@@ -59,33 +57,34 @@ export const listAuthorDetails = (id) => async(dispatch) => {
     }
 };
 
-export const deleteAuthor = (id) => async(dispatch) => {
+export const deleteAuthor = (id) => async (dispatch) => {
     try {
         dispatch({
             type: AUTHOR_DELETE_REQUEST,
         });
         const data = await AuthorApi.deleteAuthor(id);
-        dispatch({
-            type: AUTHOR_DELETE_SUCCESS,
-        });
-        if (data) {
-            setTimeout(() => {
-                dispatch({ type: AUTHOR_DELETE_RESET })
-            }, 2000);
-        }
+        if (data.status === 200)
+            dispatch({
+                type: AUTHOR_DELETE_SUCCESS,
+                payload: { id }
+            });
+        // setTimeout(() => dispatch({ type: AUTHOR_RESET }), 1000)
+
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-            error.response.data.message :
-            error.message;
+                error.response.data.message :
+                error.message;
         dispatch({
             type: AUTHOR_DELETE_FAIL,
             payload: message,
         });
+        // setTimeout(() => dispatch({ type: AUTHOR_RESET }), 1000)
+
     }
 };
 
-export const createAuthor = (name) => async(dispatch) => {
+export const createAuthor = (name) => async (dispatch) => {
     try {
         dispatch({
             type: AUTHOR_CREATE_REQUEST,
@@ -96,48 +95,46 @@ export const createAuthor = (name) => async(dispatch) => {
             type: AUTHOR_CREATE_SUCCESS,
             payload: data,
         });
-        if (data) {
-            setTimeout(() => {
-                dispatch({ type: AUTHOR_CREATE_RESET })
-            }, 2000);
-        }
+        // setTimeout(() => dispatch({ type: AUTHOR_RESET }), 1000)
+
     } catch (error) {
         const message =
-            error.response && error.response.data.message ?
-            error.response.data.message :
-            error.message;
+            error.response && error.response.data.error ?
+                error.response.data.error :
+                error.message;
         dispatch({
             type: AUTHOR_CREATE_FAIL,
             payload: message,
         });
+        // setTimeout(() => dispatch({ type: AUTHOR_RESET }), 1000)
+
     }
 };
 
-export const updateAuthor = (Author) => async(dispatch) => {
+export const updateAuthor = (Author) => async (dispatch) => {
     try {
         dispatch({
             type: AUTHOR_UPDATE_REQUEST,
         });
 
         const { data } = await AuthorApi.updateAuthor(Author);
+        if (data.data.ok)
+            dispatch({
+                type: AUTHOR_UPDATE_SUCCESS,
+                payload: { author: Author },
+            });
+        // setTimeout(() => dispatch({ type: AUTHOR_RESET }), 1000)
 
-        dispatch({
-            type: AUTHOR_UPDATE_SUCCESS,
-            payload: data,
-        });
-        if (data) {
-            setTimeout(() => {
-                dispatch({ type: AUTHOR_UPDATE_RESET })
-            }, 2000);
-        }
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
-            error.response.data.message :
-            error.message;
+                error.response.data.message :
+                error.message;
         dispatch({
             type: AUTHOR_UPDATE_FAIL,
             payload: message,
         });
+        // setTimeout(() => dispatch({ type: AUTHOR_RESET }), 1000)
+
     }
 };

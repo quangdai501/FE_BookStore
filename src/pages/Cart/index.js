@@ -39,7 +39,7 @@ const Cart = () => {
                 </div>
                 <div className="order-row">
                   <button
-                    className="btn btn--border-none btn--full-width"
+                    className="btn btn--border-none btn--full-width btn--padding"
                     type="submit"
                     onClick={gotoCheckout}
                   >

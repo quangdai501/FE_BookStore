@@ -1,31 +1,31 @@
-@import '../../../scssStyles/variable';
+@import "../../../scssStyles/variable";
 .product-action {
-    position: absolute;
-    top: 50%;
-    right: 30px;
-    transform: translateY(-50%);
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    background-color: $btn-color-second;
-    border-radius: 50%;
-    box-shadow: 0 0 15px 5px rgba(0, 0, 0, .1);
-    &:hover i {
-        color: white;
-    }
-    i {
-        color: white;
-        font-size: 30px;
-    }
+  position: absolute;
+  top: 50%;
+  right: 30px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background-color: $btn-color-second;
+  border-radius: 50%;
+  box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.1);
+  &:hover i {
+    color: white;
+  }
+  i {
+    color: white;
+    font-size: 30px;
+  }
 }
 
 .manage-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: $font-size;
-    position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: $font-size;
+  position: relative;
 }

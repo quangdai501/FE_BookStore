@@ -8,6 +8,10 @@
   background-color: black;
   cursor: pointer;
   color: white;
+  &:disabled{
+    background-color: $gray200!important;
+    cursor: not-allowed;
+  }
 }
 
 .btn--color-second {
@@ -26,9 +30,15 @@
   background-color: white;
   color: $gray600;
 }
-
+.btn--padding {
+  padding: 12px 0;
+}
 .space-bt {
   margin-bottom: 90px;
+}
+
+.btn--no-border{
+  border: none;
 }
 
 .link {
