@@ -13,7 +13,7 @@ export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
   const descRef = useRef('');
 
-  const id = useParams();
+  const {productID} = useParams();
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails);
   const { product, loading } = productDetails;
@@ -25,12 +25,15 @@ export default function ProductDetail() {
     success: successCreate,
     review: reviewcreate
   } = productReviewCreate;
+  
   useEffect(() => {
     descRef.current.innerHTML = product.description || '';
   }, [successCreate, product])
+
   useEffect(() => {
-    dispatch(listProductDetails(id.productID));
-  }, [successCreate, id]);
+    dispatch(listProductDetails(productID));
+  console.log('run');
+  }, [successCreate, productID]);
 
   const changeQuantity = (payload) => {
     if ((quantity + payload > 0) & (quantity + payload <= product.quantity)) {
@@ -97,7 +100,7 @@ export default function ProductDetail() {
       <div className="row">
         <div className="c-12 product-desc">
           <h3 className="desc-title">Sản phẩm liên quan</h3>
-          <SwiperProduct id={id.productID} />
+          <SwiperProduct id={productID} />
         </div>
       </div>
     </div>

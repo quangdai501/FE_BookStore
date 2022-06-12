@@ -9,7 +9,6 @@ export default function Toast({ type, position, message,  }) {
     }
 
     const onAnimationEnd = () => {
-        
             setShow(false);
     }
 

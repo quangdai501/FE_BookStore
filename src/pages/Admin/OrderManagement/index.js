@@ -89,10 +89,10 @@ export default function OrderManagement() {
                         <tr>
                             <th style={{ minWidth: '60px' }}>STT</th>
                             <th style={{ minWidth: '150px' }}>Tên người nhận</th>
-                            <th style={{ width: '550px', maxWidth: '550px' }}>Địa chỉ</th>
+                            <th style={{minWidth: '550px', maxWidth: '550px' }}>Địa chỉ</th>
                             <th>Điện thoại</th>
                             <th>Tổng đơn</th>
-                            <th>Hình thức thanh toán</th>
+                            <th style={{ minWidth: '150px' }}>Hình thức thanh toán</th>
                             <th>
                                 <select name="" onChange={handleOnChange}>
                                     <option defaultValue="Đang chờ xử lý">Đang chờ xử lý</option>
