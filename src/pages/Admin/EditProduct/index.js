@@ -7,9 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { listAuthors } from "../../../actions/authorAction";
 import { listCategorys } from "../../../actions/categoryAction";
 import { listPublishers } from "../../../actions/publisherAction";
-import { listProductDetails, updateProduct } from "../../../actions/productAction";
+import {
+  listProductDetails,
+  updateProduct,
+} from "../../../actions/productAction";
 import { useParams } from "react-router";
-import Toast from '../../../components/Toast';
+import Toast from "../../../components/Toast";
 
 export default function EditProduct() {
   const id = useParams();
@@ -32,21 +35,20 @@ export default function EditProduct() {
     loading: loadingUpdate,
     error: errorUpdate,
     success: successUpdate,
-    product: productupdate
+    product: productupdate,
   } = productUpdate;
 
   const defaultValues = product;
   const { handleSubmit, register, reset } = useForm({ defaultValues });
 
-  const [img, setImg] = useState('');
+  const [img, setImg] = useState("");
   const changeImg = (url) => {
     setImg(url);
   };
-  const [desc, setDesc] = useState('');
+  const [desc, setDesc] = useState("");
   const handleDesc = (content) => {
     setDesc(content);
   };
-
 
   useEffect(() => {
     dispatch(listAuthors());
@@ -56,26 +58,29 @@ export default function EditProduct() {
   }, [successUpdate]);
 
   useEffect(() => {
-    setImg(product.image)
-    setDesc(product.description)
-    reset(product)
-  }, [JSON.stringify(product)])
+    setImg(product.image);
+    setDesc(product.description);
+    reset(product);
+  }, [JSON.stringify(product)]);
 
   const onSubmit = async (data) => {
-    const newdata = { ...data }
-    if (img !== '') {
-      newdata['image'] = img
+    const newdata = { ...data };
+    if (img !== "") {
+      newdata["image"] = img;
     }
-    if (desc !== '') {
-      newdata['description'] = desc
+    if (desc !== "") {
+      newdata["description"] = desc;
     }
-    newdata['publisher'] = data.publisherId
-    await dispatch(updateProduct(newdata))
+    newdata["publisher"] = data.publisherId;
+    console.log(newdata)
+    await dispatch(updateProduct(newdata));
     setCheck(true);
   };
   return (
     <div className="container">
-      {successUpdate && check && <Toast message={"Cập nhật sản phẩm thành công"} type={"success"} />}
+      {successUpdate && check && (
+        <Toast message={"Cập nhật sản phẩm thành công"} type={"success"} />
+      )}
       {errorUpdate && check && <Toast message={errorUpdate} type={"error"} />}
       <div className="create-product">
         <div className="create-title">Sửa thông tin sản phẩm</div>
@@ -92,6 +97,21 @@ export default function EditProduct() {
                 required: true,
               })}
             />
+          </div>
+          <div className="form-input">
+            <label htmlFor="name" className="form-label">
+              Bán sản phẩm
+            </label>
+            <label class="switch">
+              <input
+                type="checkbox"
+                name="isActive"
+                {...register("isActive", {
+                  // required: true,
+                })}
+              />
+              <span class="slider round"></span>
+            </label>
           </div>
           <div className="row">
             <div className="col c-6 pr-20">
@@ -128,9 +148,12 @@ export default function EditProduct() {
               <label htmlFor="category" className="form-label">
                 Danh mục
               </label>
-              <select name="category" {...register("category", {
-                required: true,
-              })}>
+              <select
+                name="category"
+                {...register("category", {
+                  required: true,
+                })}
+              >
                 {categorys ? (
                   categorys.map((item, index) => (
                     <option
@@ -153,9 +176,12 @@ export default function EditProduct() {
                 <label htmlFor="author" className="form-label">
                   Tác giả
                 </label>
-                <select name="author" {...register("author", {
-                  required: true,
-                })}>
+                <select
+                  name="author"
+                  {...register("author", {
+                    required: true,
+                  })}
+                >
                   {authors ? (
                     authors.map((item, index) => (
                       <option
@@ -177,9 +203,12 @@ export default function EditProduct() {
                 <label htmlFor="publisherId" className="form-label">
                   Nhà xuất bản
                 </label>
-                <select name="publisherId" {...register("publisherId", {
-                  required: true,
-                })}>
+                <select
+                  name="publisherId"
+                  {...register("publisherId", {
+                    required: true,
+                  })}
+                >
                   {publishers ? (
                     publishers.map((item, index) => (
                       <option
@@ -201,12 +230,12 @@ export default function EditProduct() {
           <label htmlFor="publisher" className="form-label">
             Mô tả sản phẩm
           </label>
-          <TextEditer
-            handleDesc={handleDesc}
-            initialContent={desc}
-          />
+          <TextEditer handleDesc={handleDesc} initialContent={desc} />
           <div className="submit-area">
-            <button type="submit" className="btn btn--border-none btn--color-second">
+            <button
+              type="submit"
+              className="btn btn--border-none btn--color-second"
+            >
               Lưu thay đổi
             </button>
           </div>

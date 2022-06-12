@@ -3,17 +3,20 @@ import "./style.scss";
 import Review from "./item/Review";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { createProductReview, listProductDetails } from "../../actions/productAction";
+import {
+  createProductReview,
+  listProductDetails,
+} from "../../actions/productAction";
 import { addToCart } from "../../actions/cartAction";
 import { priceToString } from "../../common/convertNumberToPrice";
-import Loading from '../../components/Loading'
+import Loading from "../../components/Loading";
 import SwiperProduct from "./item/SwiperProduct";
 
 export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
-  const descRef = useRef('');
+  const descRef = useRef("");
 
-  const {productID} = useParams();
+  const { productID } = useParams();
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails);
   const { product, loading } = productDetails;
@@ -23,16 +26,16 @@ export default function ProductDetail() {
     loading: loadingCreate,
     error: errorCreate,
     success: successCreate,
-    review: reviewcreate
+    review: reviewcreate,
   } = productReviewCreate;
-  
+
   useEffect(() => {
-    descRef.current.innerHTML = product.description || '';
-  }, [successCreate, product])
+    descRef.current.innerHTML = product.description || "";
+  }, [successCreate, product]);
 
   useEffect(() => {
     dispatch(listProductDetails(productID));
-  console.log('run');
+    console.log("run");
   }, [successCreate, productID]);
 
   const changeQuantity = (payload) => {
@@ -45,46 +48,57 @@ export default function ProductDetail() {
   };
 
   const createReview = (review) => {
-    dispatch(createProductReview(product._id, review))
-  }
+    dispatch(createProductReview(product._id, review));
+  };
   return (
     <div className="space">
       {loading && <Loading />}
       <div className="row gutter">
         <div className="c-6 md-12 padding ">
           <div className="product-image">
-            <img src={product ? product.image : ''} alt="" />
+            <img src={product ? product.image : ""} alt="" />
           </div>
         </div>
         <div className="c-6 md-12 padding">
           <div className="product-infor">
-            <div className="product-name">{product ? product.name : ''}</div>
+            <div className="product-name">{product ? product.name : ""}</div>
             <div className="product-publisher">
-              Nhà cung cấp: {product && product.publisher ? product.publisher.name : ''}
+              Nhà cung cấp:{" "}
+              {product && product.publisher ? product.publisher.name : ""}
             </div>
             <div className="product-author">
-              Tác giả: {product && product.authors ? product.authors.name : ''}
+              Tác giả: {product && product.authors ? product.authors.name : ""}
             </div>
-            <div className="product-price">{priceToString(product?.price || 0)}</div>
-            <div className="purchase">
-              <div className="number">
-                <div className="minus" onClick={() => changeQuantity(-1)}>
-                  <i class="fas fa-minus"></i>
-                </div>
-                <input
-                  type="text"
-                  disabled
-                  className="product-number"
-                  value={quantity}
-                />
-                <div className="plus" onClick={() => changeQuantity(+1)}>
-                  <i class="fas fa-plus"></i>
+            <div className="product-price">
+              {priceToString(product?.price || 0)}
+            </div>
+            {product.isActive && (
+              <div className="purchase">
+                <div className="number">
+                  <div className="minus" onClick={() => changeQuantity(-1)}>
+                    <i class="fas fa-minus"></i>
+                  </div>
+                  <input
+                    type="text"
+                    disabled
+                    className="product-number"
+                    value={quantity}
+                  />
+                  <div className="plus" onClick={() => changeQuantity(+1)}>
+                    <i class="fas fa-plus"></i>
+                  </div>
                 </div>
               </div>
-            </div>
-            <button onClick={addCart} className="btn btn--border-none">
-              Thêm vào giỏ hàng
-            </button>
+            )}
+            {product.isActive ? (
+              <button onClick={addCart} className="btn btn--border-none">
+                Thêm vào giỏ hàng
+              </button>
+            ) : (
+              <button className="btn btn--border-none deprecated-btn">
+                Sản phẩm đã ngừng bán
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -96,7 +110,11 @@ export default function ProductDetail() {
           <p ref={descRef}></p>
         </div>
       </div>
-      <Review reviews={product ? product.reviews : []} createReview={createReview} loading={loadingCreate} />
+      <Review
+        reviews={product ? product.reviews : []}
+        createReview={createReview}
+        loading={loadingCreate}
+      />
       <div className="row">
         <div className="c-12 product-desc">
           <h3 className="desc-title">Sản phẩm liên quan</h3>

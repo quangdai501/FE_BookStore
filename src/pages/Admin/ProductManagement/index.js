@@ -21,7 +21,7 @@ export default function ProductManagement() {
     success: successDelete,
   } = productDelete;
 
-  const [query, setQuery] = useState({ size: 5, page: 1, search: null });
+  const [query, setQuery] = useState({ size: 5, page: 1,active:true, search: null });
   useEffect(() => {
     dispatch(listProducts(query));
   }, [query.page, query.search, successDelete]);
