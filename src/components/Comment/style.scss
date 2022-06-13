@@ -14,6 +14,21 @@
                 color: $btn-color-second;
             }
         }
+        .justify-space {
+            justify-content: space-between;
+        }
+        .comment-is-purchase {
+            padding: 5px;
+            align-self: center;
+            border-radius: 12px;
+            p {
+                margin-left: 5px;
+                color: $green-tiki;
+            }
+            i {
+                color: $green-tiki;
+            }
+        }
     }
 }
 
