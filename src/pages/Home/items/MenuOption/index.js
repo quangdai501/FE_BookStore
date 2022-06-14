@@ -77,13 +77,13 @@ export default function MenuOption(props) {
                 <Link to="/shop?sort=-price" className="option-name">Giá giảm dần</Link> <i class="fas fa-angle-right"></i>
             </div>
             <div className="main-menu__item">
-                <Link to="/shop?sort=quantity" className="option-name">Sách bán chạy</Link> <i class="fas fa-angle-right"></i>
+                <Link to="/shop?sort=-sold" className="option-name">Sách bán chạy</Link> <i class="fas fa-angle-right"></i>
             </div>
             <div className="main-menu__item">
                 <Link to="/shop?sort=-createdAt" className="option-name">Sách mới ra mắt</Link> <i class="fas fa-angle-right"></i>
             </div>
             <div className="main-menu__item">
-                <Link to="/shop?sort=-quantity" className="option-name">Sách đặc sắc</Link> <i class="fas fa-angle-right"></i>
+                <Link to="/shop?sort=sold" className="option-name">Sách đặc sắc</Link> <i class="fas fa-angle-right"></i>
             </div>
         </div>
     )

@@ -15,3 +15,9 @@
     justify-content: center;
     display: inline-block;
 }
+
+.lock-user {
+    td {
+        color: $red-light;
+    }
+}

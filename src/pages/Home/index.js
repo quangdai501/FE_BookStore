@@ -11,7 +11,7 @@ export default function Home() {
 
   const newProucts = { size: 6, sort: "-createdAt" };
   const saleProducts = { size: 6, sort: "price" };
-  const sellProducts = { size: 6, sort: "-quantity" };
+  const sellProducts = { size: 6, sort: "-sold" };
   const navigate = useNavigate();
   const gotoShop = (query) => {
     navigate({
