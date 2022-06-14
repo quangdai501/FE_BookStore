@@ -44,7 +44,7 @@ export const publisherListReducer = (state = { publishers: [] }, action) => {
             ...state, loading: true, type: CREATE
         }
         case PUBLISHER_CREATE_SUCCESS:
-            const newPublishers = [...state.publishers, action.payload.data];
+            const newPublishers = [action.payload.data, ...state.publishers];
             return {
                 ...state, loading: false, publishers: newPublishers, success: true
             }

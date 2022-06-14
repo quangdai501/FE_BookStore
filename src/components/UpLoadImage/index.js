@@ -6,9 +6,10 @@ UpLoadImage.propTypes = {
   setImage: PropTypes.func.isRequired,
 };
 export default function UpLoadImage(props) {
-
+const [uploading, setUploading] = useState(false);
   const fileRef = useRef();
   const handleImage = () => {
+    setUploading(true);
     if (fileRef.current) {
       updateImage(fileRef.current.files[0])
         .then((data) => {
@@ -16,8 +17,12 @@ export default function UpLoadImage(props) {
           if (data.success) {
             props.changeImg(data.data.url);
           }
+          setUploading(false);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          setUploading(false);
+          console.log(err)
+        });
     }
   };
 
@@ -29,7 +34,7 @@ export default function UpLoadImage(props) {
         onClick={handleImage}
         className="btn btn--upload btn--border-none"
       >
-        Tải ảnh lên
+        Tải ảnh lên {uploading&& <span>...</span>}
       </button>
       <div>
         <img src={props.img} alt="" />

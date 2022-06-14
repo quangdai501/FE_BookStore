@@ -1,4 +1,5 @@
 import AuthorApi from "../api/authorApi";
+import sortByDate from "../common/sortByDate";
 import {
     AUTHOR_LIST_REQUEST,
     AUTHOR_LIST_SUCCESS,
@@ -23,10 +24,9 @@ export const listAuthors = (props) => async (dispatch) => {
     try {
         dispatch({ type: AUTHOR_LIST_REQUEST });
         const { data } = await AuthorApi.getAll(props);
-
         dispatch({
             type: AUTHOR_LIST_SUCCESS,
-            payload: data,
+            payload: sortByDate(data),
         });
     } catch (error) {
         dispatch({

@@ -44,7 +44,7 @@ export const authorListReducer = (state = { authors: [] }, action) => {
             ...state, loading: true, type: CREATE
         }
         case AUTHOR_CREATE_SUCCESS:
-            const newAuthors = [...state.authors, action.payload.data];
+            const newAuthors = [ action.payload.data, ...state.authors];
             return {
                 ...state, loading: false, authors: newAuthors, success: true
             }

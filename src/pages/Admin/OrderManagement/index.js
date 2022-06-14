@@ -87,9 +87,9 @@ export default function OrderManagement() {
                 <table>
                     <thead>
                         <tr>
-                            <th style={{ minWidth: '60px' }}>STT</th>
+                            <th style={{ minWidth: '20px' }}>STT</th>
                             <th style={{ minWidth: '150px' }}>Tên người nhận</th>
-                            <th style={{minWidth: '550px', maxWidth: '550px' }}>Địa chỉ</th>
+                            <th >Địa chỉ</th>
                             <th>Điện thoại</th>
                             <th>Tổng đơn</th>
                             <th style={{ minWidth: '150px' }}>Hình thức thanh toán</th>

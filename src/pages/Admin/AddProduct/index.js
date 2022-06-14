@@ -45,6 +45,7 @@ export default function AddProduct() {
     }
   }, [successCreate])
 
+
   const [desc, setDesc] = useState("");
 
   const [img, setImg] = useState("");
@@ -123,6 +124,9 @@ export default function AddProduct() {
                   required: true,
                 })}
               >
+                <option value="">
+                  Chọn danh mục
+                </option>
                 {categorys ? (
                   categorys.map((item, index) => (
                     <option value={item._id} key={index}>
@@ -147,6 +151,9 @@ export default function AddProduct() {
                     required: true,
                   })}
                 >
+                  <option value="">
+                    Chọn tác giả
+                  </option>
                   {authors ? (
                     authors.map((item, index) => (
                       <option value={item._id} key={index}>
@@ -170,6 +177,9 @@ export default function AddProduct() {
                     required: true,
                   })}
                 >
+                  <option value="">
+                    Chọn nhà xuất bản
+                  </option>
                   {publishers ? (
                     publishers.map((item, index) => (
                       <option value={item._id} key={index}>
