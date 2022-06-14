@@ -19,7 +19,8 @@ import {
     PRODUCT_CREATE_REVIEW_SUCCESS,
     PRODUCT_CREATE_REVIEW_FAIL,
 
-} from '../constants/product'
+} from '../constants/product';
+import sortByDate from '../common/sortByDate';
 // import { logout } from './userActions'
 
 export const listProducts = (props) => async (
@@ -27,10 +28,7 @@ export const listProducts = (props) => async (
 ) => {
     try {
         dispatch({ type: PRODUCT_LIST_REQUEST })
-        // console.log(props.category)
         const { data } = await ProductApi.getAll(props)
-        // const query = new URLSearchParams(props).toString();
-        // const { data } = await axios.get(`http://localhost:5000/api/products?${query}`)
 
         dispatch({
             type: PRODUCT_LIST_SUCCESS,
@@ -73,15 +71,13 @@ export const deleteProduct = (id) => async (dispatch) => {
 
         dispatch({
             type: PRODUCT_DELETE_SUCCESS,
+            payload: {id}
         })
     } catch (error) {
         const message =
             error.response && error.response.data.message ?
                 error.response.data.message :
                 error.message
-        // if (message === 'Not authorized, token failed') {
-        //   dispatch(logout())
-        // }
         dispatch({
             type: PRODUCT_DELETE_FAIL,
             payload: message,
@@ -95,7 +91,6 @@ export const createProduct = (product) => async (dispatch) => {
             type: PRODUCT_CREATE_REQUEST,
         })
 
-        // const { data } = await axios.post(`/api/products`, {}, config)
         const { data } = await ProductApi.addProduct(product)
 
         dispatch({
@@ -107,10 +102,6 @@ export const createProduct = (product) => async (dispatch) => {
             error.response && error.response.data.message ?
                 error.response.data.message :
                 error.message
-        console.log(error.response.error)
-        // if (message === 'Not authorized, token failed') {
-        //   dispatch(logout())
-        // }
         dispatch({
             type: PRODUCT_CREATE_FAIL,
             payload: message,
@@ -161,9 +152,6 @@ export const createProductReview = (productId, review) => async (
             error.response && error.response.data.message ?
                 error.response.data.message :
                 error.message
-        // if (message === 'Not authorized, token failed') {
-        //   dispatch(logout())
-        // }
         dispatch({
             type: PRODUCT_CREATE_REVIEW_FAIL,
             payload: message,

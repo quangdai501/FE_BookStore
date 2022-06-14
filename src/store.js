@@ -4,7 +4,7 @@ import counterReducer from "./reducers/counterReducer";
 import {
     productListReducer,
     productDetailsReducer,
-    productDeleteReducer,
+    // productDeleteReducer,
     productCreateReducer,
     productUpdateReducer,
     productReviewCreateReducer,
@@ -57,7 +57,7 @@ const reducer = combineReducers({
     // product
     productList: productListReducer,
     productDetails: productDetailsReducer,
-    productDelete: productDeleteReducer,
+    // productDelete: productDeleteReducer,
     productCreate: productCreateReducer,
     productUpdate: productUpdateReducer,
     productReviewCreate: productReviewCreateReducer,

@@ -7,24 +7,18 @@ import Pagination from "../../../components/Pagination";
 import ConfirmBox from "../../../components/ConfirmBox";
 import Toast from "../../../components/Toast";
 import TableLoading from "../../../components/TableLoading";
+import sortByDate from "../../../common/sortByDate";
 export default function ProductManagement() {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const [check, setCheck] = useState();
-  const { loading, error, products, page, pages, total } = productList;
+  const { loading, error, products, page, pages, total, success } = productList;
   const [confirm, setConfirm] = useState();
   const [search, setSearch] = useState("");
-  const productDelete = useSelector((state) => state.productDelete);
-  const {
-    loading: loadingDelete,
-    error: errorDelete,
-    success: successDelete,
-  } = productDelete;
-
-  const [query, setQuery] = useState({ size: 5, page: 1,active:true, search: null });
+  const [query, setQuery] = useState({ size: 5, page: 1,active:true, search: null, sort: '-createdAt' });
   useEffect(() => {
     dispatch(listProducts(query));
-  }, [query.page, query.search, successDelete]);
+  }, [query.page, query.search, success]);
   const direct = (name, value) => {
     const newObj = { ...query };
     newObj[name] = value;
@@ -48,9 +42,7 @@ export default function ProductManagement() {
     const newQuery = { ...query };
     newQuery["page"] = 1;
     newQuery["search"] = search;
-
     setQuery(newQuery);
-    console.log(newQuery);
   };
 
   const onClear = () => {
@@ -63,7 +55,9 @@ export default function ProductManagement() {
   return (
     <>
       <div className="container">
-        {successDelete && check && <Toast message={"Đã xóa"} type="success" />}
+        {success && check && <Toast message={"Đã xóa"} type="success" />}
+        {error && check && <Toast message={error} type="error" />}
+
         {confirm && (
           <ConfirmBox
             object={confirm.name}

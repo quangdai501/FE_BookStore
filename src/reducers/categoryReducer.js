@@ -42,7 +42,7 @@ export const categoryListReducer = (state = { categorys: [] }, action) => {
             ...state, loading: true, type: CREATE
         }
         case CATEGORY_CREATE_SUCCESS:
-            const newcategorys = [...state.categorys, action.payload.data];
+            const newcategorys = [action.payload.data, ...state.categorys];
             return {
                 ...state, loading: false, categorys: newcategorys, success: true
             }

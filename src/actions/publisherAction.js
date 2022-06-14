@@ -1,4 +1,5 @@
 import PublisherApi from "../api/publisherApi";
+import sortByDate from "../common/sortByDate";
 import {
     PUBLISHER_LIST_REQUEST,
     PUBLISHER_LIST_SUCCESS,
@@ -28,7 +29,7 @@ export const listPublishers = (props) => async (dispatch) => {
 
         dispatch({
             type: PUBLISHER_LIST_SUCCESS,
-            payload: data,
+            payload: sortByDate(data),
         });
     } catch (error) {
         dispatch({

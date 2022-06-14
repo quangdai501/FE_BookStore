@@ -1,4 +1,5 @@
 import CategoryApi from "../api/categoryApi";
+import sortByDate from "../common/sortByDate";
 import {
     CATEGORY_LIST_REQUEST,
     CATEGORY_LIST_SUCCESS,
@@ -29,7 +30,7 @@ export const listCategorys = (props) => async (dispatch) => {
 
         dispatch({
             type: CATEGORY_LIST_SUCCESS,
-            payload: data,
+            payload: sortByDate(data),
         });
     } catch (error) {
         dispatch({
