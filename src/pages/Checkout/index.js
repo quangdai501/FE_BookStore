@@ -196,7 +196,7 @@ const Checkout = () => {
           createOrder(
             userInfo._id,
             data.name,
-            totalCart + shippingFee + coupon.discount,
+            totalCart + shippingFee - coupon.discount,
             address,
             data.phone,
             billDetail,
@@ -209,7 +209,7 @@ const Checkout = () => {
           createOrder(
             userInfo._id,
             data.name,
-            totalCart + shippingFee + coupon.discount,
+            totalCart + shippingFee - coupon.discount,
             address,
             data.phone,
             billDetail,
@@ -238,7 +238,7 @@ const Checkout = () => {
               ? data.discount
               : data.discount * totalCart;
           const maxDiscount = Math.max(data.max_discount, discount);
-          cp = { discount: -maxDiscount, code: code };
+          cp = { discount: maxDiscount, code: code, id:data._id,description:data.description};
         }
       } catch (error) {
         err = error.response.data.message;
@@ -409,7 +409,7 @@ const Checkout = () => {
               <div className="row">
                 <h3 className=" col c-8 md-6">Tổng: </h3>
                 <h3 className=" col c-4 md-6">
-                  {priceToString(shippingFee + totalCart + coupon.discount)}
+                  {priceToString(shippingFee + totalCart - coupon.discount)}
                 </h3>
               </div>
             </div>
