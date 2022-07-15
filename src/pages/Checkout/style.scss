@@ -1,83 +1,87 @@
 @import "../../scssStyles/variable";
 .checkout {
-  color: $dark;
-  font-size: 16px;
-  label {
-    font-weight: normal;
-    color: unset;
-  }
-  h1 {
-    text-align: center;
-    padding-bottom: 40px;
-  }
+    color: $dark;
+    font-size: 16px;
+    label {
+        font-weight: normal;
+        color: unset;
+    }
+    h1 {
+        text-align: center;
+        padding-bottom: 40px;
+    }
+}
+
+.coupon-err {
+    color: $red-light;
 }
 
 .center-item {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 .checkout-info {
-  width: 100%;
-  padding: 16px;
+    width: 100%;
+    padding: 16px;
 }
 
 h3.title.mb-15 {
-  margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 .Orders {
-  border: 1px solid $gray200;
-  height: fit-content;
-  color: $dark;
-  font-size: 16px;
-  .order-row {
-    padding: 16px;
-    line-height: 30px;
-    border-bottom: $gray-400 1px solid;
-    min-height: 50px;
-    input {
-      align-self: center;
+    border: 1px solid $gray200;
+    height: fit-content;
+    color: $dark;
+    font-size: 16px;
+    .order-row {
+        padding: 16px;
+        line-height: 30px;
+        border-bottom: $gray-400 1px solid;
+        min-height: 50px;
+        input {
+            align-self: center;
+        }
+        label {
+            padding-left: 16px;
+        }
+        b {
+            padding: 0 5px;
+        }
+        button {
+            margin: unset;
+        }
+        .title {
+            // border-bottom: 1px solid $gray-400;
+            padding-bottom: 5px;
+        }
+        .sub-title {
+            padding-left: 16px;
+        }
+        &:last-child {
+            border-bottom: none;
+        }
     }
-    label {
-      padding-left: 16px;
-    }
-    b {
-      padding: 0 5px;
-    }
-    button {
-      margin: unset;
-    }
-    .title {
-      // border-bottom: 1px solid $gray-400;
-      padding-bottom: 5px;
-    }
-    .sub-title {
-      padding-left: 16px;
-    }
-    &:last-child {
-      border-bottom: none;
-    }
-  }
 }
 
 .sub-title {
-  display: flex;
-  align-items: center;
-  .payment-logo {
-    display: block;
-    object-fit: cover;
-    margin-left: 10px;
-    height: 18px;
-  }
+    display: flex;
+    align-items: center;
+    .payment-logo {
+        display: block;
+        object-fit: cover;
+        margin-left: 10px;
+        height: 18px;
+    }
 }
 
 @media screen and(max-width: 736px) {
-  .Orders .order-row label {
-    font-size: 14px;
-    white-space: pre-wrap;
-  }
-  .Orders .row.sub-title {
-    padding-left: 0;
-  }
+    .Orders .order-row label {
+        font-size: 14px;
+        white-space: pre-wrap;
+    }
+    .Orders .row.sub-title {
+        padding-left: 0;
+    }
 }

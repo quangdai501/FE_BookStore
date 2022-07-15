@@ -49,7 +49,7 @@ const getOrderByDeliveryStatus = (deliveryStatus) => async (dispatch) => {
     }
 }
 
-const createOrder = (user_id, name, total, address, phone, billDetail, payment, navigate) => async (dispatch) => {
+const createOrder = (user_id, name, total, address, phone, billDetail, payment, navigate,...params) => async (dispatch) => {
     try {
         dispatch({ type: ORDER_CREATE_REQUEST });
         // const { cart: { cartItems } } = getState();
@@ -64,14 +64,14 @@ const createOrder = (user_id, name, total, address, phone, billDetail, payment, 
         // }
         let data;
         if (payment === "Thanh toán online") {
-            data = await OrderApi.createOrderAndPay(user_id, name, total, address, phone, billDetail, payment);
+            data = await OrderApi.createOrderAndPay(user_id, name, total, address, phone, billDetail, payment,...params);
             const res = data
             if (res.data?.code === "00") {
                 window.location.replace(res.data.data);
             }
         }
         else {
-            data = await OrderApi.createOrder(user_id, name, total, address, phone, billDetail, payment);
+            data = await OrderApi.createOrder(user_id, name, total, address, phone, billDetail, payment,...params);
             if (data) {
                 navigate("/order-success", { replace: true })
             }
