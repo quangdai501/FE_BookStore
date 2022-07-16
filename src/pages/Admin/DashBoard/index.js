@@ -13,6 +13,9 @@ import EditProduct from '../EditProduct';
 import OverView from './item/OverView';
 import CategoryManagement from '../CategoryManagement';
 import OrderManagement from '../OrderManagement';
+import CouponManagement from '../CouponManagement';
+import AddCoupon from '../AddCoupon';
+import EditCoupon from '../EditCoupon';
 export default function DashBoard() {
     const [isShow, setIsShow] = useState(false);
     const openSidebar = () => {
@@ -46,6 +49,9 @@ export default function DashBoard() {
                         <Route path="publisher/create" element={<PublisherManagement />} />
                         <Route path="statistics" element={<Statistics />} />
                         <Route path="category" element={<CategoryManagement />} />
+                        <Route path="coupons" element={<CouponManagement />} />
+                        <Route path="coupons/create" element={<AddCoupon />} />
+                        <Route path="coupons/edit/:id" element={<EditCoupon />} />
                     </Routes>
                 </div>
             </div>
