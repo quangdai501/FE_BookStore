@@ -4,12 +4,14 @@ import _, { debounce } from "lodash";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 import { createOrder, sendMailOrder } from "../../actions/orderAction";
 import { priceToString } from "../../common/convertNumberToPrice";
 import Item from "./item";
 import { CART_CLEAR_ITEMS } from "../../constants/cart";
 import "./style.scss";
 import couponApi from "../../api/couponApi";
+import CouponModal from "./components/modal";
 const Checkout = () => {
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
@@ -201,7 +203,7 @@ const Checkout = () => {
             data.phone,
             billDetail,
             "Thanh toán online",
-            coupon.discount?coupon:{},
+            coupon.discount ? coupon : {}
           )
         );
       } else {
@@ -215,7 +217,7 @@ const Checkout = () => {
             billDetail,
             "Thanh toán khi nhận hàng",
             navigate,
-            coupon.discount?coupon:{},
+            coupon.discount ? coupon : {}
           )
         );
         await dispatch(sendMailOrder(userInfo, cartItems));
@@ -238,10 +240,15 @@ const Checkout = () => {
               ? data.discount
               : data.discount * totalCart;
           const maxDiscount = Math.max(data.max_discount, discount);
-          cp = { discount: maxDiscount, code: code, id:data._id,description:data.description};
+          cp = {
+            discount: maxDiscount,
+            code: code,
+            id: data._id,
+            description: data.description,
+          };
         }
       } catch (error) {
-        err = error.response.data.message;
+        err =error.response? error.response.data.message:"";
       }
     }
     setCoupon(cp);
@@ -268,7 +275,7 @@ const Checkout = () => {
 
   return (
     <div className="checkout space">
-      <h1>Thanh toán</h1>
+      <h1>Thanh toán</h1> 
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="row gutter checkout-session"
@@ -398,10 +405,14 @@ const Checkout = () => {
             <div className="order-row">
               <div className="row">
                 <h3 className=" col c-6 md-6">Mã giảm giá: </h3>
-                <input
-                  className=" col c-6 md-6"
-                  onChange={handleInputOnchange}
-                />
+                <div className=" col c-6 md-12">
+                  <CouponModal/>
+                </div>
+                <div className=" col c-12 md-12">
+                  <div className="form-input">
+                    <input onChange={handleInputOnchange}/>
+                  </div>
+                </div>
                 {couponErr && <p className="coupon-err">{couponErr}</p>}
               </div>
             </div>

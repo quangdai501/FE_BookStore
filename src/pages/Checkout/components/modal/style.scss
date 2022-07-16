@@ -1,0 +1,51 @@
+@import '../../../../scssStyles/variable';
+.coupon-modal {
+    .open-coupon-modal {
+        border: none;
+        background-color: #fff;
+        color: $btn-color-second;
+        cursor: pointer;
+        width: 100%;
+        text-align: right;
+    }
+}
+
+.modal-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-gap: 16px;
+    .modal-item {
+        display: grid;
+        grid-template-columns: minmax(90px, auto) 1fr 12px;
+        padding: 8px 16px;
+        margin-bottom: 5px;
+        border: 1px solid $gray-400;
+        font-size: 14px;
+        grid-gap: 8px;
+        position: relative;
+        &__img {
+            height: 120px;
+            width: 90px;
+            object-fit: cover;
+        }
+        .sub {
+            display: flex;
+            flex-flow: column;
+            justify-content: space-evenly;
+            gap: 5px;
+            span {
+                color: $red-light;
+            }
+            .btn-container {
+                display: flex;
+                justify-content: space-between;
+                .use-btn {
+                    border: none;
+                    background: #fff;
+                    color: $green-tiki;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
