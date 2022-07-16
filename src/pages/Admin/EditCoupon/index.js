@@ -20,6 +20,7 @@ export default function EditCoupon() {
   const [begin, setBegin] = useState(new Date());
   const [end, setEnd] = useState(new Date());
   const [type, setType] = useState("NUMBER");
+  const [success, setSuccess] = useState(false)
 
 
   useEffect(() => {
@@ -47,12 +48,16 @@ export default function EditCoupon() {
     newData.end=end.getTime()
     try {
       await couponApi.updateCoupon(newData);
+      setSuccess(true)
+      setTimeout(() => {
+        setSuccess(false)
+      }, 1000);
     } catch (error) {
     }
   };
   return (
     <div className="container">
-      {/* {successCreate && check && <Toast message={"Thêm mã giảm giá thành công"} type={"success"} />} */}
+      {success &&  <Toast message={"Lưu mã giảm giá thành công"} type={"success"} />}
       {/* {error &&<Toast message={error} type={"error"} />} */}
       <div className="create-product">
         <div className="create-title">Thêm mã giảm giá mới</div>
@@ -222,7 +227,7 @@ export default function EditCoupon() {
               type="submit"
               className="btn btn--border-none btn--color-second"
             >
-              Thêm mã giảm giá
+              Lưu
             </button>
           </div>
         </form>

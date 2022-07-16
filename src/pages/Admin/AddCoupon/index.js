@@ -22,6 +22,7 @@ export default function AddCoupon() {
   const [end, setEnd] = useState(new Date());
   const [type, setType] = useState("NUMBER");
   const [err, setErr] = useState("")
+  const [success, setSuccess] = useState(false)
 
   const onChangeType=(e)=>{
     setType(String(e.target.value))
@@ -34,6 +35,10 @@ export default function AddCoupon() {
     try {
       await couponApi.addCoupon(newData);
       reset(defaultValues)
+      setSuccess(true)
+      setTimeout(() => {
+        setSuccess(false)
+      }, 1000);
     } catch (error) {
       setErr(error.response.data.message)
       setTimeout(() => {
@@ -43,7 +48,7 @@ export default function AddCoupon() {
   };
   return (
     <div className="container">
-      {/* {successCreate && check && <Toast message={"Thêm mã giảm giá thành công"} type={"success"} />} */}
+      {success &&  <Toast message={"Lưu mã giảm giá thành công"} type={"success"} />}
       {err &&<Toast message={err} type={"error"} />}
       <div className="create-product">
         <div className="create-title">Thêm mã giảm giá mới</div>
