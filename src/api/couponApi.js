@@ -6,6 +6,10 @@ const couponApi = {
         const url = '/coupons';
         return axiosClient.get(url, { params });
     },
+    getById: (id) => {
+        const url = `/coupons/${id}`;
+        return axiosClient.get(url);
+    },
     isValidCoupon: (params) => {
         const url = `/coupons/is-valid`;
         return axiosClient.get(url, { params });
