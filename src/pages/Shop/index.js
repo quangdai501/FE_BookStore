@@ -10,6 +10,7 @@ import Sortbar from "./Sortbar";
 import FilterBar from "./FilterBar";
 import Loading from "../../components/Loading";
 import ProductSkeleton from "../../components/ProducSkeleton";
+import { useMemo } from "react";
 const useQuery = () => {
   const { search } = useLocation();
   if (search) {
@@ -33,7 +34,7 @@ const Shop = (props) => {
 
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
-  const { loading, error, products, page, pages, total } = productList;
+  const { loading, error, products, page=1, pages, total } = productList;
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -41,9 +42,9 @@ const Shop = (props) => {
   let url_query = useQuery().search;
   const [query, setQuery] = useState(useQuery());
 
-  const size = query.size ? query.size : 12;
-  const display = `${size * (page - 1) + 1}-${size * (page - 1) + products ? products.length : 0
-    }`;
+  const size = useMemo(()=>query.size ? query.size : 12, [query.size]);
+
+  const display = `${products.length !=0 ? (size * (page - 1) + 1) + '-' + (size * (page - 1) + products.length) : 0}`;
 
   useEffect(() => {
     // const params = new URLSearchParams(query);
@@ -64,6 +65,9 @@ const Shop = (props) => {
   }, [JSON.stringify(url_query)]);
   const direct = (name, value) => {
     const newobj = { ...query };
+    if(newobj.page){
+      newobj.page = 1;
+    }
     newobj[name] = value;
     setQuery(newobj);
   };

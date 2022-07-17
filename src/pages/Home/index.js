@@ -9,9 +9,9 @@ export default function Home() {
   const features = ["Đặc sắc", "Mua nhiều", "Giảm giá"];
   const [feature, setFeature] = useState(0);
 
-  const newProucts = { size: 6, sort: "-createdAt" };
-  const saleProducts = { size: 6, sort: "price" };
-  const sellProducts = { size: 6, sort: "-sold" };
+  const newProucts = { size: 10, sort: "-createdAt" };
+  const saleProducts = { size: 10, sort: "price" };
+  const sellProducts = { size: 10, sort: "-sold" };
   const navigate = useNavigate();
   const gotoShop = (query) => {
     navigate({
@@ -47,7 +47,7 @@ export default function Home() {
       <div className="tab">
         <div className="tab__header row">
           <h2>Đặc sắc</h2>
-          <ul className="feature">
+          {/* <ul className="feature">
             {features.map((item, index) => (
               <li
                 key={index}
@@ -57,7 +57,7 @@ export default function Home() {
                 {item}
               </li>
             ))}
-          </ul>
+          </ul> */}
         </div>
 
         <SwiperProduct query={saleProducts} />

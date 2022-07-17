@@ -8,9 +8,15 @@ import { Link } from 'react-router-dom';
 import 'swiper/swiper-bundle.min.css';
 import 'swiper'
 import 'swiper/components/navigation';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import StatisticApi from '../../../../api/statisticApi';
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 export default function SwpiperBanner() {
     const swiperRef = useRef(null);
+    const date = new Date();
+    const month = date.getMonth();
+
     return (
         <Swiper
             slidesPerView={1}
@@ -28,7 +34,7 @@ export default function SwpiperBanner() {
                             </h4>
                             <p class="item-title">
                                 <span class="item-title__above">Sách nổi bật của</span>
-                                <span class="item-title__below">Tháng 12</span>
+                                <span class="item-title__below">Tháng {month +1}</span>
                             </p>
                             <Link to="/shop">
                                 <p class="btn btn--fadeIn btn--bg-white">Khám phá</p>
