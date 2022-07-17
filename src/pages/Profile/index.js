@@ -6,7 +6,6 @@ import { getUserDetails, updateUserProfile } from "../../actions/userAction";
 import { USER_UPDATE_PROFILE_RESET } from '../../constants/user';
 import Toast from '../../components/Toast';
 import "./style.scss";
-import UserRank from "./components/user-rank";
 const Profile = () => {
   const dispatch = useDispatch();
 
@@ -101,7 +100,6 @@ const Profile = () => {
           </button>
         </form>
       </div>
-      <UserRank point={user?.point?Math.ceil(user.point):0}/>
     </div>
   );
 };

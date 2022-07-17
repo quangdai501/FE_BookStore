@@ -4,14 +4,14 @@ const OrderApi = {
     getAll: (id, type) => {
         return axiosClient.get(`/orders/mine/${id}?type=${type}`);
     },
-    createOrderAndPay: (user_id, name, total, address, phone, billDetail, payment, coupon) => {
-        return axiosClient.post('/payment/create_payment_url', { user_id, name, total, address, phone, billDetail, payment, coupon });
+    createOrderAndPay: (user_id, name, total, address, phone, billDetail, payment) => {
+        return axiosClient.post('/payment/create_payment_url', { user_id, name, total, address, phone, billDetail, payment });
     },
     orderReturn: (params) => {
         return axiosClient.get(`/payment/vnpay_return${params}`);
     },
-    createOrder: (user_id, name, total, address, phone, billDetail, payment, coupon) => {
-        return axiosClient.post('/orders/createOrder', { user_id, name, total, address, phone, billDetail, payment, coupon });
+    createOrder: (user_id, name, total, address, phone, billDetail, payment) => {
+        return axiosClient.post('/orders/createOrder', { user_id, name, total, address, phone, billDetail, payment });
     },
     orderDetail: (orderID) => {
         return axiosClient.get('/orders/admin/orderDetail/' + orderID)

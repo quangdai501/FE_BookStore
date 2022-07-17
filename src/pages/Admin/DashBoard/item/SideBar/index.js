@@ -43,11 +43,6 @@ export default function SideBar() {
                 icon={<i class="fas fa-clipboard-list"></i>}
             />
             <MenuLink
-                to="/admin/coupons"
-                label="Quản lý mã giảm giá"
-                icon={<i class="fas fa-clipboard-list"></i>}
-            />
-            <MenuLink
                 to="/admin/statistics"
                 label="Thống kê"
                 icon={<i class="fas fa-chart-bar"></i>}

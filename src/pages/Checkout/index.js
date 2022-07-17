@@ -1,25 +1,19 @@
 import axios from "axios";
 import React, { useMemo, useState, useEffect, useCallback } from "react";
-import _, { debounce } from "lodash";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 import { createOrder, sendMailOrder } from "../../actions/orderAction";
 import { priceToString } from "../../common/convertNumberToPrice";
 import Item from "./item";
 import { CART_CLEAR_ITEMS } from "../../constants/cart";
 import "./style.scss";
-import couponApi from "../../api/couponApi";
-import CouponModal from "./components/modal";
 const Checkout = () => {
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
   const [currentDistrict, setCurrentDistrict] = useState(1452);
   const [currentWardCode, setCurrentWardCode] = useState("21012");
-  const [coupon, setCoupon] = useState({ discount: 0 });
-  const [couponErr, setCouponErr] = useState();
   const [shippingFee, setShippingFee] = useState(15000);
   const orderInfo = useSelector((state) => state.createOrder);
   const cart = useSelector((state) => state.cart);
@@ -98,39 +92,42 @@ const Checkout = () => {
     }
   };
 
-  const getShippingFee = useCallback(async () => {
-    const body = {
-      from_district_id: 1459,
-      service_id: 53320,
-      service_type_id: null,
-      to_district_id: currentDistrict,
-      to_ward_code: currentWardCode,
-      height: cartItems.length,
-      length: 20,
-      weight: 100 * cartItems.length,
-      width: 10,
-      insurance_value: 10000,
-      coupon: null,
-    };
-    try {
-      const {
-        data: { data },
-      } = await axios.post(
-        `https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee`,
-        body,
-        {
-          headers: {
-            token: "e4822a9f-4eba-11ec-ac64-422c37c6de1b",
-            ShopId: "83990",
-          },
-        }
-      );
+  const getShippingFee = useCallback(
+   async () => {
+      const body = {
+        from_district_id: 1459,
+        service_id: 53320,
+        service_type_id: null,
+        to_district_id: currentDistrict,
+        to_ward_code: currentWardCode,
+        height: cartItems.length,
+        length: 20,
+        weight: 100 * cartItems.length,
+        width: 10,
+        insurance_value: 10000,
+        coupon: null,
+      };
+      try {
+        const {
+          data: { data },
+        } = await axios.post(
+          `https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee`,
+          body,
+          {
+            headers: {
+              token: "e4822a9f-4eba-11ec-ac64-422c37c6de1b",
+              ShopId: "83990",
+            },
+          }
+        );
 
-      setShippingFee(data.total);
-    } catch (e) {
-      console.log(e);
-    }
-  }, [currentDistrict, currentWardCode]);
+        setShippingFee(data.total);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    [currentDistrict, currentWardCode]
+  );
 
   const onChangeProvince = (e) => {
     const name = e.target.value;
@@ -198,12 +195,11 @@ const Checkout = () => {
           createOrder(
             userInfo._id,
             data.name,
-            totalCart + shippingFee - coupon.discount,
+            totalCart + shippingFee,
             address,
             data.phone,
             billDetail,
-            "Thanh toán online",
-            coupon.discount ? coupon : {}
+            "Thanh toán online"
           )
         );
       } else {
@@ -211,13 +207,12 @@ const Checkout = () => {
           createOrder(
             userInfo._id,
             data.name,
-            totalCart + shippingFee - coupon.discount,
+            totalCart + shippingFee,
             address,
             data.phone,
             billDetail,
             "Thanh toán khi nhận hàng",
-            navigate,
-            coupon.discount ? coupon : {}
+            navigate
           )
         );
         await dispatch(sendMailOrder(userInfo, cartItems));
@@ -225,45 +220,6 @@ const Checkout = () => {
       }
     }
   };
-
-  const checkCoupon = async (code) => {
-    let err = "";
-    let cp = { discount: 0 };
-    if (code) {
-      try {
-        const {
-          data: { isValid, data },
-        } = await couponApi.isValidCoupon({ code, total: totalCart });
-        if (isValid) {
-          const discount =
-            data.discount_type === "NUMBER"
-              ? data.discount
-              : data.discount * totalCart;
-          const maxDiscount = Math.max(data.max_discount, discount);
-          cp = {
-            discount: maxDiscount,
-            code: code,
-            id: data._id,
-            description: data.description,
-          };
-        }
-      } catch (error) {
-        err =error.response? error.response.data.message:"";
-      }
-    }
-    setCoupon(cp);
-    setCouponErr(err);
-  };
-  const debounceInput = useCallback(
-    debounce((code) => checkCoupon(code), 1000),
-    []
-  );
-
-  function handleInputOnchange(e) {
-    const { value } = e.target;
-    debounceInput(value);
-  }
-
   useEffect(() => {
     getProvince();
   }, []);
@@ -275,7 +231,7 @@ const Checkout = () => {
 
   return (
     <div className="checkout space">
-      <h1>Thanh toán</h1> 
+      <h1>Thanh toán</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="row gutter checkout-session"
@@ -404,23 +360,9 @@ const Checkout = () => {
             </div>
             <div className="order-row">
               <div className="row">
-                <h3 className=" col c-6 md-6">Mã giảm giá: </h3>
-                <div className=" col c-6 md-12">
-                  <CouponModal/>
-                </div>
-                <div className=" col c-12 md-12">
-                  <div className="form-input">
-                    <input onChange={handleInputOnchange}/>
-                  </div>
-                </div>
-                {couponErr && <p className="coupon-err">{couponErr}</p>}
-              </div>
-            </div>
-            <div className="order-row">
-              <div className="row">
                 <h3 className=" col c-8 md-6">Tổng: </h3>
                 <h3 className=" col c-4 md-6">
-                  {priceToString(shippingFee + totalCart - coupon.discount)}
+                  {priceToString(shippingFee + totalCart)}
                 </h3>
               </div>
             </div>
